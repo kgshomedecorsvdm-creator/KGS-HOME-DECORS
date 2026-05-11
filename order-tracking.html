@@ -166,9 +166,14 @@ async function trackOrder(){
   btn.textContent='Searching...';btn.disabled=true;
   try{
     const cleanId=orderId.replace(/^KGS-?/,'');
-    const{data,error}=await sb.from('orders').select('*,order_items(*)').or(`order_number.eq.${cleanId},order_number.eq.KGS-${cleanId}`).eq('customer_phone',phone.slice(-10)).maybeSingle();
+    // Use track_order RPC to bypass RLS for guest order lookup
+    const{data:orders,error}=await sb.rpc('track_order',{p_order_number:cleanId,p_phone:phone});
     if(error)throw error;
+    const data=orders&&orders.length?orders[0]:null;
     if(!data){document.getElementById('track-empty').classList.remove('hidden');document.getElementById('track-result').classList.add('hidden');return;}
+    // Also fetch order items separately
+    const{data:items}=await sb.from('order_items').select('*').eq('order_id',data.id);
+    data.order_items=items||[];
     showResult(data);
   }catch(e){errEl.textContent='Error: '+e.message;errEl.classList.remove('hidden');}
   finally{btn.innerHTML='<span class="material-symbols-outlined text-[18px]">location_searching</span> Track Order';btn.disabled=false;}
