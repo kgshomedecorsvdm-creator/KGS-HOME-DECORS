@@ -366,10 +366,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 </a>
 
 <script>
-document.fonts.ready.then(function() {
-  var pl = document.getElementById('page-preloader');
-  if (pl) { pl.style.opacity = '0'; pl.style.visibility = 'hidden'; setTimeout(function(){ pl.remove(); }, 500); }
-});
+(function(){function hidePl(){const pl=document.getElementById('page-preloader');if(pl&&!pl._hidden){pl._hidden=true;pl.style.transition='opacity .4s';pl.style.opacity='0';pl.style.visibility='hidden';setTimeout(()=>{if(pl.parentNode)pl.remove();},500);}}document.fonts.ready.then(hidePl);setTimeout(hidePl,2000);})();
 </script></body>
 </html>
 

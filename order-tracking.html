@@ -213,7 +213,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   const id=params.get('id')||params.get('order');
   if(id){document.getElementById('track-id').value=id;}
 });
-document.fonts.ready.then(()=>{const pl=document.getElementById('page-preloader');if(pl){pl.style.opacity='0';pl.style.visibility='hidden';setTimeout(()=>pl.remove(),500);}});
+(function(){function hidePl(){const pl=document.getElementById('page-preloader');if(pl&&!pl._hidden){pl._hidden=true;pl.style.transition='opacity .4s';pl.style.opacity='0';pl.style.visibility='hidden';setTimeout(()=>{if(pl.parentNode)pl.remove();},500);}}document.fonts.ready.then(hidePl);setTimeout(hidePl,2000);})();
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}
 </script>
 </body></html>
