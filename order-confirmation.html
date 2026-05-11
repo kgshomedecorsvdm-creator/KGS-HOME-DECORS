@@ -272,6 +272,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
   <section class="bg-tint border-b border-border py-14 md:py-18">
     <div class="max-w-2xl mx-auto px-5 md:px-12">
       <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-3">Your Order</p>
+      <div class="flex items-center gap-3 mb-4 p-3 bg-white border border-border rounded"><span class="material-symbols-outlined text-[18px] text-gold">receipt_long</span><span class="text-[12px] text-muted uppercase tracking-wide font-medium">Order ID</span><span id="order-number" class="font-mono font-bold text-ink text-[13px]">—</span><a href="order-tracking.html" class="ml-auto text-[11px] text-warm underline font-medium">Track Order &rarr;</a></div>
       <h2 class="font-serif font-medium text-ink mb-8" style="font-size:clamp(1.4rem,2.5vw,2rem);">Order Summary</h2>
       <div id="order-summary" class="bg-surface border border-border p-6 md:p-8">
         <div id="order-items"></div>
@@ -382,6 +383,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const itemsEl = document.getElementById('order-items');
   const totalEl = document.getElementById('order-total');
+  const numEl = document.getElementById('order-number');
+  if (numEl && order && order.order_id) numEl.textContent = order.order_id;
 
   if (cart.length === 0) {
     itemsEl.innerHTML = '<p class="text-muted text-[13px] py-4">No order data found. <a href="product-listing.html" class="text-warm underline">Browse our collection \u2192</a></p>';
