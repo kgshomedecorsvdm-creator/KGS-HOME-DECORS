@@ -46,7 +46,7 @@ body {
 /* The scroll wrapper clips its child at the viewport edge */
 .category-clip {
   width: 100%;
-  overflow: hidden; /* hard clip - child scrollWidth does NOT leak out */
+  overflow: clip; /* 'clip' vs 'hidden': clip does NOT create a scroll container, so child's 878px scrollWidth never leaks into document.body.scrollWidth */
   position: relative;
 }
 .category-scroll {
