@@ -6,8 +6,8 @@
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
 <meta name="theme-color" content="#1A1A1A">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Page Not Found — KGS Home Décors | Virudhachalam</title>
-<meta name="description" content="The page you're looking for doesn't exist. Browse KGS Home Décors — Virudhachalam's premium home decor store.">
+<title>Page Not Found | KGS Home Décors</title>
+<meta name="description" content="The page you're looking for doesn't exist. Browse our premium home décor collection or return home.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,333 +18,118 @@
 tailwind.config = {
   theme: { extend: {
     colors: { base:'#FAF8F4', tint:'#F3EDE4', surface:'#FDF9F3', ink:'#1A1A1A', muted:'#767270', gold:'#C5A880', warm:'#C97840', border:'#E4DDD4' },
-    fontFamily: {
-      sans: ['"Jost"', 'sans-serif'],
-      serif: ['"Crimson Pro"', 'serif']
-    }
+    fontFamily: { sans: ['"Jost"', 'sans-serif'], serif: ['"Crimson Pro"', 'serif'] }
   }}
 }
 </script>
 <style>
 *,*::before,*::after{box-sizing:border-box;}
+html,body{overflow-x:hidden;width:100%;margin:0;padding:0;}
 body{-webkit-font-smoothing:antialiased;}
 ::selection{background:#C5A880;color:#fff;}
 .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;}
-html,body{overflow-x:hidden;width:100%;margin:0;padding:0;}
-.nav-link{position:relative;color:#767270;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
-.nav-link::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1px;background:#C5A880;transition:width .3s;}
-.nav-link:hover{color:#1A1A1A;}.nav-link:hover::after{width:100%;}
-.btn-primary {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 15px 36px; background: #C97840; color: #fff;
-  font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
-  letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
-  border: 1px solid #C97840; cursor: pointer;
-  transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1);
-  box-shadow: 0 4px 14px rgba(201,120,64,0.15);
-}
-@media (hover: hover) and (pointer: fine) {
-  .btn-primary:hover { 
-    background: #a8612d; border-color: #a8612d; 
-    transform: translateY(-2px) scale(1.02); 
-    box-shadow: 0 20px 40px -10px rgba(201,120,64,0.45);
-  }
-}
-.btn-primary:active { transform: scale(0.96) translateY(0); box-shadow: 0 2px 8px rgba(201,120,64,0.15); }
-.btn-primary:hover{background:#a8612d;transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,120,64,.35);}
-.btn-secondary {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 14px 34px; background: transparent; color: #1A1A1A;
-  font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
-  letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
-  border: 1px solid rgba(26,26,26,0.3); cursor: pointer;
-  transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1);
-}
-@media (hover: hover) and (pointer: fine) {
-  .btn-secondary:hover { 
-    border-color: #1A1A1A; color: #1A1A1A;
-    transform: translateY(-2px); 
-    box-shadow: 0 20px 40px -10px rgba(26,26,26,0.1); 
-  }
-}
-.btn-secondary:active { transform: scale(0.96); }
-.btn-secondary:hover{background:#1A1A1A;color:#FAF8F4;transform:translateY(-2px);box-shadow:0 20px 40px -10px rgba(26,26,26,0.3);}
 
-/* ——— 404 ANIMATIONS ——— */
-@keyframes float-up {
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-12px);}
-}
-@keyframes fade-in {
-  from{opacity:0;transform:translateY(24px);}
-  to{opacity:1;transform:translateY(0);}
-}
-.float-anim { animation: float-up 5s ease-in-out infinite; }
-.a1{animation:fade-in .5s ease .15s both;}
-.a2{animation:fade-in .5s ease .3s  both;}
-.a3{animation:fade-in .5s ease .45s both;}
-.a4{animation:fade-in .5s ease .6s  both;}
-.a5{animation:fade-in .5s ease .75s both;}
+#page-preloader{position:fixed;inset:0;z-index:9999;background:#1A1A1A;display:flex;align-items:center;justify-content:center;transition:opacity .6s ease,visibility .6s ease;}
+#page-preloader .pl-logo{font-family:'Crimson Pro',serif;font-size:2rem;font-weight:500;letter-spacing:.35em;color:#FAF8F4;opacity:0;animation:plFadeIn .6s ease forwards .15s;}
+@keyframes plFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 
-/* ——— QUICK LINKS ——— */
-.quick-link{display:flex;align-items:center;gap:12px;padding:16px 20px;border:1px solid #E4DDD4;background: #FDF9F3;text-decoration:none;transition:border-color .22s,background .22s,transform .22s;}
-.quick-link:hover{border-color:#C97840;background:#FDF5EE;transform:translateX(4px);}
-.quick-link .ql-icon{width:40px;height:40px;border:1px solid #E4DDD4;display:flex;align-items:center;justify-content:center;transition:background .22s,border-color .22s;}
-.quick-link:hover .ql-icon{background:#C97840;border-color:#C97840;}
-.quick-link:hover .ql-icon .material-symbols-outlined{color:#fff;}
-.quick-link .ql-icon .material-symbols-outlined{color:#C5A880;transition:color .22s;}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.32,.72,0,1),transform .8s cubic-bezier(.32,.72,0,1);}
+.rv.in{opacity:1;transform:translateY(0);}
 
-/* ——— WA FLOAT ——— */
-#wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,0.55);}
-#wa-float:active{transform:scale(0.95);}
-@keyframes wa-pulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.45);}50%{box-shadow:0 4px 32px rgba(37,211,102,0.75),0 0 0 8px rgba(37,211,102,0.12);}}
-#wa-float{animation:wa-pulse 2.5s ease-in-out infinite;}
-#wa-float:hover{animation:none;}
+/* Giant 404 text */
+.giant-404{font-family:'Crimson Pro',serif;font-weight:300;font-size:clamp(10rem,25vw,22rem);line-height:.85;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px rgba(197,168,128,0.25);user-select:none;pointer-events:none;}
 
-/* --- PREMIUM OVERRIDES --- */
-.border-border { border-color: rgba(26, 26, 26, 0.06) !important; }
-.shadow-sm { box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03) !important; }
-.shadow-md { box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05) !important; }
-p.leading-relaxed { line-height: 1.85 !important; }
-input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03); }
+/* Navigation links */
+.quick-link{display:flex;align-items:center;gap:10px;padding:16px 0;border-bottom:1px solid #E4DDD4;text-decoration:none;color:#1A1A1A;transition:color .2s;}
+.quick-link:hover{color:#C97840;}
+.quick-link:hover .arrow{transform:translateX(4px);}
+.arrow{transition:transform .25s cubic-bezier(.32,.72,0,1);}
+.quick-link:last-child{border-bottom:none;}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
-<script src="assets/js/store.js"></script>
-<link rel="manifest" href="/manifest.json">
 </head>
-<body class="bg-base text-ink font-sans overflow-x-hidden overflow-y-scroll">
+<body class="bg-ink text-white font-sans min-h-[100dvh] flex flex-col" style="background:#1A1A1A;">
 
-<!-- ══ SEARCH OVERLAY ═══════════════════════════════════════ -->
-<div id="search-overlay" onclick="if(event.target===this)closeSearch()" class="fixed inset-0 z-[100] bg-surface/95 backdrop-blur-md hidden flex-col items-center pt-24 px-5">
-  <div class="w-full max-w-2xl relative">
-    <div class="flex items-center gap-4 border-b border-ink/10 pb-4 mb-8">
-      <span class="material-symbols-outlined text-[24px] text-ink/40">search</span>
-      <input id="search-input" type="text" placeholder="Search for products..."
-             class="flex-grow bg-transparent text-ink font-sans placeholder-ink/30 outline-none text-[20px] md:text-[24px]"
-             oninput="doSearch(this.value)" autocomplete="off">
-      <button onclick="closeSearch()" class="text-ink/40 hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-1 flex items-center" aria-label="Close search">
-        <span class="material-symbols-outlined text-[24px]">close</span>
-      </button>
-    </div>
-    <div id="search-results" class="max-h-[60vh] overflow-y-auto pb-8 w-full flex flex-col gap-2"></div>
-  </div>
-</div>
+<div id="page-preloader"><span class="pl-logo">KGS</span></div>
 
-<div id="drw-ov" class="fixed inset-0 bg-ink/40 z-50 hidden backdrop-blur-sm transition-opacity" onclick="closeDrw()"></div>
-<div id="mobile-drawer" class="fixed inset-y-0 right-0 z-50 w-[300px] bg-surface flex flex-col translate-x-full shadow-2xl transition-transform duration-300 ease-out">
-  <div class="flex items-center justify-between px-6 py-6 border-b border-border">
-    <span class="font-serif font-medium tracking-[.2em] text-ink text-[1.1rem]">MENU</span>
-    <button onclick="closeDrw()" class="text-muted hover:text-ink transition-colors bg-transparent border-none p-0 cursor-pointer flex items-center"><span class="material-symbols-outlined text-[24px]">close</span></button>
-  </div>
-  <nav class="flex flex-col px-6 pt-8 gap-6 overflow-y-auto">
-    <a href="index.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Home</a>
-    <a href="product-listing.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Shop All</a>
-    <a href="about.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Our Story</a>
-    <a href="contact.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Showroom & Contact</a>
-    <a href="order-tracking.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Track Order</a>
-  </nav>
-  <div class="mt-auto px-6 py-8 border-t border-border bg-tint space-y-5">
-    <a href="tel:+919789182921" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-gold">call</span> +91 97891 82921</a>
-    <a href="https://wa.me/919789182921" target="_blank" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-[#25D366]">chat</span> WhatsApp Us</a>
-  </div>
-</div>
-
-<!-- ══ NAVBAR ═══════════════════════════════════════════════ -->
-<nav id="navbar" class="fixed top-0 w-full z-40 bg-surface/90 backdrop-blur-lg border-b border-border transition-transform duration-300">
-  <div class="max-w-[90rem] mx-auto px-5 md:px-12 flex items-center justify-between h-20 md:h-24">
-    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.6rem] text-ink hover:text-gold transition-colors shrink-0">KGS</a>
-    <div class="hidden md:flex items-center gap-10">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="product-listing.html" class="nav-link">Shop</a>
-      <a href="about.html" class="nav-link">Our Story</a>
-      <a href="contact.html" class="nav-link">Contact</a>
-    </div>
-    <div class="flex items-center gap-4 md:gap-7 text-ink">
-      <button onclick="openSearch()" aria-label="Search" class="hover:text-gold transition-colors bg-transparent border-none cursor-pointer p-0 flex items-center"><span class="material-symbols-outlined text-[22px]">search</span></button>
-      <a href="account.html" aria-label="Account" class="flex hover:text-gold transition-colors items-center">
-        <span class="material-symbols-outlined text-[22px]">person</span>
-      </a>
-      <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-gold transition-colors flex items-center">
-        <span class="material-symbols-outlined text-[22px]">favorite</span>
-        <span class="wishlist-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none flex items-center justify-center" style="display:none;">0</span>
-      </a>
-      <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-gold transition-colors flex items-center">
-        <span class="material-symbols-outlined text-[22px]">shopping_bag</span>
-        <span class="cart-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none flex items-center justify-center" style="display:none;">0</span>
-      </a>
-      <button onclick="openDrw()" class="md:hidden hover:text-gold transition-colors p-0 bg-transparent border-none cursor-pointer flex items-center" aria-label="Menu">
-        <span class="material-symbols-outlined text-[26px]">menu</span>
-      </button>
-    </div>
-  </div>
+<!-- Minimal nav -->
+<nav class="flex items-center justify-between px-6 md:px-12 py-6 border-b border-white/10">
+  <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.4rem] text-white hover:text-gold transition-colors">KGS</a>
+  <a href="product-listing.html" class="text-white/40 text-[11px] font-medium tracking-[.12em] uppercase hover:text-white transition-colors hidden md:block">Browse All Products</a>
 </nav>
 
-<!-- MAIN 404 CONTENT -->
-<main>
-  <section class="min-h-[88vh] flex flex-col items-center justify-center bg-base py-20 px-5">
+<!-- Main content -->
+<div class="flex-1 flex items-center justify-center px-6 md:px-12 py-16 relative overflow-hidden">
 
-    <!-- Floating decorative number -->
-    <div class="float-anim mb-4 select-none" aria-hidden="true">
-      <p class="font-serif font-medium text-border leading-none" style="font-size:clamp(7rem,18vw,14rem);letter-spacing:-.04em;line-height:.85;">404</p>
-    </div>
+  <!-- Background giant 404 -->
+  <div class="giant-404 absolute inset-0 flex items-center justify-center select-none" aria-hidden="true">404</div>
 
-    <!-- Content -->
-    <div class="max-w-xl text-center -mt-4">
-      <p class="a1 text-[11px] font-semibold tracking-[.22em] uppercase text-gold mb-4">Page Not Found</p>
-      <h1 class="a2 font-serif font-medium text-ink leading-tight mb-5" style="font-size:clamp(1.9rem,4.5vw,3.2rem);">This Page Has Moved On</h1>
-      <p class="a3 text-muted leading-[1.85] mb-10" style="font-size:15px;">
-        The page you're looking for doesn't exist, or may have been moved. But don't worry — our full collection of premium home décor is still right here.
+  <!-- Foreground content -->
+  <div class="relative z-10 max-w-lg w-full">
+
+    <div class="rv">
+      <p class="text-[11px] font-semibold tracking-[.22em] uppercase text-gold mb-4">Error 404</p>
+      <h1 class="font-serif font-light text-white leading-[1.1] mb-6" style="font-size:clamp(2.5rem,6vw,4.5rem);">
+        This page<br>
+        <em class="not-italic text-gold">wandered off.</em>
+      </h1>
+      <p class="text-white/50 text-[14px] leading-[1.8] mb-10 max-w-sm">
+        The page you're looking for may have moved, been renamed, or never existed. Let us help you find your way back.
       </p>
-
-      <div class="a4 flex flex-col sm:flex-row gap-4 justify-center mb-16">
-        <a href="index.html" class="btn-primary">Go to Homepage</a>
-        <a href="product-listing.html" class="btn-secondary">Browse Collection</a>
-      </div>
-
-      <!-- Quick Navigation Links -->
-      <div class="a5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-left max-w-md mx-auto">
-        <a href="product-listing.html" class="quick-link">
-          <div class="ql-icon"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 0,'wght' 200;">storefront</span></div>
-          <div>
-            <p class="text-ink text-[13px] font-medium">Shop All Products</p>
-            <p class="text-muted text-[11px]">Browse 500+ pieces</p>
-          </div>
-        </a>
-        <a href="index.html#new-arrivals" class="quick-link">
-          <div class="ql-icon"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 0,'wght' 200;">new_releases</span></div>
-          <div>
-            <p class="text-ink text-[13px] font-medium">New Arrivals</p>
-            <p class="text-muted text-[11px]">This week's latest</p>
-          </div>
-        </a>
-        <a href="cart-checkout.html" class="quick-link">
-          <div class="ql-icon"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 0,'wght' 200;">local_mall</span></div>
-          <div>
-            <p class="text-ink text-[13px] font-medium">Your Cart</p>
-            <p class="text-muted text-[11px]">Review & checkout</p>
-          </div>
-        </a>
-        <a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help%20finding%20a%20product" target="_blank" rel="noopener noreferrer" class="quick-link">
-          <div class="ql-icon"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 0,'wght' 200;">support_agent</span></div>
-          <div>
-            <p class="text-ink text-[13px] font-medium">Get Help</p>
-            <p class="text-muted text-[11px]">Chat with us on WhatsApp</p>
-          </div>
-        </a>
-      </div>
     </div>
 
-  </section>
-</main>
+    <!-- CTAs -->
+    <div class="rv flex flex-col sm:flex-row gap-4 mb-12" style="transition-delay:.12s">
+      <a href="index.html"
+         style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 28px;background:#C5A880;color:#1A1A1A;font-family:'Jost',sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border:1.5px solid #C5A880;transition:background .25s,color .25s;"
+         onmouseover="this.style.background='#FAF8F4';this.style.color='#1A1A1A';this.style.borderColor='#FAF8F4';"
+         onmouseout="this.style.background='#C5A880';this.style.color='#1A1A1A';this.style.borderColor='#C5A880';">
+        <span class="material-symbols-outlined text-[18px]">home</span> Go Home
+      </a>
+      <a href="product-listing.html"
+         style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 28px;background:transparent;color:#FAF8F4;font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border:1.5px solid rgba(255,255,255,0.2);transition:border-color .25s;"
+         onmouseover="this.style.borderColor='rgba(255,255,255,0.6)';"
+         onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';">
+        <span class="material-symbols-outlined text-[18px]">storefront</span> Browse Products
+      </a>
+    </div>
 
-
-<!-- ══ FOOTER ═══════════════════════════════════════════════ -->
-
-<footer class="bg-surface pt-16 md:pt-24 pb-8 border-t border-border">
-  <div class="max-w-[90rem] mx-auto px-5 md:px-12 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 md:gap-12 mb-16">
-    <div class="col-span-2 md:col-span-1">
-      <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.4rem] text-ink block mb-6">KGS</a>
-      <p class="text-muted text-[13px] leading-[1.8] mb-8 max-w-xs">Your one-stop destination for premium modern export-quality home décor and furniture in Virudhachalam.</p>
-      <div class="flex items-center gap-4">
-        <a href="https://wa.me/919789182921" target="_blank" class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted hover:border-[#25D366] hover:text-[#25D366] transition-colors bg-white">
-          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <!-- Quick links -->
+    <div class="rv border-t border-white/10 pt-8" style="transition-delay:.2s">
+      <p class="text-[10px] font-semibold tracking-[.2em] uppercase text-white/30 mb-4">Or jump to</p>
+      <div>
+        <a href="about.html" class="quick-link" style="border-bottom:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);">
+          <span class="material-symbols-outlined text-[18px] text-gold">store</span>
+          <span class="text-[13px] font-medium flex-1">Our Story</span>
+          <span class="material-symbols-outlined text-[18px] arrow" style="color:rgba(255,255,255,0.3);">arrow_forward</span>
+        </a>
+        <a href="contact.html" class="quick-link" style="border-bottom:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);">
+          <span class="material-symbols-outlined text-[18px] text-gold">call</span>
+          <span class="text-[13px] font-medium flex-1">Contact Us</span>
+          <span class="material-symbols-outlined text-[18px] arrow" style="color:rgba(255,255,255,0.3);">arrow_forward</span>
+        </a>
+        <a href="order-tracking.html" class="quick-link" style="border-bottom:none;color:rgba(255,255,255,0.6);">
+          <span class="material-symbols-outlined text-[18px] text-gold">local_shipping</span>
+          <span class="text-[13px] font-medium flex-1">Track My Order</span>
+          <span class="material-symbols-outlined text-[18px] arrow" style="color:rgba(255,255,255,0.3);">arrow_forward</span>
         </a>
       </div>
     </div>
-    <div class="col-span-1">
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Shop</h4>
-      <ul class="space-y-4 text-[13px] text-muted font-medium">
-        <li><a href="product-listing.html" class="hover:text-gold transition-colors">All Products</a></li>
-        <li><a href="product-listing.html?cat=furniture" class="hover:text-gold transition-colors">Sofas & Furniture</a></li>
-        <li><a href="product-listing.html?cat=decor" class="hover:text-gold transition-colors">Décor</a></li>
-        <li><a href="product-listing.html?cat=wall-decor" class="hover:text-gold transition-colors">Wall Décor</a></li>
-        <li><a href="product-listing.html?cat=lighting" class="hover:text-gold transition-colors">Lighting</a></li>
-        <li><a href="product-listing.html?cat=lifestyle" class="hover:text-gold transition-colors">Lifestyle & Accessories</a></li>
-        <li><a href="product-listing.html?cat=plants" class="hover:text-gold transition-colors">Vases & Plants</a></li>
-        <li><a href="product-listing.html?cat=gifts" class="hover:text-gold transition-colors">Gifts</a></li>
-      </ul>
-    </div>
-    <div class="col-span-1">
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Support</h4>
-      <ul class="space-y-4 text-[13px] text-muted font-medium">
-        <li><a href="contact.html" class="hover:text-gold transition-colors">Contact Us</a></li>
-        <li><a href="shipping-policy.html" class="hover:text-gold transition-colors">Shipping Info</a></li>
-        <li><a href="returns-policy.html" class="hover:text-gold transition-colors">Returns & Refunds</a></li>
-        <li><a href="order-tracking.html" class="hover:text-gold transition-colors">Track Order</a></li>
-      </ul>
-    </div>
-    <div class="col-span-2 md:col-span-1">
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Company</h4>
-      <ul class="space-y-4 text-[13px] text-muted font-medium">
-        <li><a href="about.html" class="hover:text-gold transition-colors">Our Story</a></li>
-        <li><a href="privacy-policy.html" class="hover:text-gold transition-colors">Privacy Policy</a></li>
-        <li><a href="terms.html" class="hover:text-gold transition-colors">Terms of Service</a></li>
-      </ul>
-    </div>
+
   </div>
-  <div class="max-w-[90rem] mx-auto px-5 md:px-12 border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-    <p class="text-[11px] tracking-[.15em] text-muted uppercase font-medium leading-relaxed">&copy; 2026 KGS Home Décors. All rights reserved.</p>
-    <div class="flex items-center gap-3 opacity-60">
-      <span class="text-[10px] tracking-[.15em] font-bold uppercase text-muted text-center md:text-right">Virudhachalam's Premium Choice</span>
-    </div>
-  </div>
-</footer>
+</div>
 
-
-<!-- ══ WHATSAPP FLOAT ═══════════════════════════════════════ -->
-<a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help"
-   target="_blank" rel="noopener noreferrer" class="fixed bottom-20 right-5 z-30 w-12 h-12 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(37,211,102,0.4)] transition-all duration-300" aria-label="Chat on WhatsApp">
+<!-- WhatsApp float -->
+<a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help" target="_blank" rel="noopener noreferrer"
+   class="fixed bottom-8 right-5 z-30 w-12 h-12 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:-translate-y-1 transition-transform duration-300" aria-label="Chat on WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
-<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-<script>const lenis=new Lenis();function raf(time){lenis.raf(time);requestAnimationFrame(raf);}requestAnimationFrame(raf);</script>
 <script>
-
-/* ——— SEARCH ———————————————————————————————— */
-function openSearch(){
-  document.getElementById('search-overlay').style.display='flex';
-  document.getElementById('search-input').focus();
-  document.body.style.overflow='hidden';
-}
-function closeSearch(){
-  document.getElementById('search-overlay').style.display='none';
-  document.getElementById('search-input').value='';
-  document.getElementById('search-results').innerHTML='';
-  document.body.style.overflow='';
-}
-async function doSearch(q){
-  const res=document.getElementById('search-results');
-  if(!q.trim()){res.innerHTML='';return;}
-  if(!window.kgsFuse) {
-    const products = await initStore();
-    window.kgsFuse = new Fuse(products, {keys:['name','category'], threshold:0.3});
-  }
-  const matches = window.kgsFuse.search(q).map(r=>r.item);
-  if(matches.length===0){
-    res.innerHTML='<p style="color:#767270;font-size:13px;padding:12px 16px;">No results found. <a href="product-listing.html" style="color:#C97840;text-decoration:underline;">Browse all products &rarr;</a></p>';
-  }else{
-    res.innerHTML=matches.map(p=>`
-      <a href="product-detail.html?handle=${p.handle}" style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(26,26,26,0.06);text-decoration:none;transition:background .2s;" onmouseover="this.style.background='rgba(26,26,26,0.03)'" onmouseout="this.style.background=''">
-        <div>
-          <p style="color:#1A1A1A;font-size:14.5px;font-family: 'Jost', sans-serif;font-weight:500;">${p.name}</p>
-          <p style="color:#767270;font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.category || ''}</p>
-        </div>
-        <p style="color:#C97840;font-size:13px;font-weight:600;font-family: 'Jost', sans-serif;">&#8377;${p.price.toLocaleString('en-IN')}</p>
-      </a>`).join('');
-  }
-}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();});
-
+document.fonts.ready.then(() => {
+  const pl = document.getElementById('page-preloader');
+  if (pl) { pl.style.opacity = '0'; pl.style.visibility = 'hidden'; setTimeout(() => pl.remove(), 600); }
+  document.querySelectorAll('.rv').forEach((el, i) => setTimeout(() => el.classList.add('in'), 150 + i * 100));
+});
 </script>
-<script>
-
-/* ——— MOBILE DRAWER ————————————————————————— */
-function openDrw(){ document.getElementById('mobile-drawer').style.transform='translateX(0)'; document.getElementById('drw-ov').classList.remove('hidden'); document.body.style.overflow='hidden'; }
-function closeDrw(){ document.getElementById('mobile-drawer').style.transform='translateX(100%)'; document.getElementById('drw-ov').classList.add('hidden'); document.body.style.overflow=''; }
-
-</script>
-
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
 </body>
 </html>

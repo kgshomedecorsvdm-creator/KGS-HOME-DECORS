@@ -7,8 +7,8 @@
 <meta name="theme-color" content="#1A1A1A">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sign In | KGS Home Décors</title>
-<meta name="description" content="Sign in to your KGS Home Décors account.">
-<link rel="canonical" href="https://kgshomedecors.in/account-login.html">
+<meta name="description" content="Sign in to your KGS Home Décors account to track orders, manage your wishlist, and more.">
+<meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -17,265 +17,226 @@
 <script>
 tailwind.config = {
   theme: { extend: {
-    colors: { base: '#FAF8F4', tint: '#F3EDE4', surface: '#FDF9F3', ink: '#1A1A1A', muted: '#767270', gold: '#C5A880', warm: '#C97840', border: '#E4DDD4' },
-    fontFamily: {
-      sans: ['"Jost"', 'sans-serif'],
-      serif: ['"Crimson Pro"', 'serif']
-    }
+    colors: { base:'#FAF8F4', tint:'#F3EDE4', surface:'#FDF9F3', ink:'#1A1A1A', muted:'#767270', gold:'#C5A880', warm:'#C97840', border:'#E4DDD4' },
+    fontFamily: { sans: ['"Jost"', 'sans-serif'], serif: ['"Crimson Pro"', 'serif'] }
   }}
 }
 </script>
 <style>
-*,*::before,*::after { box-sizing: border-box; }
-body { -webkit-font-smoothing: antialiased; }
-::selection { background: #C5A880; color: #fff; }
-.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; }
-.nav-link { position: relative; color: #767270; font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; transition: color .2s; }
-.nav-link::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 1px; background: #C5A880; transition: width .3s; }
-.nav-link:hover { color: #1A1A1A; }
-.nav-link:hover::after { width: 100%; }
+*,*::before,*::after{box-sizing:border-box;}
+html,body{overflow-x:hidden;width:100%;margin:0;padding:0;}
+body{-webkit-font-smoothing:antialiased;}
+::selection{background:#C5A880;color:#fff;}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;}
 
-/* --- PREMIUM OVERRIDES --- */
-.border-border { border-color: rgba(26, 26, 26, 0.06) !important; }
-.shadow-sm { box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03) !important; }
-.shadow-md { box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05) !important; }
-p.leading-relaxed { line-height: 1.85 !important; }
-input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03); }
+/* Preloader */
+#page-preloader{position:fixed;inset:0;z-index:9999;background:#FAF8F4;display:flex;align-items:center;justify-content:center;transition:opacity .5s ease,visibility .5s ease;}
+#page-preloader .pl-logo{font-family:'Crimson Pro',serif;font-size:2rem;font-weight:500;letter-spacing:.35em;color:#1A1A1A;opacity:0;animation:plFadeIn .6s ease forwards .15s;}
+@keyframes plFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* Left panel */
+.left-panel{background:#1A1A1A;min-height:100dvh;position:sticky;top:0;overflow:hidden;}
+.left-panel::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%, rgba(197,168,128,.18) 0%, transparent 65%),radial-gradient(ellipse at 80% 20%, rgba(201,120,64,.08) 0%, transparent 55%);pointer-events:none;}
+.noise-overlay{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;opacity:.6;}
+
+/* Form styling */
+.form-input{width:100%;background:transparent;border:none;border-bottom:1px solid #E4DDD4;padding:14px 0 12px;font-family:'Jost',sans-serif;font-size:14px;color:#1A1A1A;outline:none;transition:border-color .25s;}
+.form-input:focus{border-color:#1A1A1A;}
+.form-input::placeholder{color:#767270;font-size:13px;}
+.btn-primary{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px 24px;background:#1A1A1A;color:#FAF8F4;font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:none;cursor:pointer;transition:background .25s,transform .2s cubic-bezier(.32,.72,0,1);}
+.btn-primary:hover{background:#C5A880;}
+.btn-primary:active{transform:scale(.99);}
+.btn-secondary{display:flex;align-items:center;justify-content:center;width:100%;padding:14px 24px;background:transparent;color:#1A1A1A;font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:1.5px solid #E4DDD4;cursor:pointer;text-decoration:none;transition:border-color .25s,color .25s;}
+.btn-secondary:hover{border-color:#1A1A1A;}
+
+/* Reveal animation */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.32,.72,0,1),transform .7s cubic-bezier(.32,.72,0,1);}
+.rv.in{opacity:1;transform:translateY(0);}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="assets/js/supabase-client.js"></script>
-<link rel="manifest" href="/manifest.json">
 </head>
-<body class="bg-base text-ink font-sans overflow-x-hidden overflow-y-scroll">
+<body class="bg-base text-ink font-sans">
 
-<!-- ══ ANNOUNCEMENT BAR ═══════════════════════════════════ -->
-<div class="bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5">
-  Free Delivery in Virudhachalam &nbsp;·&nbsp; Secure Online Payments &nbsp;·&nbsp; Open 10 AM – 10 PM, Every Day
-</div>
+<!-- PRELOADER -->
+<div id="page-preloader"><span class="pl-logo">KGS</span></div>
 
-<!-- ══ TOAST NOTIFICATION ═══════════════════════════════════ -->
-<div id="cart-toast">
-  <span class="material-symbols-outlined toast-icon">check_circle</span>
-  <span id="toast-text">Added to cart</span>
-  <a href="cart-checkout.html" style="color:#C5A880;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin-left:8px;">View Cart &rarr;</a>
-</div>
-<!-- ══ DRAWER OVERLAY ═══════════════════════════════════════ -->
-<div id="drw-ov" class="fixed inset-0 bg-ink/40 z-50 hidden backdrop-blur-sm transition-opacity" onclick="closeDrw()"></div>
-<div id="mobile-drawer" class="fixed inset-y-0 right-0 z-50 w-[300px] bg-surface flex flex-col translate-x-full shadow-2xl transition-transform duration-300 ease-out">
-  <div class="flex items-center justify-between px-6 py-6 border-b border-border">
-    <span class="font-serif font-medium tracking-[.2em] text-ink text-[1.1rem]">MENU</span>
-    <button onclick="closeDrw()" class="text-muted hover:text-ink transition-colors bg-transparent border-none p-0 cursor-pointer flex items-center"><span class="material-symbols-outlined text-[24px]">close</span></button>
-  </div>
-  <nav class="flex flex-col px-6 pt-8 gap-6 overflow-y-auto">
-    <a href="index.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Home</a>
-    <a href="product-listing.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Shop All</a>
-    <a href="about.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Our Story</a>
-    <a href="contact.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Showroom & Contact</a>
-    <a href="order-tracking.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Track Order</a>
-  </nav>
-  <div class="mt-auto px-6 py-8 border-t border-border bg-tint space-y-5">
-    <a href="tel:+919789182921" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-gold">call</span> +91 97891 82921</a>
-    <a href="https://wa.me/919789182921" target="_blank" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-[#25D366]">chat</span> WhatsApp Us</a>
-  </div>
-</div>
+<div class="flex min-h-[100dvh]">
 
-<!-- ══ SEARCH OVERLAY ═══════════════════════════════════════ -->
-<div id="search-overlay" onclick="if(event.target===this)closeSearch()" class="fixed inset-0 z-[100] bg-surface/95 backdrop-blur-md hidden flex-col items-center pt-24 px-5">
-  <div class="w-full max-w-2xl relative">
-    <div class="flex items-center gap-4 border-b border-ink/10 pb-4 mb-8">
-      <span class="material-symbols-outlined text-[24px] text-ink/40">search</span>
-      <input id="search-input" type="text" placeholder="Search for products..."
-             class="flex-grow bg-transparent text-ink font-sans placeholder-ink/30 outline-none text-[20px] md:text-[24px]"
-             oninput="doSearch(this.value)" autocomplete="off">
-      <button onclick="closeSearch()" class="text-ink/40 hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-1 flex items-center" aria-label="Close search">
-        <span class="material-symbols-outlined text-[24px]">close</span>
-      </button>
-    </div>
-    <div id="search-results" class="max-h-[60vh] overflow-y-auto pb-8 w-full flex flex-col gap-2"></div>
-  </div>
-</div>
+  <!-- ══ LEFT PANEL — Brand Statement ══ -->
+  <div class="left-panel hidden lg:flex lg:w-[48%] xl:w-[44%] flex-col justify-between p-12 xl:p-16 relative">
+    <div class="noise-overlay"></div>
 
-<!-- ══ NAVBAR ═══════════════════════════════════════════════ -->
-<nav id="navbar" class="fixed top-0 w-full z-40 bg-surface/90 backdrop-blur-lg border-b border-border transition-transform duration-300">
-  <div class="max-w-[90rem] mx-auto px-5 md:px-12 flex items-center justify-between h-20 md:h-24">
-    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.6rem] text-ink hover:text-gold transition-colors shrink-0">KGS</a>
-    <div class="hidden md:flex items-center gap-10">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="product-listing.html" class="nav-link">Shop</a>
-      <a href="about.html" class="nav-link">Our Story</a>
-      <a href="contact.html" class="nav-link">Contact</a>
-    </div>
-    <div class="flex items-center gap-4 md:gap-7 text-ink">
-      <button onclick="openSearch()" aria-label="Search" class="hover:text-gold transition-colors bg-transparent border-none cursor-pointer p-0 flex items-center"><span class="material-symbols-outlined text-[22px]">search</span></button>
-      <a href="account.html" aria-label="Account" class="flex hover:text-gold transition-colors items-center">
-        <span class="material-symbols-outlined text-[22px]">person</span>
-      </a>
-      <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-gold transition-colors flex items-center">
-        <span class="material-symbols-outlined text-[22px]">favorite</span>
-        <span class="wishlist-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none flex items-center justify-center" style="display:none;">0</span>
-      </a>
-      <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-gold transition-colors flex items-center">
-        <span class="material-symbols-outlined text-[22px]">shopping_bag</span>
-        <span class="cart-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none flex items-center justify-center" style="display:none;">0</span>
-      </a>
-      <button onclick="openDrw()" class="md:hidden hover:text-gold transition-colors p-0 bg-transparent border-none cursor-pointer flex items-center" aria-label="Menu">
-        <span class="material-symbols-outlined text-[26px]">menu</span>
-      </button>
-    </div>
-  </div>
-</nav>
+    <!-- Logo -->
+    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.5rem] text-white hover:text-gold transition-colors relative z-10">KGS</a>
 
-<!-- PAGE HEADER -->
-<div class="bg-tint py-12 border-b border-border">
-  <div class="max-w-xl mx-auto px-5 text-center">
-    <h1 class="font-serif font-medium text-ink text-3xl mb-3">Sign In</h1>
-    <p class="text-muted text-[13px]">Access your orders, saved addresses, and faster checkout.</p>
-  </div>
-</div>
+    <!-- Main statement -->
+    <div class="relative z-10">
+      <p class="text-white/40 text-[11px] font-semibold tracking-[.22em] uppercase mb-6">Virudhachalam's Premium Choice</p>
+      <h1 class="font-serif font-light text-white leading-[1.1]" style="font-size:clamp(2.8rem,4vw,4.2rem);">
+        Your home,<br>
+        <em class="text-gold not-italic">beautifully</em><br>
+        curated.
+      </h1>
+      <p class="text-white/50 text-[14px] leading-[1.8] mt-6 max-w-sm">
+        Sign in to track your orders, save favourites, and access your personal KGS experience.
+      </p>
 
-<main class="max-w-xl mx-auto px-5 py-16">
-  <div class="bg-surface border border-border p-8 shadow-sm">
-    <form onsubmit="handleLogin(event)" class="space-y-6">
-      <div id="auth-msg" style="display:none;padding:12px 16px;font-size:13px;border:1px solid;margin-bottom:8px;"></div>
-      <div>
-        <label class="block text-[11px] font-semibold tracking-[.15em] uppercase text-ink mb-2">Email Address</label>
-        <input type="email" id="login-email" required class="w-full border border-border p-3 outline-none focus:border-ink transition-colors text-[14px]">
+      <!-- Floating quote card -->
+      <div class="mt-12 border border-white/10 bg-white/5 backdrop-blur-sm p-6 max-w-sm">
+        <p class="font-serif italic text-white/80 text-[1.1rem] leading-[1.7] mb-4">"The furniture arrived perfectly packed and looks stunning in our living room. KGS quality is unmatched."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-gold/20 rounded-full flex items-center justify-center">
+            <span class="font-serif text-gold text-sm font-medium">P</span>
+          </div>
+          <div>
+            <p class="text-white/70 text-[12px] font-medium">Priya M.</p>
+            <p class="text-white/35 text-[11px] tracking-[.08em]">Verified Customer</p>
+          </div>
+        </div>
       </div>
-      <div>
-        <label class="block text-[11px] font-semibold tracking-[.15em] uppercase text-ink mb-2">Password</label>
-        <input type="password" id="login-password" required class="w-full border border-border p-3 outline-none focus:border-ink transition-colors text-[14px]">
-      </div>
-      <div class="flex items-center justify-between">
-        <label class="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" class="accent-ink w-4 h-4">
-          <span class="text-[13px] text-muted">Remember me</span>
-        </label>
-        <a href="forgot-password.html" class="text-[12px] text-warm hover:underline">Forgot password?</a>
-      </div>
-      <button type="submit" class="w-full bg-ink text-white text-[12px] font-semibold tracking-[.15em] uppercase py-4 hover:bg-gold transition-colors">Sign In</button>
-    </form>
-    
-    <div id="guest-checkout-container" class="mt-8 pt-8 border-t border-border hidden">
-      <p class="text-center text-[13px] text-muted mb-4">Or continue without an account</p>
-      <button onclick="continueAsGuest()" class="w-full bg-transparent border border-ink text-ink text-[12px] font-semibold tracking-[.15em] uppercase py-4 hover:bg-ink hover:text-white transition-colors">Continue as Guest</button>
     </div>
 
-    <div class="mt-8 text-center">
-      <p class="text-[13px] text-muted">Don't have an account? <a href="account-register.html" class="text-ink font-semibold hover:underline">Create Account</a></p>
+    <!-- Bottom decoration -->
+    <div class="relative z-10 flex items-center gap-3">
+      <div class="w-8 h-px bg-white/20"></div>
+      <p class="text-white/25 text-[10px] tracking-[.2em] uppercase">KGS Home Décors</p>
     </div>
   </div>
-</main>
 
-<script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const isCheckout = urlParams.get('checkout') === 'true';
+  <!-- ══ RIGHT PANEL — Form ══ -->
+  <div class="flex-1 flex flex-col min-h-[100dvh] bg-base">
 
-  if (isCheckout) {
-    document.getElementById('guest-checkout-container').classList.remove('hidden');
-  }
+    <!-- Mobile logo -->
+    <div class="lg:hidden flex items-center justify-between px-6 py-5 border-b border-border">
+      <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.3rem] text-ink">KGS</a>
+      <a href="index.html" class="text-muted text-[12px] font-medium hover:text-ink transition-colors flex items-center gap-1">
+        <span class="material-symbols-outlined text-[16px]">arrow_back</span> Home
+      </a>
+    </div>
 
-  // Check if already logged in
-  (async () => {
-    const session = await getSession();
-    if (session && !isCheckout) {
-      window.location.href = 'account.html';
-    }
-  })();
+    <!-- Form area -->
+    <div class="flex-1 flex items-center justify-center px-6 py-14 lg:py-0">
+      <div class="w-full max-w-[380px]">
 
-  function showMsg(msg, isError = true) {
-    const el = document.getElementById('auth-msg');
-    el.style.display = 'block';
-    el.textContent = msg;
-    el.style.color = isError ? '#d32f2f' : '#2e7d32';
-    el.style.borderColor = isError ? '#ffcdd2' : '#c8e6c9';
-    el.style.background = isError ? '#fff5f5' : '#f1f8e9';
-  }
+        <!-- Desktop back link -->
+        <a href="index.html" class="hidden lg:inline-flex items-center gap-2 text-muted text-[11px] font-medium tracking-[.1em] uppercase hover:text-ink transition-colors mb-12">
+          <span class="material-symbols-outlined text-[16px]">arrow_back</span> Back to Store
+        </a>
 
-  async function handleLogin(e) {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value.trim();
-    const password = document.getElementById('login-password').value;
-    const btn = e.target.querySelector('button[type="submit"]');
-    btn.disabled = true; btn.textContent = 'Signing in...';
+        <div class="rv">
+          <p class="text-[11px] font-semibold tracking-[.22em] uppercase text-gold mb-3">Welcome Back</p>
+          <h2 class="font-serif font-medium text-ink mb-2" style="font-size:clamp(1.9rem,3vw,2.4rem);">Sign In</h2>
+          <p class="text-muted text-[13px] mb-10">Don't have an account? <a href="account-register.html" class="text-warm font-medium hover:text-ink transition-colors">Create one free</a></p>
+        </div>
 
-    try {
-      await signIn(email, password);
-      showMsg('Welcome back! Redirecting...', false);
-      setTimeout(() => {
-        window.location.href = isCheckout ? 'cart-checkout.html' : 'account.html';
-      }, 800);
-    } catch (err) {
-      showMsg(err.message || 'Invalid email or password');
-      btn.disabled = false; btn.textContent = 'SIGN IN';
-    }
-  }
+        <form id="login-form" class="space-y-7" novalidate>
+          <div class="rv" style="transition-delay:.08s">
+            <label class="block text-[10px] font-semibold tracking-[.18em] uppercase text-muted mb-2">Email Address</label>
+            <input id="login-email" type="email" placeholder="you@example.com" class="form-input" autocomplete="email" required>
+          </div>
 
-  function continueAsGuest() {
-    window.location.href = 'cart-checkout.html';
-  }
-</script>
+          <div class="rv" style="transition-delay:.14s">
+            <div class="flex items-center justify-between mb-2">
+              <label class="block text-[10px] font-semibold tracking-[.18em] uppercase text-muted">Password</label>
+              <a href="forgot-password.html" class="text-[11px] text-warm hover:text-ink transition-colors font-medium">Forgot password?</a>
+            </div>
+            <div class="relative">
+              <input id="login-password" type="password" placeholder="Your password" class="form-input pr-10" autocomplete="current-password" required>
+              <button type="button" id="toggle-pw" class="absolute right-0 top-1/2 -translate-y-1/2 text-muted hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-1" aria-label="Toggle password visibility">
+                <span class="material-symbols-outlined text-[20px]" id="pw-eye">visibility</span>
+              </button>
+            </div>
+          </div>
 
-<!-- ══ FOOTER ═══════════════════════════════════════════════ -->
+          <div id="login-error" class="hidden text-[12px] text-red-600 bg-red-50 border border-red-100 px-4 py-3"></div>
 
+          <div class="rv space-y-3 pt-2" style="transition-delay:.2s">
+            <button type="submit" id="login-btn" class="btn-primary">
+              <span>Sign In</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+            <a href="account-register.html" class="btn-secondary">Create Account</a>
+          </div>
+        </form>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-4 my-8 rv" style="transition-delay:.26s">
+          <div class="flex-1 h-px bg-border"></div>
+          <span class="text-[11px] text-muted tracking-[.1em] uppercase">or</span>
+          <div class="flex-1 h-px bg-border"></div>
+        </div>
+
+        <!-- WhatsApp shortcut -->
+        <a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help%20with%20my%20account" target="_blank" rel="noopener noreferrer"
+           class="rv flex items-center gap-3 border border-border px-5 py-4 hover:border-[#25D366] transition-colors group" style="transition-delay:.3s;text-decoration:none;">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-[#25D366] shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <div class="flex-1">
+            <p class="text-ink text-[13px] font-medium">Need help with your account?</p>
+            <p class="text-muted text-[11px]">WhatsApp us — we respond in minutes</p>
+          </div>
+          <span class="material-symbols-outlined text-[18px] text-muted group-hover:text-[#25D366] transition-colors">open_in_new</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Footer note -->
+    <div class="px-6 py-5 border-t border-border text-center lg:text-left">
+      <p class="text-[11px] text-muted">By signing in, you agree to our <a href="terms.html" class="text-warm hover:text-ink transition-colors">Terms</a> and <a href="privacy-policy.html" class="text-warm hover:text-ink transition-colors">Privacy Policy</a>.</p>
+    </div>
+  </div>
+
+</div>
+
+<script src="assets/js/supabase-client.js"></script>
 <script src="assets/js/store.js"></script>
 <script>
-function openDrw() {
-  document.getElementById('drw-ov').classList.remove('hidden');
-  document.getElementById('mobile-drawer').classList.remove('translate-x-full');
-  document.body.style.overflow = 'hidden';
-}
-function closeDrw() {
-  document.getElementById('drw-ov').classList.add('hidden');
-  document.getElementById('mobile-drawer').classList.add('translate-x-full');
-  document.body.style.overflow = '';
-}
-</script>
-<script>
+// ── PRELOADER ──────────────────────────────────────
+document.fonts.ready.then(() => {
+  const pl = document.getElementById('page-preloader');
+  if (pl) { pl.style.opacity = '0'; pl.style.visibility = 'hidden'; setTimeout(() => pl.remove(), 500); }
+  // Trigger reveals
+  document.querySelectorAll('.rv').forEach((el, i) => {
+    setTimeout(() => el.classList.add('in'), 80 + i * 60);
+  });
+});
 
-/* ——— SEARCH ———————————————————————————————— */
-function openSearch(){
-  document.getElementById('search-overlay').style.display='flex';
-  document.getElementById('search-input').focus();
-  document.body.style.overflow='hidden';
-}
-function closeSearch(){
-  document.getElementById('search-overlay').style.display='none';
-  document.getElementById('search-input').value='';
-  document.getElementById('search-results').innerHTML='';
-  document.body.style.overflow='';
-}
-async function doSearch(q){
-  const res=document.getElementById('search-results');
-  if(!q.trim()){res.innerHTML='';return;}
-  if(!window.kgsFuse) {
-    const products = await initStore();
-    window.kgsFuse = new Fuse(products, {keys:['name','category'], threshold:0.3});
+// ── PASSWORD TOGGLE ────────────────────────────────
+document.getElementById('toggle-pw').addEventListener('click', function() {
+  const pw = document.getElementById('login-password');
+  const eye = document.getElementById('pw-eye');
+  if (pw.type === 'password') { pw.type = 'text'; eye.textContent = 'visibility_off'; }
+  else { pw.type = 'password'; eye.textContent = 'visibility'; }
+});
+
+// ── LOGIN FORM ─────────────────────────────────────
+document.getElementById('login-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('login-btn');
+  const errEl = document.getElementById('login-error');
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  errEl.classList.add('hidden');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Signing in...';
+  try {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+    window.location.href = 'account.html';
+  } catch(err) {
+    errEl.textContent = err.message || 'Sign in failed. Please try again.';
+    errEl.classList.remove('hidden');
+    btn.disabled = false;
+    btn.innerHTML = '<span>Sign In</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>';
   }
-  const matches = window.kgsFuse.search(q).map(r=>r.item);
-  if(matches.length===0){
-    res.innerHTML='<p style="color:#767270;font-size:13px;padding:12px 16px;">No results found. <a href="product-listing.html" style="color:#C97840;text-decoration:underline;">Browse all products &rarr;</a></p>';
-  }else{
-    res.innerHTML=matches.map(p=>`
-      <a href="product-detail.html?handle=${p.handle}" style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(26,26,26,0.06);text-decoration:none;transition:background .2s;" onmouseover="this.style.background='rgba(26,26,26,0.03)'" onmouseout="this.style.background=''">
-        <div>
-          <p style="color:#1A1A1A;font-size:14.5px;font-family:'Jost',sans-serif;font-weight:500;">${p.name}</p>
-          <p style="color:#767270;font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:3px;">${p.category || ''}</p>
-        </div>
-        <p style="color:#C97840;font-size:13px;font-weight:600;font-family:'Jost',sans-serif;">&#8377;${p.price.toLocaleString('en-IN')}</p>
-      </a>`).join('');
+});
+
+// ── CHECK SESSION ──────────────────────────────────
+(async () => {
+  if (typeof supabase !== 'undefined') {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) window.location.replace('account.html');
   }
-}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();});
-
+})();
 </script>
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
-
-<!-- ══ WHATSAPP FLOAT ═══════════════════════════════════════ -->
-<a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help"
-   target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(37,211,102,0.6)] transition-all duration-300" aria-label="Chat on WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
-
 </body>
 </html>
