@@ -227,9 +227,23 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
           <p class="font-semibold text-ink text-[14px] mb-1">Store Hours</p>
           <p class="text-muted text-[13px] leading-[1.7]">Monday � Sunday<br>10:00 AM � 10:00 PM</p>
           <div class="flex items-center gap-2 mt-2">
-            <div class="w-2 h-2 rounded-full bg-green-500"></div>
-            <p class="text-[11px] font-semibold tracking-[.12em] uppercase text-green-600">Open Now</p>
+            <div id="store-status-dot" class="w-2 h-2 rounded-full bg-green-500"></div>
+            <p id="store-status-text" class="text-[11px] font-semibold tracking-[.12em] uppercase text-green-600">Open Now</p>
           </div>
+          <script>
+          (function(){
+            var now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+            var h = now.getHours(), m = now.getMinutes();
+            var isOpen = (h >= 10) && (h < 22 || (h === 22 && m === 0));
+            var dot = document.getElementById("store-status-dot");
+            var txt = document.getElementById("store-status-text");
+            if (!isOpen) {
+              dot.className = "w-2 h-2 rounded-full bg-red-400";
+              txt.className = "text-[11px] font-semibold tracking-[.12em] uppercase text-red-500";
+              txt.textContent = "Closed Now";
+            }
+          })();
+          </script>
         </div>
       </div>
 
