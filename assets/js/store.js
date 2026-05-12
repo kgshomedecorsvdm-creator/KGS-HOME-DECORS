@@ -56,7 +56,6 @@ async function fetchCollectionProducts(category) {
 async function fetchProductByHandle(handle) {
   const h = encodeURIComponent(handle);
   const data = await sbFetch(`/products?handle=eq.${h}&is_active=eq.true&select=*&limit=1`);
-  console.log('fetchProductByHandle:', handle, '→', data);
   if (!data || !data.length || !data[0]) return null;
   const p = data[0];
   return {
