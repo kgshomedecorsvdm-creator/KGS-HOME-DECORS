@@ -681,15 +681,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
   }
 
-  const addMob = document.getElementById('pd-add-mobile');
-  if (addMob) {
-    addMob.onclick = async () => {
-      addMob.innerText = "Adding...";
-      await addToCart(p.id);
-      addMob.innerText = "Add to Cart";
-    };
-  }
-
   /* ── Related Products ── */
   const related = await initStore(); // Fetch all products for simplicity
   const grid = document.getElementById('related-grid');
