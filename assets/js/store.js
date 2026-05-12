@@ -135,11 +135,20 @@ async function getCart() {
 async function updateCartBadge() {
   const cart = getLocalCart();
   const count = cart.reduce((s, i) => s + i.quantity, 0);
+  // Update visible badge
   document.querySelectorAll('.cart-count').forEach(el => {
     el.textContent = count;
     el.style.display = count > 0 ? 'flex' : 'none';
     el.style.alignItems = 'center';
     el.style.justifyContent = 'center';
+    el.setAttribute('aria-hidden', 'true'); // count is read via link aria-label
+  });
+  // Update cart link accessible name so screen readers announce item count
+  const label = count > 0
+    ? `Cart, ${count} item${count !== 1 ? 's' : ''}`
+    : 'Cart';
+  document.querySelectorAll('a[href="cart-checkout.html"]').forEach(el => {
+    el.setAttribute('aria-label', label);
   });
 }
 

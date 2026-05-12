@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -8,13 +8,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KGS Home Décors — Premium Furniture & Décor | Virudhachalam, Tamil Nadu</title>
 <meta name="description" content="KGS Home Décors — Virudhachalam's favourite home décor store. Shop sofas, wall clocks, fountains, wall art, photo frames, LED lights, artificial plants & gift items. 5.0 ★ on Google.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="assets/js/gsap.min.js" defer></script>
+<script src="assets/js/ScrollTrigger.min.js" defer></script>
 
 <script>
 tailwind.config = {
@@ -206,7 +204,14 @@ html.lenis, html.lenis body { height: auto; }
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+/* ——— ACCESSIBLE LABEL COLOR ———————————————————————————— */
+/* #7A5C1E on #FDF9F3 = 5.1:1 contrast ratio, passes WCAG AA for small text */
+.text-label { color: #7A5C1E; }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search,person,favorite,shopping_bag,menu,close,call,chat,location_on,schedule,local_shipping,payments,replay,support_agent,star,shield,sentiment_satisfied,public,directions,check_circle,arrow_forward,arrow_back,check,receipt_long,verified,inventory_2,home,local_fire_department,storefront,add,remove,delete,edit,visibility,logout,history,edit_note,open_in_new,package_2,search_off,tune,sort,filter_list,grid_view,view_list,share,content_copy,check_box,check_box_outline_blank,radio_button_unchecked,radio_button_checked,expand_more,expand_less,chevron_right,chevron_left,info,warning,error,help,lock,lock_open,visibility_off,email,phone,location_searching&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search,person,favorite,shopping_bag,menu,close,call,chat,location_on,schedule,local_shipping,payments,replay,support_agent,star,shield,sentiment_satisfied,public,directions,check_circle,arrow_forward,arrow_back,check,receipt_long,verified,inventory_2,home,local_fire_department,storefront,add,remove,delete,edit,visibility,logout,history,edit_note,open_in_new,package_2,search_off,tune,sort,filter_list,grid_view,view_list,share,content_copy,check_box,check_box_outline_blank,radio_button_unchecked,radio_button_checked,expand_more,expand_less,chevron_right,chevron_left,info,warning,error,help,lock,lock_open,visibility_off,email,phone,location_searching&display=swap"></noscript>
 </head>
 <body class="bg-base text-ink font-sans overflow-x-hidden overflow-y-scroll">
 
@@ -279,7 +284,7 @@ html.lenis, html.lenis body { height: auto; }
       </a>
       <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-gold transition-colors flex items-center">
         <span class="material-symbols-outlined text-[22px]">shopping_bag</span>
-        <span class="cart-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none flex items-center justify-center" style="display:none;">0</span>
+        <span class="cart-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none flex items-center justify-center" style="display:none;" aria-hidden="true">0</span>
       </a>
       <button onclick="openDrw()" class="md:hidden hover:text-gold transition-colors p-0 bg-transparent border-none cursor-pointer flex items-center" aria-label="Menu">
         <span class="material-symbols-outlined text-[26px]">menu</span>
@@ -287,6 +292,8 @@ html.lenis, html.lenis body { height: auto; }
     </div>
   </div>
 </nav>
+
+<main id="main-content">
 
 <!-- ══ REFERENCE HERO ═════════════════════════════════════════════ -->
 <section class="relative w-full min-h-[600px] md:min-h-[700px] bg-surface flex items-center pt-24 overflow-hidden border-b border-border">
@@ -307,7 +314,7 @@ html.lenis, html.lenis body { height: auto; }
     
     <!-- Image Content -->
     <div class="relative z-0 h-full w-full min-h-[300px] md:min-h-[600px] rounded-tl-[100px] md:rounded-tl-[200px] rounded-br-[40px] overflow-hidden gsap-hero-el">
-      <img src="assets/images/banners/storefront_hero.png" alt="KGS Home Decors Storefront" class="w-full h-full object-cover object-center" id="hero-img">
+      <img src="assets/images/banners/storefront_hero.webp" alt="KGS Home Decors Storefront" class="w-full h-full object-cover object-center" id="hero-img" loading="eager" fetchpriority="high">
     </div>
 
   </div>
@@ -319,19 +326,19 @@ html.lenis, html.lenis body { height: auto; }
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4 divide-x-0 md:divide-x divide-border">
       <div class="flex items-center justify-center md:justify-center gap-3 px-2 gsap-trust">
         <span class="material-symbols-outlined text-[24px] text-ink/70" style="font-variation-settings: 'wght' 300;">payments</span>
-        <div><h4 class="text-ink text-[12px] font-semibold tracking-wide">Secure Payments</h4><p class="text-muted text-[10px]">100% Safe via UPI</p></div>
+        <div><p class="text-ink text-[12px] font-semibold tracking-wide">Secure Payments</p><p class="text-muted text-[10px]">100% Safe via UPI</p></div>
       </div>
       <div class="flex items-center justify-center md:justify-center gap-3 px-2 gsap-trust">
         <span class="material-symbols-outlined text-[24px] text-ink/70" style="font-variation-settings: 'wght' 300;">local_shipping</span>
-        <div><h4 class="text-ink text-[12px] font-semibold tracking-wide">Free Delivery</h4><p class="text-muted text-[10px]">Across Tamil Nadu</p></div>
+        <div><p class="text-ink text-[12px] font-semibold tracking-wide">Free Delivery</p><p class="text-muted text-[10px]">Across Tamil Nadu</p></div>
       </div>
       <div class="flex items-center justify-center md:justify-center gap-3 px-2 gsap-trust">
         <span class="material-symbols-outlined text-[24px] text-ink/70" style="font-variation-settings: 'wght' 300;">replay</span>
-        <div><h4 class="text-ink text-[12px] font-semibold tracking-wide">Easy Returns</h4><p class="text-muted text-[10px]">7 Days Return Policy</p></div>
+        <div><p class="text-ink text-[12px] font-semibold tracking-wide">Easy Returns</p><p class="text-muted text-[10px]">7 Days Return Policy</p></div>
       </div>
       <div class="flex items-center justify-center md:justify-center gap-3 px-2 gsap-trust">
         <span class="material-symbols-outlined text-[24px] text-ink/70" style="font-variation-settings: 'wght' 300;">support_agent</span>
-        <div><h4 class="text-ink text-[12px] font-semibold tracking-wide">WhatsApp Support</h4><p class="text-muted text-[10px]">Quick Assistance</p></div>
+        <div><p class="text-ink text-[12px] font-semibold tracking-wide">WhatsApp Support</p><p class="text-muted text-[10px]">Quick Assistance</p></div>
       </div>
     </div>
   </div>
@@ -341,13 +348,13 @@ html.lenis, html.lenis body { height: auto; }
 <section class="bg-surface py-16 border-b border-border overflow-hidden">
   <div class="max-w-[90rem] mx-auto px-5 md:px-12">
     <div class="flex items-center justify-between mb-10 gsap-rv">
-      <div><p class="text-[11px] font-semibold tracking-[.2em] uppercase text-gold mb-2">Collections</p><h2 class="font-serif font-medium text-ink text-2xl md:text-3xl">Shop by Category</h2></div><a href="product-listing.html" class="self-end text-[10px] font-bold tracking-[.15em] uppercase text-muted hover:text-ink border-b border-ink/20 pb-0.5 transition-colors whitespace-nowrap">View All &rarr;</a>
+      <div><p class="text-[11px] font-semibold tracking-[.2em] uppercase text-label mb-2">Collections</p><h2 class="font-serif font-medium text-ink text-2xl md:text-3xl">Shop by Category</h2></div><a href="product-listing.html" class="self-end text-[10px] font-bold tracking-[.15em] uppercase text-muted hover:text-ink border-b border-ink/20 pb-0.5 transition-colors whitespace-nowrap">View All &rarr;</a>
     </div>
     
     <div class="flex overflow-x-auto md:flex-wrap md:justify-center gap-4 md:gap-8 gsap-rv pb-4 md:pb-0 no-scrollbar w-full max-w-full" style="-webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; touch-action: pan-x pan-y;">
       <a href="product-listing.html?cat=furniture" class="group flex flex-col items-center gap-4 text-center w-[140px] md:w-[160px] shrink-0">
         <div class="w-full aspect-square bg-base border border-border overflow-hidden rounded-md transition-all duration-300 group-hover:border-gold group-hover:shadow-lg">
-          <img src="assets/images/categories/cat_sofas.png" alt="Furniture" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <img src="assets/images/categories/cat_sofas.webp" alt="Furniture" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
         <div>
           <h3 class="text-ink font-semibold text-[13px]">Furniture</h3>
@@ -357,7 +364,7 @@ html.lenis, html.lenis body { height: auto; }
       
       <a href="product-listing.html?cat=decor" class="group flex flex-col items-center gap-4 text-center w-[140px] md:w-[160px] shrink-0">
         <div class="w-full aspect-square bg-base border border-border overflow-hidden rounded-md transition-all duration-300 group-hover:border-gold group-hover:shadow-lg">
-          <img src="assets/images/categories/cat_decor.png" alt="Décor" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <img src="assets/images/categories/cat_decor.webp" alt="Décor" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
         <div>
           <h3 class="text-ink font-semibold text-[13px]">Décor</h3>
@@ -367,7 +374,7 @@ html.lenis, html.lenis body { height: auto; }
 
       <a href="product-listing.html?cat=wall-decor" class="group flex flex-col items-center gap-4 text-center w-[140px] md:w-[160px] shrink-0">
         <div class="w-full aspect-square bg-base border border-border overflow-hidden rounded-md transition-all duration-300 group-hover:border-gold group-hover:shadow-lg">
-          <img src="assets/images/categories/cat_wall_decor.png" alt="Wall Décor" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <img src="assets/images/categories/cat_wall_decor.webp" alt="Wall Décor" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
         <div>
           <h3 class="text-ink font-semibold text-[13px]">Wall Décor</h3>
@@ -377,7 +384,7 @@ html.lenis, html.lenis body { height: auto; }
       
       <a href="product-listing.html?cat=lighting" class="group flex flex-col items-center gap-4 text-center w-[140px] md:w-[160px] shrink-0">
         <div class="w-full aspect-square bg-base border border-border overflow-hidden rounded-md transition-all duration-300 group-hover:border-gold group-hover:shadow-lg">
-          <img src="assets/images/categories/cat_lighting.png" alt="Lighting" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <img src="assets/images/categories/cat_lighting.webp" alt="Lighting" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
         <div>
           <h3 class="text-ink font-semibold text-[13px]">Lighting</h3>
@@ -387,7 +394,7 @@ html.lenis, html.lenis body { height: auto; }
 
       <a href="product-listing.html?cat=lifestyle" class="group flex flex-col items-center gap-4 text-center w-[140px] md:w-[160px] shrink-0">
         <div class="w-full aspect-square bg-base border border-border overflow-hidden rounded-md transition-all duration-300 group-hover:border-gold group-hover:shadow-lg">
-          <img src="assets/images/categories/cat_lifestyle.png" alt="Lifestyle &amp; Accessories" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <img src="assets/images/categories/cat_lifestyle.webp" alt="Lifestyle &amp; Accessories" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
         <div>
           <h3 class="text-ink font-semibold text-[13px]">Lifestyle &amp; Accessories</h3>
@@ -397,7 +404,7 @@ html.lenis, html.lenis body { height: auto; }
       
       <a href="product-listing.html?cat=plants" class="group flex flex-col items-center gap-4 text-center w-[140px] md:w-[160px] shrink-0">
         <div class="w-full aspect-square bg-base border border-border overflow-hidden rounded-md transition-all duration-300 group-hover:border-gold group-hover:shadow-lg">
-          <img src="assets/images/categories/cat_plants.png" alt="Vases &amp; Plants" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <img src="assets/images/categories/cat_plants.webp" alt="Vases &amp; Plants" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
         <div>
           <h3 class="text-ink font-semibold text-[13px]">Vases &amp; Plants</h3>
@@ -407,7 +414,7 @@ html.lenis, html.lenis body { height: auto; }
       
       <a href="product-listing.html?cat=gifts" class="group flex flex-col items-center gap-4 text-center w-[140px] md:w-[160px] shrink-0">
         <div class="w-full aspect-square bg-base border border-border overflow-hidden rounded-md transition-all duration-300 group-hover:border-gold group-hover:shadow-lg">
-          <img src="assets/images/categories/cat_gifts.png" alt="Gifts" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <img src="assets/images/categories/cat_gifts.webp" alt="Gifts" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
         <div>
           <h3 class="text-ink font-semibold text-[13px]">Gifts</h3>
@@ -447,7 +454,7 @@ html.lenis, html.lenis body { height: auto; }
       <!-- Banner 1 -->
       <div class="relative h-[300px] md:h-[400px] overflow-hidden group gsap-rv rounded-md bg-[#2A2522]">
         <div class="absolute inset-y-0 right-0 w-1/2 overflow-hidden">
-          <img src="assets/images/banners/split_sofas.png" alt="Furniture Collection" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+          <img src="assets/images/banners/split_sofas.webp" alt="Furniture Collection" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" loading="lazy">
           <div class="absolute inset-0 bg-gradient-to-r from-[#2A2522] via-[#2A2522]/80 to-transparent"></div>
         </div>
         <div class="relative z-10 p-8 md:p-12 flex flex-col justify-center h-full w-2/3">
@@ -460,7 +467,7 @@ html.lenis, html.lenis body { height: auto; }
       <!-- Banner 2 -->
       <div class="relative h-[300px] md:h-[400px] overflow-hidden group gsap-rv rounded-md bg-[#1C1F1D]">
         <div class="absolute inset-y-0 right-0 w-1/2 overflow-hidden">
-          <img src="assets/images/banners/split_lighting.png" alt="Lighting Collection" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+          <img src="assets/images/banners/split_lighting.webp" alt="Lighting Collection" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" loading="lazy">
           <div class="absolute inset-0 bg-gradient-to-r from-[#1C1F1D] via-[#1C1F1D]/80 to-transparent"></div>
         </div>
         <div class="relative z-10 p-8 md:p-12 flex flex-col justify-center h-full w-2/3">
@@ -510,10 +517,10 @@ html.lenis, html.lenis body { height: auto; }
   <div class="max-w-[90rem] mx-auto px-5 md:px-12">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
       <div class="gsap-rv relative h-[300px] md:h-[500px] w-full rounded-md overflow-hidden border border-border shadow-sm">
-        <img src="assets/images/showroom_interior.png" alt="KGS Home Decors Showroom Interior" class="w-full h-full object-cover">
+        <img src="assets/images/showroom_interior.webp" alt="KGS Home Decors Showroom Interior" class="w-full h-full object-cover" loading="lazy">
       </div>
       <div class="gsap-rv flex flex-col justify-center">
-        <p class="text-[10px] font-bold tracking-[.25em] uppercase text-gold mb-4">Experience it in person</p>
+        <p class="text-[10px] font-bold tracking-[.25em] uppercase text-label mb-4">Experience it in person</p>
         <h2 class="font-serif font-medium text-ink text-3xl md:text-4xl mb-6 leading-tight">Visit Our Showroom</h2>
         <p class="text-muted text-[13px] md:text-sm leading-relaxed mb-8">
           Step into Virudhachalam's premier destination for luxury home styling. 
@@ -525,14 +532,14 @@ html.lenis, html.lenis body { height: auto; }
           <div class="flex items-start gap-3">
             <span class="material-symbols-outlined text-[20px] text-gold mt-0.5">location_on</span>
             <div>
-              <h4 class="text-ink text-[12px] font-bold uppercase tracking-wider mb-1">Location</h4>
+              <p class="text-ink text-[12px] font-bold uppercase tracking-wider mb-1">Location</p>
               <p class="text-muted text-[12px] leading-relaxed">185/G, Junction Rd,<br>Virudhachalam, Tamil Nadu 606001</p>
             </div>
           </div>
           <div class="flex items-start gap-3">
             <span class="material-symbols-outlined text-[20px] text-gold mt-0.5">schedule</span>
             <div>
-              <h4 class="text-ink text-[12px] font-bold uppercase tracking-wider mb-1">Store Hours</h4>
+              <p class="text-ink text-[12px] font-bold uppercase tracking-wider mb-1">Store Hours</p>
               <p class="text-muted text-[12px]">Mon - Sun: 9:00 AM - 10:00 PM</p>
             </div>
           </div>
@@ -580,7 +587,7 @@ html.lenis, html.lenis body { height: auto; }
   <div class="max-w-[90rem] mx-auto px-5 md:px-12">
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-12 gap-6">
       <div class="text-left">
-        <p class="text-[10px] font-bold tracking-[.25em] uppercase text-gold mb-3">Join Our Community</p>
+        <p class="text-[10px] font-bold tracking-[.25em] uppercase text-label mb-3">Join Our Community</p>
         <h2 class="font-serif font-medium text-ink text-3xl md:text-4xl mb-3">Follow Us on Instagram</h2>
         <p class="text-muted text-[13px] md:text-sm">Follow <a href="https://www.instagram.com/kgshomedecors" target="_blank" class="text-ink font-semibold hover:text-gold transition-colors">@kgshomedecors</a> for daily inspiration.</p>
       </div>
@@ -592,25 +599,25 @@ html.lenis, html.lenis body { height: auto; }
     
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <a href="https://www.instagram.com/kgshomedecors" target="_blank" class="group relative aspect-square overflow-hidden bg-tint rounded-md block">
-        <img src="assets/images/room_living.webp" alt="Instagram Mood 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+        <img src="assets/images/room_living.webp" alt="Instagram Mood 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
         <div class="absolute inset-0 bg-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
           <svg viewBox="0 0 24 24" fill="white" class="w-8 h-8"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
         </div>
       </a>
       <a href="https://www.instagram.com/kgshomedecors" target="_blank" class="group relative aspect-square overflow-hidden bg-tint rounded-md block">
-        <img src="assets/images/room_hallway.webp" alt="Instagram Mood 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+        <img src="assets/images/room_hallway.webp" alt="Instagram Mood 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
         <div class="absolute inset-0 bg-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
           <svg viewBox="0 0 24 24" fill="white" class="w-8 h-8"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
         </div>
       </a>
       <a href="https://www.instagram.com/kgshomedecors" target="_blank" class="group relative aspect-square overflow-hidden bg-tint rounded-md block">
-        <img src="assets/images/room_bedroom.webp" alt="Instagram Mood 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+        <img src="assets/images/room_bedroom.webp" alt="Instagram Mood 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
         <div class="absolute inset-0 bg-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
           <svg viewBox="0 0 24 24" fill="white" class="w-8 h-8"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
         </div>
       </a>
       <a href="https://www.instagram.com/kgshomedecors" target="_blank" class="group relative aspect-square overflow-hidden bg-tint rounded-md block">
-        <img src="assets/images/room_zen.webp" alt="Instagram Mood 4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+        <img src="assets/images/room_zen.webp" alt="Instagram Mood 4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
         <div class="absolute inset-0 bg-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
           <svg viewBox="0 0 24 24" fill="white" class="w-8 h-8"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
         </div>
@@ -619,6 +626,7 @@ html.lenis, html.lenis body { height: auto; }
   </div>
 </section>
 
+</main><!-- /#main-content -->
 
 <footer class="bg-surface pt-16 md:pt-24 pb-8 border-t border-border">
   <div class="max-w-[90rem] mx-auto px-5 md:px-12 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 md:gap-12 mb-16">
@@ -626,13 +634,13 @@ html.lenis, html.lenis body { height: auto; }
       <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.4rem] text-ink block mb-6">KGS</a>
       <p class="text-muted text-[13px] leading-[1.8] mb-8 max-w-xs">Your one-stop destination for premium modern export-quality home décor and furniture in Virudhachalam.</p>
       <div class="flex items-center gap-4">
-        <a href="https://wa.me/919789182921" target="_blank" class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted hover:border-[#25D366] hover:text-[#25D366] transition-colors bg-white">
-          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <a href="https://wa.me/919789182921" target="_blank" aria-label="Chat with us on WhatsApp" class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted hover:border-[#25D366] hover:text-[#25D366] transition-colors bg-white">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         </a>
       </div>
     </div>
     <div class="col-span-1">
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Shop</h4>
+      <p class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Shop</p>
       <ul class="space-y-4 text-[13px] text-muted font-medium">
         <li><a href="product-listing.html" class="hover:text-gold transition-colors">All Products</a></li>
         <li><a href="product-listing.html?cat=furniture" class="hover:text-gold transition-colors">Sofas & Furniture</a></li>
@@ -645,7 +653,7 @@ html.lenis, html.lenis body { height: auto; }
       </ul>
     </div>
     <div class="col-span-1">
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Support</h4>
+      <p class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Support</p>
       <ul class="space-y-4 text-[13px] text-muted font-medium">
         <li><a href="contact.html" class="hover:text-gold transition-colors">Contact Us</a></li>
         <li><a href="shipping-policy.html" class="hover:text-gold transition-colors">Shipping Info</a></li>
@@ -654,7 +662,7 @@ html.lenis, html.lenis body { height: auto; }
       </ul>
     </div>
     <div class="col-span-2 md:col-span-1">
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Company</h4>
+      <p class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Company</p>
       <ul class="space-y-4 text-[13px] text-muted font-medium">
         <li><a href="about.html" class="hover:text-gold transition-colors">Our Story</a></li>
         <li><a href="privacy-policy.html" class="hover:text-gold transition-colors">Privacy Policy</a></li>
@@ -670,9 +678,9 @@ html.lenis, html.lenis body { height: auto; }
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
-<script src="assets/js/store.js"></script>
+<script src="assets/js/fuse.min.js" defer></script>
+<script src="assets/js/lenis.min.js" defer></script>
+<script src="assets/js/store.js" defer></script>
 <script>
 /* ——— GSAP ANIMATIONS & SCROLL —————————————— */
 gsap.registerPlugin(ScrollTrigger);
@@ -811,7 +819,7 @@ async function loadDynamicHome() {
           </div>
         </div>
         <div class="p-5 flex flex-col flex-grow">
-          <p class="text-[10px] font-bold tracking-[.2em] uppercase text-gold mb-2">${p.category}</p>
+          <p class="text-[10px] font-bold tracking-[.2em] uppercase text-label mb-2">${p.category}</p>
           <h3 class="font-serif font-medium text-ink leading-snug mb-3 flex-grow" style="font-size:1.3rem;"><a href="product-detail.html?handle=${p.handle}">${p.name}</a></h3>
           <p class="font-sans font-semibold text-ink" style="font-size:1.1rem;">&#8377;${p.price.toLocaleString('en-IN')}</p>
         </div>

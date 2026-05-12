@@ -9,10 +9,8 @@
 <title>Cart &amp; Checkout &mdash; KGS Home D&eacute;cors | Virudhachalam</title>
 <meta name="description" content="Review your cart and checkout at KGS Home D&eacute;cors. Secure Online Payments available across Tamil Nadu. Fast delivery in Virudhachalam.">
 <link rel="canonical" href="https://kgshomedecors.in/cart-checkout.html">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -111,8 +109,8 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 #page-preloader{position:fixed;inset:0;z-index:9999;background:#FAF8F4;display:flex;align-items:center;justify-content:center;transition:opacity .5s ease,visibility .5s ease;}
 #page-preloader .pl-logo{font-family:'Crimson Pro',serif;font-size:2rem;font-weight:500;letter-spacing:.35em;color:#1A1A1A;opacity:0;animation:plFadeIn .6s ease forwards .15s;}
 @keyframes plFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}</style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="assets/js/supabase-client.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="assets/js/supabase-client.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
 
 <!-- SEO: Open Graph + Twitter -->
@@ -129,6 +127,10 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 <meta name="twitter:image" content="https://kgshomedecors.com/assets/images/hero_sofa.webp">
 <link rel="canonical" href="https://kgshomedecors.com/cart-checkout">
 <link rel="manifest" href="/manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search,person,favorite,shopping_bag,menu,close,call,chat,location_on,schedule,local_shipping,payments,replay,support_agent,star,shield,sentiment_satisfied,public,directions,check_circle,arrow_forward,arrow_back,check,receipt_long,verified,inventory_2,home,local_fire_department,storefront,add,remove,delete,edit,visibility,logout,history,edit_note,open_in_new,package_2,search_off,tune,sort,filter_list,grid_view,view_list,share,content_copy,check_box,check_box_outline_blank,radio_button_unchecked,radio_button_checked,expand_more,expand_less,chevron_right,chevron_left,info,warning,error,help,lock,lock_open,visibility_off,email,phone,location_searching&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search,person,favorite,shopping_bag,menu,close,call,chat,location_on,schedule,local_shipping,payments,replay,support_agent,star,shield,sentiment_satisfied,public,directions,check_circle,arrow_forward,arrow_back,check,receipt_long,verified,inventory_2,home,local_fire_department,storefront,add,remove,delete,edit,visibility,logout,history,edit_note,open_in_new,package_2,search_off,tune,sort,filter_list,grid_view,view_list,share,content_copy,check_box,check_box_outline_blank,radio_button_unchecked,radio_button_checked,expand_more,expand_less,chevron_right,chevron_left,info,warning,error,help,lock,lock_open,visibility_off,email,phone,location_searching&display=swap"></noscript>
 </head>
 <body class="bg-base text-ink font-sans overflow-x-hidden overflow-y-scroll">
 <div id="page-preloader"><span class="pl-logo">KGS</span></div>
@@ -331,7 +333,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 #page-preloader{position:fixed;inset:0;z-index:9999;background:#FAF8F4;display:flex;align-items:center;justify-content:center;transition:opacity .5s ease,visibility .5s ease;}
 #page-preloader .pl-logo{font-family:'Crimson Pro',serif;font-size:2rem;font-weight:500;letter-spacing:.35em;color:#1A1A1A;opacity:0;animation:plFadeIn .6s ease forwards .15s;}
 @keyframes plFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}</style>
-<script src="assets/js/store.js"></script>
+<script src="assets/js/store.js" defer></script>
 <script>
 function openDrw(){document.getElementById('mobile-drawer').style.transform='translateX(0)';document.getElementById('drw-ov').classList.remove('hidden');document.body.style.overflow='hidden';}
 function closeDrw(){document.getElementById('mobile-drawer').style.transform='translateX(100%)';document.getElementById('drw-ov').classList.add('hidden');document.body.style.overflow='';}
@@ -586,7 +588,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="assets/js/lenis.min.js" defer></script>
 <script>const lenis=new Lenis();function raf(time){lenis.raf(time);requestAnimationFrame(raf);}requestAnimationFrame(raf);</script>
 
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
