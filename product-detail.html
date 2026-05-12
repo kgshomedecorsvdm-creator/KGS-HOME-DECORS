@@ -462,14 +462,15 @@ function closeSearch(){
   document.getElementById('search-overlay').style.display='none';
   document.getElementById('search-input').value='';
   document.getElementById('search-results').innerHTML='';
-  document.getElementById('search-hint').style.display='';
+  const _hint=document.getElementById('search-hint');
+  if(_hint) _hint.style.display='';  // guard: element absent on product-detail page
   document.body.style.overflow='';
 }
 async function doSearch(q){
   const res=document.getElementById('search-results');
-  const hint=document.getElementById('search-hint');
-  if(!q.trim()){res.innerHTML='';hint.style.display='';return;}
-  hint.style.display='none';
+  const hint=document.getElementById('search-hint'); // may be null on this page
+  if(!q.trim()){res.innerHTML='';if(hint)hint.style.display='';return;}
+  if(hint)hint.style.display='none';
   if(!window.kgsFuse) {
     const products = await initStore();
     window.kgsFuse=new Fuse(products,{keys:['name','category'],threshold:0.3});
