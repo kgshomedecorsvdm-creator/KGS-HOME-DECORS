@@ -860,6 +860,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <input type="hidden" id="review-rating" value="0" required>
       </div>
+        <p id="err-star-rating" class="text-[11px] text-red-500 mt-1" style="display:none;">Please select a star rating.</p>
 
       <div>
         <label class="block text-[11px] font-bold tracking-[.15em] uppercase text-ink mb-2">Your Name *</label>
@@ -917,7 +918,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     star.addEventListener('click', function() {
-      ratingInput.value = parseInt(this.getAttribute('data-val'));
+      ratingInput.value = parseInt(this.getAttribute('data-val')); const _e=document.getElementById('err-star-rating'); if(_e){_e.style.display='none';}
     });
   });
 
@@ -957,7 +958,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const text = document.getElementById('review-text').value.trim();
     
     if (rating === 0) {
-      alert('Please select a star rating');
+      document.getElementById('err-star-rating').style.display='block';
       return;
     }
     
@@ -973,7 +974,8 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('review-form').classList.add('hidden');
       document.getElementById('review-success').classList.remove('hidden');
     } catch (err) {
-      alert('Error submitting review. Please try again.');
+      document.getElementById('submit-review-btn').innerHTML = 'Try Again';
+      const errEl = document.getElementById('err-star-rating'); if(errEl){ errEl.textContent='Error submitting review. Please try again.'; errEl.style.display='block'; }
       console.error(err);
     } finally {
       btn.disabled = false;
