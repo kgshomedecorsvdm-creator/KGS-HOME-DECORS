@@ -19,6 +19,10 @@
 --   SETOF orders — matching order row(s). Frontend fetches order_items separately.
 -- ═══════════════════════════════════════════════════════════════════════════
 
+-- Drop existing version first — required if return type has changed
+-- (PostgreSQL does not allow CREATE OR REPLACE to modify return signatures)
+DROP FUNCTION IF EXISTS track_order(TEXT, TEXT);
+
 CREATE OR REPLACE FUNCTION track_order(
   p_order_number TEXT,
   p_phone        TEXT
