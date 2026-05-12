@@ -551,10 +551,6 @@ function whatsappCheckout() {
   window.open(`https://wa.me/919789182921?text=${msg}`, '_blank');
 }
 
-function getLocalCart2() {
-  try { return JSON.parse(localStorage.getItem('kgs_cart') || '[]'); } catch(e) { return []; }
-}
-
 function renderCheckout() {
   const emptyEl = document.getElementById('empty-cart');
   const contentEl = document.getElementById('cart-content');
