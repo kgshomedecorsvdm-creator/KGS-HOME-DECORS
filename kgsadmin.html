@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -25,7 +25,7 @@
     <form onsubmit="handleLogin(event)">
       <div class="form-group">
         <label>Email</label>
-        <input type="email" id="login-email" required placeholder="admin@example.com">
+        <input type="email" id="login-email" required placeholder="Admin email">
       </div>
       <div class="form-group">
         <label>Password</label>
@@ -355,14 +355,11 @@ async function handleLogin(e){
 }
 async function handleSignUp(e){
   e.preventDefault();
-  const email=document.getElementById('login-email').value;
-  const pass=document.getElementById('login-pass').value;
-  if(!email||!pass||pass.length<6){alert('Enter email and password (min 6 chars)');return;}
-  try{
-    const{error}=await sb.auth.signUp({email,password:pass,options:{data:{full_name:'KGS Admin'}}});
-    if(error)throw error;
-    alert('Account created! Check your email to confirm, then sign in.');
-  }catch(err){alert('Error: '+err.message);}
+  // Self-registration disabled in production.
+  // Create admin accounts via Supabase Dashboard -> Authentication -> Users.
+  const errEl = document.getElementById('login-error');
+  errEl.textContent = 'Self-registration is disabled. Contact the site owner to create an admin account.';
+  errEl.style.display = 'block';
 }
 </script>
 <script src="assets/js/admin.js" defer></script>
