@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head><style>html{scroll-padding-top:80px}</style>
 <meta charset="UTF-8">
@@ -11,11 +11,14 @@
 <meta name="description" content="KGS Home DÃ©cors â€” Virudhachalam's favourite home dÃ©cor store. Shop sofas, wall clocks, fountains, wall art, photo frames, LED lights, artificial plants & gift items. 5.0 â˜… on Google.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="assets/images/banners/storefront_hero.webp" fetchpriority="high">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<noscript><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript></noscript>
 
-<script src="assets/js/gsap.min.js"></script>
-<script src="assets/js/ScrollTrigger.min.js"></script>
+
 
 <style>
 html, body { 
@@ -662,6 +665,8 @@ html.lenis, html.lenis body { height: auto; }
   </div>
 </footer>
 
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
 <script src="assets/js/fuse.min.js" defer></script>
 <script src="assets/js/lenis.min.js" defer></script>
 <script src="assets/js/store.js" defer></script>
@@ -827,9 +832,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* Smooth scroll (needs lenis.min.js via defer) */
   if (typeof Lenis !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+  if (typeof Lenis !== 'undefined') {
     const lenis = new Lenis();
     function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
+  }
+});
   }
 
   /* Badges & hearts (need store.js via defer) */

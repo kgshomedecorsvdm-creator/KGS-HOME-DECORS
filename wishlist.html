@@ -10,7 +10,10 @@
 <meta name="description" content="View your saved items at KGS Home D&eacute;cors.">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://kgshomedecors.in/wishlist.html">
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 
 
 <script>
@@ -270,9 +273,13 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 
 <script src="assets/js/store.js" defer></script>
 <script>
-const lenis = new Lenis();
-function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-requestAnimationFrame(raf);
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis();
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  }
+});
 
 function formatINR(value){ return '₹' + parseInt(value, 10).toLocaleString('en-IN'); }
 

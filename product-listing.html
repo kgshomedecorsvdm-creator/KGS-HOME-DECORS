@@ -9,7 +9,13 @@
 <title>Shop All Products � KGS Home D�cors | Virudhachalam</title>
 <meta name="description" content="Browse KGS Home D�cors full collection � sofas, wall clocks, fountains, wall art, photo frames, LED lights, artificial plants & gift items. 5.0 ? Google. Secure Online Payments. Free delivery in Virudhachalam.">
 <link rel="canonical" href="https://kgshomedecors.in/product-listing.html">
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript></noscript>
 
 <style>
 /* ��� PAGE SCROLL CONTAINMENT �������������������� */
@@ -238,7 +244,7 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
       <span class="material-symbols-outlined text-[24px] text-ink/40">search</span>
       <input id="search-input" type="text" placeholder="Search for products..."
              class="flex-grow bg-transparent text-ink font-sans placeholder-ink/30 outline-none text-[20px] md:text-[24px]"
-             oninput="doSearch(this.value)" autocomplete="off">
+             oninput="liveSearch(this.value)" autocomplete="off">
       <button onclick="closeSearch()" class="text-ink/40 hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-1 flex items-center" aria-label="Close search">
         <span class="material-symbols-outlined text-[24px]">close</span>
       </button>
@@ -658,9 +664,17 @@ function liveSearch(q){
   </a>`).join('');
 }
 
-const lenis = new Lenis();
-function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-requestAnimationFrame(raf);
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof Lenis !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis();
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  }
+});
+  }
+});
 </script>
 
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>

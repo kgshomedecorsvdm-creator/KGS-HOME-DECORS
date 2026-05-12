@@ -10,7 +10,10 @@
 <meta name="description" content="KGS Home D�cors shipping policy. Free delivery in Virudhachalam. Secure Online Payments across Tamil Nadu. Delivery timelines, charges, and conditions.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://kgshomedecors.in/shipping-policy.html">
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 
 <style>
 *,*::before,*::after{box-sizing:border-box;}
@@ -369,9 +372,13 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 <script src="assets/js/lenis.min.js" defer></script>
 <script src="assets/js/store.js" defer></script>
 <script>
-const lenis = new Lenis();
-function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-requestAnimationFrame(raf);
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis();
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  }
+});
 function openDrw(){ document.getElementById('mobile-drawer').style.transform='translateX(0)'; document.getElementById('drw-ov').classList.remove('hidden'); document.body.style.overflow='hidden'; }
 function closeDrw(){ document.getElementById('mobile-drawer').style.transform='translateX(100%)'; document.getElementById('drw-ov').classList.add('hidden'); document.body.style.overflow=''; }
 document.addEventListener('DOMContentLoaded', () => { if(typeof updateCartBadge==='function') updateCartBadge(); });
