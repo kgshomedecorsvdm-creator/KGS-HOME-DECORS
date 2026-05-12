@@ -3,8 +3,9 @@
    Handles auth, products, cart, wishlist, orders
 ═══════════════════════════════════════════════════════════ */
 
-const SUPABASE_URL = 'https://rgpkomngygapwjhnbgaf.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJncGtvbW5neWdhcHdqaG5iZ2FmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczNjg2MDYsImV4cCI6MjA5Mjk0NDYwNn0.1996CFXZp-QdQK8I4l2GoJDyqYPQU3OrmJ7-03DtMCE';
+// Credentials sourced from config.js (KGS_CONFIG) — single source of truth
+const SUPABASE_URL      = KGS_CONFIG.supabase.url;
+const SUPABASE_ANON_KEY = KGS_CONFIG.supabase.anonKey;
 
 let _supabase = null;
 

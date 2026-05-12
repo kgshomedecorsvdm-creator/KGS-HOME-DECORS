@@ -3,8 +3,9 @@
    Replaces Shopify Storefront API with Supabase
 ═══════════════════════════════════════════════════════════ */
 
-const SB_STORE_URL = 'https://rgpkomngygapwjhnbgaf.supabase.co/rest/v1';
-const SB_STORE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJncGtvbW5neWdhcHdqaG5iZ2FmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczNjg2MDYsImV4cCI6MjA5Mjk0NDYwNn0.1996CFXZp-QdQK8I4l2GoJDyqYPQU3OrmJ7-03DtMCE';
+// Credentials sourced from config.js (KGS_CONFIG) — single source of truth
+const SB_STORE_URL = KGS_CONFIG.supabase.url + '/rest/v1';
+const SB_STORE_KEY = KGS_CONFIG.supabase.anonKey;
 
 async function sbFetch(endpoint) {
   try {
