@@ -482,54 +482,63 @@ async function placeOrder() {
 
   localStorage.setItem('kgs_last_order', JSON.stringify(orderData));
 
-  // Try saving to Supabase if user is logged in
+  // Save order to Supabase for ALL users (guest + logged in)
+  // guest orders use customer_id: null (column is nullable in schema)
+  let dbOrderId = orderData.order_id; // fallback to local ID
   try {
     const session = await getSession();
-    if (session) {
-      const dbOrder = {
-        customer_id: session.user.id,
-        order_number: orderData.order_id,
-        customer_name: orderData.name,
-        customer_phone: orderData.phone,
-        customer_email: orderData.email,
-        shipping_address: orderData.address,
-        shipping_city: orderData.city,
-        shipping_state: orderData.state,
-        shipping_pincode: orderData.pincode,
-        notes: orderData.notes,
-        payment_method: orderData.payment,
-        subtotal: orderData.total,
-        total: orderData.total,
-        status: 'pending'
-      };
-      const items = cart.map(i => ({
-        product_id: i.id || null,
-        product_name: i.name,
-        product_image: i.image,
-        quantity: i.quantity,
-        unit_price: i.price,
-        total_price: i.price * i.quantity
-      }));
-      await createOrder(dbOrder, items);
+    const dbOrder = {
+      customer_id: session ? session.user.id : null,
+      guest_name:  session ? null : orderData.name,
+      guest_phone: session ? null : orderData.phone,
+      guest_email: session ? null : orderData.email,
+      shipping_name:    orderData.name,
+      shipping_phone:   orderData.phone,
+      shipping_address: orderData.address,
+      shipping_city:    orderData.city,
+      shipping_state:   orderData.state,
+      shipping_pincode: orderData.pincode,
+      notes:          orderData.notes,
+      payment_method: orderData.payment,
+      subtotal: orderData.total,
+      total:    orderData.total,
+      status:   'placed'
+    };
+    const items = cart.map(i => ({
+      product_id:    i.id || null,
+      product_name:  i.name,
+      product_image: i.image,
+      quantity:      i.quantity,
+      unit_price:    i.price,
+      total_price:   i.price * i.quantity
+    }));
+    const savedOrder = await createOrder(dbOrder, items);
+    // Use DB order_number if returned (e.g. KGS-1001), else keep local ID
+    if (savedOrder && savedOrder.order_number) {
+      dbOrderId = 'KGS-' + savedOrder.order_number;
+      // Update localStorage record with real order number
+      orderData.order_id = dbOrderId;
+      localStorage.setItem('kgs_last_order', JSON.stringify(orderData));
     }
-  } catch(e) { console.warn('Order save to DB failed:', e); }
+  } catch(e) {
+    console.warn('Order save to DB failed (order still placed via WhatsApp):', e);
+  }
+
   localStorage.removeItem('kgs_cart');
   updateCartBadge();
 
-  // Send WhatsApp notification to owner
-  const itemList = cart.map(i => `${i.name} x${i.quantity} = ${formatINR(i.price*i.quantity)}`).join('%0A');
+  // Send WhatsApp notification to owner — fires synchronously from click handler
   const msg = encodeURIComponent(
-    `NEW ORDER ${orderData.order_id}\n` +
+    `NEW ORDER ${dbOrderId}\n` +
     `Name: ${orderData.name}\nPhone: ${orderData.phone}\n` +
     `Address: ${orderData.address}, ${orderData.city} - ${orderData.pincode}\n` +
-    `Payment: ${'UPI'}\n\n` +
+    `Payment: ${orderData.payment.toUpperCase()}\n\n` +
     `Items:\n${cart.map(i => `${i.name} x${i.quantity} = ${formatINR(i.price*i.quantity)}`).join('\n')}\n\n` +
     `TOTAL: ${formatINR(total)}`
   );
-  // Silent notification - open in background
   window.open(`https://wa.me/919789182921?text=${msg}`, '_blank');
 
-  window.location.href = 'order-confirmation.html?id=' + orderData.order_id;
+  window.location.href = 'order-confirmation.html?id=' + dbOrderId;
 }
 
 function whatsappCheckout() {
