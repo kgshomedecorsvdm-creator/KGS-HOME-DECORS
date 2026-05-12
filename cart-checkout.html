@@ -482,9 +482,21 @@ async function placeOrder() {
 
   localStorage.setItem('kgs_last_order', JSON.stringify(orderData));
 
-  // Save order to Supabase for ALL users (guest + logged in)
-  // guest orders use customer_id: null (column is nullable in schema)
-  let dbOrderId = orderData.order_id; // fallback to local ID
+  // ── STEP 1: Open WhatsApp NOW — synchronously before any await ──────────
+  // Browsers block window.open() after an await (user-gesture trust is lost).
+  // Fire it here while still in the direct click-handler call stack.
+  const waMsg = encodeURIComponent(
+    `NEW ORDER ${orderData.order_id}\n` +
+    `Name: ${orderData.name}\nPhone: ${orderData.phone}\n` +
+    `Address: ${orderData.address}, ${orderData.city} - ${orderData.pincode}\n` +
+    `Payment: ${orderData.payment.toUpperCase()}\n\n` +
+    `Items:\n${cart.map(i => `${i.name} x${i.quantity} = ${formatINR(i.price*i.quantity)}`).join('\n')}\n\n` +
+    `TOTAL: ${formatINR(total)}`
+  );
+  window.open(`https://wa.me/919789182921?text=${waMsg}`, '_blank');
+
+  // ── STEP 2: Save to Supabase (async — WhatsApp already open) ─────────────
+  let dbOrderId = orderData.order_id;
   try {
     const session = await getSession();
     const dbOrder = {
@@ -524,20 +536,9 @@ async function placeOrder() {
     console.warn('Order save to DB failed (order still placed via WhatsApp):', e);
   }
 
+  // ── STEP 3: Clear cart and redirect ─────────────────────────────────────
   localStorage.removeItem('kgs_cart');
   updateCartBadge();
-
-  // Send WhatsApp notification to owner — fires synchronously from click handler
-  const msg = encodeURIComponent(
-    `NEW ORDER ${dbOrderId}\n` +
-    `Name: ${orderData.name}\nPhone: ${orderData.phone}\n` +
-    `Address: ${orderData.address}, ${orderData.city} - ${orderData.pincode}\n` +
-    `Payment: ${orderData.payment.toUpperCase()}\n\n` +
-    `Items:\n${cart.map(i => `${i.name} x${i.quantity} = ${formatINR(i.price*i.quantity)}`).join('\n')}\n\n` +
-    `TOTAL: ${formatINR(total)}`
-  );
-  window.open(`https://wa.me/919789182921?text=${msg}`, '_blank');
-
   window.location.href = 'order-confirmation.html?id=' + dbOrderId;
 }
 
