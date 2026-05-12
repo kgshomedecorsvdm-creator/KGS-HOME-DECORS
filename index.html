@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head><style>html{scroll-padding-top:80px}</style>
 <meta charset="UTF-8">
@@ -542,8 +542,8 @@ html.lenis, html.lenis body { height: auto; }
         <h2 class="font-serif font-medium text-ink text-2xl md:text-3xl">What Our Customers Say</h2>
         <div class="flex items-center gap-1 text-gold">
           <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
-          <span class="text-ink font-semibold text-sm">4.8/5</span>
-          <span class="text-muted text-[10px] font-normal ml-1 hidden md:inline">Based on Store reviews</span>
+          <span id="store-avg-rating" class="text-ink font-semibold text-sm">4.8/5</span>
+          <span id="store-review-count" class="text-muted text-[10px] font-normal ml-1 hidden md:inline">Based on Store reviews</span>
         </div>
       </div>
       <div class="flex flex-wrap items-center gap-4">
@@ -934,7 +934,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       
       const displayReviews = reviews.slice(0, 3);
-      
       container.innerHTML = displayReviews.map(r => `<div class="bg-surface p-6 border border-border rounded-md flex flex-col h-full hover:shadow-lg transition-shadow duration-300">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-10 h-10 rounded-full bg-tint flex items-center justify-center text-ink font-serif text-lg">${r.guest_name.charAt(0).toUpperCase()}</div>
@@ -946,6 +945,15 @@ document.addEventListener('DOMContentLoaded', () => {
           <p class="text-ink text-[13px] font-sans italic leading-relaxed flex-grow">\"${r.review_text}\"</p>
           <p class="text-[10px] text-muted mt-4 uppercase tracking-widest">${new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</p>
         </div>`).join('');
+
+      // Update live average rating badge from real data
+      if (reviews.length > 0) {
+        const avg = (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1);
+        const el = document.getElementById('store-avg-rating');
+        const countEl = document.getElementById('store-review-count');
+        if (el) el.textContent = avg + '/5';
+        if (countEl) countEl.textContent = `Based on ${reviews.length} review${reviews.length !== 1 ? 's' : ''}`;
+      }
     } catch (err) {
       console.error('Failed to load reviews:', err);
     }
@@ -988,5 +996,6 @@ document.addEventListener('DOMContentLoaded', () => {
 </div><!-- /page-wrap -->
 </body>
 </html>
+
 
 

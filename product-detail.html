@@ -233,16 +233,28 @@ img {
       <p id="pd-cat" class="text-[11px] font-semibold tracking-[.18em] uppercase text-gold mb-4">...</p>
       <h1 id="pd-name" class="font-sans font-medium text-ink tracking-tight leading-tight mb-4" style="font-size:clamp(1.8rem,3.5vw,2.8rem);">Loading...</h1>
 
-      <!-- Rating -->
+      <!-- Rating — dynamically loaded from store reviews -->
       <div class="flex items-center gap-3 mb-5">
-        <div class="flex items-center gap-0.5 text-warm text-sm">
+        <div id="pd-stars" class="flex items-center gap-0.5 text-warm text-sm">
           <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">star</span>
           <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">star</span>
           <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">star</span>
           <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">star</span>
-          <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;">star</span>
+          <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">star</span>
         </div>
-        <span class="text-[12px] text-muted font-medium">4.0 · 12 Reviews</span>
+        <span id="pd-review-count" class="text-[12px] text-muted font-medium">Store Rated</span>
+        <script>
+        (async function(){
+          try {
+            if (typeof getStoreReviews !== 'function') return;
+            const reviews = await getStoreReviews();
+            if (!reviews || reviews.length === 0) return;
+            const avg = (reviews.reduce((s,r)=>s+r.rating,0)/reviews.length);
+            const el = document.getElementById('pd-review-count');
+            if (el) el.textContent = avg.toFixed(1) + '/5 \u00b7 ' + reviews.length + ' Store Review' + (reviews.length!==1?'s':'');
+          } catch(e) {}
+        })();
+        </script>
       </div>
 
       <!-- Price -->
