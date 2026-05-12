@@ -21,3 +21,5 @@ supabase_tracking.sql
 *.zip
 *.tar.gz
 drive-download-*.zip
+
+product-images-extracted/
