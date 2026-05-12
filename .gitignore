@@ -16,3 +16,8 @@ supabase_schema.sql
 supabase_admin.sql
 supabase_orders.sql
 supabase_tracking.sql
+
+# ═══ LARGE BINARY / GENERATED FILES ═══
+*.zip
+*.tar.gz
+drive-download-*.zip
