@@ -504,10 +504,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const params = new URLSearchParams(window.location.search);
   const handle = params.get('handle') || params.get('id');
-  if (!handle) { window.location.href = 'product-listing'; return; }
+  if (!handle) { window.location.href = 'product-listing.html'; return; }
 
   const pData = await fetchProductByHandle(handle);
-  if (!pData) { window.location.href = 'product-listing'; return; }
+  if (!pData) { window.location.href = 'product-listing.html'; return; }
 
   // Map Shopify data
   const p = {
