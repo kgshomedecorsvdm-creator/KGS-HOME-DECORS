@@ -661,13 +661,9 @@ function liveSearch(q){
 
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof Lenis !== 'undefined') {
-    document.addEventListener('DOMContentLoaded', () => {
-  if (typeof Lenis !== 'undefined') {
     const lenis = new Lenis();
     function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
-  }
-});
   }
 });
 </script>

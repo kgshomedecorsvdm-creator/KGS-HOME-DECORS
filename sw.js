@@ -2,7 +2,7 @@
    KGS Home Décors — Service Worker
    Cache-first for static assets, network-first for API
 ═══════════════════════════════════════════════════════════ */
-const CACHE_NAME = 'kgs-v14';
+const CACHE_NAME = 'kgs-v15';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -46,7 +46,7 @@ self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
 
   // Network-first for Supabase API calls
-  if (url.hostname.includes('supabase')) {
+  if (url.hostname.includes('supabase') || url.hostname.includes('fonts.googleapis.com') || url.hostname.includes('fonts.gstatic.com')) {
     e.respondWith(
       fetch(e.request)
         .catch(() => caches.match(e.request))

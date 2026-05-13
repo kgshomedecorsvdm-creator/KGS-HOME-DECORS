@@ -829,13 +829,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* Smooth scroll (needs lenis.min.js via defer) */
   if (typeof Lenis !== 'undefined') {
-    document.addEventListener('DOMContentLoaded', () => {
-  if (typeof Lenis !== 'undefined') {
     const lenis = new Lenis();
     function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
-  }
-});
   }
 
   /* Badges & hearts (need store.js via defer) */
