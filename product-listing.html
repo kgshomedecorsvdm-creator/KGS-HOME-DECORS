@@ -500,11 +500,11 @@ async function loadProducts() {
   const cat = (new URLSearchParams(window.location.search).get('cat') || '').toLowerCase();
 
   if (!cat || cat === 'all') {
-    // No filter ? fetch ALL active products from Supabase
+    // No filter — fetch ALL active products from Supabase
     ALL_PRODUCTS = await initStore();
     setActivePill('all');
   } else {
-    // Specific category ? fetch from Supabase with category filter
+    // Specific category — fetch from Supabase with category filter
     ALL_PRODUCTS = await fetchCollectionProducts(cat);
     setActivePill(cat);
   }
@@ -532,7 +532,7 @@ function renderPage() {
     grid.innerHTML = pageItems.map(p => `
       <div class="prod-card relative hover-trigger">
         <div class="prod-img">
-          ${p.badge ? `<span class="absolute top-2.5 left-2.5 bg-gold text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">${p.badge}</span>` : ''}
+          ${p.badge — `<span class="absolute top-2.5 left-2.5 bg-gold text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">${p.badge}</span>` : ''}
           <button class="heart-btn" data-product-id="${p.id}" onclick="toggleWishlist('${p.id}')">
             <span class="material-symbols-outlined text-[16px]">favorite</span>
           </button>
@@ -581,8 +581,8 @@ function renderPagination() {
     pages.push(totalPages);
   }
   container.innerHTML = pages.map(p => p === '...'
-    ? `<span style="width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;color:#767270;font-size:13px;">...</span>`
-    : `<button class="pag-btn ${p === CURRENT_PAGE ? 'active' : ''}" onclick="goToPage(${p})">${p}</button>`
+    — `<span style="width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;color:#767270;font-size:13px;">...</span>`
+    : `<button class="pag-btn ${p === CURRENT_PAGE — 'active' : ''}" onclick="goToPage(${p})">${p}</button>`
   ).join('');
   prevBtn.classList.toggle('disabled', CURRENT_PAGE === 1);
   nextBtn.classList.toggle('disabled', CURRENT_PAGE === totalPages);
@@ -616,14 +616,14 @@ const CATEGORY_GROUPS = {
 function filterByCategory(cat) {
   const term = cat.toLowerCase();
   window.location.href = term === 'all'
-    ? 'product-listing.html'
+    — 'product-listing.html'
     : 'product-listing.html?cat=' + encodeURIComponent(term);
 }
 
 function sortProducts(val) {
   if (val === 'low') FILTERED_PRODUCTS.sort((a, b) => a.price - b.price);
   else if (val === 'high') FILTERED_PRODUCTS.sort((a, b) => b.price - a.price);
-  else if (val === 'new') FILTERED_PRODUCTS.sort((a, b) => (b.badge === 'New' ? 1 : 0) - (a.badge === 'New' ? 1 : 0));
+  else if (val === 'new') FILTERED_PRODUCTS.sort((a, b) => (b.badge === 'New' — 1 : 0) - (a.badge === 'New' — 1 : 0));
   else FILTERED_PRODUCTS = [...ALL_PRODUCTS]; // Best selling / Default
   
   CURRENT_PAGE = 1;

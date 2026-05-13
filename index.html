@@ -48,8 +48,6 @@ html, body {
 #page-wrap {
   width: 100%;
   overflow-x: hidden;
-  position: relative;
-  contain: paint;
 }
 
 /* ——— EMIL DESIGN ENG VARIABLES ————————————————— */
@@ -965,7 +963,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const el = document.getElementById('store-avg-rating');
         const countEl = document.getElementById('store-review-count');
         if (el) el.textContent = avg + '/5';
-        if (countEl) countEl.textContent = `Based on ${reviews.length} review${reviews.length !== 1 ? 's' : ''}`;
+        if (countEl) countEl.textContent = `Based on ${reviews.length} review${reviews.length !== 1 — 's' : ''}`;
       }
     } catch (err) {
       console.error('Failed to load reviews:', err);
