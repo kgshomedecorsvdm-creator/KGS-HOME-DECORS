@@ -188,7 +188,7 @@ html.lenis, html.lenis body { height: auto; }
 .cat-pill:hover .cat-label { color: #C97840; }
 
 /* ——— GSAP REVEAL UTILS —————————————————————— */
-.gsap-rv { opacity: 0; visibility: hidden; }
+.gsap-rv, .gsap-hero-el, .gsap-trust { opacity: 0; visibility: hidden; }
 
 /* ——— PAGE PRELOADER ————————————————————————— */
 
@@ -690,8 +690,8 @@ function startAnimations() {
 
   // Hero Animation — runs immediately after preloader fades
   gsap.fromTo('.gsap-hero-el',
-    { y: 30, opacity: 0, filter: 'blur(10px)' },
-    { y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.2, stagger: 0.15, ease: 'power3.out', delay: 0.1 }
+    { y: 30, autoAlpha: 0, filter: 'blur(10px)' },
+    { y: 0, autoAlpha: 1, filter: 'blur(0px)', duration: 1.2, stagger: 0.15, ease: 'power3.out', delay: 0.1 }
   );
   gsap.to('#hero-img', {
     scale: 1,
@@ -706,8 +706,8 @@ setTimeout(startAnimations, 1000);
 
 // Trust Bar
 gsap.fromTo('.gsap-trust',
-  { opacity: 0, y: 20 },
-  { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out', scrollTrigger: { trigger: '.gsap-trust', start: 'top 90%' } }
+  { autoAlpha: 0, y: 20 },
+  { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out', scrollTrigger: { trigger: '.gsap-trust', start: 'top 90%' } }
 );
 
 // Generic Reveal
@@ -721,7 +721,7 @@ gsap.utils.toArray('.gsap-rv').forEach(el => {
 // Value Props
 gsap.fromTo('.gsap-vp',
   { opacity: 0, y: 30 },
-  { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out', scrollTrigger: { trigger: '.gsap-vp', start: 'top 85%' } }
+  { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out', scrollTrigger: { trigger: '.gsap-vp', start: 'top 85%' } }
 );
 
 // Navbar Scroll Effect
