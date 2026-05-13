@@ -709,12 +709,8 @@ function startAnimations() {
 }
 
 // Wait for fonts to load, then kick off
-document.fonts.ready.then(() => {
-  startAnimations();
-}).catch(() => {
-  // Fallback: if fonts API fails, just start after a short delay
-  setTimeout(startAnimations, 600);
-});
+document.addEventListener("DOMContentLoaded", startAnimations);
+setTimeout(startAnimations, 1000);
 
 // Trust Bar
 gsap.fromTo('.gsap-trust',
@@ -821,7 +817,7 @@ async function loadDynamicHome() {
             <span class="material-symbols-outlined text-[18px]">favorite</span>
           </button>
           <a href="product-detail.html?handle=${p.handle}" class="absolute inset-0 block">
-            <img src="${p.image}" alt="${p.name}">
+            <img src="${p.image}" alt="${p.name}" loading="lazy">
           </a>
           <div class="card-overlay">
             <button onclick="addToCart('${p.id}')" class="qa-btn"><span class="material-symbols-outlined text-[16px]">shopping_bag</span> Add to Cart</button>

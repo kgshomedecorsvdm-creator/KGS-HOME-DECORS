@@ -296,7 +296,8 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; }
 <script src="assets/js/config.js"></script>
 <script src="assets/js/store.js"></script>
 <script>
-(function(){function hidePl(){const pl=document.getElementById('page-preloader');if(pl&&!pl._hidden){pl._hidden=true;pl.style.transition='opacity .4s';pl.style.opacity='0';pl.style.visibility='hidden';setTimeout(()=>{if(pl.parentNode)pl.remove();},500);}}document.fonts.ready.then(hidePl);setTimeout(hidePl,2000);})();
+(function(){function hidePl(){const pl=document.getElementById('page-preloader');if(pl&&!pl._hidden){pl._hidden=true;pl.style.transition='opacity .4s';pl.style.opacity='0';pl.style.visibility='hidden';setTimeout(()=>{if(pl.parentNode)pl.remove();},500);}}document.addEventListener('DOMContentLoaded', hidePl);
+setTimeout(hidePl,1000);})();
 </script>
 
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
