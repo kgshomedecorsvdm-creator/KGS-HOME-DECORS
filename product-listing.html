@@ -448,8 +448,8 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
         <li><a href="product-listing.html?cat=decor" class="hover:text-gold transition-colors">Décor</a></li>
         <li><a href="product-listing.html?cat=wall-decor" class="hover:text-gold transition-colors">Wall Décor</a></li>
         <li><a href="product-listing.html?cat=lighting" class="hover:text-gold transition-colors">Lighting</a></li>
-        <li><a href="product-listing.html?cat=lifestyle" class="hover:text-gold transition-colors">Lifestyle & Accessories</a></li>
-        <li><a href="product-listing.html?cat=plants" class="hover:text-gold transition-colors">Vases & Plants</a></li>
+        <li><a href="product-listing.html?cat=lifestyle-accessories" class="hover:text-gold transition-colors">Lifestyle & Accessories</a></li>
+        <li><a href="product-listing.html?cat=vases-plants" class="hover:text-gold transition-colors">Vases & Plants</a></li>
         <li><a href="product-listing.html?cat=gifts" class="hover:text-gold transition-colors">Gifts</a></li>
       </ul>
     </div>
@@ -532,7 +532,7 @@ function renderPage() {
     grid.innerHTML = pageItems.map(p => `
       <div class="prod-card relative hover-trigger">
         <div class="prod-img">
-          ${p.badge — `<span class="absolute top-2.5 left-2.5 bg-gold text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">${p.badge}</span>` : ''}
+          ${p.badge ? `<span class="absolute top-2.5 left-2.5 bg-gold text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">${p.badge}</span>` : ''}
           <button class="heart-btn" data-product-id="${p.id}" onclick="toggleWishlist('${p.id}')">
             <span class="material-symbols-outlined text-[16px]">favorite</span>
           </button>
@@ -623,7 +623,7 @@ function filterByCategory(cat) {
 function sortProducts(val) {
   if (val === 'low') FILTERED_PRODUCTS.sort((a, b) => a.price - b.price);
   else if (val === 'high') FILTERED_PRODUCTS.sort((a, b) => b.price - a.price);
-  else if (val === 'new') FILTERED_PRODUCTS.sort((a, b) => (b.badge === 'New' — 1 : 0) - (a.badge === 'New' — 1 : 0));
+  else if (val === 'new') FILTERED_PRODUCTS.sort((a, b) => (b.badge === 'New' ? 1 : 0) - (a.badge === 'New' ? 1 : 0));
   else FILTERED_PRODUCTS = [...ALL_PRODUCTS]; // Best selling / Default
   
   CURRENT_PAGE = 1;

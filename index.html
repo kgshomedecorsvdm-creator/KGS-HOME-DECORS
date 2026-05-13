@@ -381,7 +381,7 @@ html.lenis, html.lenis body { height: auto; }
         </div>
       </a>
 
-      <a href="product-listing.html?cat=lifestyle-accessories" class="group flex flex-col items-center gap-4 text-center w-[140px] md:w-[160px] shrink-0">
+      <a href="product-listing.html?cat=lifestyle-accessories-accessories" class="group flex flex-col items-center gap-4 text-center w-[140px] md:w-[160px] shrink-0">
         <div class="w-full aspect-square bg-base border border-border overflow-hidden rounded-md transition-all duration-300 group-hover:border-gold group-hover:shadow-lg">
           <img src="assets/images/categories/cat_lifestyle.webp" alt="Lifestyle &amp; Accessories" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
@@ -636,8 +636,8 @@ html.lenis, html.lenis body { height: auto; }
         <li><a href="product-listing.html?cat=decor" class="hover:text-gold transition-colors">Décor</a></li>
         <li><a href="product-listing.html?cat=wall-decor" class="hover:text-gold transition-colors">Wall Décor</a></li>
         <li><a href="product-listing.html?cat=lighting" class="hover:text-gold transition-colors">Lighting</a></li>
-        <li><a href="product-listing.html?cat=lifestyle" class="hover:text-gold transition-colors">Lifestyle & Accessories</a></li>
-        <li><a href="product-listing.html?cat=plants" class="hover:text-gold transition-colors">Vases & Plants</a></li>
+        <li><a href="product-listing.html?cat=lifestyle-accessories" class="hover:text-gold transition-colors">Lifestyle & Accessories</a></li>
+        <li><a href="product-listing.html?cat=vases-plants" class="hover:text-gold transition-colors">Vases & Plants</a></li>
         <li><a href="product-listing.html?cat=gifts" class="hover:text-gold transition-colors">Gifts</a></li>
       </ul>
     </div>
@@ -869,7 +869,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="material-symbols-outlined text-[28px] hover:text-gold transition-colors" data-val="4">star</span>
           <span class="material-symbols-outlined text-[28px] hover:text-gold transition-colors" data-val="5">star</span>
         </div>
-        <input type="hidden">
+        <input type="hidden" id="review-rating" value="0">
       </div>
         <p id="err-star-rating" class="text-[11px] text-red-500 mt-1" style="display:none;">Please select a star rating.</p>
 

@@ -349,7 +349,7 @@ function setStep(n) {
   }
   // Update connector lines
   const lines = document.querySelectorAll('#step-indicators > .h-px');
-  lines.forEach((l, idx) => { l.className = idx < n - 1 — 'flex-1 h-px bg-warm mx-4 max-w-[60px]' : 'flex-1 h-px bg-border mx-4 max-w-[60px]'; });
+  lines.forEach((l, idx) => { l.className = idx < n - 1 ? 'flex-1 h-px bg-warm mx-4 max-w-[60px]' : 'flex-1 h-px bg-border mx-4 max-w-[60px]'; });
 }
 
 function showShippingForm() {
@@ -503,7 +503,7 @@ async function placeOrder() {
   try {
     const session = await getSession();
     const dbOrder = {
-      customer_id: session — session.user.id : null,
+      customer_id: session ? session.user.id : null,
       guest_name:  session — null : orderData.name,
       guest_phone: session — null : orderData.phone,
       guest_email: session — null : orderData.email,
@@ -574,7 +574,7 @@ function renderCheckout() {
   emptyEl.style.display = 'none';
   contentEl.style.display = 'grid';
   const totalItems = cart.reduce((s,i) => s + i.quantity, 0);
-  heading.textContent = 'Your Cart (' + totalItems + ' item' + (totalItems > 1 — 's' : '') + ')';
+  heading.textContent = 'Your Cart (' + totalItems + ' item' + (totalItems > 1 ? 's' : '') + ')';
   cartItemsContainer.innerHTML = cart.map((item, idx) => {
     const imgUrl = item.image || 'assets/images/placeholder.webp';
     return `
