@@ -19,7 +19,7 @@ module.exports = {
         tint:    '#F3EDE4',   // light section backgrounds
         surface: '#FDF9F3',   // card / nav background
         ink:     '#1A1A1A',   // primary text
-        muted:   '#767270',   // secondary / caption text
+        muted:   '#5E5B59',   // secondary / caption text
         gold:    '#C5A880',   // decorative accent (borders, icons, hover states)
         warm:    '#C97840',   // CTA buttons, highlights
         border:  '#E4DDD4',   // dividers, card borders
