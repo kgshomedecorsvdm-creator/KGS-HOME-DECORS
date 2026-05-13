@@ -191,7 +191,7 @@ function showResult(o){
   document.getElementById('track-empty').classList.add('hidden');
   document.getElementById('res-id').textContent=o.order_number||o.id;
   document.getElementById('res-name').textContent=o.customer_name||o.shipping_name||'�';
-  document.getElementById('res-total').textContent='?'+Number(o.total).toLocaleString('en-IN');
+  document.getElementById('res-total').textContent='₹'+Number(o.total).toLocaleString('en-IN');
   const statusColors={placed:'bg-amber-100 text-amber-800',confirmed:'bg-blue-100 text-blue-800',packed:'bg-purple-100 text-purple-800',shipped:'bg-indigo-100 text-indigo-800',delivered:'bg-green-100 text-green-800',cancelled:'bg-red-100 text-red-800'};
   const badge=document.getElementById('res-badge');
   badge.textContent=o.status;badge.className='inline-block px-3 py-1 text-[11px] font-bold uppercase tracking-wide rounded-full '+(statusColors[o.status]||'bg-gray-100 text-gray-800');
@@ -207,7 +207,7 @@ function showResult(o){
   const pct=o.status==='cancelled'?0:Math.max(0,((idx)/(steps.length-1))*100);
   setTimeout(()=>{document.getElementById('timeline-progress').style.width=pct+'%';},100);
   const items=o.order_items||[];
-  document.getElementById('res-items').innerHTML=items.length?items.map(i=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #E4DDD4;font-family:'Jost',sans-serif;"><span style="font-size:13.5px;color:#1A1A1A">${i.product_name} <span style="color:#767270">x${i.quantity}</span></span><span style="font-weight:600;color:#C97840">?${Number(i.total_price).toLocaleString('en-IN')}</span></div>`).join(''):'';
+  document.getElementById('res-items').innerHTML=items.length?items.map(i=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #E4DDD4;font-family:'Jost',sans-serif;"><span style="font-size:13.5px;color:#1A1A1A">${i.product_name} <span style="color:#767270">x${i.quantity}</span></span><span style="font-weight:600;color:#C97840">₹${Number(i.total_price).toLocaleString('en-IN')}</span></div>`).join(''):'';
 }
 
 function openDrw(){document.getElementById('mobile-drawer').style.transform='translateX(0)';document.getElementById('drw-ov').classList.remove('hidden');document.body.style.overflow='hidden';}
