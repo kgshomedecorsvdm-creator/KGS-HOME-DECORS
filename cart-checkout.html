@@ -485,7 +485,7 @@ async function placeOrder() {
 
   localStorage.setItem('kgs_last_order', JSON.stringify(orderData));
 
-  // -- STEP 1: Open WhatsApp NOW — synchronously before any await ----------
+  // -- STEP 1: Open WhatsApp NOW ? synchronously before any await ----------
   // Browsers block window.open() after an await (user-gesture trust is lost).
   // Fire it here while still in the direct click-handler call stack.
   const waMsg = encodeURIComponent(
@@ -498,15 +498,15 @@ async function placeOrder() {
   );
   window.open(`https://wa.me/919789182921?text=${waMsg}`, '_blank');
 
-  // -- STEP 2: Save to Supabase (async — WhatsApp already open) -------------
+  // -- STEP 2: Save to Supabase (async ? WhatsApp already open) -------------
   let dbOrderId = orderData.order_id;
   try {
     const session = await getSession();
     const dbOrder = {
       customer_id: session ? session.user.id : null,
-      guest_name:  session — null : orderData.name,
-      guest_phone: session — null : orderData.phone,
-      guest_email: session — null : orderData.email,
+      guest_name:  session ? null : orderData.name,
+      guest_phone: session ? null : orderData.phone,
+      guest_email: session ? null : orderData.email,
       shipping_name:    orderData.name,
       shipping_phone:   orderData.phone,
       shipping_address: orderData.address,

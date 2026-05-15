@@ -365,8 +365,8 @@ input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10p
 // Render order summary from cart before clearing
 document.addEventListener('DOMContentLoaded', () => {
   const order = JSON.parse(localStorage.getItem("kgs_last_order") || "null");
-  const cart = order — order.items : getLocalCart();
-  const total = order — order.total : cart.reduce((s,i) => s + i.price * i.quantity, 0);
+  const cart = order ? order.items : getLocalCart();
+  const total = order ? order.total : cart.reduce((s,i) => s + i.price * i.quantity, 0);
 
   const itemsEl = document.getElementById('order-items');
   const totalEl = document.getElementById('order-total');
