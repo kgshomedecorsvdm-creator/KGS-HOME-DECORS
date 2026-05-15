@@ -20,8 +20,18 @@ async function sbFetch(endpoint) {
 /* ─── PRODUCT CATALOG ───────────────────────────────────── */
 
 async function initStore() {
-  const data = await sbFetch('/products?is_active=eq.true&select=*&order=sort_order.asc,created_at.desc&limit=1000');
-  return (data || []).map(p => ({
+  let allData = [];
+  let offset = 0;
+  const limit = 1000;
+  while (true) {
+    const data = await sbFetch(`/products?is_active=eq.true&select=*&order=sort_order.asc,created_at.desc&limit=${limit}&offset=${offset}`);
+    if (!data || data.length === 0) break;
+    allData = allData.concat(data);
+    if (data.length < limit) break;
+    offset += limit;
+  }
+
+  return allData.map(p => ({
     id: p.id,
     handle: p.handle,
     name: p.name,
@@ -38,12 +48,23 @@ async function initStore() {
 }
 
 async function fetchCollectionProducts(category) {
-  let url = '/products?is_active=eq.true&select=*&order=sort_order.asc&limit=1000';
+  let allData = [];
+  let offset = 0;
+  const limit = 1000;
+  let baseQuery = '/products?is_active=eq.true&select=*&order=sort_order.asc';
   if (category && category.toLowerCase() !== 'all') {
-    url += `&category=eq.${category}`;
+    baseQuery += `&category=eq.${category}`;
   }
-  const data = await sbFetch(url);
-  return (data || []).map(p => ({
+
+  while (true) {
+    const data = await sbFetch(`${baseQuery}&limit=${limit}&offset=${offset}`);
+    if (!data || data.length === 0) break;
+    allData = allData.concat(data);
+    if (data.length < limit) break;
+    offset += limit;
+  }
+
+  return allData.map(p => ({
     id: p.id,
     handle: p.handle,
     name: p.name,
