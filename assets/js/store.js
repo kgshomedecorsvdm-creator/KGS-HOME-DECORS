@@ -20,7 +20,7 @@ async function sbFetch(endpoint) {
 /* ─── PRODUCT CATALOG ───────────────────────────────────── */
 
 async function initStore() {
-  const data = await sbFetch('/products?is_active=eq.true&select=*&order=sort_order.asc,created_at.desc&limit=250');
+  const data = await sbFetch('/products?is_active=eq.true&select=*&order=sort_order.asc,created_at.desc&limit=1000');
   return (data || []).map(p => ({
     id: p.id,
     handle: p.handle,
@@ -38,7 +38,7 @@ async function initStore() {
 }
 
 async function fetchCollectionProducts(category) {
-  let url = '/products?is_active=eq.true&select=*&order=sort_order.asc&limit=50';
+  let url = '/products?is_active=eq.true&select=*&order=sort_order.asc&limit=1000';
   if (category && category.toLowerCase() !== 'all') {
     url += `&category=eq.${category}`;
   }
