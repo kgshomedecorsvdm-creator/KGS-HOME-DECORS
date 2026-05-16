@@ -88,7 +88,7 @@ async function fetchProductByHandle(handle) {
     tags: p.tags || [],
     priceRange: { minVariantPrice: { amount: String(p.price) } },
     compareAtPriceRange: { minVariantPrice: { amount: String(p.compare_at_price || 0) } },
-    images: { edges: [{ node: { url: p.image_url || 'assets/images/placeholder.webp' } }, ...(p.images || []).map(u => ({ node: { url: u } }))] },
+    images: { edges: [{ node: { url: p.image_url } }, ...(p.images || []).map(u => ({ node: { url: u } }))] },
     variants: { edges: [{ node: { id: p.id, availableForSale: p.in_stock, quantityAvailable: p.stock_quantity } }] },
     material: p.material
   };
@@ -104,13 +104,13 @@ function saveLocalCart(cart) { localStorage.setItem('kgs_cart', JSON.stringify(c
 
 async function addToCart(productId, quantity = 1) {
   let cart = getLocalCart();
-  const existing = cart.find(i => String(i.id) === String(productId));
+  const existing = cart.find(i => i.id === productId);
   if (existing) { existing.quantity += quantity; }
   else {
-    const pData = await sbFetch(`/products?id=eq.${productId}&select=*&limit=1`);
-    if (pData && pData.length > 0) {
-      const p = pData[0];
-      cart.push({ id: p.id, handle: p.handle, name: p.name, price: parseFloat(p.price), image: p.image_url || 'assets/images/placeholder.webp', quantity });
+    const products = await initStore();
+    const p = products.find(x => x.id === productId);
+    if (p) {
+      cart.push({ id: p.id, handle: p.handle, name: p.name, price: p.price, image: p.image, quantity });
     }
   }
   saveLocalCart(cart);
@@ -125,7 +125,7 @@ async function addToCart(productId, quantity = 1) {
 }
 
 async function removeFromCart(productId) {
-  let cart = getLocalCart().filter(i => String(i.id) !== String(productId));
+  let cart = getLocalCart().filter(i => i.id !== productId);
   saveLocalCart(cart);
   updateCartBadge();
 }
@@ -133,7 +133,7 @@ async function removeFromCart(productId) {
 async function updateCartLine(productId, quantity) {
   if (quantity <= 0) return removeFromCart(productId);
   let cart = getLocalCart();
-  const item = cart.find(i => String(i.id) === String(productId));
+  const item = cart.find(i => i.id === productId);
   if (item) item.quantity = quantity;
   saveLocalCart(cart);
   updateCartBadge();

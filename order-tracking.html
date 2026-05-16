@@ -15,18 +15,6 @@
 html,body{overflow-x:hidden;margin:0;padding:0;}
 body{-webkit-font-smoothing:antialiased;}
 ::selection{background:#C5A880;color:#fff;}
-<link rel="canonical" href="https://kgshomedecors.in/order-tracking.html">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0" defer></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap"></noscript>
-<style>
-*,*::before,*::after{box-sizing:border-box;}
-html,body{overflow-x:hidden;margin:0;padding:0;}
-body{-webkit-font-smoothing:antialiased;}
-::selection{background:#C5A880;color:#fff;}
 .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;}
 .nav-link{position:relative;color:#767270;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
 .nav-link::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1px;background:#C5A880;transition:width .3s;}
@@ -34,11 +22,7 @@ body{-webkit-font-smoothing:antialiased;}
 #page-preloader{position:fixed;inset:0;z-index:9999;background:#FAF8F4;display:flex;align-items:center;justify-content:center;transition:opacity .5s ease,visibility .5s ease;}
 #page-preloader .pl-logo{font-family:'Crimson Pro',serif;font-size:2rem;font-weight:500;letter-spacing:.35em;color:#1A1A1A;opacity:0;animation:plFadeIn .6s ease forwards .15s;}
 @keyframes plFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
-.timeline{display:flex;justify-content:space-between;position:relative;margin:2rem 0;padding:0 1rem;min-width:600px;}
-.timeline-wrap { overflow-x: auto; padding-bottom: 20px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #E4DDD4 transparent; }
-.timeline-wrap::-webkit-scrollbar { height: 6px; }
-.timeline-wrap::-webkit-scrollbar-track { background: transparent; }
-.timeline-wrap::-webkit-scrollbar-thumb { background: #E4DDD4; border-radius: 10px; }
+.timeline{display:flex;justify-content:space-between;position:relative;margin:2rem 0;padding:0 1rem;}
 .timeline::before{content:'';position:absolute;top:20px;left:60px;right:60px;height:3px;background:#E4DDD4;}
 .timeline-progress{position:absolute;top:20px;left:60px;height:3px;background:linear-gradient(90deg,#C97840,#C5A880);transition:width 1s ease;z-index:1;}
 .tstep{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;z-index:2;}
@@ -50,33 +34,6 @@ body{-webkit-font-smoothing:antialiased;}
 .tstep.active .tlabel{color:#C97840;font-weight:700;} .tstep.done .tlabel{color:#1A1A1A;}
 .tstep.cancelled .tdot{background:#ef4444;} .tstep.cancelled .tlabel{color:#ef4444;}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 4px #FDF9F3,0 0 0 8px rgba(197,168,128,.2)}50%{box-shadow:0 0 0 4px #FDF9F3,0 0 0 14px rgba(197,168,128,.05)}}
-
-/* ——— HIGH-CONVERSION CTA PHYSICS (ISLAND PATTERN) ————————————— */
-.btn-primary {
-  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
-  padding: 12px 12px 12px 28px; background: #1A1A1A; color: #fff;
-  font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
-  letter-spacing: .15em; text-transform: uppercase; text-decoration: none;
-  border-radius: 9999px; cursor: pointer; border: none;
-  transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1);
-  box-shadow: 0 4px 20px rgba(26,26,26,0.15);
-}
-.btn-primary .btn-icon-wrap {
-  display: flex; align-items: center; justify-content: center;
-  width: 32px; height: 32px; background: #fff; color: #1A1A1A;
-  border-radius: 50%; transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1);
-}
-@media (hover: hover) and (pointer: fine) {
-  .btn-primary:hover { 
-    background: #333; 
-    transform: translateY(-2px) scale(1.02); 
-    box-shadow: 0 20px 40px -10px rgba(26,26,26,0.3);
-  }
-  .btn-primary:hover .btn-icon-wrap {
-    transform: translate(2px, -1px) scale(1.1);
-  }
-}
-.btn-primary:active { transform: scale(0.96) translateY(0); box-shadow: 0 2px 8px rgba(26,26,26,0.15); }
 </style>
 </head>
 <body class="bg-base text-ink font-sans overflow-x-hidden overflow-y-scroll">
@@ -172,122 +129,16 @@ body{-webkit-font-smoothing:antialiased;}
           </div>
           <div>
             <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-muted mb-1">Status</p>
-</div>
-<div id="drw-ov" class="fixed inset-0 bg-ink/40 z-50 hidden backdrop-blur-sm" onclick="closeDrw()"></div>
-<div id="mobile-drawer" class="fixed inset-y-0 right-0 z-50 w-[300px] bg-surface flex flex-col translate-x-full shadow-2xl transition-transform duration-300">
-  <div class="flex items-center justify-between px-6 py-6 border-b border-border">
-    <span class="font-serif font-medium tracking-[.2em] text-ink">MENU</span>
-    <button onclick="closeDrw()" class="bg-transparent border-none cursor-pointer flex items-center text-muted hover:text-ink"><span class="material-symbols-outlined text-[24px]">close</span></button>
-  </div>
-  <nav class="flex flex-col px-6 pt-8 gap-6">
-    <a href="index.html" class="nav-link text-[13px] normal-case font-medium text-ink">Home</a>
-    <a href="product-listing.html" class="nav-link text-[13px] normal-case font-medium text-ink">Shop All</a>
-    <a href="about.html" class="nav-link text-[13px] normal-case font-medium text-ink">Our Story</a>
-    <a href="contact.html" class="nav-link text-[13px] normal-case font-medium text-ink">Contact</a>
-    <a href="order-tracking.html" class="nav-link text-[13px] normal-case font-medium text-ink">Track Order</a>
-  </nav>
-  <div class="mt-auto px-6 py-8 border-t border-border bg-tint space-y-5">
-    <a href="tel:+919789182921" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-gold">call</span> +91 97891 82921</a>
-    <a href="https://wa.me/919789182921" target="_blank" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-[#25D366]">chat</span> WhatsApp Us</a>
-  </div>
-</div>
-<div id="search-overlay" onclick="if(event.target===this)closeSearch()" class="fixed inset-0 z-[100] bg-surface/95 backdrop-blur-md hidden flex-col items-center pt-24 px-5">
-  <div class="w-full max-w-2xl relative">
-    <div class="flex items-center gap-4 border-b border-ink/10 pb-4 mb-8">
-      <span class="material-symbols-outlined text-[24px] text-ink/40">search</span>
-      <input id="search-input" type="text" placeholder="Search for products..." class="flex-grow bg-transparent text-ink font-sans placeholder-ink/30 outline-none text-[20px] md:text-[24px]" oninput="doSearch(this.value)" autocomplete="off">
-      <button onclick="closeSearch()" class="text-ink/40 hover:text-ink bg-transparent border-none cursor-pointer p-1 flex items-center"><span class="material-symbols-outlined text-[24px]">close</span></button>
-    </div>
-    <div id="search-results" class="max-h-[60vh] overflow-y-auto pb-8 w-full flex flex-col gap-2"></div>
-  </div>
-</div>
-<!-- == FLUID ISLAND NAVBAR =============================================== -->
-<nav id="navbar" class="fixed top-6 left-1/2 -translate-x-1/2 w-[calc(100%-2.5rem)] md:w-max max-w-[1200px] z-40 bg-surface/80 backdrop-blur-2xl border border-border rounded-full shadow-sm transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]">
-  <div class="px-6 md:px-10 flex items-center justify-between md:justify-center h-16 md:h-16 gap-0 md:gap-16">
-    <div class="hidden md:flex items-center gap-10">
-      <a href="product-listing.html" class="nav-link">Shop</a>
-      <a href="about.html" class="nav-link">Our Story</a>
-    </div>
-    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.4rem] text-ink hover:text-gold transition-colors shrink-0 mr-[-0.35em]">KGS</a>
-    <div class="hidden md:flex items-center gap-10">
-      <a href="contact.html" class="nav-link">Contact</a>
-      <a href="order-tracking.html" class="nav-link">Track</a>
-    </div>
-    
-    <div class="flex items-center gap-5 text-ink ml-auto md:ml-0 md:absolute md:right-8">
-      <button onclick="openSearch()" aria-label="Search" class="hover:text-gold transition-colors bg-transparent border-none cursor-pointer p-0 flex items-center"><span class="material-symbols-outlined text-[20px]">search</span></button>
-      <a href="account.html" aria-label="Account" class="flex hover:text-gold transition-colors items-center">
-        <span class="material-symbols-outlined text-[20px]">person</span>
-      </a>
-      <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-gold transition-colors flex items-center hidden md:flex">
-        <span class="material-symbols-outlined text-[20px]">favorite</span>
-        <span class="wishlist-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-[#C97840] rounded-full text-white text-[9px] font-bold leading-none flex items-center justify-center" style="display:none;">0</span>
-      </a>
-      <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-gold transition-colors flex items-center">
-        <span class="material-symbols-outlined text-[20px]">shopping_bag</span>
-        <span class="cart-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-[#C97840] rounded-full text-white text-[9px] font-bold leading-none flex items-center justify-center" style="display:none;" aria-hidden="true">0</span>
-      </a>
-      <button onclick="openDrw()" class="md:hidden hover:text-gold transition-colors p-0 bg-transparent border-none cursor-pointer flex items-center" aria-label="Menu">
-        <span class="material-symbols-outlined text-[22px]">menu</span>
-      </button>
-    </div>
-  </div>
-</nav>
-<main class="min-h-screen mt-32 md:mt-40">
-  <div class="bg-tint border-b border-border py-10 md:py-14">
-    <div class="max-w-3xl mx-auto px-5 md:px-12">
-      <p class="text-[11px] font-semibold tracking-[.22em] uppercase text-gold mb-2">Real-time Updates</p>
-      <h1 class="font-serif font-medium text-ink mb-2" style="font-size:clamp(1.8rem,4vw,2.8rem);">Track Your Order</h1>
-      <p class="text-muted text-[14px]">Enter your Order ID and phone number to see your delivery status.</p>
-    </div>
-  </div>
-  <div class="max-w-3xl mx-auto px-5 md:px-12 py-12">
-    <div class="bg-surface border border-border p-6 md:p-8 mb-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
-        <div>
-          <label class="block text-[11px] font-semibold tracking-[.12em] uppercase text-muted mb-2">Order ID *</label>
-          <input id="track-id" type="text" placeholder="KGS-ABC123" class="w-full px-4 py-3 border border-border bg-white text-ink font-sans text-[14px] outline-none focus:border-warm transition-colors" style="font-family:'Jost',sans-serif;">
-        </div>
-        <div>
-          <label class="block text-[11px] font-semibold tracking-[.12em] uppercase text-muted mb-2">Phone Number *</label>
-          <input id="track-phone" type="tel" placeholder="+91 XXXXX XXXXX" class="w-full px-4 py-3 border border-border bg-white text-ink font-sans text-[14px] outline-none focus:border-warm transition-colors" style="font-family:'Jost',sans-serif;">
-        </div>
-      </div>
-      <button onclick="trackOrder()" class="btn-primary w-full max-w-[240px]">
-        <span>TRACK ORDER</span>
-        <div class="btn-icon-wrap ml-auto"><span class="material-symbols-outlined text-[16px]">location_searching</span></div>
-      </button>
-      <p id="track-error" class="text-red-500 text-[13px] mt-4 hidden"></p>
-    </div>
-    <div id="track-result" class="hidden">
-      <div class="bg-surface border border-border p-6 md:p-8 mb-6">
-        <div class="flex items-start justify-between flex-wrap gap-4 mb-6 pb-6 border-b border-border">
-          <div>
-            <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-muted mb-1">Order Number</p>
-            <p id="res-id" class="font-mono font-bold text-ink text-[1.1rem]"></p>
-          </div>
-          <div>
-            <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-muted mb-1">Customer</p>
-            <p id="res-name" class="font-medium text-ink text-[14px]"></p>
-          </div>
-          <div>
-            <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-muted mb-1">Total</p>
-            <p id="res-total" class="font-bold text-warm text-[1.1rem]"></p>
-          </div>
-          <div>
-            <p class="text-[11px] font-semibold tracking-[.18em] uppercase text-muted mb-1">Status</p>
             <span id="res-badge" class="inline-block px-3 py-1 text-[11px] font-bold uppercase tracking-wide rounded-full"></span>
           </div>
         </div>
-        <div class="timeline-wrap">
-          <div class="timeline" id="timeline">
-            <div class="timeline-progress" id="timeline-progress" style="width:0%"></div>
-            <div class="tstep" id="step-placed"><div class="tdot"><span class="material-symbols-outlined">receipt_long</span></div><div class="tlabel">Placed</div></div>
-            <div class="tstep" id="step-confirmed"><div class="tdot"><span class="material-symbols-outlined">verified</span></div><div class="tlabel">Confirmed</div></div>
-            <div class="tstep" id="step-packed"><div class="tdot"><span class="material-symbols-outlined">inventory_2</span></div><div class="tlabel">Packed</div></div>
-            <div class="tstep" id="step-shipped"><div class="tdot"><span class="material-symbols-outlined">local_shipping</span></div><div class="tlabel">Shipped</div></div>
-            <div class="tstep" id="step-delivered"><div class="tdot"><span class="material-symbols-outlined">home</span></div><div class="tlabel">Delivered</div></div>
-          </div>
+        <div class="timeline" id="timeline">
+          <div class="timeline-progress" id="timeline-progress" style="width:0%"></div>
+          <div class="tstep" id="step-placed"><div class="tdot"><span class="material-symbols-outlined">receipt_long</span></div><div class="tlabel">Placed</div></div>
+          <div class="tstep" id="step-confirmed"><div class="tdot"><span class="material-symbols-outlined">verified</span></div><div class="tlabel">Confirmed</div></div>
+          <div class="tstep" id="step-packed"><div class="tdot"><span class="material-symbols-outlined">inventory_2</span></div><div class="tlabel">Packed</div></div>
+          <div class="tstep" id="step-shipped"><div class="tdot"><span class="material-symbols-outlined">local_shipping</span></div><div class="tlabel">Shipped</div></div>
+          <div class="tstep" id="step-delivered"><div class="tdot"><span class="material-symbols-outlined">home</span></div><div class="tlabel">Delivered</div></div>
         </div>
         <div id="res-items" class="mt-6 space-y-3"></div>
       </div>
@@ -307,6 +158,9 @@ body{-webkit-font-smoothing:antialiased;}
     </div>
   </div>
 </main>
+<a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(37,211,102,0.6)] transition-all duration-300" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/store.js"></script>
 <script>
@@ -321,29 +175,27 @@ async function trackOrder(){
   errEl.classList.add('hidden');
   if(!orderId||!phone){errEl.textContent='Please enter both Order ID and phone number.';errEl.classList.remove('hidden');return;}
   const btn=document.querySelector('button[onclick="trackOrder()"]');
-  btn.innerHTML='<span>SEARCHING...</span><div class="btn-icon-wrap ml-auto"><span class="material-symbols-outlined text-[16px]">sync</span></div>';btn.disabled=true;
+  btn.textContent='Searching...';btn.disabled=true;
   try{
     const cleanId=orderId.replace(/^KGS-?/,'');
-    const {data:orders, error} = await sb.from('orders').select('*, order_items(*)').eq('order_number', cleanId);
+    // Use track_order RPC to bypass RLS for guest order lookup
+    const{data:orders,error}=await sb.rpc('track_order',{p_order_number:cleanId,p_phone:phone});
     if(error)throw error;
-    
-    const validOrders = orders ? orders.filter(o => o.shipping_phone === phone || o.guest_phone === phone || o.billing_phone === phone) : [];
-    
-    if(validOrders.length===0){
-      document.getElementById('track-empty').classList.remove('hidden');
-      document.getElementById('track-result').classList.add('hidden');
-    }else{
-      showResult(validOrders[0]);
-    }
+    const data=orders&&orders.length?orders[0]:null;
+    if(!data){document.getElementById('track-empty').classList.remove('hidden');document.getElementById('track-result').classList.add('hidden');return;}
+    // Also fetch order items separately
+    const{data:items}=await sb.from('order_items').select('*').eq('order_id',data.id);
+    data.order_items=items||[];
+    showResult(data);
   }catch(e){errEl.textContent='Error: '+e.message;errEl.classList.remove('hidden');}
-  finally{btn.innerHTML='<span>TRACK ORDER</span><div class="btn-icon-wrap ml-auto"><span class="material-symbols-outlined text-[16px]">location_searching</span></div>';btn.disabled=false;}
+  finally{btn.innerHTML='<span class="material-symbols-outlined text-[18px]">location_searching</span> Track Order';btn.disabled=false;}
 }
 
 function showResult(o){
   document.getElementById('track-result').classList.remove('hidden');
   document.getElementById('track-empty').classList.add('hidden');
   document.getElementById('res-id').textContent=o.order_number||o.id;
-  document.getElementById('res-name').textContent=o.customer_name||o.shipping_name||'';
+  document.getElementById('res-name').textContent=o.customer_name||o.shipping_name||'�';
   document.getElementById('res-total').textContent='₹'+Number(o.total).toLocaleString('en-IN');
   const statusColors={placed:'bg-amber-100 text-amber-800',confirmed:'bg-blue-100 text-blue-800',packed:'bg-purple-100 text-purple-800',shipped:'bg-indigo-100 text-indigo-800',delivered:'bg-green-100 text-green-800',cancelled:'bg-red-100 text-red-800'};
   const badge=document.getElementById('res-badge');
@@ -378,3 +230,7 @@ setTimeout(hidePl,1000);})();
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}
 </script>
 </body></html>
+
+
+
+
