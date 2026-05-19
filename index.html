@@ -9,8 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap">
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
+  <link rel="stylesheet" href="assets/css/icons.css">
   <style>
     /* ============================================================================
    KGS HOME DÉCORS — DESIGN TOKENS
@@ -1140,9 +1139,6 @@
     }
 
     .prod-badge {
-      position: absolute;
-      top: 14px;
-      left: 14px;
       background: #fff;
       color: #1A1A1A;
       font-size: 10.5px;
@@ -1169,9 +1165,6 @@
     }
 
     .prod-off {
-      position: absolute;
-      top: 14px;
-      right: 60px;
       background: #C97840;
       color: #fff;
       font-size: 10px;
@@ -1181,7 +1174,6 @@
       border-radius: 9999px;
       text-transform: uppercase;
       box-shadow: 0 6px 14px -6px rgba(201, 120, 64, 0.45);
-      z-index: 2;
     }
 
     .heart-btn {
@@ -2560,6 +2552,46 @@
       font-size: 17px;
     }
 
+    .shop-filters-track {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+    .shop-filters-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cart-wrap {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 36px;
+      align-items: flex-start;
+    }
+
+    .cart-item-row {
+      display: grid;
+      grid-template-columns: 104px 1fr auto;
+      gap: 20px;
+      padding: 20px;
+      align-items: center;
+    }
+
+    .pdp-sticky-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .pdp-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 64px;
+    }
+
     /* ===== Checkout & Order Confirmation ============================= */
     .checkout-wrap {
       display: grid;
@@ -2841,7 +2873,9 @@
       }
 
       .nav-bar {
-        grid-template-columns: auto 1fr auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         padding: 0 16px;
       }
 
@@ -2984,7 +3018,7 @@
         display: none; /* Chrome/Safari */
       }
       .best-sellers-track > * {
-        flex: 0 0 75%;
+        flex: 0 0 68%;
         scroll-snap-align: start;
       }
 
@@ -3003,6 +3037,44 @@
 
       .cart-badges {
         grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cart-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-item-row {
+        grid-template-columns: 80px 1fr;
+      }
+
+      .cart-item-row > div:nth-child(1) {
+        width: 80px !important;
+        height: 80px !important;
+      }
+
+      .cart-item-row > div:nth-child(3) {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left !important;
+        border-top: 1px dashed rgba(197,168,128,0.25);
+        padding-top: 12px;
+      }
+
+      .pdp-sticky-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+
+      .pdp-sticky-inner > div:last-child {
+        justify-content: space-between;
+      }
+
+      .pdp-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
       }
 
       .checkout-wrap {
@@ -3892,15 +3964,17 @@
       return (
         <div className="prod-card">
           <div className="prod-img" onClick={() => onView(p)} style={{ cursor: 'pointer' }}>
-            {p.badge && (
-              <span className={
-                'prod-badge' +
-                (p.badgeKind === 'gold' ? ' prod-badge--gold' :
-                  p.badgeKind === 'ink' ? ' prod-badge--ink' :
-                    p.badgeKind === 'warm' ? ' prod-badge--warm' : '')
-              }>{p.badge}</span>
-            )}
-            {p.off && <span className="prod-off">{p.off}</span>}
+            <div style={{ position: 'absolute', top: 12, left: 12, display: 'flex', flexDirection: 'column', gap: 6, zIndex: 3, alignItems: 'flex-start' }}>
+              {p.badge && (
+                <span className={
+                  'prod-badge' +
+                  (p.badgeKind === 'gold' ? ' prod-badge--gold' :
+                    p.badgeKind === 'ink' ? ' prod-badge--ink' :
+                      p.badgeKind === 'warm' ? ' prod-badge--warm' : '')
+                }>{p.badge}</span>
+              )}
+              {p.off && <span className="prod-off">{p.off}</span>}
+            </div>
             <button
               className={'heart-btn' + (wishlisted ? ' active' : '')}
               onClick={(e) => { e.stopPropagation(); onWishToggle(p.id); }}
@@ -4281,6 +4355,12 @@
 
     // ===== SHOP PAGE ============================================================
     function ShopPage({ filter, setFilter, onAdd, onView, wishlist, onWishToggle }) {
+      const [page, setPage] = React.useState(1);
+
+      React.useEffect(() => {
+        setPage(1);
+      }, [filter]);
+
       const filtered = filter === 'all'
         ? PRODUCTS
         : PRODUCTS.filter(p =>
@@ -4288,7 +4368,12 @@
             filter.toLowerCase().replace(/[^a-z]/g, '')
           )
         );
+      
       const cats = ['all', ...new Set(PRODUCTS.map(p => p.category))];
+      
+      const ITEMS_PER_PAGE = 24;
+      const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+      const paginatedProducts = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
       return (
         <div data-screen-label="Shop">
@@ -4307,27 +4392,30 @@
           </section>
 
           <section style={{ background: '#fff', padding: '18px 0', borderBottom: '1px solid rgba(197,168,128,0.20)' }}>
-            <div className="container" style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: '.22em', textTransform: 'uppercase', color: '#5E5B59', marginRight: 10 }}>
-                Filter by
-              </span>
-              {cats.map(c => (
-                <button
-                  key={c}
-                  onClick={() => setFilter(c)}
-                  style={{
-                    padding: '8px 16px',
-                    background: filter === c ? '#1A1A1A' : 'transparent',
-                    color: filter === c ? '#fff' : '#1A1A1A',
-                    border: '1px solid ' + (filter === c ? '#1A1A1A' : 'rgba(26,26,26,0.20)'),
-                    borderRadius: 9999,
-                    fontFamily: 'Jost,sans-serif', fontSize: 10.5, fontWeight: 600,
-                    letterSpacing: '.18em', textTransform: 'uppercase', cursor: 'pointer',
-                    transition: 'all 200ms ease',
-                  }}>
-                  {c === 'all' ? 'All (' + PRODUCTS.length + ')' : c}
-                </button>
-              ))}
+            <div className="container">
+              <div className="shop-filters-track">
+                <span style={{ flexShrink: 0, fontSize: 10.5, fontWeight: 600, letterSpacing: '.22em', textTransform: 'uppercase', color: '#B89657', marginRight: 8 }}>
+                  Explore
+                </span>
+                {cats.map(c => (
+                  <button
+                    key={c}
+                    onClick={() => setFilter(c)}
+                    style={{
+                      flexShrink: 0,
+                      padding: '10px 22px',
+                      background: filter === c ? '#1A1A1A' : '#FAF8F4',
+                      color: filter === c ? '#fff' : '#1A1A1A',
+                      border: '1px solid ' + (filter === c ? '#1A1A1A' : 'rgba(197,168,128,0.25)'),
+                      borderRadius: 9999,
+                      fontFamily: 'Jost,sans-serif', fontSize: 11, fontWeight: 500,
+                      letterSpacing: '.15em', textTransform: 'uppercase', cursor: 'pointer',
+                      transition: 'all 300ms ease',
+                    }}>
+                    {c === 'all' ? 'All (' + PRODUCTS.length + ')' : c}
+                  </button>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -4341,8 +4429,9 @@
                   <button className="btn btn-dark" onClick={() => setFilter('all')}>Show All</button>
                 </div>
               ) : (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 20 }}>
-                  {filtered.map(p => (
+                <>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 20 }}>
+                    {paginatedProducts.map(p => (
                     <ProductCard
                       key={p.id}
                       p={p}
@@ -4351,8 +4440,44 @@
                       wishlisted={wishlist.includes(p.id)}
                       onWishToggle={onWishToggle}
                     />
-                  ))}
-                </div>
+                    ))}
+                  </div>
+
+                  {totalPages > 1 && (
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8, marginTop: 48 }}>
+                      <button
+                        onClick={() => { setPage(p => Math.max(1, p - 1)); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                        disabled={page === 1}
+                        style={{ width: 40, height: 40, borderRadius: '50%', border: '1px solid rgba(197,168,128,0.4)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: page === 1 ? 'not-allowed' : 'pointer', opacity: page === 1 ? 0.4 : 1 }}>
+                        <span className="material-symbols-outlined" style={{ fontSize: 18 }}>chevron_left</span>
+                      </button>
+                      
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(num => {
+                        if (num === 1 || num === totalPages || (num >= page - 1 && num <= page + 1)) {
+                          return (
+                            <button
+                              key={num}
+                              onClick={() => { setPage(num); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                              style={{ width: 40, height: 40, borderRadius: '50%', border: 'none', background: page === num ? '#1A1A1A' : 'transparent', color: page === num ? '#fff' : '#1A1A1A', fontFamily: 'Jost,sans-serif', fontSize: 14, fontWeight: 500, cursor: 'pointer', transition: 'all 200ms' }}>
+                              {num}
+                            </button>
+                          );
+                        }
+                        if (num === page - 2 || num === page + 2) {
+                          return <span key={num} style={{ color: '#5E5B59', padding: '0 4px' }}>...</span>;
+                        }
+                        return null;
+                      })}
+
+                      <button
+                        onClick={() => { setPage(p => Math.min(totalPages, p + 1)); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                        disabled={page === totalPages}
+                        style={{ width: 40, height: 40, borderRadius: '50%', border: '1px solid rgba(197,168,128,0.4)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: page === totalPages ? 'not-allowed' : 'pointer', opacity: page === totalPages ? 0.4 : 1 }}>
+                        <span className="material-symbols-outlined" style={{ fontSize: 18 }}>chevron_right</span>
+                      </button>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </section>
@@ -4393,7 +4518,7 @@
           </section>
 
           <section style={{ background: '#fff', padding: '56px 0 80px' }}>
-            <div className="container" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 64 }}>
+            <div className="container pdp-grid">
               <div>
                 <div style={{ background: '#F3EBDC', border: '1px solid rgba(197,168,128,0.30)', borderRadius: 18, padding: 48, aspectRatio: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
                   {p.off && (
@@ -4521,7 +4646,7 @@
                   <h2>You might also like</h2>
                 </div>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 20 }}>
+              <div className="best-sellers-track">
                 {moreFromUs.map(rp => (
                   <ProductCard
                     key={rp.id}
@@ -4537,7 +4662,7 @@
           </section>
 
           <div className="pdp-sticky">
-            <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20 }}>
+            <div className="container pdp-sticky-inner">
               <div style={{ display: 'flex', alignItems: 'center', gap: 14, minWidth: 0 }}>
                 <img src={p.image} alt="" style={{ width: 44, height: 44, borderRadius: 8, objectFit: 'cover', background: '#F3EBDC' }} />
                 <div style={{ minWidth: 0 }}>
@@ -4612,7 +4737,7 @@
                   <button className="btn btn-dark" onClick={onBack}>Go to Shop</button>
                 </div>
               ) : (
-                <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: 36, alignItems: 'flex-start' }}>
+                <div className="cart-wrap">
                   <div>
                     <div className="cart-progress">
                       <div className="cart-progress__head">
@@ -4625,7 +4750,7 @@
 
                     <div style={{ background: '#fff', border: '1px solid rgba(197,168,128,0.25)', borderRadius: 14, overflow: 'hidden' }}>
                       {items.map((ci, idx) => (
-                        <div key={ci.id} style={{ display: 'grid', gridTemplateColumns: '104px 1fr auto', gap: 20, padding: 20, alignItems: 'center', borderBottom: idx < items.length - 1 ? '1px solid rgba(197,168,128,0.20)' : 'none' }}>
+                        <div key={ci.id} className="cart-item-row" style={{ borderBottom: idx < items.length - 1 ? '1px solid rgba(197,168,128,0.20)' : 'none' }}>
                           <div style={{ width: 104, height: 104, background: '#F3EBDC', borderRadius: 10, overflow: 'hidden', padding: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <img src={ci.product.image} alt="" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
                           </div>
