@@ -1,204 +1,187 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap"></noscript>
-<style>html{scroll-padding-top:80px}</style>
-<meta charset="UTF-8">
-    <link rel="canonical" href="https://kgshomedecors.in/account-register.html">
-<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
-<link rel="icon" type="image/png" href="assets/images/favicon.png">
-<meta name="theme-color" content="#1A1A1A">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Account | KGS Home Décors</title>
-<link rel="preload" href="assets/css/tailwind.min.css" as="style">
-<link rel="stylesheet" href="assets/css/tailwind.min.css">
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" as="style">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"></noscript>
-<meta name="description" content="Create a free KGS Home Décors account to track orders, save favourites, and enjoy a personalised shopping experience.">
-<meta name="robots" content="noindex">
-
-<style>
-*,*::before,*::after{box-sizing:border-box;}
-html,body{overflow-x:hidden;width:100%;margin:0;padding:0;}
-body{-webkit-font-smoothing:antialiased;}
-::selection{background:#C5A880;color:#fff;}
-.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;}
-#page-preloader{position:fixed;inset:0;z-index:9999;background:#FAF8F4;display:flex;align-items:center;justify-content:center;transition:opacity .5s ease,visibility .5s ease;}
-#page-preloader .pl-logo{font-family:'Crimson Pro',serif;font-size:2rem;font-weight:500;letter-spacing:.35em;color:#1A1A1A;opacity:0;animation:plFadeIn .6s ease forwards .15s;}
-@keyframes plFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
-
-.left-panel{background:#1A1A1A;min-height:100dvh;position:sticky;top:0;overflow:hidden;}
-.left-panel::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 40%, rgba(197,168,128,.15) 0%, transparent 60%),radial-gradient(ellipse at 20% 80%, rgba(201,120,64,.07) 0%, transparent 50%);pointer-events:none;}
-
-.form-input{width:100%;background:transparent;border:none;border-bottom:1px solid #E4DDD4;padding:14px 0 12px;font-family:'Jost',sans-serif;font-size:14px;color:#1A1A1A;outline:none;transition:border-color .25s;}
-.form-input:focus{border-color:#1A1A1A;}
-.form-input::placeholder{color:#767270;font-size:13px;}
-.btn-primary{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px 24px;background:#1A1A1A;color:#FAF8F4;font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:none;cursor:pointer;transition:background .25s,transform .2s cubic-bezier(.32,.72,0,1);}
-.btn-primary:hover{background:#C5A880;}
-.btn-primary:active{transform:scale(.99);}
-.btn-secondary{display:flex;align-items:center;justify-content:center;width:100%;padding:14px 24px;background:transparent;color:#1A1A1A;font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:1.5px solid #E4DDD4;cursor:pointer;text-decoration:none;transition:border-color .25s;}
-.btn-secondary:hover{border-color:#1A1A1A;}
-
-.rv{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.32,.72,0,1),transform .7s cubic-bezier(.32,.72,0,1);}
-.rv.in{opacity:1;transform:translateY(0);}
-
-/* Benefit chips */
-.benefit-chip{display:flex;align-items:center;gap:10px;padding:14px 16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);}
-</style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | KGS Home Décors</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .auth-input { padding: 14px 16px; border: 1px solid rgba(197,168,128,0.40); border-radius: 3px; font-family: 'Jost', sans-serif; font-size: 14px; background: #fff; width: 100%; box-sizing: border-box; }
+    .auth-input:focus { outline: none; border-color: #B89657; box-shadow: 0 0 0 3px rgba(184,150,87,0.1); }
+    .auth-label { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; text-align: left; }
+    .auth-label span { font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: #1A1A1A; }
+  </style>
 </head>
-<body class="bg-base text-ink font-sans">
-
-
-
-<div class="flex min-h-[100dvh]">
-
-  <!-- == LEFT PANEL == -->
-  <div class="left-panel hidden lg:flex lg:w-[48%] xl:w-[44%] flex-col justify-between p-12 xl:p-16 relative">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,rgba(197,168,128,0.15),transparent_60%)] pointer-events-none"></div>
-
-    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.5rem] text-white hover:text-gold transition-colors relative z-10">KGS</a>
-
-    <div class="relative z-10">
-      <p class="text-white/40 text-[11px] font-semibold tracking-[.22em] uppercase mb-6">Join the Family</p>
-      <h1 class="font-serif font-light text-white leading-[1.1]" style="font-size:clamp(2.8rem,4vw,4.2rem);">
-        Discover<br>
-        <em class="text-gold not-italic">premium</em><br>
-        living.
-      </h1>
-      <p class="text-white/50 text-[14px] leading-[1.8] mt-6 max-w-sm">
-        Create your free account and unlock a tailored shopping experience built around your home.
-      </p>
-
-      <!-- Benefits -->
-      <div class="mt-10 space-y-3 max-w-sm">
-        <div class="benefit-chip">
-          <span class="material-symbols-outlined text-gold text-[20px]" style="font-variation-settings:'FILL' 1,'wght' 300,'GRAD' 0,'opsz' 24;">local_shipping</span>
-          <p class="text-white/70 text-[13px]">Track all your deliveries in real time</p>
-        </div>
-        <div class="benefit-chip">
-          <span class="material-symbols-outlined text-gold text-[20px]" style="font-variation-settings:'FILL' 1,'wght' 300,'GRAD' 0,'opsz' 24;">favorite</span>
-          <p class="text-white/70 text-[13px]">Save favourites to your personal wishlist</p>
-        </div>
-        <div class="benefit-chip">
-          <span class="material-symbols-outlined text-gold text-[20px]" style="font-variation-settings:'FILL' 1,'wght' 300,'GRAD' 0,'opsz' 24;">history</span>
-          <p class="text-white/70 text-[13px]">Full order history at your fingertips</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="relative z-10 flex items-center gap-3">
-      <div class="w-8 h-px bg-white/20"></div>
-      <p class="text-white/25 text-[10px] tracking-[.2em] uppercase">KGS Home Décors</p>
-    </div>
-  </div>
-
-  <!-- == RIGHT PANEL == -->
-  <div class="flex-1 flex flex-col min-h-[100dvh] bg-base">
-
-    <div class="lg:hidden flex items-center justify-between px-6 py-5 border-b border-border">
-      <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.3rem] text-ink">KGS</a>
-      <a href="index.html" class="text-muted text-[12px] font-medium hover:text-ink transition-colors flex items-center gap-1">
-        <span class="material-symbols-outlined text-[16px]">arrow_back</span> Home
+<body style="background: #FAF8F4; display: flex; flex-direction: column; min-height: 100vh;">
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-bar container">
+    <a href="index.html" class="logo">
+      <span class="mark">KGS</span>
+      <span class="sub">Home D�cor</span>
+    </a>
+    <nav class="nav-links">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="product-listing.html">Shop</a>
+      <a class="nav-link" href="about.html">Our Story</a>
+      <a class="nav-link" href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="icon-btn" href="account.html" aria-label="Account">
+        <span class="material-symbols-outlined">person</span>
       </a>
-    </div>
-
-    <div class="flex-1 flex items-center justify-center px-6 py-14 lg:py-0">
-      <div class="w-full max-w-[380px]">
-
-        <a href="index.html" class="hidden lg:inline-flex items-center gap-2 text-muted text-[11px] font-medium tracking-[.1em] uppercase hover:text-ink transition-colors mb-12">
-          <span class="material-symbols-outlined text-[16px]">arrow_back</span> Back to Store
-        </a>
-
-        <div class="rv">
-          <p class="text-[11px] font-semibold tracking-[.22em] uppercase text-gold mb-3">Free Account</p>
-          <h2 class="font-serif font-medium text-ink mb-2" style="font-size:clamp(1.9rem,3vw,2.4rem);">Create Account</h2>
-          <p class="text-muted text-[13px] mb-10">Already have one? <a href="account-login.html" class="text-warm font-medium hover:text-ink transition-colors">Sign in instead</a></p>
-        </div>
-
-        <form id="register-form" class="space-y-7" novalidate>
-          <div class="rv" style="transition-delay:.08s">
-            <label class="block text-[10px] font-semibold tracking-[.18em] uppercase text-muted mb-2">Full Name</label>
-            <input id="reg-name" type="text" placeholder="Your full name" class="form-input" autocomplete="name" required>
-          </div>
-          <div class="rv" style="transition-delay:.12s">
-            <label class="block text-[10px] font-semibold tracking-[.18em] uppercase text-muted mb-2">Email Address</label>
-            <input id="reg-email" type="email" placeholder="you@example.com" class="form-input" autocomplete="email" required>
-          </div>
-          <div class="rv" style="transition-delay:.16s">
-            <label class="block text-[10px] font-semibold tracking-[.18em] uppercase text-muted mb-2">Password</label>
-            <div class="relative">
-              <input id="reg-password" type="password" placeholder="At least 8 characters" class="form-input pr-10" autocomplete="new-password" required minlength="8">
-              <button type="button" id="toggle-pw" class="absolute right-0 top-1/2 -translate-y-1/2 text-muted hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-1" aria-label="Toggle password">
-                <span class="material-symbols-outlined text-[20px]" id="pw-eye">visibility</span>
-              </button>
-            </div>
-          </div>
-
-          <div id="reg-error" class="hidden text-[12px] text-red-600 bg-red-50 border border-red-100 px-4 py-3"></div>
-          <div id="reg-success" class="hidden text-[12px] text-green-700 bg-green-50 border border-green-100 px-4 py-3"></div>
-
-          <div class="rv space-y-3 pt-2" style="transition-delay:.22s">
-            <button type="submit" id="reg-btn" class="btn-primary">
-              <span>Create Account</span>
-              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-            </button>
-            <a href="account-login.html" class="btn-secondary">Sign In Instead</a>
-          </div>
-        </form>
-
-        <p class="text-center text-[11px] text-muted mt-8 rv" style="transition-delay:.28s">
-          By creating an account, you agree to our <a href="terms.html" class="text-warm hover:text-ink transition-colors">Terms</a> and <a href="privacy-policy.html" class="text-warm hover:text-ink transition-colors">Privacy Policy</a>.
-        </p>
-      </div>
+      <a class="icon-btn" href="wishlist.html" aria-label="Wishlist">
+        <span class="material-symbols-outlined">favorite</span>
+      </a>
+      <a class="icon-btn" href="cart-checkout.html" aria-label="Cart">
+        <span class="material-symbols-outlined">shopping_bag</span>
+      </a>
     </div>
   </div>
 </div>
 
-<script src="assets/js/config.js"></script>
-<script src="assets/js/supabase-client.js" defer></script>
+
+<main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 0;">
+  <div style="width: 100%; max-width: 440px; padding: 48px; background: #fff; border: 1px solid rgba(197,168,128,0.25); border-radius: 12px; text-align: center; box-shadow: 0 12px 36px -12px rgba(0,0,0,0.04);">
+    <h1 style="font-family:'Crimson Pro',serif; font-size: 32px; font-weight: 500; margin-bottom: 8px;">Create Account</h1>
+    <p style="font-size: 14px; color: #5E5B59; margin-bottom: 32px;">Join KGS to track orders and save your wishlist.</p>
+    
+    <form id="register-form" onsubmit="event.preventDefault(); window.location.href='account.html';">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <label class="auth-label">
+          <span>First Name</span>
+          <input type="text" id="fname" class="auth-input" placeholder="Meena" required>
+        </label>
+        <label class="auth-label">
+          <span>Last Name</span>
+          <input type="text" id="lname" class="auth-input" placeholder="R." required>
+        </label>
+      </div>
+      <label class="auth-label">
+        <span>Email Address</span>
+        <input type="email" id="email" class="auth-input" placeholder="you@example.com" required>
+      </label>
+      <label class="auth-label">
+        <span>Password</span>
+        <input type="password" id="password" class="auth-input" placeholder="••••••••" required>
+      </label>
+
+      <button type="submit" class="btn btn-dark" style="width: 100%; margin-bottom: 24px; margin-top: 8px">Create Account</button>
+      
+      <div style="font-size: 13.5px; color: #5E5B59;">
+        Already have an account? <a href="account-login.html" style="color: #B89657; font-weight: 600; text-decoration: underline;">Sign In</a>
+      </div>
+    </form>
+  </div>
+</main>
+
+<!-- NEWSLETTER -->
+<div class="container">
+  <section class="newsletter">
+    <div>
+      <h3>Stay Updated With New Arrivals &amp; Offers</h3>
+      <p>Subscribe to our newsletter and get 10% off on your first order.</p>
+    </div>
+    <div class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="Enter your email" />
+      <button class="btn btn-dark">Subscribe</button>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a href="index.html" class="logo" style="margin-bottom: 18px">
+          <span class="mark" style="color:#fff">KGS</span>
+          <span class="sub" style="color:#C5A880">Home Décors</span>
+        </a>
+        <p style="font-size:13.5px; color:rgba(255,255,255,0.55); max-width:260px; line-height:1.7;">
+          Timeless home décor crafted to bring beauty, elegance and comfort to your spaces.
+        </p>
+        <div class="footer-socials">
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">photo_camera</span></a>
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">thumb_up</span></a>
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">play_circle</span></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="product-listing.html">New Arrivals</a></li>
+          <li><a href="product-listing.html">Best Sellers</a></li>
+          <li><a href="product-listing.html">Artificial Plants</a></li>
+          <li><a href="product-listing.html">Statues &amp; Idols</a></li>
+          <li><a href="product-listing.html">Clocks</a></li>
+          <li><a href="product-listing.html">Lighting</a></li>
+          <li><a href="product-listing.html">Wall Frames</a></li>
+          <li><a href="product-listing.html">Gifts &amp; Hampers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Shipping & Delivery</a></li>
+          <li><a href="#">Returns & Refunds</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Payment Options</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Support</h4>
+        <ul>
+          <li class="info-line"><span class="material-symbols-outlined">mail</span><a href="#">support@kgshome.com</a></li>
+          <li class="info-line"><span class="material-symbols-outlined">call</span><a href="#">+91 97891 82921</a></li>
+          <li class="info-line"><span class="material-symbols-outlined">schedule</span>Mon – Sun · 10 AM – 10 PM</li>
+        </ul>
+        <div class="footer-pay" style="margin-top: 18px">
+          <span>VISA</span><span>MC</span><span>UPI</span><span>AMEX</span><span>COD</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 KGS Home Décors. All Rights Reserved.</span>
+      <div class="links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="shipping-policy.html">Shipping Policy</a>
+        <a href="returns-policy.html">Return Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="#">
+  <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px; height:22px; flex-shrink:0;">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
+  </svg>
+  Chat With Us
+</a>
+
+<script src="assets/js/auth.js"></script>
 <script>
-document.fonts.ready.then(() => {
-  const pl = document.getElementById('page-preloader');
-  if (pl) { pl.style.opacity = '0'; pl.style.visibility = 'hidden'; setTimeout(() => pl.remove(), 500); }
-  document.querySelectorAll('.rv').forEach((el, i) => setTimeout(() => el.classList.add('in'), 80 + i * 60));
-});
-
-document.getElementById('toggle-pw').addEventListener('click', function() {
-  const pw = document.getElementById('reg-password');
-  const eye = document.getElementById('pw-eye');
-  if (pw.type === 'password') { pw.type = 'text'; eye.textContent = 'visibility_off'; }
-  else { pw.type = 'password'; eye.textContent = 'visibility'; }
-});
-
-document.getElementById('register-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('reg-btn');
-  const errEl = document.getElementById('reg-error');
-  const sucEl = document.getElementById('reg-success');
-  const name = document.getElementById('reg-name').value.trim();
-  const email = document.getElementById('reg-email').value.trim();
-  const password = document.getElementById('reg-password').value;
-  errEl.classList.add('hidden'); sucEl.classList.add('hidden');
-  if (!name) { errEl.textContent = 'Please enter your full name.'; errEl.classList.remove('hidden'); return; }
-  btn.disabled = true;
-  btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Creating account...';
-  try {
-    const { error } = await supabase.auth.signUp({ email, password, options: { data: { full_name: name } } });
-    if (error) throw error;
-    sucEl.textContent = 'Account created! Please check your email to verify, then sign in.';
-    sucEl.classList.remove('hidden');
-    btn.textContent = 'Account Created!';
-  } catch(err) {
-    errEl.textContent = err.message || 'Registration failed. Please try again.';
-    errEl.classList.remove('hidden');
-    btn.disabled = false;
-    btn.innerHTML = '<span>Create Account</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>';
-  }
-});
-</script>
-</body>
+// Highlight active nav link on legacy pages
+(function() {
+  var page = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-link').forEach(function(a) {
+    if (a.getAttribute('href') === page) a.classList.add('active');
+    if (page === '' && a.getAttribute('href') === 'index.html') a.classList.add('active');
+  });
+})();
+</script></body>
 </html>
-

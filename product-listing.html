@@ -1,683 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap"></noscript>
-<style>html{scroll-padding-top:80px}</style>
-<meta charset="UTF-8">
-<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
-<link rel="icon" type="image/png" href="assets/images/favicon.png">
-<meta name="theme-color" content="#1A1A1A">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>Shop All Products — KGS Home Décors | Virudhachalam</title>
-<link rel="preload" href="assets/css/tailwind.min.css" as="style">
-<link rel="stylesheet" href="assets/css/tailwind.min.css">
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" as="style">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"></noscript>
-<meta name="description" content="Browse KGS Home Décors full collection — sofas, wall clocks, fountains, wall art, photo frames, LED lights, artificial plants & gift items. 5.0 ★ on Google. Secure Online Payments. Free delivery in Virudhachalam.">
-<link rel="canonical" href="https://kgshomedecors.in/product-listing.html">
-
-<style>
-/* ??? PAGE SCROLL CONTAINMENT ???????????????????? */
-html {
-  margin: 0; padding: 0;
-  overflow-x: clip; /* 'clip' not 'hidden' - prevents scroll AND layout contribution */
-  width: 100%;
-}
-body {
-  margin: 0; padding: 0;
-  overflow-x: clip;
-  width: 100%;
-  min-width: 0;
-}
-#page-wrap {
-  width: 100%;
-  overflow-x: clip;
-  position: relative;
-}
-/* The scroll wrapper clips its child at the viewport edge */
-.category-clip {
-  width: 100%;
-  overflow: clip; /* 'clip' vs 'hidden': clip does NOT create a scroll container, so child's 878px scrollWidth never leaks into document.body.scrollWidth */
-  position: relative;
-}
-.category-scroll {
-  width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  /* Ensures touch scrolling targets THIS element not the page */
-  touch-action: pan-x pan-y;
-}
-.category-scroll::-webkit-scrollbar { display: none; }
-
-/* ??? EMIL DESIGN ENG VARIABLES ????????????????? */
-:root {
-  --ease-out-punch: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-html.lenis,html.lenis body{height:auto;}
-.lenis.lenis-smooth{scroll-behavior:auto;}
-.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain;}
-*,*::before,*::after{box-sizing:border-box;}
-body{-webkit-font-smoothing:antialiased;}
-::selection{background:#C5A880;color:#fff;}
-.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;}
-.btn-primary {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 15px 36px; background: #1A1A1A; color: #fff;
-  font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
-  letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
-  border: 1px solid #1A1A1A; cursor: pointer;
-  transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1);
-  box-shadow: 0 4px 14px rgba(201,120,64,0.15);
-}
-@media (hover: hover) and (pointer: fine) {
-  .btn-primary:hover { 
-    background: #a8612d; border-color: #a8612d; 
-    transform: translateY(-2px) scale(1.02); 
-    box-shadow: 0 20px 40px -10px rgba(201,120,64,0.45);
-  }
-}
-.btn-primary:active { transform: scale(0.96) translateY(0); box-shadow: 0 2px 8px rgba(201,120,64,0.15); }
-.btn-secondary {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 14px 34px; background: transparent; color: #1A1A1A;
-  font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
-  letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
-  border: 1px solid rgba(26,26,26,0.3); cursor: pointer;
-  transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1);
-}
-@media (hover: hover) and (pointer: fine) {
-  .btn-secondary:hover { 
-    border-color: #1A1A1A; color: #1A1A1A;
-    transform: translateY(-2px); 
-    box-shadow: 0 20px 40px -10px rgba(26,26,26,0.1); 
-  }
-}
-.btn-secondary:active { transform: scale(0.96); }
-.btn-whatsapp{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 16px;background:#25D366;color:#fff;font-family: "Jost", sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1.5px solid #25D366;cursor:pointer;transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1);}
-@media (hover: hover) and (pointer: fine) { .btn-whatsapp:hover{background:#1db954;transform:translateY(-2px);box-shadow:0 20px 40px -10px rgba(37,211,102,0.4);} }
-.btn-whatsapp:active{transform:scale(0.97);}
-.nav-link{position:relative;color:#767270;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:color 160ms var(--ease-out-punch);}
-.nav-link::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1px;background:#C5A880;transition:width 200ms var(--ease-out-punch);}
-@media (hover: hover) and (pointer: fine) {
-  .nav-link:hover{color:#1A1A1A;}
-  .nav-link:hover::after{width:100%;}
-}
-/* Trust snippet removed to favor utility classes */
-/* Product card */
-.prod-card{background: #FDF9F3;border:1px solid #E4DDD4;transition:box-shadow 250ms ease,transform 200ms var(--ease-out-punch);}
-@media (hover: hover) and (pointer: fine) {
-  .prod-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.08);transform:translateY(-2px);}
-  .prod-card:hover .prod-img img{transform:scale(1.03);}
-  .prod-card:hover .card-cta{max-height:100px;}
-}
-.prod-card .prod-img{overflow:hidden;position:relative;width:100%;padding-top:100%;background:#fff;}
-.prod-card .prod-img a{position:absolute;inset:0;display:block;}.prod-card .prod-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:12px;box-sizing:border-box;background:#fff;transition:transform 1.2s cubic-bezier(0.33, 1, 0.68, 1);}
-.prod-card .card-cta{max-height:0;overflow:hidden;transition:max-height 250ms var(--ease-out-punch);}
-/* Hidden product cards during filtering */  
-.prod-card.hidden-filter{display:none;}
-/* filter active */
-.filter-btn { transition: transform 160ms var(--ease-out-punch), background 160ms var(--ease-out-punch), color 160ms var(--ease-out-punch), border-color 160ms var(--ease-out-punch) !important; }
-.filter-btn:active { transform: scale(0.95); }
-.filter-btn.active{background:#1A1A1A;color:#fff;border-color:#1A1A1A;}
-#mobile-drawer{transition:transform 400ms var(--ease-drawer);}
-#filter-drawer{transition:transform 400ms var(--ease-drawer);}
-.heart-btn{position:absolute;top:10px;right:10px;z-index:10;background: #FDF9F3;border:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform 160ms var(--ease-out-punch);}
-@media (hover: hover) and (pointer: fine) { .heart-btn:hover{transform:scale(1.1);} }
-.heart-btn:active{transform:scale(0.9);}
-.heart-btn.active .material-symbols-outlined{font-variation-settings:'FILL' 1;color:#1A1A1A;}
-#cart-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#1A1A1A;color:#fff;padding:14px 28px;z-index:100;font-family: "Jost", sans-serif;font-size:13px;font-weight:500;display:flex;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity 300ms var(--ease-out-punch),transform 300ms var(--ease-out-punch);}
-/* Skeleton Loader */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-.skeleton {
-  background: linear-gradient(90deg, #E4DDD4 25%, #F3EDE4 50%, #E4DDD4 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite linear;
-}
-
-/* Pagination */
-.pag-btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 40px; height: 40px; border: 1.5px solid #E4DDD4;
-  font-family: "Jost", sans-serif; font-size: 13px; font-weight: 500;
-  color: #767270; transition: border-color 160ms var(--ease-out-punch), color 160ms var(--ease-out-punch), background 160ms var(--ease-out-punch), transform 160ms var(--ease-out-punch); cursor: pointer;
-}
-@media (hover: hover) and (pointer: fine) { .pag-btn:hover { border-color: #1A1A1A; color: #1A1A1A; } }
-.pag-btn:active { transform: scale(0.95); }
-.pag-btn.active { background: #1A1A1A; border-color: #1A1A1A; color: #fff; }
-.pag-btn.disabled { opacity: .3; pointer-events: none; }
-
-/* ??? GLOBAL LAYOUT FIXES (merged into top block) ??? */
-img {
-  max-width: 100%;
-}
-
-
-/* --- PREMIUM OVERRIDES --- */
-.border-border { border-color: rgba(26, 26, 26, 0.06) !important; }
-.shadow-sm { box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03) !important; }
-.shadow-md { box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05) !important; }
-p.leading-relaxed { line-height: 1.85 !important; }
-input:focus { border-color: rgba(26, 26, 26, 0.25) !important; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.03); }
-</style>
-
-<!-- SEO: Open Graph + Twitter -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Shop All Products — KGS Home Décors">
-<meta property="og:description" content="Browse our full collection of premium furniture, wall décor, clocks, lighting & more. Best prices in Virudhachalam.">
-<meta property="og:url" content="https://kgshomedecors.in/product-listing">
-<meta property="og:image" content="https://kgshomedecors.in/assets/images/hero_sofa.webp">
-<meta property="og:site_name" content="KGS Home Décors">
-<meta property="og:locale" content="en_IN">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Shop All Products — KGS Home Décors">
-<meta name="twitter:description" content="Browse our full collection of premium furniture, wall décor, clocks, lighting & more. Best prices in Virudhachalam.">
-<meta name="twitter:image" content="https://kgshomedecors.in/assets/images/hero_sofa.webp">
-<link rel="manifest" href="/manifest.json">
-</head>
-<body class="bg-base text-ink font-sans">
-<div id="page-wrap">
-
-<!-- ANNOUNCEMENT BAR -->
-<div class="bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5" style="overflow:hidden;white-space:normal;word-break:break-word;">
-  Free Delivery in Virudhachalam &nbsp;—&nbsp; Secure Online Payments &nbsp;—&nbsp; Open 10 AM — 10 PM, Every Day
-</div>
-
-<!-- Toast Notification -->
-<div id="cart-toast">
-  <span class="material-symbols-outlined toast-icon">check_circle</span>
-  <span id="toast-text">Added to cart</span>
-  <a href="cart-checkout.html" style="color:#C5A880;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin-left:8px;">View Cart &rarr;</a>
-</div>
-
-<!-- DRAWER OVERLAY + MOBILE DRAWER -->
-
-<!-- == DRAWER OVERLAY ======================================= -->
-<div id="drw-ov" class="fixed inset-0 bg-ink/40 z-50 hidden backdrop-blur-sm transition-opacity" onclick="closeDrw()"></div>
-<div id="mobile-drawer" class="fixed inset-y-0 right-0 z-50 w-[300px] bg-surface flex flex-col translate-x-full shadow-2xl transition-transform duration-300 ease-out">
-  <div class="flex items-center justify-between px-6 py-6 border-b border-border">
-    <span class="font-serif font-medium tracking-[.2em] text-ink text-[1.1rem]">MENU</span>
-    <button onclick="closeDrw()" class="text-muted hover:text-ink transition-colors bg-transparent border-none p-0 cursor-pointer flex items-center"><span class="material-symbols-outlined text-[24px]">close</span></button>
-  </div>
-  <nav class="flex flex-col px-6 pt-8 gap-6 overflow-y-auto">
-    <a href="index.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Home</a>
-    <a href="product-listing.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Shop All</a>
-    <a href="about.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Our Story</a>
-    <a href="contact.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Showroom & Contact</a>
-    <a href="order-tracking.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Track Order</a>
-  </nav>
-  <div class="mt-auto px-6 py-8 border-t border-border bg-tint space-y-5">
-    <a href="tel:+919789182921" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-gold">call</span> +91 97891 82921</a>
-    <a href="https://wa.me/919789182921" target="_blank" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-[#25D366]">chat</span> WhatsApp Us</a>
-  </div>
-</div>
-
-<!-- WHATSAPP FAB -->
-<a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help%20choosing%20home%20decor" target="_blank" rel="noopener noreferrer" id="wa-float" aria-label="Chat on WhatsApp" style="position:fixed;bottom:24px;right:24px;width:56px;height:56px;background-color:#25D366;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px -4px rgba(37,211,102,0.4);z-index:90;transition:transform 0.3s ease;">
-  <span class="material-symbols-outlined" style="font-size:30px;">chat</span>
-</a>
-
-
-
-<!-- == SEARCH OVERLAY ======================================= -->
-<div id="search-overlay" onclick="if(event.target===this)closeSearch()" class="fixed inset-0 z-[100] bg-surface/95 backdrop-blur-md hidden flex-col items-center pt-24 px-5">
-  <div class="w-full max-w-2xl relative">
-    <div class="flex items-center gap-4 border-b border-ink/10 pb-4 mb-8">
-      <span class="material-symbols-outlined text-[24px] text-ink/40">search</span>
-      <input id="search-input" type="text" placeholder="Search for products..."
-             class="flex-grow bg-transparent text-ink font-sans placeholder-ink/30 outline-none text-[20px] md:text-[24px]"
-             oninput="liveSearch(this.value)" autocomplete="off">
-      <button onclick="closeSearch()" class="text-ink/40 hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-1 flex items-center" aria-label="Close search">
-        <span class="material-symbols-outlined text-[24px]">close</span>
-      </button>
-    </div>
-    <div id="search-results" class="max-h-[60vh] overflow-y-auto pb-8 w-full flex flex-col gap-2"></div>
-  </div>
-</div>
-
-<!-- == NAVBAR =============================================== -->
-<nav id="navbar" class="fixed top-0 z-40 bg-surface/90 backdrop-blur-lg border-b border-border transition-transform duration-300" style="width:100vw;max-width:100vw;left:0;">
-  <div class="max-w-[90rem] mx-auto px-5 md:px-12 flex items-center justify-between h-20 md:h-24">
-    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.6rem] text-ink hover:text-gold transition-colors shrink-0">KGS</a>
-    <div class="hidden md:flex items-center gap-10">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="product-listing.html" class="nav-link">Shop</a>
-      <a href="about.html" class="nav-link">Our Story</a>
-      <a href="contact.html" class="nav-link">Contact</a>
-    </div>
-    <div class="flex items-center gap-4 md:gap-7 text-ink">
-      <button onclick="openSearch()" aria-label="Search" class="hover:text-gold transition-colors bg-transparent border-none cursor-pointer p-0 flex items-center"><span class="material-symbols-outlined text-[22px]">search</span></button>
-      <a href="account.html" aria-label="Account" class="flex hover:text-gold transition-colors items-center">
-        <span class="material-symbols-outlined text-[22px]">person</span>
-      </a>
-      <a href="wishlist.html" aria-label="Wishlist" class="relative hover:text-gold transition-colors flex items-center">
-        <span class="material-symbols-outlined text-[22px]">favorite</span>
-        <span class="wishlist-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none flex items-center justify-center" style="display:none;">0</span>
-      </a>
-      <a href="cart-checkout.html" aria-label="Cart" class="relative hover:text-gold transition-colors flex items-center">
-        <span class="material-symbols-outlined text-[22px]">shopping_bag</span>
-        <span class="cart-count absolute -top-1.5 -right-1.5 w-4 h-4 bg-warm rounded-full text-white text-[9px] font-bold leading-none flex items-center justify-center" style="display:none;">0</span>
-      </a>
-      <button onclick="openDrw()" class="md:hidden hover:text-gold transition-colors p-0 bg-transparent border-none cursor-pointer flex items-center" aria-label="Menu">
-        <span class="material-symbols-outlined text-[26px]">menu</span>
-      </button>
-    </div>
-  </div>
-</nav>
-
-<!-- PAGE HEADER -->
-<div class="bg-tint border-b border-border py-10">
-  <div class="max-w-[90rem] mx-auto px-5 md:px-12">
-    <nav class="flex items-center gap-2 text-[11px] text-muted uppercase tracking-[.2em] font-medium mb-4">
-      <a href="index.html" class="hover:text-ink transition-colors">Home</a>
-      <span class="opacity-40">/</span><span class="text-ink">All Products</span>
-    </nav>
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
-      <div>
-        <h1 class="font-serif font-medium text-ink" style="font-size:clamp(1.9rem,3.5vw,3rem);">All Products</h1>
-        
-      </div>
-      <!-- Sort + Filter -->
-      <div class="flex items-center gap-3">
-        
-        <select id="sort-select" class="border border-border bg-surface px-4 py-2.5 text-[11px] font-semibold tracking-wide uppercase outline-none hover:border-ink transition-colors cursor-pointer" onchange="sortProducts(this.value)">
-          <option value="best">Best Selling</option>
-          <option value="low">Price: Low to High</option>
-          <option value="high">Price: High to Low</option>
-          <option value="new">Newest First</option>
-        </select>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- CATEGORY PILLS -->
-<div class="category-clip">
-<div class="category-scroll bg-surface border-b border-border py-4 w-full">
-    <div style="display:inline-flex;align-items:center;gap:8px;padding:0 16px;white-space:nowrap;">
-    <button data-cat="all" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">All</button>
-    <button data-cat="furniture" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Furniture</button>
-    <button data-cat="decor" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Décor</button>
-    <button data-cat="wall-decor" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Wall Décor</button>
-    <button data-cat="lighting" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Lighting</button>
-    <button data-cat="lifestyle-accessories" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Lifestyle &amp; Accessories</button>
-    <button data-cat="vases-plants" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Vases &amp; Plants</button>
-    <button data-cat="gifts" class="filter-btn text-[11px] font-semibold tracking-wide uppercase px-4 py-2 border border-border text-muted hover:border-warm hover:text-ink transition-colors shrink-0">Gifts</button>
-  </div>
-<script>
-  (function(){
-    const cat = (new URLSearchParams(window.location.search).get('cat') || 'all').toLowerCase();
-    const btn = document.querySelector('.filter-btn[data-cat="'+cat+'"]');
-    if(btn){
-      btn.classList.add('active');
-      btn.classList.remove('text-muted', 'hover:text-ink');
-    }
-  })();
-</script>
-</div><!-- /category-scroll -->
-</div><!-- /category-clip -->
-
-<!-- MAIN CONTENT -->
-<main class="max-w-[90rem] mx-auto px-5 md:px-12 py-12">
-  <!-- Skeleton Grid (shown during load) -->
-  <div id="skeleton-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 w-full">
-    <!-- Skeleton Card 1 -->
-    <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-square w-full"></div>
-      <div class="p-4 space-y-3">
-        <div class="skeleton h-3 w-1/3"></div>
-        <div class="skeleton h-5 w-full"></div>
-        <div class="skeleton h-4 w-1/4"></div>
-        <div class="skeleton h-10 w-full mt-2"></div>
-      </div>
-    </div>
-    <!-- Skeleton Card 2 -->
-    <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-square w-full"></div>
-      <div class="p-4 space-y-3">
-        <div class="skeleton h-3 w-1/3"></div>
-        <div class="skeleton h-5 w-full"></div>
-        <div class="skeleton h-4 w-1/4"></div>
-        <div class="skeleton h-10 w-full mt-2"></div>
-      </div>
-    </div>
-    <!-- Skeleton Card 3 -->
-    <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-square w-full"></div>
-      <div class="p-4 space-y-3">
-        <div class="skeleton h-3 w-1/3"></div>
-        <div class="skeleton h-5 w-full"></div>
-        <div class="skeleton h-4 w-1/4"></div>
-        <div class="skeleton h-10 w-full mt-2"></div>
-      </div>
-    </div>
-    <!-- Skeleton Card 4 -->
-    <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-square w-full"></div>
-      <div class="p-4 space-y-3">
-        <div class="skeleton h-3 w-1/3"></div>
-        <div class="skeleton h-5 w-full"></div>
-        <div class="skeleton h-4 w-1/4"></div>
-        <div class="skeleton h-10 w-full mt-2"></div>
-      </div>
-    </div>
-    <!-- Skeleton Card 5 -->
-    <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-square w-full"></div>
-      <div class="p-4 space-y-3">
-        <div class="skeleton h-3 w-1/3"></div>
-        <div class="skeleton h-5 w-full"></div>
-        <div class="skeleton h-4 w-1/4"></div>
-        <div class="skeleton h-10 w-full mt-2"></div>
-      </div>
-    </div>
-    <!-- Skeleton Card 6 -->
-    <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-square w-full"></div>
-      <div class="p-4 space-y-3">
-        <div class="skeleton h-3 w-1/3"></div>
-        <div class="skeleton h-5 w-full"></div>
-        <div class="skeleton h-4 w-1/4"></div>
-        <div class="skeleton h-10 w-full mt-2"></div>
-      </div>
-    </div>
-    <!-- Skeleton Card 7 -->
-    <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-square w-full"></div>
-      <div class="p-4 space-y-3">
-        <div class="skeleton h-3 w-1/3"></div>
-        <div class="skeleton h-5 w-full"></div>
-        <div class="skeleton h-4 w-1/4"></div>
-        <div class="skeleton h-10 w-full mt-2"></div>
-      </div>
-    </div>
-    <!-- Skeleton Card 8 -->
-    <div class="prod-card border border-border bg-surface">
-      <div class="skeleton aspect-square w-full"></div>
-      <div class="p-4 space-y-3">
-        <div class="skeleton h-3 w-1/3"></div>
-        <div class="skeleton h-5 w-full"></div>
-        <div class="skeleton h-4 w-1/4"></div>
-        <div class="skeleton h-10 w-full mt-2"></div>
-      </div>
-    </div>
-  </div>
-
-  <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 w-full" style="display:none;"></div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop | KGS Home Décors</title>
   
-  <div id="no-products" style="display:none; text-align:center; padding:3rem; color:#888;">No products in this category.</div>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
+  
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-bar container">
+    <a href="index.html" class="logo">
+      <span class="mark">KGS</span>
+      <span class="sub">Home D�cor</span>
+    </a>
+    <nav class="nav-links">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="product-listing.html">Shop</a>
+      <a class="nav-link" href="about.html">Our Story</a>
+      <a class="nav-link" href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="icon-btn" href="account.html" aria-label="Account">
+        <span class="material-symbols-outlined">person</span>
+      </a>
+      <a class="icon-btn" href="wishlist.html" aria-label="Wishlist">
+        <span class="material-symbols-outlined">favorite</span>
+      </a>
+      <a class="icon-btn" href="cart-checkout.html" aria-label="Cart">
+        <span class="material-symbols-outlined">shopping_bag</span>
+      </a>
+    </div>
+  </div>
+</div>
 
-  <!-- Pagination UI -->
-  <div id="pagination" class="mt-16 flex items-center justify-center gap-2" style="display:none;">
-    <button id="pag-prev" class="pag-btn"><span class="material-symbols-outlined">chevron_left</span></button>
-    <div id="pag-numbers" class="flex items-center gap-2"></div>
-    <button id="pag-next" class="pag-btn"><span class="material-symbols-outlined">chevron_right</span></button>
+
+<main>
+  <div data-screen-label="Shop">
+    <section style="background:#F2E8D6; padding:56px 0 36px">
+      <div class="container">
+        <div style="font-size:10.5px; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:#7A5C1E; margin-bottom:14px">The Collection</div>
+        <h1 style="font-family:'Crimson Pro',serif; font-weight:500; font-size:3rem; line-height:1.05; letter-spacing:-0.018em; margin-bottom:10px">Shop All Pieces</h1>
+        <p style="max-width:560px; font-size:14px; color:#5E5B59">Personally curated pieces. Free delivery in Vridhachalam only, secure payments across India.</p>
+      </div>
+    </section>
+    
+    <!-- Filters -->
+    <section style="background:#fff; padding:18px 0; border-bottom:1px solid rgba(197,168,128,0.20)">
+      <div class="container" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+        <span style="font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#5E5B59; margin-right:10px">Filter</span>
+        <!-- Filter buttons will be dynamically generated by JS, placeholder provided -->
+        <button style="padding:8px 16px; background:#1A1A1A; color:#fff; border:1px solid #1A1A1A; font-family:Jost,sans-serif; font-size:10.5px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; cursor:pointer;" data-category="all">All Pieces</button>
+        <button style="padding:8px 16px; background:transparent; color:#1A1A1A; border:1px solid rgba(26,26,26,0.20); font-family:Jost,sans-serif; font-size:10.5px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; cursor:pointer;" data-category="Furniture">Furniture</button>
+        <button style="padding:8px 16px; background:transparent; color:#1A1A1A; border:1px solid rgba(26,26,26,0.20); font-family:Jost,sans-serif; font-size:10.5px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; cursor:pointer;" data-category="Wall Clocks">Wall Clocks</button>
+        <button style="padding:8px 16px; background:transparent; color:#1A1A1A; border:1px solid rgba(26,26,26,0.20); font-family:Jost,sans-serif; font-size:10.5px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; cursor:pointer;" data-category="Fountains">Fountains</button>
+        <button style="padding:8px 16px; background:transparent; color:#1A1A1A; border:1px solid rgba(26,26,26,0.20); font-family:Jost,sans-serif; font-size:10.5px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; cursor:pointer;" data-category="Wall Frames">Wall Frames</button>
+        <button style="padding:8px 16px; background:transparent; color:#1A1A1A; border:1px solid rgba(26,26,26,0.20); font-family:Jost,sans-serif; font-size:10.5px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; cursor:pointer;" data-category="Vases">Vases</button>
+      </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section style="background:#FAF8F4; padding:40px 0 96px">
+      <div class="container">
+        <div id="product-grid" class="grid-4">
+          <div class="prod-card">
+            <div class="prod-img">
+              <span class="prod-badge prod-badge--gold">Best Seller</span>
+              <button class="heart-btn"><span class="material-symbols-outlined">favorite</span></button>
+              <img src="assets/products/sofa.webp" alt="Premium 3-Seater Sofa">
+              <div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div>
+            </div>
+            <div class="prod-body">
+              <div class="prod-cat">Furniture</div>
+              <div class="prod-name">Premium 3-Seater Sofa</div>
+              <div class="prod-rating"><span class="stars">★★★★★</span><span><b style="color:#1A1A1A">4.8</b> · 124 reviews</span></div>
+            </div>
+            <div class="prod-price"><span class="now">₹18,500</span><span class="was">₹22,000</span></div>
+            <button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span> Add to Cart</button>
+          </div>
+          <div class="prod-card">
+            <div class="prod-img">
+              <span class="prod-badge prod-badge--ink">New</span>
+              <button class="heart-btn"><span class="material-symbols-outlined">favorite</span></button>
+              <img src="assets/products/clock.webp" alt="Antique Brass Wall Clock">
+              <div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div>
+            </div>
+            <div class="prod-body">
+              <div class="prod-cat">Wall Clocks</div>
+              <div class="prod-name">Antique Brass Wall Clock</div>
+              <div class="prod-rating"><span class="stars">★★★★★</span><span><b style="color:#1A1A1A">4.7</b> · 98 reviews</span></div>
+            </div>
+            <div class="prod-price"><span class="now">₹1,299</span></div>
+            <button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span> Add to Cart</button>
+          </div>
+          <div class="prod-card">
+            <div class="prod-img">
+              <span class="prod-badge prod-badge--gold">Staff Pick</span>
+              <button class="heart-btn"><span class="material-symbols-outlined">favorite</span></button>
+              <img src="assets/products/fountain.webp" alt="Indoor Tabletop Fountain">
+              <div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div>
+            </div>
+            <div class="prod-body">
+              <div class="prod-cat">Fountains</div>
+              <div class="prod-name">Indoor Tabletop Fountain</div>
+              <div class="prod-rating"><span class="stars">★★★★★</span><span><b style="color:#1A1A1A">4.9</b> · 56 reviews</span></div>
+            </div>
+            <div class="prod-price"><span class="now">₹2,850</span></div>
+            <button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span> Add to Cart</button>
+          </div>
+          <div class="prod-card">
+            <div class="prod-img">
+              <button class="heart-btn"><span class="material-symbols-outlined">favorite</span></button>
+              <img src="assets/products/wall_decor.webp" alt="Botanical Wall Art Panel">
+              <div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div>
+            </div>
+            <div class="prod-body">
+              <div class="prod-cat">Wall Frames</div>
+              <div class="prod-name">Botanical Wall Art Panel</div>
+              <div class="prod-rating"><span class="stars">★★★★★</span><span><b style="color:#1A1A1A">4.8</b> · 113 reviews</span></div>
+            </div>
+            <div class="prod-price"><span class="now">₹1,850</span></div>
+            <button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span> Add to Cart</button>
+          </div>
+
+          <div class="prod-card">
+            <div class="prod-img">
+              <span class="prod-badge prod-badge--gold">Best Seller</span>
+              <button class="heart-btn"><span class="material-symbols-outlined">favorite</span></button>
+              <img src="assets/products/sofa.webp" alt="Premium 3-Seater Sofa">
+              <div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div>
+            </div>
+            <div class="prod-body">
+              <div class="prod-cat">Furniture</div>
+              <div class="prod-name">Premium 3-Seater Sofa</div>
+              <div class="prod-rating"><span class="stars">★★★★★</span><span><b style="color:#1A1A1A">4.8</b> · 124 reviews</span></div>
+            </div>
+            <div class="prod-price"><span class="now">₹18,500</span><span class="was">₹22,000</span></div>
+            <button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span> Add to Cart</button>
+          </div>
+          <div class="prod-card">
+            <div class="prod-img">
+              <span class="prod-badge prod-badge--ink">New</span>
+              <button class="heart-btn"><span class="material-symbols-outlined">favorite</span></button>
+              <img src="assets/products/clock.webp" alt="Antique Brass Wall Clock">
+              <div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div>
+            </div>
+            <div class="prod-body">
+              <div class="prod-cat">Wall Clocks</div>
+              <div class="prod-name">Antique Brass Wall Clock</div>
+              <div class="prod-rating"><span class="stars">★★★★★</span><span><b style="color:#1A1A1A">4.7</b> · 98 reviews</span></div>
+            </div>
+            <div class="prod-price"><span class="now">₹1,299</span></div>
+            <button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span> Add to Cart</button>
+          </div>
+          <div class="prod-card">
+            <div class="prod-img">
+              <span class="prod-badge prod-badge--gold">Staff Pick</span>
+              <button class="heart-btn"><span class="material-symbols-outlined">favorite</span></button>
+              <img src="assets/products/fountain.webp" alt="Indoor Tabletop Fountain">
+              <div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div>
+            </div>
+            <div class="prod-body">
+              <div class="prod-cat">Fountains</div>
+              <div class="prod-name">Indoor Tabletop Fountain</div>
+              <div class="prod-rating"><span class="stars">★★★★★</span><span><b style="color:#1A1A1A">4.9</b> · 56 reviews</span></div>
+            </div>
+            <div class="prod-price"><span class="now">₹2,850</span></div>
+            <button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span> Add to Cart</button>
+          </div>
+          <div class="prod-card">
+            <div class="prod-img">
+              <button class="heart-btn"><span class="material-symbols-outlined">favorite</span></button>
+              <img src="assets/products/wall_decor.webp" alt="Botanical Wall Art Panel">
+              <div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div>
+            </div>
+            <div class="prod-body">
+              <div class="prod-cat">Wall Frames</div>
+              <div class="prod-name">Botanical Wall Art Panel</div>
+              <div class="prod-rating"><span class="stars">★★★★★</span><span><b style="color:#1A1A1A">4.8</b> · 113 reviews</span></div>
+            </div>
+            <div class="prod-price"><span class="now">₹1,850</span></div>
+            <button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span> Add to Cart</button>
+          </div>
+</div>
+        <!-- Loading State for infinite scroll / pagination -->
+        <div id="catalog-loader" style="text-align:center; padding: 40px 0; display: none;">
+          <div style="width: 24px; height: 24px; border: 2px solid #C5A880; border-right-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+          <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
+        </div>
+      </div>
+    </section>
   </div>
 </main>
 
+<!-- NEWSLETTER -->
+<div class="container">
+  <section class="newsletter">
+    <div>
+      <h3>Stay Updated With New Arrivals &amp; Offers</h3>
+      <p>Subscribe to our newsletter and get 10% off on your first order.</p>
+    </div>
+    <div class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="Enter your email" />
+      <button class="btn btn-dark">Subscribe</button>
+    </div>
+  </section>
+</div>
 
-<!-- == FOOTER =============================================== -->
-
-<footer class="bg-surface pt-16 md:pt-24 pb-8 border-t border-border">
-  <div class="max-w-[90rem] mx-auto px-5 md:px-12 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 md:gap-12 mb-16">
-    <div class="col-span-2 md:col-span-1">
-      <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.4rem] text-ink block mb-6">KGS</a>
-      <p class="text-muted text-[13px] leading-[1.8] mb-8 max-w-xs">Your one-stop destination for premium modern export-quality home décor and furniture in Virudhachalam.</p>
-      <div class="flex items-center gap-4">
-        <a href="https://wa.me/919789182921" target="_blank" class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted hover:border-[#25D366] hover:text-[#25D366] transition-colors bg-white">
-          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a href="index.html" class="logo" style="margin-bottom: 18px">
+          <span class="mark" style="color:#fff">KGS</span>
+          <span class="sub" style="color:#C5A880">Home Décors</span>
         </a>
+        <p style="font-size:13.5px; color:rgba(255,255,255,0.55); max-width:260px; line-height:1.7;">
+          Timeless home décor crafted to bring beauty, elegance and comfort to your spaces.
+        </p>
+        <div class="footer-socials">
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">photo_camera</span></a>
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">thumb_up</span></a>
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">play_circle</span></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="product-listing.html">New Arrivals</a></li>
+          <li><a href="product-listing.html">Best Sellers</a></li>
+          <li><a href="product-listing.html">Artificial Plants</a></li>
+          <li><a href="product-listing.html">Statues &amp; Idols</a></li>
+          <li><a href="product-listing.html">Clocks</a></li>
+          <li><a href="product-listing.html">Lighting</a></li>
+          <li><a href="product-listing.html">Wall Frames</a></li>
+          <li><a href="product-listing.html">Gifts &amp; Hampers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Shipping & Delivery</a></li>
+          <li><a href="#">Returns & Refunds</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Payment Options</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Support</h4>
+        <ul>
+          <li class="info-line"><span class="material-symbols-outlined">mail</span><a href="#">support@kgshome.com</a></li>
+          <li class="info-line"><span class="material-symbols-outlined">call</span><a href="#">+91 97891 82921</a></li>
+          <li class="info-line"><span class="material-symbols-outlined">schedule</span>Mon – Sun · 10 AM – 10 PM</li>
+        </ul>
+        <div class="footer-pay" style="margin-top: 18px">
+          <span>VISA</span><span>MC</span><span>UPI</span><span>AMEX</span><span>COD</span>
+        </div>
       </div>
     </div>
-    <div class="col-span-1">
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Shop</h4>
-      <ul class="space-y-4 text-[13px] text-muted font-medium">
-        <li><a href="product-listing.html" class="hover:text-gold transition-colors">All Products</a></li>
-        <li><a href="product-listing.html?cat=furniture" class="hover:text-gold transition-colors">Sofas & Furniture</a></li>
-        <li><a href="product-listing.html?cat=decor" class="hover:text-gold transition-colors">Décor</a></li>
-        <li><a href="product-listing.html?cat=wall-decor" class="hover:text-gold transition-colors">Wall Décor</a></li>
-        <li><a href="product-listing.html?cat=lighting" class="hover:text-gold transition-colors">Lighting</a></li>
-        <li><a href="product-listing.html?cat=lifestyle-accessories" class="hover:text-gold transition-colors">Lifestyle & Accessories</a></li>
-        <li><a href="product-listing.html?cat=vases-plants" class="hover:text-gold transition-colors">Vases & Plants</a></li>
-        <li><a href="product-listing.html?cat=gifts" class="hover:text-gold transition-colors">Gifts</a></li>
-      </ul>
-    </div>
-    <div class="col-span-1">
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Support</h4>
-      <ul class="space-y-4 text-[13px] text-muted font-medium">
-        <li><a href="contact.html" class="hover:text-gold transition-colors">Contact Us</a></li>
-        <li><a href="shipping-policy.html" class="hover:text-gold transition-colors">Shipping Info</a></li>
-        <li><a href="returns-policy.html" class="hover:text-gold transition-colors">Returns & Refunds</a></li>
-        <li><a href="order-tracking.html" class="hover:text-gold transition-colors">Track Order</a></li>
-      </ul>
-    </div>
-    <div class="col-span-2 md:col-span-1">
-      <h4 class="text-ink text-[11px] tracking-[.18em] uppercase font-bold mb-6">Company</h4>
-      <ul class="space-y-4 text-[13px] text-muted font-medium">
-        <li><a href="about.html" class="hover:text-gold transition-colors">Our Story</a></li>
-        <li><a href="privacy-policy.html" class="hover:text-gold transition-colors">Privacy Policy</a></li>
-        <li><a href="terms.html" class="hover:text-gold transition-colors">Terms of Service</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="max-w-[90rem] mx-auto px-5 md:px-12 border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-    <p class="text-[11px] tracking-[.15em] text-muted uppercase font-medium leading-relaxed">&copy; 2026 KGS Home Décors. All rights reserved.</p>
-    <div class="flex items-center gap-3 opacity-60">
-      <span class="text-[10px] tracking-[.15em] font-bold uppercase text-muted text-center md:text-right">Virudhachalam's Premium Choice</span>
+    <div class="footer-bottom">
+      <span>© 2026 KGS Home Décors. All Rights Reserved.</span>
+      <div class="links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="shipping-policy.html">Shipping Policy</a>
+        <a href="returns-policy.html">Return Policy</a>
+      </div>
     </div>
   </div>
 </footer>
 
-<script src="assets/js/lenis.min.js" defer></script>
-<script src="assets/js/config.js"></script>
-<script src="assets/js/store.js"></script>
-<script>
-let CURRENT_PAGE = 1;
-const ITEMS_PER_PAGE = 12;
-let ALL_PRODUCTS = [];
-let FILTERED_PRODUCTS = [];
-
-async function loadProducts() {
-  const skeleton = document.getElementById('skeleton-grid');
-  const grid = document.getElementById('product-grid');
-  const pag = document.getElementById('pagination');
-  
-  skeleton.style.display = 'grid';
-  grid.style.display = 'none';
-  pag.style.display = 'none';
-
-  const cat = (new URLSearchParams(window.location.search).get('cat') || '').toLowerCase();
-
-  if (!cat || cat === 'all') {
-    // No filter ? fetch ALL active products from Supabase
-    ALL_PRODUCTS = await initStore();
-    setActivePill('all');
-  } else {
-    // Specific category ? fetch from Supabase with category filter
-    ALL_PRODUCTS = await fetchCollectionProducts(cat);
-    setActivePill(cat);
-  }
-
-  FILTERED_PRODUCTS = [...ALL_PRODUCTS];
-  renderPage();
-}
-
-function renderPage() {
-  const grid = document.getElementById('product-grid');
-  const skeleton = document.getElementById('skeleton-grid');
-  const pag = document.getElementById('pagination');
-  const msg = document.getElementById('no-products');
-
-  const start = (CURRENT_PAGE - 1) * ITEMS_PER_PAGE;
-  const end = start + ITEMS_PER_PAGE;
-  const pageItems = FILTERED_PRODUCTS.slice(start, end);
-
-  if (pageItems.length === 0) {
-    grid.innerHTML = '';
-    msg.style.display = 'block';
-    pag.style.display = 'none';
-  } else {
-    msg.style.display = 'none';
-    grid.innerHTML = pageItems.map(p => `
-      <div class="prod-card relative hover-trigger">
-        <div class="prod-img">
-          ${p.badge ? `<span class="absolute top-2.5 left-2.5 bg-gold text-white text-[9px] font-semibold tracking-wider uppercase px-2 py-1">${p.badge}</span>` : ''}
-          <button class="heart-btn" data-product-id="${p.id}" onclick="toggleWishlist('${p.id}')">
-            <span class="material-symbols-outlined text-[16px]">favorite</span>
-          </button>
-          <a href="product-detail.html?handle=${p.handle}">
-            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain p-4 bg-white" loading="lazy" style="object-position:center center;">
-          </a>
-        </div>
-        <div class="px-4 pt-3 pb-4">
-          <span class="text-[11px] font-medium tracking-[.2em] uppercase text-muted mb-1">${(p.category || 'Decor').replace(/-/g, ' ')}</span>
-          <h3 class="font-sans font-medium tracking-tight text-ink text-[1.05rem] leading-snug mb-2">
-            <a href="product-detail.html?handle=${p.handle}">${p.name}</a>
-          </h3>
-          <div class="font-sans font-semibold text-warm text-[1.1rem] mb-3">₹${p.price.toLocaleString('en-IN')}</div>
-          <div class="card-cta space-y-2">
-            <button onclick="addToCart('${p.id}')" class="btn-primary w-full text-[10px] py-2.5">Add to Cart</button>
-            <a href="https://wa.me/919789182921?text=${encodeURIComponent('Hi, I am interested in ' + p.name + ' - ₹' + p.price.toLocaleString('en-IN'))}" class="btn-whatsapp w-full text-[10px] py-2.5">WhatsApp Order</a>
-          </div>
-        </div>
-      </div>
-    `).join('');
-    
-    renderPagination();
-    grid.style.display = 'grid';
-    pag.style.display = 'flex';
-  }
-
-  skeleton.style.display = 'none';
-  updateHeartIcons();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function renderPagination() {
-  const totalPages = Math.ceil(FILTERED_PRODUCTS.length / ITEMS_PER_PAGE);
-  const container = document.getElementById('pag-numbers');
-  const prevBtn = document.getElementById('pag-prev');
-  const nextBtn = document.getElementById('pag-next');
-  if (totalPages <= 1) { document.getElementById('pagination').style.display = 'none'; return; }
-  const pages = [];
-  if (totalPages <= 7) {
-    for (let i = 1; i <= totalPages; i++) pages.push(i);
-  } else {
-    pages.push(1);
-    if (CURRENT_PAGE > 3) pages.push('...');
-    for (let i = Math.max(2, CURRENT_PAGE-1); i <= Math.min(totalPages-1, CURRENT_PAGE+1); i++) pages.push(i);
-    if (CURRENT_PAGE < totalPages - 2) pages.push('...');
-    pages.push(totalPages);
-  }
-  container.innerHTML = pages.map(p => p === '...'
-    ? `<span style="width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;color:#767270;font-size:13px;">...</span>`
-    : `<button class="pag-btn ${p === CURRENT_PAGE ? 'active' : ''}" onclick="goToPage(${p})">${p}</button>`
-  ).join('');
-  prevBtn.classList.toggle('disabled', CURRENT_PAGE === 1);
-  nextBtn.classList.toggle('disabled', CURRENT_PAGE === totalPages);
-  prevBtn.onclick = () => goToPage(CURRENT_PAGE - 1);
-  nextBtn.onclick = () => goToPage(CURRENT_PAGE + 1);
-}
-
-function goToPage(p) {
-  CURRENT_PAGE = p;
-  renderPage();
-}
-
-function setActivePill(cat) {
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    const isActive = btn.dataset.cat === cat;
-    btn.classList.toggle('active', isActive);
-    btn.classList.toggle('text-muted', !isActive);
-    btn.classList.toggle('hover:text-ink', !isActive);
-  });
-}
-
-// Category group mapping: homepage parent -> specific subcategories
-const CATEGORY_GROUPS = {
-  'furniture': ['furniture', 'chairs'],
-  'decor': ['wall-clocks', 'photo-frames', 'statues', 'water-fountains'],
-  'lighting': ['lighting'],
-  'botanicals': ['vases-plants'],
-  'gifting': ['gifts', 'accessories']
-};
-
-function filterByCategory(cat) {
-  const term = cat.toLowerCase();
-  window.location.href = term === 'all'
-    ? 'product-listing.html'
-    : 'product-listing.html?cat=' + encodeURIComponent(term);
-}
-
-function sortProducts(val) {
-  if (val === 'low') FILTERED_PRODUCTS.sort((a, b) => a.price - b.price);
-  else if (val === 'high') FILTERED_PRODUCTS.sort((a, b) => b.price - a.price);
-  else if (val === 'new') FILTERED_PRODUCTS.sort((a, b) => (b.badge === 'New' ? 1 : 0) - (a.badge === 'New' ? 1 : 0));
-  else FILTERED_PRODUCTS = [...ALL_PRODUCTS]; // Best selling / Default
-  
-  CURRENT_PAGE = 1;
-  renderPage();
-}
-
-// Initial Load
-document.addEventListener('DOMContentLoaded', () => {
-  loadProducts();
-  updateCartBadge();
-  updateWishlistBadge();
-
-  // Event Listeners for Filters
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => filterByCategory(btn.dataset.cat));
-  });
-});
-
-function openDrw(){ document.getElementById('mobile-drawer').style.transform='translateX(0)'; document.getElementById('drw-ov').classList.remove('hidden'); document.body.style.overflow='hidden'; }
-function closeDrw(){ document.getElementById('mobile-drawer').style.transform='translateX(100%)'; document.getElementById('drw-ov').classList.add('hidden'); document.body.style.overflow=''; }
-function openSearch(){ const o=document.getElementById('search-overlay'); if(o){o.style.display='flex'; const i=document.getElementById('search-input'); if(i)i.focus(); document.body.style.overflow='hidden';} }
-function closeSearch(){ const o=document.getElementById('search-overlay'); if(o){o.style.display='none';} document.body.style.overflow=''; }
-function liveSearch(q){
-  const res=document.getElementById('search-results'); if(!res) return;
-  if(!q||q.length<2){res.innerHTML='';return;}
-  const fuse=new Fuse(ALL_PRODUCTS,{keys:['name','category'],threshold:0.4});
-  const hits=fuse.search(q).slice(0,6);
-  if(!hits.length){res.innerHTML='<p style="padding:16px;font-family:DM Sans,sans-serif;color:#767270;font-size:13px;">No results found.</p>';return;}
-  res.innerHTML=hits.map(h=>`<a href="product-detail.html?handle=${h.item.handle}" style="display:flex;align-items:center;gap:12px;padding:12px 16px;text-decoration:none;border-bottom:1px solid #E4DDD4;" onclick="closeSearch()">
-    <img src="${h.item.image}" style="width:48px;height:48px;object-fit:cover;flex-shrink:0;">
-    <span style="font-family: "Jost", sans-serif;font-size:13px;color:#1A1A1A;">${h.item.name}<br><span style="color:#767270;font-size:11px;">₹${h.item.price.toLocaleString('en-IN')}</span></span>
-  </a>`).join('');
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  if (typeof Lenis !== 'undefined') {
-    const lenis = new Lenis();
-    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-  }
-});
-</script>
-
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
-
-<!-- == WHATSAPP FLOAT ======================================= -->
-<a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help"
-   target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(37,211,102,0.6)] transition-all duration-300" aria-label="Chat on WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<a class="wa-float" href="#">
+  <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px; height:22px; flex-shrink:0;">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
+  </svg>
+  Chat With Us
 </a>
 
-</div><!-- /page-wrap -->
-</body>
+<script src="assets/js/catalog.js"></script>
+<script>
+// Highlight active nav link on legacy pages
+(function() {
+  var page = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-link').forEach(function(a) {
+    if (a.getAttribute('href') === page) a.classList.add('active');
+    if (page === '' && a.getAttribute('href') === 'index.html') a.classList.add('active');
+  });
+})();
+</script></body>
 </html>
-
-
-

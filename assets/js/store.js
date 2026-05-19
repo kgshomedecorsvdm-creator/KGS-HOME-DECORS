@@ -19,7 +19,10 @@ async function sbFetch(endpoint) {
 
 /* ─── PRODUCT CATALOG ───────────────────────────────────── */
 
+let _cachedAllProducts = null;
+
 async function initStore() {
+  if (_cachedAllProducts) return _cachedAllProducts;
   let allData = [];
   let offset = 0;
   const limit = 1000;
@@ -31,7 +34,7 @@ async function initStore() {
     offset += limit;
   }
 
-  return allData.map(p => ({
+  _cachedAllProducts = allData.map(p => ({
     id: p.id,
     handle: p.handle,
     name: p.name,
@@ -45,6 +48,7 @@ async function initStore() {
     in_stock: p.in_stock,
     material: p.material
   }));
+  return _cachedAllProducts;
 }
 
 async function fetchCollectionProducts(category) {
@@ -214,6 +218,36 @@ function updateHeartIcons() {
       btn.classList.remove('active');
     }
   });
+}
+
+/* ─── CATEGORY → IMAGE FOLDER MAP ──────────────────────── */
+// The DB uses 7 broad category slugs, but products live in 13 specific
+// image folders in Supabase Storage. This map lets us filter precisely
+// by folder without requiring a DB migration.
+const KGS_FOLDER_MAP = {
+  'statues':            'statues',
+  'wall-frames':        'wall-frames',
+  'clocks':             'clocks',
+  'artificial-plants':  'ar-plants',
+  'bags-accessories':   'bags-accessories',
+  'furniture':          'chairs-sofas',
+  'artificial-flowers': 'artificial-flowers',
+  'vases':              'vases',
+  'wall-statues':       'wall-statues',
+  'gifts':              'gifts-toys',
+  'bottles':            'bottles',
+  'fountains':          'fountains',
+  'appliances':         'blower-fan',
+};
+
+function filterProductsBySlug(products, slug) {
+  if (!slug || slug === 'all') return products;
+  const folder = KGS_FOLDER_MAP[slug];
+  if (folder) {
+    const byFolder = products.filter(p => (p.image || '').includes('/' + folder + '/'));
+    if (byFolder.length > 0) return byFolder;
+  }
+  return products.filter(p => (p.category || '') === slug);
 }
 
 /* ─── UTILS ─────────────────────────────────────────────── */

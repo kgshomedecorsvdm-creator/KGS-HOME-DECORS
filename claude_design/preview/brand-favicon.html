@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Favicon tile</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+  .tile {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    color: #C5A880;
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: .14em;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.06) inset,
+      0 -1px 0 rgba(0,0,0,0.4) inset,
+      0 8px 24px -8px rgba(0,0,0,0.45);
+    background:
+      radial-gradient(120% 100% at 30% 20%, rgba(255,255,255,0.06), transparent 60%),
+      linear-gradient(155deg, #2a2624 0%, #1A1A1A 45%, #0e0d0c 100%);
+  }
+  .tile::before {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    border: 1px solid rgba(197, 168, 128, 0.18);
+    pointer-events: none;
+  }
+  .tile .mark {
+    background: linear-gradient(180deg, #E8CFA3 0%, #C5A880 45%, #8E7449 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 1px 0 rgba(0,0,0,0.6));
+  }
+  .tile--72 { width: 72px; height: 72px; border-radius: 16px; font-size: 22px; }
+  .tile--56 { width: 56px; height: 56px; border-radius: 12px; font-size: 17px; align-self: flex-end; }
+  .tile--36 { width: 36px; height: 36px; border-radius: 8px; font-size: 11px; align-self: flex-end; }
+  .tile--24 { width: 24px; height: 24px; border-radius: 5px; font-size: 8px; align-self: flex-end; }
+
+  /* Light variant */
+  .tile--light {
+    background:
+      radial-gradient(110% 100% at 30% 18%, rgba(255,255,255,0.9), transparent 60%),
+      linear-gradient(155deg, #FDF9F3 0%, #F3EDE4 100%);
+    color: #1A1A1A;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.9) inset,
+      0 -1px 0 rgba(0,0,0,0.06) inset,
+      0 8px 24px -10px rgba(120, 90, 40, 0.18);
+  }
+  .tile--light::before { border-color: rgba(197,168,128,0.55); }
+  .tile--light .mark {
+    background: linear-gradient(180deg, #8E7449 0%, #C5A880 60%, #8E7449 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: none;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="row" style="gap:28px;align-items:flex-end">
+    <div style="display:flex;gap:14px;align-items:flex-end">
+      <div class="tile tile--72"><span class="mark">KGS</span></div>
+      <div class="tile tile--56"><span class="mark">KGS</span></div>
+      <div class="tile tile--36"><span class="mark">KGS</span></div>
+      <div class="tile tile--24"><span class="mark">KGS</span></div>
+    </div>
+
+    <div style="width:1px;align-self:stretch;background:var(--border);margin:6px 0"></div>
+
+    <div style="display:flex;gap:10px;align-items:flex-end">
+      <div class="tile tile--56 tile--light"><span class="mark">KGS</span></div>
+      <div class="tile tile--36 tile--light"><span class="mark">KGS</span></div>
+    </div>
+
+    <div class="col grow" style="gap:6px;align-self:center">
+      <div class="cap">Favicon · App icon</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.65">Embossed gold serif on a charcoal tile — gradient foil (<span class="mono">#E8CFA3 → #8E7449</span>), hairline gold border, soft inner highlight. Light variant for cream backgrounds.</div>
+      <div class="mono" style="margin-top:2px">assets/logo/favicon.svg</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

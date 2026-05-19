@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ── REDUCED MOTION: disable all transitions & animations for users who prefer it ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── GLOBAL FOCUS VISIBLE: visible keyboard-nav ring on all interactive elements ── */
+:focus-visible {
+  outline: 2px solid #C97840;
+  outline-offset: 3px;
+}
+/* Suppress mouse-click focus outlines (only show on keyboard) */
+:focus:not(:focus-visible) {
+  outline: none;
+}

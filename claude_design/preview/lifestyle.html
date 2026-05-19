@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Lifestyle imagery — KGS</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+  html, body { background: #FDF9F3; }
+
+  .spread {
+    width: 100%;
+    background: #FDF9F3;
+    padding: 40px 44px 36px;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  /* ─── Masthead ─────────────────────────────────────────────── */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 18px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid rgba(26,26,26,0.08);
+  }
+  .masthead .left {
+    font-family: var(--font-sans);
+    font-size: 9.5px; font-weight: 500;
+    letter-spacing: .32em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .masthead .center {
+    font-family: var(--font-serif);
+    font-style: italic; font-weight: 400;
+    font-size: 13px; color: var(--ink);
+    letter-spacing: .01em;
+  }
+  .masthead .right {
+    font-family: ui-monospace, 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--muted);
+    letter-spacing: .12em;
+    text-align: right;
+  }
+  .masthead .right b { color: var(--ink); font-weight: 600; }
+
+  /* ─── Hero block ───────────────────────────────────────────── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1.55fr;
+    gap: 44px;
+    align-items: end;
+    margin-bottom: 44px;
+  }
+
+  .hero-words {
+    padding-bottom: 8px;
+  }
+  .folio {
+    font-family: var(--font-serif);
+    font-style: italic; font-weight: 400;
+    font-size: 11px; color: var(--gold-dark, #8E7449);
+    letter-spacing: .04em;
+    margin-bottom: 28px;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .folio::before {
+    content: '';
+    width: 28px; height: 1px;
+    background: var(--gold, #C5A880);
+    display: inline-block;
+    transform: translateY(-3px);
+  }
+  .hero-words h1 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 1.04;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+    margin: 0 0 22px;
+  }
+  .hero-words h1 em {
+    font-style: italic; font-weight: 400;
+    color: var(--ink);
+  }
+  .hero-words .lede {
+    font-family: var(--font-sans);
+    font-size: 11.5px;
+    line-height: 1.75;
+    color: var(--muted);
+    margin: 0 0 22px;
+    max-width: 30ch;
+    font-weight: 300;
+  }
+  .hero-words .lede::first-letter {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--ink);
+    float: left;
+    line-height: 0.9;
+    padding: 6px 6px 0 0;
+  }
+
+  .signature {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .signature b {
+    font-style: normal;
+    font-family: var(--font-sans);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* Hero image — signature asymmetric mask */
+  .hero-shot {
+    position: relative;
+    aspect-ratio: 5 / 4;
+    overflow: hidden;
+    border-top-left-radius: 160px;
+    border-bottom-right-radius: 24px;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    background: #1A1A1A;
+    box-shadow: 0 30px 60px -32px rgba(26,26,26,0.22);
+  }
+  .hero-shot img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 900ms cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  .hero-shot:hover img { transform: scale(1.025); }
+
+  /* Hero caption — floats below right corner */
+  .hero-caption {
+    position: absolute;
+    right: -2px; bottom: -34px;
+    display: flex; align-items: baseline; gap: 12px;
+    font-family: var(--font-sans);
+    font-size: 9px; font-weight: 500;
+    letter-spacing: .26em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hero-caption .num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--gold-dark, #8E7449);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  /* ─── Plates row ───────────────────────────────────────────── */
+  .plates-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin: 8px 0 18px;
+  }
+  .plates-head .label {
+    font-family: var(--font-sans);
+    font-size: 9.5px; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--ink);
+  }
+  .plates-head .rule {
+    flex: 1;
+    height: 1px;
+    background: rgba(26,26,26,0.08);
+    margin: 0 24px;
+    transform: translateY(-2px);
+  }
+  .plates-head em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .plates {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+  }
+
+  .plate {
+    display: flex; flex-direction: column;
+    gap: 12px;
+    cursor: default;
+  }
+  .plate-frame {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: #2A2522;
+    transition: transform 600ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .plate:hover .plate-frame {
+    transform: translateY(-3px);
+  }
+  .plate-frame img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 1100ms cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  .plate:hover .plate-frame img { transform: scale(1.04); }
+
+  .plate-meta {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 8px;
+  }
+  .plate-meta .num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 11px;
+    color: var(--gold-dark, #8E7449);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .plate-meta .name {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    line-height: 1.15;
+  }
+  .plate-meta .name em {
+    font-style: italic;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .plate-sub {
+    font-family: var(--font-sans);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: -4px;
+  }
+
+  /* ─── Colophon ─────────────────────────────────────────────── */
+  .colophon {
+    margin-top: 36px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(26,26,26,0.08);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .colophon dt {
+    font-family: var(--font-sans);
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .colophon dd {
+    font-family: var(--font-serif);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.45;
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  .colophon dd em { font-style: italic; color: var(--muted); font-weight: 400; }
+
+  /* Subtle gold corner ornament */
+  .ornament {
+    position: absolute;
+    top: 16px; right: 22px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 11px;
+    color: var(--gold, #C5A880);
+    letter-spacing: 0;
+  }
+</style>
+</head>
+<body>
+<div class="card" style="padding:0; align-items:stretch; background:#FDF9F3;">
+  <div class="spread">
+
+    <div class="ornament">№ 04</div>
+
+    <!-- ─── Masthead ─── -->
+    <div class="masthead">
+      <div class="left">Brand · Lifestyle Imagery</div>
+      <div class="center">— a quiet record of warm interiors —</div>
+      <div class="right"><b>KGS</b> &nbsp;·&nbsp; VIRUDHACHALAM &nbsp;·&nbsp; EST. MMXX</div>
+    </div>
+
+    <!-- ─── Hero ─── -->
+    <div class="hero">
+      <div class="hero-words">
+        <div class="folio">Plate I &nbsp;·&nbsp; The Showroom</div>
+        <h1>The room is the<br>brand's <em>truest</em><br>argument.</h1>
+        <p class="lede">Wide, warm, daylit. Never high-contrast, never grainy, never monochrome. Imagery is held in its own column &mdash; cropped through our asymmetric mask so the photograph itself has a shape.</p>
+        <div class="signature">
+          <b>House Grade</b>
+          warm daylight · +5 saturation · &minus;10 contrast
+        </div>
+      </div>
+
+      <div class="hero-shot">
+        <img src="../assets/lifestyle/showroom_interior.webp" alt="KGS Showroom Interior — Atelier wing">
+        <div class="hero-caption">
+          <span class="num">i.</span>
+          <span>Junction Road · Atelier wing</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Plates ─── -->
+    <div class="plates-head">
+      <span class="label">Room Studies</span>
+      <span class="rule"></span>
+      <em>four interiors, one grade</em>
+    </div>
+
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-frame">
+          <img src="../assets/lifestyle/room_living.webp" alt="Heritage lounge">
+        </div>
+        <div class="plate-meta">
+          <span class="name">Heritage <em>Lounge</em></span>
+          <span class="num">ii.</span>
+        </div>
+        <div class="plate-sub">Carved · Brass · Beige</div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-frame">
+          <img src="../assets/lifestyle/room_bedroom.webp" alt="Royal bedroom">
+        </div>
+        <div class="plate-meta">
+          <span class="name">Royal <em>Quarters</em></span>
+          <span class="num">iii.</span>
+        </div>
+        <div class="plate-sub">Linen · Walnut · Gold</div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-frame">
+          <img src="../assets/lifestyle/room_hallway.webp" alt="Carved foyer">
+        </div>
+        <div class="plate-meta">
+          <span class="name">Carved <em>Foyer</em></span>
+          <span class="num">iv.</span>
+        </div>
+        <div class="plate-sub">Stone · Teak · Daylight</div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-frame">
+          <img src="../assets/lifestyle/room_zen.webp" alt="Zen corner with brass fountain">
+        </div>
+        <div class="plate-meta">
+          <span class="name">Zen <em>Corner</em></span>
+          <span class="num">v.</span>
+        </div>
+        <div class="plate-sub">Water · Brass · Greenery</div>
+      </div>
+    </div>
+
+    <!-- ─── Colophon ─── -->
+    <dl class="colophon">
+      <div>
+        <dt>Palette</dt>
+        <dd>Wood, brass, <em>beige textile,</em> living plants.</dd>
+      </div>
+      <div>
+        <dt>Framing</dt>
+        <dd>Editorial wide. <em>One subject</em> per plate.</dd>
+      </div>
+      <div>
+        <dt>Mask</dt>
+        <dd>Asymmetric. <em>Never</em> rectangular full-bleed.</dd>
+      </div>
+      <div>
+        <dt>Refused</dt>
+        <dd><em>No</em> grain, b&amp;w, or high contrast.</dd>
+      </div>
+    </dl>
+
+  </div>
+</div>
+</body>
+</html>

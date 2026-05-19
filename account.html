@@ -1,393 +1,260 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-<head><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap"></noscript>
-<style>html{scroll-padding-top:80px}</style>
-<meta charset="UTF-8">
-<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
-<link rel="icon" type="image/png" href="assets/images/favicon.png">
-<meta name="theme-color" content="#1A1A1A">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Account | KGS Home Décors</title>
-<link rel="preload" href="assets/css/tailwind.min.css" as="style">
-<link rel="stylesheet" href="assets/css/tailwind.min.css">
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" as="style">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"></noscript>
-<meta name="description" content="Manage your KGS Home Décors account.">
-<link rel="canonical" href="https://kgshomedecors.in/account.html">
-
-<style>
-*,*::before,*::after { box-sizing: border-box; }
-html,body{overflow-x:hidden;width:100%;margin:0;padding:0;}
-body { -webkit-font-smoothing: antialiased; }
-::selection { background: #C5A880; color: #fff; }
-.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; }
-.nav-link { position: relative; color: #767270; font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; transition: color .2s; }
-.nav-link::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 1px; background: #C5A880; transition: width .3s; }
-.nav-link:hover { color: #1A1A1A; }
-.nav-link:hover::after { width: 100%; }
-.tab-content { animation: fadeIn 0.3s ease-out; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-#page-preloader{position:fixed;inset:0;z-index:9999;background:#FAF8F4;display:flex;align-items:center;justify-content:center;transition:opacity .5s ease,visibility .5s ease;}
-#page-preloader .pl-logo{font-family:'Crimson Pro',serif;font-size:2rem;font-weight:500;letter-spacing:.35em;color:#1A1A1A;opacity:0;animation:plFadeIn .6s ease forwards .15s;}
-@keyframes plFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
-input:focus { border-color: rgba(26, 26, 26, 0.25) !important; }
-</style>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-<script src="assets/js/config.js"></script>
-<script src="assets/js/supabase-client.js" defer></script>
-<link rel="manifest" href="/manifest.json">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account | KGS Home Décors</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .account-layout { display: grid; grid-template-columns: 240px 1fr; gap: 64px; }
+    .account-menu { display: flex; flex-direction: column; gap: 8px; }
+    .account-menu a { padding: 12px 16px; border-radius: 6px; font-size: 14px; font-weight: 500; color: #5E5B59; display: flex; align-items: center; gap: 12px; transition: background 0.2s, color 0.2s; }
+    .account-menu a:hover { background: rgba(197,168,128,0.1); color: #1A1A1A; }
+    .account-menu a.active { background: #1A1A1A; color: #fff; }
+    .account-menu a.logout { color: #D32F2F; margin-top: 24px; }
+    .account-menu a.logout:hover { background: rgba(211,47,47,0.1); }
+    
+    .order-card { background: #fff; border: 1px solid rgba(197,168,128,0.25); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+    .order-header { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(26,26,26,0.08); padding-bottom: 16px; margin-bottom: 16px; }
+    .order-meta { display: flex; flex-direction: column; gap: 4px; }
+    .order-meta span { font-size: 12px; color: #5E5B59; }
+    .order-meta b { font-size: 14px; color: #1A1A1A; }
+    .order-status { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 9999px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; }
+    .order-status.shipped { background: rgba(37,211,102,0.1); color: #128C7E; }
+    .order-status.processing { background: rgba(184,150,87,0.1); color: #B89657; }
+    
+    .order-item { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
+    .order-item img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; background: #F3EBDC; }
+    .order-item div { flex: 1; }
+    
+    @media(max-width: 768px) {
+      .account-layout { grid-template-columns: 1fr; gap: 40px; }
+    }
+  </style>
 </head>
-<body class="bg-base text-ink font-sans overflow-x-hidden overflow-y-scroll">
-
-
-<!-- == ANNOUNCEMENT BAR =================================== -->
-<div class="bg-ink text-white/50 text-[10px] font-medium tracking-[.25em] uppercase text-center py-2.5">
-  Free Delivery in Virudhachalam &nbsp;&middot;&nbsp; Secure Online Payments &nbsp;&middot;&nbsp; Open 10 AM — 10 PM, Every Day
-</div>
-
-<!-- == TOAST NOTIFICATION =================================== -->
-<div id="cart-toast">
-  <span class="material-symbols-outlined toast-icon">check_circle</span>
-  <span id="toast-text">Added to cart</span>
-  <a href="cart-checkout.html" style="color:#C5A880;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin-left:8px;">View Cart &rarr;</a>
-</div>
-<!-- == DRAWER OVERLAY ======================================= -->
-<div id="drw-ov" class="fixed inset-0 bg-ink/40 z-50 hidden backdrop-blur-sm transition-opacity" onclick="closeDrw()"></div>
-<div id="mobile-drawer" class="fixed inset-y-0 right-0 z-50 w-[300px] bg-surface flex flex-col translate-x-full shadow-2xl transition-transform duration-300 ease-out">
-  <div class="flex items-center justify-between px-6 py-6 border-b border-border">
-    <span class="font-serif font-medium tracking-[.2em] text-ink text-[1.1rem]">MENU</span>
-    <button onclick="closeDrw()" class="text-muted hover:text-ink transition-colors bg-transparent border-none p-0 cursor-pointer flex items-center"><span class="material-symbols-outlined text-[24px]">close</span></button>
-  </div>
-  <nav class="flex flex-col px-6 pt-8 gap-6 overflow-y-auto">
-    <a href="index.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Home</a>
-    <a href="product-listing.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Shop All</a>
-    <a href="about.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Our Story</a>
-    <a href="contact.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Showroom & Contact</a>
-    <a href="order-tracking.html" class="nav-link text-[13px] normal-case font-medium tracking-normal text-ink text-left">Track Order</a>
-  </nav>
-  <div class="mt-auto px-6 py-8 border-t border-border bg-tint space-y-5">
-    <a href="tel:+919789182921" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-gold">call</span> +91 97891 82921</a>
-    <a href="https://wa.me/919789182921" target="_blank" class="flex items-center gap-3 text-sm text-ink font-medium"><span class="material-symbols-outlined text-[20px] text-[#25D366]">chat</span> WhatsApp Us</a>
+<body style="background: #FAF8F4; display: flex; flex-direction: column; min-height: 100vh;">
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-bar container">
+    <a href="index.html" class="logo">
+      <span class="mark">KGS</span>
+      <span class="sub">Home D�cor</span>
+    </a>
+    <nav class="nav-links">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="product-listing.html">Shop</a>
+      <a class="nav-link" href="about.html">Our Story</a>
+      <a class="nav-link" href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="icon-btn" href="account.html" aria-label="Account">
+        <span class="material-symbols-outlined">person</span>
+      </a>
+      <a class="icon-btn" href="wishlist.html" aria-label="Wishlist">
+        <span class="material-symbols-outlined">favorite</span>
+      </a>
+      <a class="icon-btn" href="cart-checkout.html" aria-label="Cart">
+        <span class="material-symbols-outlined">shopping_bag</span>
+      </a>
+    </div>
   </div>
 </div>
 
-<!-- == SEARCH OVERLAY ======================================= -->
-<div id="search-overlay" onclick="if(event.target===this)closeSearch()" class="fixed inset-0 z-[100] bg-surface/95 backdrop-blur-md hidden flex-col items-center pt-24 px-5">
-  <div class="w-full max-w-2xl relative">
-    <div class="flex items-center gap-4 border-b border-ink/10 pb-4 mb-8">
-      <span class="material-symbols-outlined text-[24px] text-ink/40">search</span>
-      <input id="search-input" type="text" placeholder="Search for products..."
-             class="flex-grow bg-transparent text-ink font-sans placeholder-ink/30 outline-none text-[20px] md:text-[24px]"
-             oninput="doSearch(this.value)" autocomplete="off">
-      <button onclick="closeSearch()" class="text-ink/40 hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-1 flex items-center" aria-label="Close search">
-        <span class="material-symbols-outlined text-[24px]">close</span>
-      </button>
-    </div>
-    <div id="search-results" class="max-h-[60vh] overflow-y-auto pb-8 w-full flex flex-col gap-2"></div>
-  </div>
-</div>
 
-<!-- == NAVBAR =============================================== -->
-<nav id="navbar" class="fixed top-0 w-full z-40 bg-surface/90 backdrop-blur-lg border-b border-border transition-transform duration-300">
-  <div class="max-w-[90rem] mx-auto px-5 md:px-12 flex items-center justify-between h-20 md:h-24">
-    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.6rem] text-ink hover:text-gold transition-colors shrink-0">KGS</a>
-    <div class="hidden md:flex items-center gap-10">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="product-listing.html" class="nav-link">Shop</a>
-      <a href="about.html" class="nav-link">Our Story</a>
-      <a href="contact.html" class="nav-link">Contact</a>
-    </div>
-    <div class="flex items-center gap-4 md:gap-7 text-ink">
-      <button onclick="openSearch()" aria-label="Search" class="hover:text-gold transition-colors bg-transparent border-none cursor-pointer p-0 flex items-center"><span class="material-symbols-outlined text-[22px]">search</span></button>
-    </div>
-  </div>
-</nav>
-
-<main id="main-content" class="pt-28 pb-20 px-5 md:px-12 max-w-[90rem] mx-auto min-h-[60vh]">
-  <div class="mb-10 border-b border-border pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-    <div>
-      <h1 class="font-serif text-3xl text-ink font-medium">My Account</h1>
-      <p class="text-muted text-[13px] mt-2">Welcome back, <span id="user-name-display" class="font-medium text-ink">User</span></p>
-    </div>
-    <button onclick="logout()" class="text-[11px] font-semibold tracking-[.1em] uppercase text-muted hover:text-ink transition-colors border border-border px-4 py-2 bg-transparent cursor-pointer">Log Out</button>
-  </div>
-
-  <div class="flex flex-col md:flex-row gap-8">
-    <!-- Sidebar Tabs -->
-    <div class="w-full md:w-64 shrink-0 flex flex-row md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
-      <button id="nav-orders" onclick="showTab('orders', event)" class="text-[13px] font-medium px-4 py-3 text-left whitespace-nowrap bg-tint text-ink border-l-2 border-gold transition-colors">Orders</button>
-      <button id="nav-wishlist" onclick="showTab('wishlist', event)" class="text-[13px] font-medium px-4 py-3 text-left whitespace-nowrap text-muted border-l-2 border-transparent hover:bg-surface transition-colors">Wishlist</button>
-      <button id="nav-addresses" onclick="showTab('addresses', event)" class="text-[13px] font-medium px-4 py-3 text-left whitespace-nowrap text-muted border-l-2 border-transparent hover:bg-surface transition-colors">Addresses</button>
-      <button id="nav-settings" onclick="showTab('settings', event)" class="text-[13px] font-medium px-4 py-3 text-left whitespace-nowrap text-muted border-l-2 border-transparent hover:bg-surface transition-colors">Settings</button>
-    </div>
-
-    <!-- Content Area -->
-    <div class="flex-grow">
-      
-      <!-- Orders Tab -->
-      <div id="tab-orders" class="tab-content block">
-        <h2 class="font-serif text-xl text-ink mb-6">Order History</h2>
-        <div id="orders-container"></div>
-      </div>
-
-      <!-- Wishlist Tab -->
-      <div id="tab-wishlist" class="tab-content hidden">
-        <h2 class="font-serif text-xl text-ink mb-6">My Wishlist</h2>
-        <div id="wishlist-container"></div>
-      </div>
-
-      <!-- Addresses Tab -->
-      <div id="tab-addresses" class="tab-content hidden">
-        <div class="flex justify-between items-center mb-6">
-          <h2 class="font-serif text-xl text-ink">Saved Addresses</h2>
-          <button onclick="showAddAddressForm()" class="text-[11px] font-semibold tracking-[.1em] uppercase text-white bg-ink px-4 py-2 hover:bg-gold transition-colors">Add New</button>
+<main style="flex: 1; padding: 64px 0 96px;">
+  <div class="container">
+    <h1 style="font-family:'Crimson Pro',serif; font-size: 36px; font-weight: 500; margin-bottom: 48px;">My Account</h1>
+    
+    <div class="account-layout">
+      <!-- Sidebar -->
+      <aside>
+        <div class="account-menu">
+          <a href="#" class="active"><span class="material-symbols-outlined">package</span> Order History</a>
+          <a href="#"><span class="material-symbols-outlined">person</span> Profile Details</a>
+          <a href="#"><span class="material-symbols-outlined">location_on</span> Addresses</a>
+          <a href="wishlist.html"><span class="material-symbols-outlined">favorite</span> Wishlist</a>
+          <a href="#" class="logout" id="logout-btn"><span class="material-symbols-outlined">logout</span> Sign Out</a>
         </div>
-        <div id="addresses-container"></div>
+      </aside>
+      
+      <!-- Content -->
+      <div>
+        <h2 style="font-size: 20px; font-weight: 500; margin-bottom: 24px;">Recent Orders</h2>
         
-        <div id="add-address-form" style="display:none;" class="bg-surface border border-border p-5 mt-6">
-          <h3 class="font-serif text-[18px] mb-4">Add Address</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <input type="text" id="addr-name" placeholder="Full Name" class="w-full bg-white border border-border px-4 py-3 text-[13px] outline-none">
-            <input type="text" id="addr-phone" placeholder="Phone Number" class="w-full bg-white border border-border px-4 py-3 text-[13px] outline-none">
-            <input type="text" id="addr-line" placeholder="Street Address" class="w-full md:col-span-2 bg-white border border-border px-4 py-3 text-[13px] outline-none">
-            <input type="text" id="addr-city" placeholder="City" class="w-full bg-white border border-border px-4 py-3 text-[13px] outline-none">
-            <div class="flex gap-4">
-              <input type="text" id="addr-state" placeholder="State" class="w-full bg-white border border-border px-4 py-3 text-[13px] outline-none">
-              <input type="text" id="addr-pin" placeholder="PIN Code" class="w-full bg-white border border-border px-4 py-3 text-[13px] outline-none">
+        <div id="orders-container">
+          <!-- Order Card Mock -->
+          <div class="order-card">
+            <div class="order-header">
+              <div style="display: flex; gap: 32px">
+                <div class="order-meta">
+                  <span>Order Number</span>
+                  <b>#KGS-10042</b>
+                </div>
+                <div class="order-meta">
+                  <span>Date Placed</span>
+                  <b>May 12, 2026</b>
+                </div>
+                <div class="order-meta">
+                  <span>Total Amount</span>
+                  <b>₹18,500</b>
+                </div>
+              </div>
+              <div>
+                <span class="order-status shipped">Shipped</span>
+              </div>
+            </div>
+            <div class="order-item">
+              <img src="assets/products/sofa.webp" alt="">
+              <div>
+                <div style="font-size: 14px; font-weight: 600; color: #1A1A1A; margin-bottom: 4px;">Premium 3-Seater Sofa</div>
+                <div style="font-size: 12px; color: #5E5B59;">Qty: 1</div>
+              </div>
+              <a href="order-tracking.html" class="btn btn-ghost" style="padding: 8px 16px; font-size: 12px;">Track Order</a>
             </div>
           </div>
-          <div class="flex gap-3">
-            <button onclick="saveAddress()" class="btn-primary w-full max-w-[150px]">Save</button>
-            <button onclick="document.getElementById('add-address-form').style.display='none'" class="btn-secondary w-full max-w-[150px]">Cancel</button>
+          
+          <div class="order-card">
+            <div class="order-header">
+              <div style="display: flex; gap: 32px">
+                <div class="order-meta">
+                  <span>Order Number</span>
+                  <b>#KGS-09881</b>
+                </div>
+                <div class="order-meta">
+                  <span>Date Placed</span>
+                  <b>April 28, 2026</b>
+                </div>
+                <div class="order-meta">
+                  <span>Total Amount</span>
+                  <b>₹2,598</b>
+                </div>
+              </div>
+              <div>
+                <span class="order-status processing">Delivered</span>
+              </div>
+            </div>
+            <div class="order-item">
+              <img src="assets/products/clock.webp" alt="">
+              <div>
+                <div style="font-size: 14px; font-weight: 600; color: #1A1A1A; margin-bottom: 4px;">Antique Brass Wall Clock</div>
+                <div style="font-size: 12px; color: #5E5B59;">Qty: 2</div>
+              </div>
+              <button class="btn btn-ghost" style="padding: 8px 16px; font-size: 12px;">Buy Again</button>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Settings Tab -->
-      <div id="tab-settings" class="tab-content hidden">
-        <h2 class="font-serif text-xl text-ink mb-6">Profile Settings</h2>
-        <div class="max-w-md space-y-4">
-          <div>
-            <label class="block text-[11px] font-semibold tracking-[.1em] uppercase text-muted mb-2">Full Name</label>
-            <input type="text" id="settings-name" class="w-full bg-white border border-border px-4 py-3 text-[13px] outline-none focus:border-ink">
-          </div>
-          <div>
-            <label class="block text-[11px] font-semibold tracking-[.1em] uppercase text-muted mb-2">Phone Number</label>
-            <input type="text" id="settings-phone" class="w-full bg-white border border-border px-4 py-3 text-[13px] outline-none focus:border-ink">
-          </div>
-          <button onclick="saveSettings()" class="btn-primary mt-2">Save Changes</button>
-          <p id="settings-msg" class="text-[13px] p-3 mt-4 border" style="display:none;"></p>
-        </div>
-      </div>
-
     </div>
   </div>
 </main>
 
-<script>
-(async function() {
+<!-- NEWSLETTER -->
+<div class="container">
+  <section class="newsletter">
+    <div>
+      <h3>Stay Updated With New Arrivals &amp; Offers</h3>
+      <p>Subscribe to our newsletter and get 10% off on your first order.</p>
+    </div>
+    <div class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="Enter your email" />
+      <button class="btn btn-dark">Subscribe</button>
+    </div>
+  </section>
+</div>
 
-  async function loadOrders() {
-    const container = document.getElementById('orders-container');
-    try {
-      const orders = await getMyOrders();
-      if (!orders || orders.length === 0) {
-        container.innerHTML = `
-          <div class="bg-surface border border-border p-8 text-center">
-            <span class="material-symbols-outlined text-[40px] text-border mb-3 block">inventory_2</span>
-            <h3 class="text-ink font-medium text-[16px] mb-2">No orders yet</h3>
-            <p class="text-muted text-[13px] mb-6">Place an order and it will appear here.</p>
-            <a href="product-listing.html" class="inline-block bg-ink text-white text-[11px] font-semibold tracking-[.15em] uppercase px-8 py-3 hover:bg-gold transition-colors">Start Shopping</a>
-          </div>`;
-        return;
-      }
-      container.innerHTML = orders.map(o => {
-        const statusColors = {pending:'#C97840',confirmed:'#2196F3',shipped:'#9C27B0',delivered:'#4CAF50',cancelled:'#f44336'};
-        const items = o.order_items || [];
-        return `
-        <div class="bg-surface border border-border p-5 mb-4">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <p class="text-[11px] font-semibold tracking-[.12em] uppercase text-muted">Order #${o.order_number}</p>
-              <p class="text-[12px] text-muted mt-1">${new Date(o.created_at).toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'})}</p>
-            </div>
-            <span style="color:${statusColors[o.status]||'#767270'};background:${statusColors[o.status]||'#767270'}15;padding:4px 12px;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;">${o.status}</span>
-          </div>
-          <div class="space-y-2 border-t border-border pt-3">
-            ${items.map(i => `
-              <div class="flex justify-between text-[13px]">
-                <span class="text-muted">${i.product_name} x ${i.quantity}</span>
-                <span class="font-medium">${formatINR(i.total_price)}</span>
-              </div>
-            `).join('')}
-          </div>
-          <div class="flex justify-between items-center border-t border-border pt-3 mt-3">
-            <span class="text-[12px] text-muted">${o.payment_method === 'cod' ? 'Cash on Delivery' : 'UPI'}</span>
-            <span class="font-semibold text-warm">${formatINR(o.total)}</span>
-          </div>
-        </div>`;
-      }).join('');
-    } catch(e) {
-      container.innerHTML = '<p class="text-muted text-[13px]">Could not load orders.</p>';
-    }
-  }
-
-  async function loadAddresses() {
-    const container = document.getElementById('addresses-container');
-    try {
-      const addrs = await getAddresses();
-      if (!addrs || addrs.length === 0) {
-        container.innerHTML = '<p class="text-muted text-[13px] mb-4">No saved addresses yet.</p>';
-        return;
-      }
-      container.innerHTML = addrs.map(a => `
-        <div class="bg-surface border border-border p-4 mb-3 ${a.is_default ? 'border-l-2 border-l-gold' : ''}">
-          <p class="font-medium text-[14px]">${a.full_name}</p>
-          <p class="text-muted text-[13px]">${a.address_line}, ${a.city}, ${a.state} - ${a.pincode}</p>
-          ${a.phone ? `<p class="text-muted text-[12px] mt-1">Phone: ${a.phone}</p>` : ''}
-          ${a.is_default ? '<span class="text-[10px] font-semibold text-gold tracking-[.1em] uppercase">Default</span>' : ''}
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a href="index.html" class="logo" style="margin-bottom: 18px">
+          <span class="mark" style="color:#fff">KGS</span>
+          <span class="sub" style="color:#C5A880">Home Décors</span>
+        </a>
+        <p style="font-size:13.5px; color:rgba(255,255,255,0.55); max-width:260px; line-height:1.7;">
+          Timeless home décor crafted to bring beauty, elegance and comfort to your spaces.
+        </p>
+        <div class="footer-socials">
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">photo_camera</span></a>
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">thumb_up</span></a>
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">play_circle</span></a>
         </div>
-      `).join('');
-    } catch(e) {
-      container.innerHTML = '<p class="text-muted text-[13px]">Could not load addresses.</p>';
-    }
-  }
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="product-listing.html">New Arrivals</a></li>
+          <li><a href="product-listing.html">Best Sellers</a></li>
+          <li><a href="product-listing.html">Artificial Plants</a></li>
+          <li><a href="product-listing.html">Statues &amp; Idols</a></li>
+          <li><a href="product-listing.html">Clocks</a></li>
+          <li><a href="product-listing.html">Lighting</a></li>
+          <li><a href="product-listing.html">Wall Frames</a></li>
+          <li><a href="product-listing.html">Gifts &amp; Hampers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Shipping & Delivery</a></li>
+          <li><a href="#">Returns & Refunds</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Payment Options</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Support</h4>
+        <ul>
+          <li class="info-line"><span class="material-symbols-outlined">mail</span><a href="#">support@kgshome.com</a></li>
+          <li class="info-line"><span class="material-symbols-outlined">call</span><a href="#">+91 97891 82921</a></li>
+          <li class="info-line"><span class="material-symbols-outlined">schedule</span>Mon – Sun · 10 AM – 10 PM</li>
+        </ul>
+        <div class="footer-pay" style="margin-top: 18px">
+          <span>VISA</span><span>MC</span><span>UPI</span><span>AMEX</span><span>COD</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 KGS Home Décors. All Rights Reserved.</span>
+      <div class="links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="shipping-policy.html">Shipping Policy</a>
+        <a href="returns-policy.html">Return Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
-  function showAddAddressForm() {
-    document.getElementById('add-address-form').style.display = 'block';
-  }
-
-  async function saveAddress() {
-    const addr = {
-      full_name: document.getElementById('addr-name').value.trim(),
-      phone: document.getElementById('addr-phone').value.trim(),
-      address_line: document.getElementById('addr-line').value.trim(),
-      city: document.getElementById('addr-city').value.trim(),
-      state: document.getElementById('addr-state').value.trim(),
-      pincode: document.getElementById('addr-pin').value.trim(),
-      is_default: false
-    };
-    if (!addr.full_name || !addr.address_line || !addr.city || !addr.pincode) {
-      alert('Please fill all required fields'); return;
-    }
-    try {
-      await addAddress(addr);
-      document.getElementById('add-address-form').style.display = 'none';
-      loadAddresses();
-    } catch(e) { alert('Error saving address: ' + e.message); }
-  }
-
-  async function saveSettings() {
-    const name = document.getElementById('settings-name').value.trim();
-    const phone = document.getElementById('settings-phone').value.trim();
-    const msgEl = document.getElementById('settings-msg');
-    try {
-      await updateProfile({ full_name: name, phone: phone });
-      msgEl.style.display = 'block';
-      msgEl.textContent = 'Settings saved!';
-      msgEl.style.color = '#2e7d32'; msgEl.style.borderColor = '#c8e6c9'; msgEl.style.background = '#f1f8e9';
-    } catch(e) {
-      msgEl.style.display = 'block';
-      msgEl.textContent = 'Error: ' + e.message;
-      msgEl.style.color = '#d32f2f'; msgEl.style.borderColor = '#ffcdd2'; msgEl.style.background = '#fff5f5';
-    }
-  }
-
-  function showTab(tabId, event) {
-    if(event) event.preventDefault();
-    document.querySelectorAll('.tab-content').forEach(el => { el.classList.remove('block'); el.classList.add('hidden'); });
-    document.getElementById('tab-' + tabId).classList.remove('hidden');
-    document.getElementById('tab-' + tabId).classList.add('block');
-    // Highlight active nav
-    ['orders','wishlist','addresses','settings'].forEach(t => {
-      const nav = document.getElementById('nav-' + t);
-      if (nav) {
-        if (t === tabId) { nav.classList.add('bg-tint','text-ink','border-gold'); nav.classList.remove('text-muted','border-transparent'); }
-        else { nav.classList.remove('bg-tint','text-ink','border-gold'); nav.classList.add('text-muted','border-transparent'); }
-      }
-    });
-    if (tabId === 'wishlist') loadWishlistTab();
-  }
-
-  async function loadWishlistTab() {
-    const container = document.getElementById('wishlist-container');
-    const wishlist = JSON.parse(localStorage.getItem('kgs_wishlist') || '[]');
-    if (wishlist.length === 0) {
-      container.innerHTML = `
-        <div class="bg-surface border border-border p-8 text-center">
-          <span class="material-symbols-outlined text-[40px] text-border mb-3 block">favorite</span>
-          <h3 class="text-ink font-medium text-[16px] mb-2">Your wishlist is empty</h3>
-          <p class="text-muted text-[13px] mb-6">Save items you love and they'll appear here.</p>
-          <a href="product-listing.html" class="inline-block bg-ink text-white text-[11px] font-semibold tracking-[.15em] uppercase px-8 py-3 hover:bg-gold transition-colors">Browse Products</a>
-        </div>`;
-      return;
-    }
-    // Fetch all products to match wishlist IDs
-    const allProducts = await initStore();
-    const wishItems = wishlist.map(id => allProducts.find(p => p.id === id)).filter(Boolean);
-    if (wishItems.length === 0) {
-      container.innerHTML = '<p class="text-muted text-[13px]">No matching products found.</p>';
-      return;
-    }
-    container.innerHTML = `
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        ${wishItems.map(p => `
-          <div class="bg-surface border border-border p-4 flex gap-4 items-start">
-            <a href="product-detail.html?handle=${p.handle}" class="shrink-0 w-20 h-20 bg-tint overflow-hidden">
-              <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain p-1">
-            </a>
-            <div class="flex-grow min-w-0">
-              <a href="product-detail.html?handle=${p.handle}" class="block text-ink font-medium text-[14px] leading-tight hover:text-warm transition-colors truncate">${p.name}</a>
-              <p class="text-[11px] text-muted tracking-[.1em] uppercase mt-1">${(p.category || '').replace(/-/g, ' ')}</p>
-              <p class="text-warm font-semibold text-[14px] mt-1.5">${String.fromCharCode(8377)}${p.price.toLocaleString('en-IN')}</p>
-              <div class="flex gap-2 mt-3">
-                <button onclick="addToCart('${p.id}');this.textContent='Added \u2713';this.disabled=true" class="text-[10px] font-semibold tracking-[.1em] uppercase bg-ink text-white px-3 py-1.5 hover:bg-warm transition-colors border-none cursor-pointer">Add to Cart</button>
-                <button onclick="removeFromWishlistTab('${p.id}')" class="text-[10px] font-semibold tracking-[.1em] uppercase text-muted border border-border px-3 py-1.5 hover:border-warm hover:text-warm transition-colors bg-transparent cursor-pointer">Remove</button>
-              </div>
-            </div>
-          </div>
-        `).join('')}
-      </div>`;
-  }
-
-  function removeFromWishlistTab(id) {
-    let wl = JSON.parse(localStorage.getItem('kgs_wishlist') || '[]');
-    wl = wl.filter(x => x !== id);
-    localStorage.setItem('kgs_wishlist', JSON.stringify(wl));
-    if (typeof updateWishlistBadge === 'function') updateWishlistBadge();
-    loadWishlistTab();
-  }
-
-  async function logout() {
-    await signOut();
-    window.location.href = 'account-login.html';
-  }
-</script>
-</script>
-
-<!-- == FOOTER =============================================== -->
-
-<script src="assets/js/config.js"></script>
-<script src="assets/js/store.js"></script>
-<script>
-(function(){function hidePl(){const pl=document.getElementById('page-preloader');if(pl&&!pl._hidden){pl._hidden=true;pl.style.transition='opacity .4s';pl.style.opacity='0';pl.style.visibility='hidden';setTimeout(()=>{if(pl.parentNode)pl.remove();},500);}}document.addEventListener('DOMContentLoaded', hidePl);
-setTimeout(hidePl,1000);})();
-</script>
-
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
-
-<!-- == WHATSAPP FLOAT ======================================= -->
-<a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help"
-   target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(37,211,102,0.6)] transition-all duration-300" aria-label="Chat on WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<a class="wa-float" href="#">
+  <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px; height:22px; flex-shrink:0;">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
+  </svg>
+  Chat With Us
 </a>
 
-</body>
+<script src="assets/js/account.js"></script>
+<script>
+// Highlight active nav link on legacy pages
+(function() {
+  var page = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-link').forEach(function(a) {
+    if (a.getAttribute('href') === page) a.classList.add('active');
+    if (page === '' && a.getAttribute('href') === 'index.html') a.classList.add('active');
+  });
+})();
+</script></body>
 </html>
-
-

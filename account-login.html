@@ -1,243 +1,184 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-<head><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap"></noscript>
-<style>html{scroll-padding-top:80px}</style>
-<meta charset="UTF-8">
-    <link rel="canonical" href="https://kgshomedecors.in/account-login.html">
-<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
-<link rel="icon" type="image/png" href="assets/images/favicon.png">
-<meta name="theme-color" content="#1A1A1A">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign In | KGS Home Décors</title>
-<link rel="preload" href="assets/css/tailwind.min.css" as="style">
-<link rel="stylesheet" href="assets/css/tailwind.min.css">
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" as="style">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"></noscript>
-<meta name="description" content="Sign in to your KGS Home Décors account to track orders, manage your wishlist, and more.">
-<meta name="robots" content="noindex">
-
-<style>
-*,*::before,*::after{box-sizing:border-box;}
-html,body{overflow-x:hidden;width:100%;margin:0;padding:0;}
-body{-webkit-font-smoothing:antialiased;}
-::selection{background:#C5A880;color:#fff;}
-.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 24;}
-
-/* Preloader */
-#page-preloader{position:fixed;inset:0;z-index:9999;background:#FAF8F4;display:flex;align-items:center;justify-content:center;transition:opacity .5s ease,visibility .5s ease;}
-#page-preloader .pl-logo{font-family:'Crimson Pro',serif;font-size:2rem;font-weight:500;letter-spacing:.35em;color:#1A1A1A;opacity:0;animation:plFadeIn .6s ease forwards .15s;}
-@keyframes plFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
-
-/* Left panel */
-.left-panel{background:#1A1A1A;min-height:100dvh;position:sticky;top:0;overflow:hidden;}
-.left-panel::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%, rgba(197,168,128,.18) 0%, transparent 65%),radial-gradient(ellipse at 80% 20%, rgba(201,120,64,.08) 0%, transparent 55%);pointer-events:none;}
-.noise-overlay{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;opacity:.6;}
-
-/* Form styling */
-.form-input{width:100%;background:transparent;border:none;border-bottom:1px solid #E4DDD4;padding:14px 0 12px;font-family:'Jost',sans-serif;font-size:14px;color:#1A1A1A;outline:none;transition:border-color .25s;}
-.form-input:focus{border-color:#1A1A1A;}
-.form-input::placeholder{color:#767270;font-size:13px;}
-.btn-primary{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px 24px;background:#1A1A1A;color:#FAF8F4;font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:none;cursor:pointer;transition:background .25s,transform .2s cubic-bezier(.32,.72,0,1);}
-.btn-primary:hover{background:#C5A880;}
-.btn-primary:active{transform:scale(.99);}
-.btn-secondary{display:flex;align-items:center;justify-content:center;width:100%;padding:14px 24px;background:transparent;color:#1A1A1A;font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:1.5px solid #E4DDD4;cursor:pointer;text-decoration:none;transition:border-color .25s,color .25s;}
-.btn-secondary:hover{border-color:#1A1A1A;}
-
-/* Reveal animation */
-.rv{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.32,.72,0,1),transform .7s cubic-bezier(.32,.72,0,1);}
-.rv.in{opacity:1;transform:translateY(0);}
-</style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | KGS Home Décors</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .auth-input { padding: 14px 16px; border: 1px solid rgba(197,168,128,0.40); border-radius: 3px; font-family: 'Jost', sans-serif; font-size: 14px; background: #fff; width: 100%; box-sizing: border-box; }
+    .auth-input:focus { outline: none; border-color: #B89657; box-shadow: 0 0 0 3px rgba(184,150,87,0.1); }
+    .auth-label { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; text-align: left; }
+    .auth-label span { font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: #1A1A1A; }
+  </style>
 </head>
-<body class="bg-base text-ink font-sans">
-
-<!-- PRELOADER -->
-
-
-<div class="flex min-h-[100dvh]">
-
-  <!-- == LEFT PANEL - Brand Statement == -->
-  <div class="left-panel hidden lg:flex lg:w-[48%] xl:w-[44%] flex-col justify-between p-12 xl:p-16 relative">
-    <div class="noise-overlay"></div>
-
-    <!-- Logo -->
-    <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.5rem] text-white hover:text-gold transition-colors relative z-10">KGS</a>
-
-    <!-- Main statement -->
-    <div class="relative z-10">
-      <p class="text-white/40 text-[11px] font-semibold tracking-[.22em] uppercase mb-6">Virudhachalam's Premium Choice</p>
-      <h1 class="font-serif font-light text-white leading-[1.1]" style="font-size:clamp(2.8rem,4vw,4.2rem);">
-        Your home,<br>
-        <em class="text-gold not-italic">beautifully</em><br>
-        curated.
-      </h1>
-      <p class="text-white/50 text-[14px] leading-[1.8] mt-6 max-w-sm">
-        Sign in to track your orders, save favourites, and access your personal KGS experience.
-      </p>
-
-      <!-- Floating quote card -->
-      <div class="mt-12 border border-white/10 bg-white/5 backdrop-blur-sm p-6 max-w-sm">
-        <p class="font-serif italic text-white/80 text-[1.1rem] leading-[1.7] mb-4">"The furniture arrived perfectly packed and looks stunning in our living room. KGS quality is unmatched."</p>
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 bg-gold/20 rounded-full flex items-center justify-center">
-            <span class="font-serif text-gold text-sm font-medium">P</span>
-          </div>
-          <div>
-            <p class="text-white/70 text-[12px] font-medium">Priya M.</p>
-            <p class="text-white/35 text-[11px] tracking-[.08em]">Verified Customer</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom decoration -->
-    <div class="relative z-10 flex items-center gap-3">
-      <div class="w-8 h-px bg-white/20"></div>
-      <p class="text-white/25 text-[10px] tracking-[.2em] uppercase">KGS Home Décors</p>
-    </div>
-  </div>
-
-  <!-- == RIGHT PANEL - Form == -->
-  <div class="flex-1 flex flex-col min-h-[100dvh] bg-base">
-
-    <!-- Mobile logo -->
-    <div class="lg:hidden flex items-center justify-between px-6 py-5 border-b border-border">
-      <a href="index.html" class="font-serif font-medium tracking-[.35em] text-[1.3rem] text-ink">KGS</a>
-      <a href="index.html" class="text-muted text-[12px] font-medium hover:text-ink transition-colors flex items-center gap-1">
-        <span class="material-symbols-outlined text-[16px]">arrow_back</span> Home
+<body style="background: #FAF8F4; display: flex; flex-direction: column; min-height: 100vh;">
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-bar container">
+    <a href="index.html" class="logo">
+      <span class="mark">KGS</span>
+      <span class="sub">Home D�cor</span>
+    </a>
+    <nav class="nav-links">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="product-listing.html">Shop</a>
+      <a class="nav-link" href="about.html">Our Story</a>
+      <a class="nav-link" href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="icon-btn" href="account.html" aria-label="Account">
+        <span class="material-symbols-outlined">person</span>
+      </a>
+      <a class="icon-btn" href="wishlist.html" aria-label="Wishlist">
+        <span class="material-symbols-outlined">favorite</span>
+      </a>
+      <a class="icon-btn" href="cart-checkout.html" aria-label="Cart">
+        <span class="material-symbols-outlined">shopping_bag</span>
       </a>
     </div>
-
-    <!-- Form area -->
-    <div class="flex-1 flex items-center justify-center px-6 py-14 lg:py-0">
-      <div class="w-full max-w-[380px]">
-
-        <!-- Desktop back link -->
-        <a href="index.html" class="hidden lg:inline-flex items-center gap-2 text-muted text-[11px] font-medium tracking-[.1em] uppercase hover:text-ink transition-colors mb-12">
-          <span class="material-symbols-outlined text-[16px]">arrow_back</span> Back to Store
-        </a>
-
-        <div class="rv">
-          <p class="text-[11px] font-semibold tracking-[.22em] uppercase text-gold mb-3">Welcome Back</p>
-          <h2 class="font-serif font-medium text-ink mb-2" style="font-size:clamp(1.9rem,3vw,2.4rem);">Sign In</h2>
-          <p class="text-muted text-[13px] mb-10">Don't have an account? <a href="account-register.html" class="text-warm font-medium hover:text-ink transition-colors">Create one free</a></p>
-        </div>
-
-        <form id="login-form" class="space-y-7" novalidate>
-          <div class="rv" style="transition-delay:.08s">
-            <label class="block text-[10px] font-semibold tracking-[.18em] uppercase text-muted mb-2">Email Address</label>
-            <input id="login-email" type="email" placeholder="you@example.com" class="form-input" autocomplete="email" required>
-          </div>
-
-          <div class="rv" style="transition-delay:.14s">
-            <div class="flex items-center justify-between mb-2">
-              <label class="block text-[10px] font-semibold tracking-[.18em] uppercase text-muted">Password</label>
-              <a href="forgot-password.html" class="text-[11px] text-warm hover:text-ink transition-colors font-medium">Forgot password?</a>
-            </div>
-            <div class="relative">
-              <input id="login-password" type="password" placeholder="Your password" class="form-input pr-10" autocomplete="current-password" required>
-              <button type="button" id="toggle-pw" class="absolute right-0 top-1/2 -translate-y-1/2 text-muted hover:text-ink transition-colors bg-transparent border-none cursor-pointer p-1" aria-label="Toggle password visibility">
-                <span class="material-symbols-outlined text-[20px]" id="pw-eye">visibility</span>
-              </button>
-            </div>
-          </div>
-
-          <div id="login-error" class="hidden text-[12px] text-red-600 bg-red-50 border border-red-100 px-4 py-3"></div>
-
-          <div class="rv space-y-3 pt-2" style="transition-delay:.2s">
-            <button type="submit" id="login-btn" class="btn-primary">
-              <span>Sign In</span>
-              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-            </button>
-            <a href="account-register.html" class="btn-secondary">Create Account</a>
-          </div>
-        </form>
-
-        <!-- Divider -->
-        <div class="flex items-center gap-4 my-8 rv" style="transition-delay:.26s">
-          <div class="flex-1 h-px bg-border"></div>
-          <span class="text-[11px] text-muted tracking-[.1em] uppercase">or</span>
-          <div class="flex-1 h-px bg-border"></div>
-        </div>
-
-        <!-- WhatsApp shortcut -->
-        <a href="https://wa.me/919789182921?text=Hi%20KGS%2C%20I%20need%20help%20with%20my%20account" target="_blank" rel="noopener noreferrer"
-           class="rv flex items-center gap-3 border border-border px-5 py-4 hover:border-[#25D366] transition-colors group" style="transition-delay:.3s;text-decoration:none;">
-          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-[#25D366] shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          <div class="flex-1">
-            <p class="text-ink text-[13px] font-medium">Need help with your account?</p>
-            <p class="text-muted text-[11px]">WhatsApp us — we respond in minutes</p>
-          </div>
-          <span class="material-symbols-outlined text-[18px] text-muted group-hover:text-[#25D366] transition-colors">open_in_new</span>
-        </a>
-
-      </div>
-    </div>
-
-    <!-- Footer note -->
-    <div class="px-6 py-5 border-t border-border text-center lg:text-left">
-      <p class="text-[11px] text-muted">By signing in, you agree to our <a href="terms.html" class="text-warm hover:text-ink transition-colors">Terms</a> and <a href="privacy-policy.html" class="text-warm hover:text-ink transition-colors">Privacy Policy</a>.</p>
-    </div>
   </div>
-
 </div>
 
-<script src="assets/js/config.js"></script>
-<script src="assets/js/supabase-client.js" defer></script>
-<script src="assets/js/config.js"></script>
-<script src="assets/js/store.js"></script>
+
+<main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 0;">
+  <div style="width: 100%; max-width: 440px; padding: 48px; background: #fff; border: 1px solid rgba(197,168,128,0.25); border-radius: 12px; text-align: center; box-shadow: 0 12px 36px -12px rgba(0,0,0,0.04);">
+    <h1 style="font-family:'Crimson Pro',serif; font-size: 32px; font-weight: 500; margin-bottom: 8px;">Welcome Back</h1>
+    <p style="font-size: 14px; color: #5E5B59; margin-bottom: 32px;">Please sign in to access your account.</p>
+    
+    <form id="login-form" onsubmit="event.preventDefault(); window.location.href='account.html';">
+      <label class="auth-label">
+        <span>Email Address</span>
+        <input type="email" id="email" class="auth-input" placeholder="you@example.com" required>
+      </label>
+      <label class="auth-label">
+        <span>Password</span>
+        <input type="password" id="password" class="auth-input" placeholder="••••••••" required>
+      </label>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px;">
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #5E5B59; cursor: pointer;">
+          <input type="checkbox" style="accent-color: #B89657;"> Remember me
+        </label>
+        <a href="forgot-password.html" style="font-size: 13px; color: #1A1A1A; text-decoration: underline;">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="btn btn-dark" style="width: 100%; margin-bottom: 24px;">Sign In</button>
+      
+      <div style="font-size: 13.5px; color: #5E5B59;">
+        Don't have an account? <a href="account-register.html" style="color: #B89657; font-weight: 600; text-decoration: underline;">Create an account</a>
+      </div>
+    </form>
+  </div>
+</main>
+
+<!-- NEWSLETTER -->
+<div class="container">
+  <section class="newsletter">
+    <div>
+      <h3>Stay Updated With New Arrivals &amp; Offers</h3>
+      <p>Subscribe to our newsletter and get 10% off on your first order.</p>
+    </div>
+    <div class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="Enter your email" />
+      <button class="btn btn-dark">Subscribe</button>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a href="index.html" class="logo" style="margin-bottom: 18px">
+          <span class="mark" style="color:#fff">KGS</span>
+          <span class="sub" style="color:#C5A880">Home Décors</span>
+        </a>
+        <p style="font-size:13.5px; color:rgba(255,255,255,0.55); max-width:260px; line-height:1.7;">
+          Timeless home décor crafted to bring beauty, elegance and comfort to your spaces.
+        </p>
+        <div class="footer-socials">
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">photo_camera</span></a>
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">thumb_up</span></a>
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">play_circle</span></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="product-listing.html">New Arrivals</a></li>
+          <li><a href="product-listing.html">Best Sellers</a></li>
+          <li><a href="product-listing.html">Artificial Plants</a></li>
+          <li><a href="product-listing.html">Statues &amp; Idols</a></li>
+          <li><a href="product-listing.html">Clocks</a></li>
+          <li><a href="product-listing.html">Lighting</a></li>
+          <li><a href="product-listing.html">Wall Frames</a></li>
+          <li><a href="product-listing.html">Gifts &amp; Hampers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Shipping & Delivery</a></li>
+          <li><a href="#">Returns & Refunds</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Payment Options</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Support</h4>
+        <ul>
+          <li class="info-line"><span class="material-symbols-outlined">mail</span><a href="#">support@kgshome.com</a></li>
+          <li class="info-line"><span class="material-symbols-outlined">call</span><a href="#">+91 97891 82921</a></li>
+          <li class="info-line"><span class="material-symbols-outlined">schedule</span>Mon – Sun · 10 AM – 10 PM</li>
+        </ul>
+        <div class="footer-pay" style="margin-top: 18px">
+          <span>VISA</span><span>MC</span><span>UPI</span><span>AMEX</span><span>COD</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 KGS Home Décors. All Rights Reserved.</span>
+      <div class="links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="shipping-policy.html">Shipping Policy</a>
+        <a href="returns-policy.html">Return Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="#">
+  <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px; height:22px; flex-shrink:0;">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
+  </svg>
+  Chat With Us
+</a>
+
+<script src="assets/js/auth.js"></script>
 <script>
-// -- PRELOADER --------------------------------------
-document.fonts.ready.then(() => {
-  const pl = document.getElementById('page-preloader');
-  if (pl) { pl.style.opacity = '0'; pl.style.visibility = 'hidden'; setTimeout(() => pl.remove(), 500); }
-  // Trigger reveals
-  document.querySelectorAll('.rv').forEach((el, i) => {
-    setTimeout(() => el.classList.add('in'), 80 + i * 60);
+// Highlight active nav link on legacy pages
+(function() {
+  var page = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-link').forEach(function(a) {
+    if (a.getAttribute('href') === page) a.classList.add('active');
+    if (page === '' && a.getAttribute('href') === 'index.html') a.classList.add('active');
   });
-});
-
-// -- PASSWORD TOGGLE --------------------------------
-document.getElementById('toggle-pw').addEventListener('click', function() {
-  const pw = document.getElementById('login-password');
-  const eye = document.getElementById('pw-eye');
-  if (pw.type === 'password') { pw.type = 'text'; eye.textContent = 'visibility_off'; }
-  else { pw.type = 'password'; eye.textContent = 'visibility'; }
-});
-
-// -- LOGIN FORM -------------------------------------
-document.getElementById('login-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('login-btn');
-  const errEl = document.getElementById('login-error');
-  const email = document.getElementById('login-email').value.trim();
-  const password = document.getElementById('login-password').value;
-  errEl.classList.add('hidden');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Signing in...';
-  try {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) throw error;
-    window.location.href = 'account.html';
-  } catch(err) {
-    errEl.textContent = err.message || 'Sign in failed. Please try again.';
-    errEl.classList.remove('hidden');
-    btn.disabled = false;
-    btn.innerHTML = '<span>Sign In</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>';
-  }
-});
-
-// -- CHECK SESSION ----------------------------------
-(async () => {
-  if (typeof supabase !== 'undefined') {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session) window.location.replace('account.html');
-  }
 })();
-</script>
-</body>
+</script></body>
 </html>
-
