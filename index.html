@@ -1397,6 +1397,12 @@
       overflow: visible;
     }
 
+    .best-sellers-track {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
     .carousel-arrow {
       position: absolute;
       top: 50%;
@@ -2885,7 +2891,7 @@
       }
 
       .ig-grid {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(3, 1fr);
       }
 
       .newsletter {
@@ -2956,6 +2962,30 @@
 
       .carousel-arrow.right {
         right: 0;
+      }
+
+      .carousel-wrap .carousel-arrow {
+        display: none;
+      }
+
+      .best-sellers-track {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        padding-bottom: 16px;
+        margin: 0 -18px;
+        padding-left: 18px;
+        padding-right: 18px;
+        scrollbar-width: none; /* Firefox */
+      }
+      .best-sellers-track::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+      }
+      .best-sellers-track > * {
+        flex: 0 0 75%;
+        scroll-snap-align: start;
       }
 
       .bundle {
@@ -3911,7 +3941,10 @@
     // ====== BEST SELLERS ========================================================
     function BestSellers({ onAdd, onView, wishlist, onWishToggle }) {
       const [start, setStart] = React.useState(0);
-      const pool = PRODUCTS;
+      const pool = React.useMemo(() => {
+        // Shuffle the products so the Best Sellers section is dynamic every visit
+        return [...PRODUCTS].sort(() => 0.5 - Math.random());
+      }, []);
       const total = pool.length;
       const view = Array.from({ length: 4 }, (_, k) => pool[(start + k) % total]);
 
@@ -3940,7 +3973,7 @@
                 aria-label="Next">
                 <span className="material-symbols-outlined">chevron_right</span>
               </button>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 20 }}>
+              <div className="best-sellers-track">
                 {view.map((p, idx) => (
                   <ProductCard
                     key={p.id + '-' + idx}
@@ -4204,7 +4237,7 @@
                 <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '.24em', textTransform: 'uppercase', marginBottom: 12, color: 'rgba(255,255,255,0.8)' }}>
                   Virudhachalam
                 </div>
-                <h2 style={{ fontFamily: '"Crimson Pro",serif', fontWeight: 500, fontSize: '3.5rem', lineHeight: 1.1, marginBottom: 16 }}>
+                <h2 style={{ fontFamily: '"Crimson Pro",serif', fontWeight: 500, fontSize: 'clamp(2rem, 6vw, 3.5rem)', lineHeight: 1.1, marginBottom: 16 }}>
                   Experience it in person.
                 </h2>
                 <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.85)', maxWidth: 400, margin: '0 auto', lineHeight: 1.6 }}>
