@@ -13,33 +13,60 @@
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body style="background: #FAF8F4">
+<!-- CSS-only mobile nav toggle -->
+<input type="checkbox" id="nav-toggle" aria-hidden="true">
+
 <!-- NAV -->
 <div class="nav-wrap">
   <div class="nav-bar container">
     <a href="index.html" class="logo">
       <span class="mark">KGS</span>
-      <span class="sub">Home D�cor</span>
+      <span class="sub">Home Décors</span>
     </a>
     <nav class="nav-links">
       <a class="nav-link" href="index.html">Home</a>
       <a class="nav-link" href="product-listing.html">Shop</a>
-      <a class="nav-link" href="about.html">Our Story</a>
+      <a class="nav-link active" href="about.html">Our Story</a>
       <a class="nav-link" href="contact.html">Contact</a>
     </nav>
     <div class="nav-actions">
       <a class="icon-btn" href="account.html" aria-label="Account">
         <span class="material-symbols-outlined">person</span>
       </a>
-      <a class="icon-btn" href="wishlist.html" aria-label="Wishlist">
-        <span class="material-symbols-outlined">favorite</span>
-      </a>
       <a class="icon-btn" href="cart-checkout.html" aria-label="Cart">
         <span class="material-symbols-outlined">shopping_bag</span>
       </a>
+      <label for="nav-toggle" class="nav-hamburger" aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </label>
     </div>
   </div>
 </div>
 
+<!-- Mobile nav drawer (CSS-only) -->
+<div class="static-mobile-nav">
+  <label for="nav-toggle" class="static-mobile-nav__overlay" aria-label="Close menu"></label>
+  <div class="static-mobile-nav__panel">
+    <label for="nav-toggle" class="static-mobile-nav__close" aria-label="Close menu">
+      <span class="material-symbols-outlined">close</span>
+    </label>
+    <div style="font-family:'Crimson Pro',serif; font-weight:500; font-size:1.3rem; color:#1A1A1A; margin-bottom:12px">KGS Home Décors</div>
+    <a class="static-mobile-nav__link" href="index.html">Home</a>
+    <a class="static-mobile-nav__link" href="product-listing.html">Shop</a>
+    <a class="static-mobile-nav__link active" href="about.html">Our Story</a>
+    <a class="static-mobile-nav__link" href="contact.html">Contact</a>
+    <a class="static-mobile-nav__link" href="account.html">Account</a>
+    <a class="static-mobile-nav__link" href="cart-checkout.html">Cart</a>
+    <div style="margin-top:auto; padding-top:24px">
+      <a href="https://wa.me/919789182921" style="display:flex; align-items:center; gap:10px; padding:12px 0; color:#25D366; font-weight:600; font-family:'Jost',sans-serif; font-size:14px">
+        <span class="material-symbols-outlined">chat</span>WhatsApp Us
+      </a>
+      <div style="font-size:11px; color:#5E5B59; margin-top:12px; line-height:1.6">
+        185/G Junction Rd<br>Virudhachalam 606001<br>10 AM – 10 PM, every day
+      </div>
+    </div>
+  </div>
+</div>
 
 <main>
   <div data-screen-label="About">
