@@ -5338,7 +5338,7 @@ function App() {
           // Floating chip pops in last
           .fromTo('.hero-floating-chip, .hero-delivery-chip', {
             scale: 0.88,
-            opacity: 0,
+            opacity: 1,
             y: 10
           }, {
             scale: 1,
@@ -5409,7 +5409,7 @@ function App() {
           var cats = gsap.utils.toArray('.cat-card');
           gsap.fromTo(cats, {
             y: 30,
-            opacity: 0,
+            opacity: 1,
             scale: 0.94
           }, {
             y: 0,
@@ -5515,7 +5515,7 @@ function App() {
         if (igGrid) {
           var tiles = gsap.utils.toArray('.ig-tile');
           gsap.fromTo(tiles, {
-            opacity: 0,
+            opacity: 1,
             scale: 0.92
           }, {
             opacity: 1,
@@ -5536,7 +5536,7 @@ function App() {
         if (newsletter) {
           gsap.fromTo(newsletter, {
             y: 30,
-            opacity: 0,
+            opacity: 1,
             scale: 0.98
           }, {
             y: 0,
