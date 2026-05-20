@@ -2583,6 +2583,17 @@
         const timer = setTimeout(() => {
           ctx = gsap.context(() => {
 
+            // ── 0. Global Reveal Trigger ──────────────────────────────────
+            // Ensures all .reveal elements become visible on scroll
+            gsap.utils.toArray('.reveal').forEach(el => {
+              ScrollTrigger.create({
+                trigger: el,
+                start: 'top 88%',
+                onEnter: () => el.classList.add('visible'),
+                once: true
+              });
+            });
+
             // ── 1. Hero Entrance Timeline (gsap-core + gsap-timeline) ──────
             // Performance: only transform + opacity (gsap-performance rule)
             const heroEl = document.querySelector('.hero');

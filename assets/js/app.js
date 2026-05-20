@@ -5277,6 +5277,19 @@ function App() {
     var ctx;
     var timer = setTimeout(function () {
       ctx = gsap.context(function () {
+        // ── 0. Global Reveal Trigger ──────────────────────────────────
+        // Ensures all .reveal elements become visible on scroll
+        gsap.utils.toArray('.reveal').forEach(function (el) {
+          ScrollTrigger.create({
+            trigger: el,
+            start: 'top 88%',
+            onEnter: function onEnter() {
+              return el.classList.add('visible');
+            },
+            once: true
+          });
+        });
+
         // ── 1. Hero Entrance Timeline (gsap-core + gsap-timeline) ──────
         // Performance: only transform + opacity (gsap-performance rule)
         var heroEl = document.querySelector('.hero');
@@ -5338,7 +5351,7 @@ function App() {
           // Floating chip pops in last
           .fromTo('.hero-floating-chip, .hero-delivery-chip', {
             scale: 0.88,
-            opacity: 1,
+            opacity: 0,
             y: 10
           }, {
             scale: 1,
@@ -5409,7 +5422,7 @@ function App() {
           var cats = gsap.utils.toArray('.cat-card');
           gsap.fromTo(cats, {
             y: 30,
-            opacity: 1,
+            opacity: 0,
             scale: 0.94
           }, {
             y: 0,
@@ -5515,7 +5528,7 @@ function App() {
         if (igGrid) {
           var tiles = gsap.utils.toArray('.ig-tile');
           gsap.fromTo(tiles, {
-            opacity: 1,
+            opacity: 0,
             scale: 0.92
           }, {
             opacity: 1,
@@ -5536,7 +5549,7 @@ function App() {
         if (newsletter) {
           gsap.fromTo(newsletter, {
             y: 30,
-            opacity: 1,
+            opacity: 0,
             scale: 0.98
           }, {
             y: 0,
