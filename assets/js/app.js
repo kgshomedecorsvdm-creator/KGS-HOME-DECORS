@@ -5521,7 +5521,12 @@ function App() {
           });
         }
       }); // end gsap.context
-    }, 250); // wait for React render
+    }, (function() {
+      // First load: wait for loader to start fading (2000ms)
+      // Subsequent home navigations: fire quickly (50ms, loader already gone)
+      var loader = document.getElementById('kgs-loader');
+      return loader && loader.style.display !== 'none' ? 2000 : 50;
+    })()); // wait for React render / loader
 
     return function () {
       clearTimeout(timer);
