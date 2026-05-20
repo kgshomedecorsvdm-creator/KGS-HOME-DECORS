@@ -2220,15 +2220,9 @@
       transform: translateY(0);
     }
 
-    /* Pre-hide GSAP-animated hero elements so they don't flash before GSAP fires */
-    .hero-eyebrow,
-    .hero h1,
-    .hero-sub,
-    .hero-ctas,
-    .hero-stats,
-    .hero-arrows,
-    .hero-photo,
-    .hero-slides-indicator {
+    /* Pre-hide only the photo so the image doesn't flash — text/CTAs left visible
+       so they always show even if GSAP fails or timing is off */
+    .hero-photo {
       opacity: 0;
     }
 
