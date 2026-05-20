@@ -3327,20 +3327,61 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
+      /* ── Mobile footer: brand + contact only ──────────────────────── */
+      .footer { padding: 44px 0 108px; } /* 108px = bottom nav clearance */
+
       .footer-grid {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 0;
       }
 
+      /* Hide nav link columns — users have bottom nav bar */
+      .footer-col:nth-child(2),
+      .footer-col:nth-child(3),
+      .footer-col:nth-child(4) { display: none; }
+
+      /* Logo col: centre-aligned on mobile */
+      .footer-col:first-child {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-bottom: 28px;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+      }
+      .footer-col:first-child p,
+      .footer-col:first-child > div:first-of-type { text-align: center; }
+
+      .footer-socials { justify-content: center; }
+
+      /* Hide newsletter on mobile — keep footer compact */
+      .footer-col:first-child > div:last-child { display: none; }
+
+      /* Contact col: compact, below brand block */
+      .footer-col:last-child {
+        padding-top: 28px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .footer-col:last-child ul { align-items: center; }
+      .footer-col:last-child h4 { text-align: center; }
+      .footer-pay { justify-content: center; }
+
+      /* Footer bottom: centred, links in a wrapping row */
       .footer-bottom {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
+        align-items: center;
+        text-align: center;
+        gap: 14px;
+        margin-top: 28px;
       }
-
       .footer-bottom .links {
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 16px;
       }
 
       .promo {
