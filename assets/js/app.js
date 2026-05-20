@@ -4895,13 +4895,13 @@ function MobileBottomNav(_ref22) {
     icon: 'storefront',
     label: 'Shop'
   }, {
-    id: 'wishlist',
-    icon: 'favorite',
-    label: 'Saved'
-  }, {
     id: 'cart',
     icon: 'shopping_bag',
     label: 'Cart'
+  }, {
+    id: 'account',
+    icon: 'person',
+    label: 'Account'
   }];
   return /*#__PURE__*/React.createElement("nav", {
     className: "mobile-bottom-nav",
