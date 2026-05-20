@@ -3323,7 +3323,10 @@
       }
 
       /* ── Mobile footer: brand + contact only ──────────────────────── */
-      .footer { padding: 44px 0 160px; } /* 160px = bottom nav + sticky cart CTA clearance */
+      .footer { padding: 44px 0 108px; }
+      /* Cart page: hide footer — sticky checkout bar is all users need */
+      [data-route="cart"] .footer,
+      [data-route="checkout"] .footer { display: none; }
 
       .footer-grid {
         grid-template-columns: 1fr;

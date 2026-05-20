@@ -5801,7 +5801,7 @@ function App() {
       }
     });
   }
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Announcement, null), /*#__PURE__*/React.createElement(Nav, {
+  return /*#__PURE__*/React.createElement("div", { "data-route": route }, /*#__PURE__*/React.createElement(Announcement, null), /*#__PURE__*/React.createElement(Nav, {
     route: route,
     setRoute: setRoute,
     cart: cartCount,
