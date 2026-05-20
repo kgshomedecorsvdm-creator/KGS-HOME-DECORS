@@ -5267,6 +5267,12 @@ function App() {
     ScrollTrigger.getAll().forEach(function (t) {
       return t.kill();
     });
+    setTimeout(function () {
+      return ScrollTrigger.refresh();
+    }, 500);
+    setTimeout(function () {
+      return ScrollTrigger.refresh();
+    }, 2000);
     if (route !== 'home') return;
     var ctx;
     var timer = setTimeout(function () {
