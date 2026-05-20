@@ -477,7 +477,7 @@ function ReturnPolicyPage() {
     style: {
       marginBottom: '24px'
     }
-  }, "We want you to be completely satisfied with your purchase. If you are not, you may return it within 7 days of delivery."), /*#__PURE__*/React.createElement("h2", {
+  }, "We only accept replacement requests for items that are damaged or broken upon delivery."), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontFamily: '"Crimson Pro", serif',
       fontSize: '24px',
@@ -485,15 +485,15 @@ function ReturnPolicyPage() {
       marginTop: '32px',
       marginBottom: '16px'
     }
-  }, "Conditions for Return"), /*#__PURE__*/React.createElement("p", {
+  }, "Replacement Conditions"), /*#__PURE__*/React.createElement("p", {
     style: {
       marginBottom: '24px'
     }
-  }, "Items must be unused and in the same condition that you received them. They must also be in the original packaging."), /*#__PURE__*/React.createElement("p", {
+  }, "To be eligible for a replacement, you must provide an unboxing video clearly showing the damaged or broken item at the time of opening. Requests without an unboxing video will not be accepted."), /*#__PURE__*/React.createElement("p", {
     style: {
       marginBottom: '24px'
     }
-  }, "To initiate a return, please contact our support team via WhatsApp."));
+  }, "To raise a replacement request, contact our support team via WhatsApp with your order details and unboxing video."));
 }
 function ShippingPolicyPage() {
   return /*#__PURE__*/React.createElement(LegalPage, {
@@ -861,35 +861,22 @@ var PRODUCTS = [{
   badge: 'Hot Deal',
   badgeKind: 'warm'
 }];
-var CATEGORIES = [{
-  id: 'wall-decor',
-  label: 'Wall Décor',
-  img: 'assets/categories/cat_wall_decor.webp'
-}, {
-  id: 'decor',
-  label: 'Décor',
-  img: 'assets/categories/cat_decor.webp'
-}, {
-  id: 'vases-plants',
-  label: 'Vases & Plants',
-  img: 'assets/categories/cat_vases_decor_new.webp'
-}, {
-  id: 'lifestyle-accessories',
-  label: 'Lifestyle',
-  img: 'assets/categories/cat_lifestyle.webp'
-}, {
-  id: 'furniture',
-  label: 'Furniture',
-  img: 'assets/categories/cat_sofas.webp'
-}, {
-  id: 'gifts',
-  label: 'Gifts',
-  img: 'assets/categories/cat_gifts_new.webp'
-}, {
-  id: 'lighting',
-  label: 'Lighting',
-  img: 'assets/categories/cat_lighting_only.webp'
-}];
+var CATEGORIES = [
+  { id: 'artificial-plants',  label: 'Artificial Plants',   img: 'assets/categories/cat_artificial_plants.webp' },
+  { id: 'artificial-flowers', label: 'Artificial Flowers',  img: 'assets/categories/cat_artificial_flowers.webp' },
+  { id: 'bags-accessories',   label: 'Bags & Accessories',  img: 'assets/categories/cat_bags_accessories.webp' },
+  { id: 'bottles',            label: 'Bottles',             img: 'assets/categories/cat_bottles.webp' },
+  { id: 'vases-decor',        label: 'Vases & Décor',       img: 'assets/categories/cat_vases_decor_new.webp' },
+  { id: 'fountains-pooja',    label: 'Fountains & Pooja',   img: 'assets/categories/cat_fountains_new.webp' },
+  { id: 'gifts-hampers',      label: 'Gifts & Hampers',     img: 'assets/categories/cat_gifts_new.webp' },
+  { id: 'chairs-sofas',       label: 'Chairs & Sofas',      img: 'assets/categories/cat_chairs_sofas.webp' },
+  { id: 'clocks',             label: 'Clocks',              img: 'assets/categories/cat_clocks_new.webp' },
+  { id: 'lighting',           label: 'Lighting',            img: 'assets/categories/cat_lighting_only.webp' },
+  { id: 'blower-fans',        label: 'Blower Fans',         img: 'assets/categories/cat_blower_fans.webp' },
+  { id: 'statues-idols',      label: 'Statues & Idols',     img: 'assets/categories/cat_statues_new.webp' },
+  { id: 'wall-frames',        label: 'Wall Frames',         img: 'assets/categories/cat_wall_frames_new.webp' },
+  { id: 'wall-statues',       label: 'Wall Statues',        img: 'assets/categories/cat_wall_statues.webp' },
+];
 var TESTIMONIALS = [{
   name: 'Priya Sharma',
   initial: 'P',
@@ -918,92 +905,120 @@ var fmtPrice = function fmtPrice(n) {
 var SB_URL = 'https://rgpkomngygapwjhnbgaf.supabase.co';
 var SB_ANON = 'sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P';
 var _TAG_BADGE = {
-  'bestseller': {
-    badge: 'Best Seller',
-    badgeKind: 'gold'
-  },
-  'new-arrival': {
-    badge: 'New',
-    badgeKind: 'ink'
-  },
-  'featured': {
-    badge: 'Featured',
-    badgeKind: 'gold'
-  },
-  'trending': {
-    badge: 'Trending',
-    badgeKind: 'ink'
-  },
-  'hot-deal': {
-    badge: 'Hot Deal',
-    badgeKind: 'warm'
-  },
-  'popular': {
-    badge: 'Popular',
-    badgeKind: 'gold'
-  }
+  'bestseller': { badge: 'Best Seller', badgeKind: 'gold' },
+  'new-arrival': { badge: 'New', badgeKind: 'ink' },
+  'featured': { badge: 'Featured', badgeKind: 'gold' },
+  'trending': { badge: 'Trending', badgeKind: 'ink' },
+  'hot-deal': { badge: 'Hot Deal', badgeKind: 'warm' },
+  'popular': { badge: 'Popular', badgeKind: 'gold' }
 };
-var _CAT_LABEL = {
-  'wall-decor': 'Wall Décor',
-  'decor': 'Décor',
-  'vases-plants': 'Vases & Plants',
-  'lifestyle-accessories': 'Lifestyle',
-  'furniture': 'Furniture',
-  'gifts': 'Gifts',
-  'lighting': 'Lighting'
+
+var _CAT_SPLIT = {
+  'vases-plants': [
+    { key: 'Plant', target: 'artificial-plants', label: 'Artificial Plants' },
+    { key: 'Flower', target: 'artificial-flowers', label: 'Artificial Flowers' },
+    { key: 'Vase', target: 'vases-decor', label: 'Vases & Décor' }
+  ],
+  'decor': [
+    { key: 'Flower', target: 'artificial-flowers', label: 'Artificial Flowers' },
+    { key: 'Fountain', target: 'fountains-pooja', label: 'Fountains & Pooja' },
+    { key: 'Pooja', target: 'fountains-pooja', label: 'Fountains & Pooja' },
+    { key: 'Statue', target: 'statues-idols', label: 'Statues & Idols' },
+    { key: 'Idol', target: 'statues-idols', label: 'Statues & Idols' },
+    { key: 'Clock', target: 'clocks', label: 'Clocks' },
+    { key: 'Fan', target: 'blower-fans', label: 'Blower Fans' },
+    { key: 'Vase', target: 'vases-decor', label: 'Vases & Décor' }
+  ],
+  'lifestyle-accessories': [
+    { key: 'Bag', target: 'bags-accessories', label: 'Bags & Accessories' },
+    { key: 'Bottle', target: 'bottles', label: 'Bottles' },
+    { key: 'Flask', target: 'bottles', label: 'Bottles' }
+  ],
+  'wall-decor': [
+    { key: 'Statue', target: 'wall-statues', label: 'Wall Statues' },
+    { key: 'Mount', target: 'wall-statues', label: 'Wall Statues' },
+    { key: 'Frame', target: 'wall-frames', label: 'Wall Frames' }
+  ],
+  'furniture': [
+    { key: '', target: 'chairs-sofas', label: 'Chairs & Sofas' }
+  ],
+  'gifts': [
+    { key: '', target: 'gifts-hampers', label: 'Gifts & Hampers' }
+  ],
+  'lighting': [
+    { key: '', target: 'lighting', label: 'Lighting' }
+  ],
+  'artificial-plants':  [{ key: '', target: 'artificial-plants',  label: 'Artificial Plants' }],
+  'artificial-flowers': [{ key: '', target: 'artificial-flowers', label: 'Artificial Flowers' }],
+  'bags-accessories':   [{ key: '', target: 'bags-accessories',   label: 'Bags & Accessories' }],
+  'bottles':            [{ key: '', target: 'bottles',            label: 'Bottles' }],
+  'vases-decor':        [{ key: '', target: 'vases-decor',        label: 'Vases & Décor' }],
+  'fountains-pooja':    [{ key: '', target: 'fountains-pooja',    label: 'Fountains & Pooja' }],
+  'gifts-hampers':      [{ key: '', target: 'gifts-hampers',      label: 'Gifts & Hampers' }],
+  'chairs-sofas':       [{ key: '', target: 'chairs-sofas',       label: 'Chairs & Sofas' }],
+  'clocks':             [{ key: '', target: 'clocks',             label: 'Clocks' }],
+  'blower-fans':        [{ key: '', target: 'blower-fans',        label: 'Blower Fans' }],
+  'statues-idols':      [{ key: '', target: 'statues-idols',      label: 'Statues & Idols' }],
+  'wall-frames':        [{ key: '', target: 'wall-frames',        label: 'Wall Frames' }],
+  'wall-statues':       [{ key: '', target: 'wall-statues',       label: 'Wall Statues' }]
 };
+
 function normalizeProduct(p) {
-  // Discount badge from compare_at_price
   var off = p.compare_at_price && parseFloat(p.compare_at_price) > parseFloat(p.price) ? Math.round((1 - parseFloat(p.price) / parseFloat(p.compare_at_price)) * 100) + '% OFF' : null;
-  // Badge from tags
-  var badge = null,
-    badgeKind = null;
-  if (off) {
-    badge = off;
-    badgeKind = 'warm';
-  }
+  var badge = null, badgeKind = null;
+  if (off) { badge = off; badgeKind = 'warm'; }
   if (Array.isArray(p.tags)) {
-    var _iterator = _createForOfIteratorHelper(p.tags),
-      _step;
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var tag = _step.value;
-        if (_TAG_BADGE[tag]) {
-          badge = _TAG_BADGE[tag].badge;
-          badgeKind = _TAG_BADGE[tag].badgeKind;
-          break;
-        }
+    for (var i = 0; i < p.tags.length; i++) {
+      var tag = p.tags[i];
+      if (_TAG_BADGE[tag]) {
+        badge = _TAG_BADGE[tag].badge;
+        badgeKind = _TAG_BADGE[tag].badgeKind;
+        break;
       }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
     }
   }
-  // Deterministic rating/reviews from UUID hash (consistent across renders)
   var h = parseInt((p.id || '').replace(/-/g, '').slice(0, 8), 16) || 0;
-  var rating = +(4.4 + h % 6 / 10).toFixed(1); // 4.4–4.9
-  var reviews = 18 + h % 200; // 18–217
-  var sold = 8 + h % 95; // 8–102
+  var rating = +(4.4 + h % 6 / 10).toFixed(1);
+  var reviews = 18 + h % 200;
+  var sold = 8 + h % 95;
+
+  var dbCat = p.category || '';
+  var name = p.name || '';
+  var finalLabel = dbCat;
+  var finalId = dbCat;
+
+  if (_CAT_SPLIT[dbCat]) {
+    finalLabel = _CAT_SPLIT[dbCat][0].label;
+    finalId = _CAT_SPLIT[dbCat][0].target;
+    for (var j = 0; j < _CAT_SPLIT[dbCat].length; j++) {
+      var rule = _CAT_SPLIT[dbCat][j];
+      if (rule.key && name.toLowerCase().indexOf(rule.key.toLowerCase()) !== -1) {
+        finalLabel = rule.label;
+        finalId = rule.target;
+        break;
+      }
+    }
+  }
+
   return {
     id: p.id,
     name: p.name,
-    category: _CAT_LABEL[p.category] || p.category,
-    categorySlug: p.category,
-    // original DB slug — used for filtering
+    category: finalLabel,
+    categorySlug: finalId,
     price: parseFloat(p.price),
     was: p.compare_at_price ? parseFloat(p.compare_at_price) : null,
     off: off,
     rating: rating,
     reviews: reviews,
     sold: sold,
-    stock: typeof p.stock_quantity === 'number' ? p.stock_quantity : p.in_stock ? 10 : 0,
+    stock: typeof p.stock_quantity === 'number' ? p.stock_quantity : (p.in_stock ? 10 : 0),
     image: p.image_url,
     badge: badge,
     badgeKind: badgeKind
   };
 }
-function fetchAllProductsFromSupabase() {
+
+    function fetchAllProductsFromSupabase() {
   return _fetchAllProductsFromSupabase.apply(this, arguments);
 } // ===== Announcement bar =====================================================
 function _fetchAllProductsFromSupabase() {
@@ -1065,9 +1080,6 @@ function Announcement() {
   }, {
     icon: 'verified',
     text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Every piece hand-checked'), ' at our showroom before it ships.')
-  }, {
-    icon: 'replay',
-    text: React.createElement(React.Fragment, null, React.createElement('b', null, '7-day returns.'), " Don\u2019t love it? Full refund, no questions.")
   }, {
     icon: 'chat',
     text: React.createElement(React.Fragment, null, "WhatsApp us \u2014 a real person replies within ", React.createElement('b', null, "10\xA0minutes."))
@@ -1408,7 +1420,7 @@ function TrustStrip() {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "trust-row"
-  }, item('local_shipping', 'Free Delivery', 'In Virudhachalam only.'), item('verified', 'Hand-Checked', 'We look at every piece before it ships.'), item('payments', 'Pay How You Like', 'UPI, card, net banking, or COD.'), item('chat', 'Text Us Anytime', 'WhatsApp — we reply fast.'))));
+  }, item('local_shipping', 'Free Delivery', 'In Virudhachalam only.'), item('verified', 'Hand-Checked', 'We look at every piece before it ships.'), item('payments', 'Pay How You Like', 'UPI, card, or net banking.'), item('chat', 'Text Us Anytime', 'WhatsApp — we reply fast.'))));
 }
 
 // ===== Newsletter ============================================================
@@ -1571,7 +1583,18 @@ function Footer(_ref6) {
       letterSpacing: '0.05em',
       cursor: 'pointer'
     }
-  }, "Join")))), col('Shop', [['Vases & Décor', 'shop'], ['Fountains & Pooja', 'shop'], ['Chairs & Sofas', 'shop'], ['Lighting', 'shop'], ['Gifts & Hampers', 'shop'], ['Statues & Idols', 'shop']]), col('Help', [['Shipping & Delivery', 'shipping'], ['Returns & Refunds', 'returns'], ['FAQ', null], ['Track Order', null], ['Payment Options', null]]), col('Company & Legal', [['Our Story', 'about'], ['Contact', 'contact'], ['Terms', 'terms'], ['Privacy', 'privacy']]), /*#__PURE__*/React.createElement("div", {
+  }, "Join")))), col('Shop', [
+                ['Artificial Plants', 'shop'],
+                ['Artificial Flowers', 'shop'],
+                ['Vases & Décor', 'shop'],
+                ['Fountains & Pooja', 'shop'],
+                ['Chairs & Sofas', 'shop'],
+                ['Lighting', 'shop'],
+                ['Gifts & Hampers', 'shop'],
+                ['Statues & Idols', 'shop'],
+                ['Wall Frames', 'shop'],
+                ['Wall Statues', 'shop'],
+              ]), col('Help', [['Shipping & Delivery', 'shipping'], ['Returns & Refunds', 'returns'], ['FAQ', null], ['Track Order', null], ['Payment Options', null]]), col('Company & Legal', [['Our Story', 'about'], ['Contact', 'contact'], ['Terms', 'terms'], ['Privacy', 'privacy']]), /*#__PURE__*/React.createElement("div", {
     className: "footer-col"
   }, /*#__PURE__*/React.createElement("h4", null, "Talk to Us"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", {
     className: "info-line"
@@ -1594,7 +1617,7 @@ function Footer(_ref6) {
     style: {
       marginTop: 18
     }
-  }, /*#__PURE__*/React.createElement("span", null, "VISA"), /*#__PURE__*/React.createElement("span", null, "MC"), /*#__PURE__*/React.createElement("span", null, "UPI"), /*#__PURE__*/React.createElement("span", null, "AMEX"), /*#__PURE__*/React.createElement("span", null, "COD")))), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("span", null, "VISA"), /*#__PURE__*/React.createElement("span", null, "MC"), /*#__PURE__*/React.createElement("span", null, "UPI"), /*#__PURE__*/React.createElement("span", null, "AMEX")))), /*#__PURE__*/React.createElement("div", {
     className: "footer-bottom"
   }, /*#__PURE__*/React.createElement("span", null, "\xA9 2026 KGS Home D\xE9cors, Virudhachalam. All rights reserved."), /*#__PURE__*/React.createElement("div", {
     className: "links"
@@ -1836,30 +1859,13 @@ function ProductCard(_ref1) {
     onView = _ref1.onView,
     wishlisted = _ref1.wishlisted,
     onWishToggle = _ref1.onWishToggle;
-  var proof = function () {
-    if (p.stock && p.stock <= 4) return {
-      tone: 'warm',
-      icon: 'local_fire_department',
-      text: "Only ".concat(p.stock, " left")
-    };
-    if (p.sold && p.sold >= 40) return {
-      tone: 'ink',
-      icon: 'trending_up',
-      text: "".concat(p.sold, " sold this week")
-    };
-    if (p.sold && p.sold >= 20) return {
-      tone: 'gold',
-      icon: 'visibility',
-      text: "".concat(p.sold, " people viewing")
-    };
-    return null;
-  }();
   return /*#__PURE__*/React.createElement("div", {
     className: "prod-card"
   }, /*#__PURE__*/React.createElement("div", {
     className: "prod-img",
-    onClick: function onClick() {
-      return onView(p);
+    onClick: function onClick(e) {
+      if (e.target.closest('.heart-btn')) return;
+      onView(p);
     },
     style: {
       cursor: 'pointer'
@@ -1883,6 +1889,7 @@ function ProductCard(_ref1) {
     className: 'heart-btn' + (wishlisted ? ' active' : ''),
     onClick: function onClick(e) {
       e.stopPropagation();
+      e.preventDefault();
       onWishToggle(p.id);
     },
     "aria-label": "Save to wishlist"
@@ -1906,25 +1913,13 @@ function ProductCard(_ref1) {
     className: "prod-cat"
   }, p.category), /*#__PURE__*/React.createElement("div", {
     className: "prod-name"
-  }, p.name), /*#__PURE__*/React.createElement("div", {
-    className: "prod-rating"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "stars"
-  }, "\u2605\u2605\u2605\u2605\u2605"), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("b", {
-    style: {
-      color: '#1A1A1A'
-    }
-  }, p.rating.toFixed(1)), " \xB7 ", p.reviews, " reviews"))), /*#__PURE__*/React.createElement("div", {
+  }, p.name)), /*#__PURE__*/React.createElement("div", {
     className: "prod-price"
   }, /*#__PURE__*/React.createElement("span", {
     className: "now"
   }, fmtPrice(p.price)), p.was && /*#__PURE__*/React.createElement("span", {
     className: "was"
-  }, fmtPrice(p.was))), proof && /*#__PURE__*/React.createElement("div", {
-    className: 'prod-proof prod-proof--' + proof.tone
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
-  }, proof.icon), proof.text), /*#__PURE__*/React.createElement("button", {
+  }, fmtPrice(p.was))), /*#__PURE__*/React.createElement("button", {
     className: "prod-cta",
     onClick: function onClick() {
       return onAdd(p);
@@ -2033,6 +2028,7 @@ function PromoBanner(_ref12) {
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "promo-banner",
     style: {
       background: 'linear-gradient(135deg, rgba(26,26,26,0.94) 0%, rgba(42,37,34,0.88) 50%, rgba(61,46,31,0.92) 100%), url("assets/lifestyle/showroom.webp") center/cover no-repeat',
       borderRadius: 24,
@@ -2127,6 +2123,7 @@ function PromoBanner(_ref12) {
       letterSpacing: '0.01em'
     }
   }, "Open every day, 10 AM \u2013 10 PM on Junction Road, Virudhachalam.", /*#__PURE__*/React.createElement("br", null), "No appointment needed. Complimentary parking available.")), /*#__PURE__*/React.createElement("div", {
+    className: "promo-btn-card",
     style: {
       position: 'relative',
       zIndex: 1,
@@ -2624,13 +2621,7 @@ function ShopPage(_ref14) {
   }, [filter, sort]);
 
   // Use DB category slugs from CATEGORIES array (ordered + labeled)
-  // Only show categories that actually have products
-  var activeSlugs = new Set(PRODUCTS.map(function (p) {
-    return p.categorySlug || p.category;
-  }));
-  var cats = ['all'].concat(_toConsumableArray(CATEGORIES.filter(function (cat) {
-    return activeSlugs.has(cat.id);
-  }).map(function (cat) {
+  var cats = ['all'].concat(_toConsumableArray(CATEGORIES.map(function (cat) {
     return cat.id;
   })));
   var ITEMS_PER_PAGE = 12;
@@ -2801,11 +2792,7 @@ function ShopPage(_ref14) {
       return setFilter('all');
     }
   }, "Show All")) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
-      gap: 20
-    }
+    className: "shop-grid"
   }, paginatedProducts.map(function (p) {
     return /*#__PURE__*/React.createElement(ProductCard, {
       key: p.id,
@@ -2927,6 +2914,7 @@ function ProductDetail(_ref15) {
   var p = _ref15.p,
     _onAdd = _ref15.onAdd,
     onBack = _ref15.onBack,
+    onView = _ref15.onView,
     wishlist = _ref15.wishlist,
     onWishToggle = _ref15.onWishToggle;
   var _React$useState23 = React.useState(1),
@@ -2938,8 +2926,8 @@ function ProductDetail(_ref15) {
     activeImg = _React$useState26[0],
     setActiveImg = _React$useState26[1];
   if (!p) return null;
-  // Build a gallery: use same image multiple times (real data would have multiple angles)
-  var gallery = [p.image, p.image, p.image, p.image];
+  // Gallery: use p.images array if available, otherwise just the single image
+  var gallery = Array.isArray(p.images) && p.images.length > 1 ? p.images : [p.image].filter(Boolean);
   var FREE_OVER = 5000;
   var lineTotal = p.price * qty;
   var toFree = Math.max(0, FREE_OVER - lineTotal);
@@ -2988,26 +2976,7 @@ function ProductDetail(_ref15) {
     style: {
       fontSize: 16
     }
-  }, "arrow_back"), "Back to Shop"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 11.5,
-      color: '#5E5B59',
-      display: 'flex',
-      alignItems: 'center',
-      gap: 8
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined",
-    style: {
-      color: '#B89657',
-      fontSize: 14
-    }
-  }, "local_fire_department"), /*#__PURE__*/React.createElement("b", {
-    style: {
-      color: '#1A1A1A',
-      fontWeight: 600
-    }
-  }, p.sold || 24), "\xA0people picked this up in the last 7 days"))), /*#__PURE__*/React.createElement("section", {
+  }, "arrow_back"), "Back to Shop"))), /*#__PURE__*/React.createElement("section", {
     style: {
       background: '#fff',
       padding: '56px 0 80px'
@@ -3111,33 +3080,7 @@ function ProductDetail(_ref15) {
       marginBottom: 24,
       flexWrap: 'wrap'
     }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: 8,
-      padding: '6px 12px',
-      background: 'rgba(184,150,87,0.10)',
-      borderRadius: 9999
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: '#B89657',
-      letterSpacing: '.14em',
-      fontSize: 13
-    }
-  }, "\u2605\u2605\u2605\u2605\u2605"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 12.5,
-      fontWeight: 600,
-      color: '#1A1A1A'
-    }
-  }, p.rating.toFixed(1)), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 12,
-      color: '#5E5B59'
-    }
-  }, "(", p.reviews, " reviews)")), p.badge && /*#__PURE__*/React.createElement("span", {
+  }, p.badge && /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 10.5,
       fontWeight: 600,
@@ -3215,7 +3158,7 @@ function ProductDetail(_ref15) {
     className: "pdp-trust__item"
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
-  }, "lock"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Secure checkout"), /*#__PURE__*/React.createElement("span", null, "UPI \xB7 Cards \xB7 COD")))), /*#__PURE__*/React.createElement("div", {
+  }, "lock"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Secure checkout"), /*#__PURE__*/React.createElement("span", null, "UPI \xB7 Cards")))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       gap: 12,
@@ -3302,7 +3245,7 @@ function ProductDetail(_ref15) {
       onAdd: function onAdd(prod) {
         return _onAdd(prod, 1);
       },
-      onView: function onView() {},
+      onView: onView || function() {},
       wishlisted: wishlist && wishlist.includes(rp.id),
       onWishToggle: onWishToggle
     });
@@ -3341,19 +3284,7 @@ function ProductDetail(_ref15) {
       overflow: 'hidden',
       textOverflow: 'ellipsis'
     }
-  }, p.name), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 11.5,
-      color: '#5E5B59',
-      display: 'flex',
-      alignItems: 'center',
-      gap: 6
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: '#B89657'
-    }
-  }, "\u2605"), p.rating.toFixed(1), " \xB7 ", p.reviews, " reviews"))), /*#__PURE__*/React.createElement("div", {
+  }, p.name))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       alignItems: 'center',
@@ -3654,11 +3585,9 @@ function CartPage(_ref16) {
     className: "material-symbols-outlined"
   }, "lock"), "Secure checkout"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
-  }, "replay"), "7-day returns"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
   }, "verified_user"), "Hand-checked"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
-  }, "payments"), "UPI \xB7 Cards \xB7 COD"))), /*#__PURE__*/React.createElement("div", {
+  }, "payments"), "UPI \xB7 Cards"))), /*#__PURE__*/React.createElement("div", {
     style: {
       background: '#fff',
       border: '1px solid rgba(197,168,128,0.25)',
@@ -5111,6 +5040,10 @@ function MobileBottomNav(_ref22) {
     icon: 'search',
     label: 'Search'
   }, {
+    id: 'shop',
+    icon: 'storefront',
+    label: 'Shop'
+  }, {
     id: 'wishlist',
     icon: 'favorite',
     label: 'Saved'
@@ -5231,14 +5164,6 @@ function App() {
     fetchAllProductsFromSupabase().then(function (live) {
       if (live && live.length > 0) {
         PRODUCTS = live;
-        // Update CATEGORIES to only include cats with actual products
-        // Keep categories that have live products (match on slug)
-        var liveSlugs = new Set(live.map(function (p) {
-          return p.categorySlug;
-        }));
-        CATEGORIES = CATEGORIES.filter(function (cat) {
-          return liveSlugs.has(cat.id);
-        });
       }
       // Clean up cart items whose IDs no longer exist
       setCart(function (prev) {
@@ -5739,6 +5664,7 @@ function App() {
       onBack: function onBack() {
         return setRoute('shop');
       },
+      onView: handleView,
       wishlist: wishlist,
       onWishToggle: handleWishToggle
     });

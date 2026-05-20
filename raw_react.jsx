@@ -1,4 +1,4 @@
-
+﻿
     // ===== Extra Pages (Auth, Legal) ==================================
     // Extra Pages added to the KGS Home Decor React App
 
@@ -110,7 +110,7 @@
     function PrivacyPolicyPage() {
       return (
         <LegalPage title="Privacy Policy">
-          <p style={{ marginBottom: '24px' }}>At KGS Home Décor, we are committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your personal information.</p>
+          <p style={{ marginBottom: '24px' }}>At KGS Home DÃ©cor, we are committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your personal information.</p>
           <h2 style={{ fontFamily: '"Crimson Pro", serif', fontSize: '24px', color: '#1A1A1A', marginTop: '32px', marginBottom: '16px' }}>Information We Collect</h2>
           <p style={{ marginBottom: '24px' }}>We collect information you provide directly to us, such as your name, email address, shipping address, and payment information when you make a purchase or create an account.</p>
           <h2 style={{ fontFamily: '"Crimson Pro", serif', fontSize: '24px', color: '#1A1A1A', marginTop: '32px', marginBottom: '16px' }}>How We Use Your Information</h2>
@@ -126,7 +126,7 @@
     function TermsPage() {
       return (
         <LegalPage title="Terms & Conditions">
-          <p style={{ marginBottom: '24px' }}>Welcome to KGS Home Décor. By accessing our website, you agree to be bound by these Terms and Conditions.</p>
+          <p style={{ marginBottom: '24px' }}>Welcome to KGS Home DÃ©cor. By accessing our website, you agree to be bound by these Terms and Conditions.</p>
           <h2 style={{ fontFamily: '"Crimson Pro", serif', fontSize: '24px', color: '#1A1A1A', marginTop: '32px', marginBottom: '16px' }}>Product Accuracy</h2>
           <p style={{ marginBottom: '24px' }}>We strive to ensure that all details, descriptions, and prices of products appearing on the website are accurate. However, errors may occur. We reserve the right to correct any errors and to change or update information at any time without prior notice.</p>
         </LegalPage>
@@ -179,7 +179,7 @@
       { id: 'flower-rose', name: 'Premium Rose Bouquet', category: 'Artificial Flowers', price: 1500, was: null, off: null, rating: 4.7, reviews: 34, sold: 12, stock: 20, image: 'assets/products-real/flower-01.png', badge: 'New', badgeKind: 'ink' },
       { id: 'bag-tote', name: 'Handcrafted Leather Tote', category: 'Bags & Accessories', price: 4500, was: 5000, off: '10% OFF', rating: 4.8, reviews: 56, sold: 28, stock: 5, image: 'assets/products-real/bag-01.png', badge: null },
       { id: 'bottle-vintage', name: 'Vintage Glass Bottle', category: 'Bottles', price: 1200, was: null, off: null, rating: 4.6, reviews: 21, sold: 9, stock: 15, image: 'assets/products-real/bottle-01.png', badge: 'Staff Pick', badgeKind: 'gold' },
-      { id: 'vase-ceramic', name: 'Designer Ceramic Vase', category: 'Vases & Décor', price: 1950, was: null, off: null, rating: 5.0, reviews: 42, sold: 18, stock: 14, image: 'assets/products/ceramic_vase.webp', badge: 'New', badgeKind: 'ink' },
+      { id: 'vase-ceramic', name: 'Designer Ceramic Vase', category: 'Vases & DÃ©cor', price: 1950, was: null, off: null, rating: 5.0, reviews: 42, sold: 18, stock: 14, image: 'assets/products/ceramic_vase.webp', badge: 'New', badgeKind: 'ink' },
       { id: 'fountain-tabletop', name: 'Indoor Tabletop Fountain', category: 'Fountains & Pooja', price: 2850, was: null, off: null, rating: 4.9, reviews: 56, sold: 22, stock: 6, image: 'assets/products/fountain.webp', badge: 'Best Seller', badgeKind: 'gold' },
       { id: 'gift-hamper', name: 'Luxury Festive Gift Hamper', category: 'Gifts & Hampers', price: 5500, was: null, off: null, rating: 4.9, reviews: 88, sold: 45, stock: 8, image: 'assets/products-real/gift-01.png', badge: null },
       { id: 'sofa-3seater', name: '3-Seater Sofa - Fabric & Wood', category: 'Chairs & Sofas', price: 18500, was: 22000, off: '16% OFF', rating: 4.8, reviews: 124, sold: 38, stock: 4, image: 'assets/products/sofa.webp', badge: 'Best Seller', badgeKind: 'gold' },
@@ -189,7 +189,7 @@
       { id: 'horse-statue', name: 'Decorative Horse Statue', category: 'Statues & Idols', price: 4250, was: 5500, off: '23% OFF', rating: 4.9, reviews: 168, sold: 52, stock: 3, image: 'assets/products/horse.webp', badge: 'Best Seller', badgeKind: 'gold' },
       { id: 'wall-art-botanical', name: 'Botanical Wall Art Panel', category: 'Wall Frames', price: 1850, was: null, off: null, rating: 4.8, reviews: 113, sold: 41, stock: 18, image: 'assets/products/wall_decor.webp', badge: null },
       { id: 'wall-statue', name: 'Brass Wall Mount Statue', category: 'Wall Statues', price: 3800, was: null, off: null, rating: 4.7, reviews: 45, sold: 19, stock: 6, image: 'assets/products-real/wall-statue-01.png', badge: null },
-      { id: 'cushion-velvet', name: 'Velvet Throw Cushion Set', category: 'Vases & Décor', price: 1800, was: 2200, off: '18% OFF', rating: 4.8, reviews: 67, sold: 43, stock: 15, image: 'assets/products/ceramic_vase.webp', badge: 'Hot Deal', badgeKind: 'warm' },
+      { id: 'cushion-velvet', name: 'Velvet Throw Cushion Set', category: 'Vases & DÃ©cor', price: 1800, was: 2200, off: '18% OFF', rating: 4.8, reviews: 67, sold: 43, stock: 15, image: 'assets/products/ceramic_vase.webp', badge: 'Hot Deal', badgeKind: 'warm' },
       { id: 'lamp-floor', name: 'Rattan Floor Lamp', category: 'Lighting', price: 5200, was: null, off: null, rating: 4.9, reviews: 38, sold: 21, stock: 5, image: 'assets/products/table_lamp.webp', badge: 'New', badgeKind: 'ink' },
       { id: 'mirror-arched', name: 'Arched Gold Wall Mirror', category: 'Wall Frames', price: 7500, was: 9000, off: '17% OFF', rating: 4.9, reviews: 92, sold: 34, stock: 3, image: 'assets/products/wall_decor.webp', badge: 'Best Seller', badgeKind: 'gold' },
       { id: 'pooja-thali', name: 'Handcrafted Brass Pooja Thali', category: 'Fountains & Pooja', price: 2200, was: null, off: null, rating: 5.0, reviews: 114, sold: 76, stock: 10, image: 'assets/products/fountain.webp', badge: 'Popular', badgeKind: 'gold' },
@@ -197,22 +197,29 @@
       { id: 'clock-wooden', name: 'Rustic Wooden Wall Clock', category: 'Clocks', price: 1850, was: 2100, off: '12% OFF', rating: 4.6, reviews: 44, sold: 31, stock: 8, image: 'assets/products/clock.webp', badge: null },
       { id: 'statue-ganesha', name: 'Brass Ganesha Idol', category: 'Statues & Idols', price: 3600, was: null, off: null, rating: 5.0, reviews: 201, sold: 88, stock: 7, image: 'assets/products/horse.webp', badge: 'Best Seller', badgeKind: 'gold' },
       { id: 'hamper-diwali', name: 'Premium Diwali Gift Set', category: 'Gifts & Hampers', price: 4200, was: null, off: null, rating: 4.8, reviews: 73, sold: 55, stock: 4, image: 'assets/products-real/gift-01.png', badge: 'Trending', badgeKind: 'ink' },
-      { id: 'sofa-accent', name: 'Accent Armchair — Teal', category: 'Chairs & Sofas', price: 12500, was: 15000, off: '17% OFF', rating: 4.7, reviews: 58, sold: 22, stock: 2, image: 'assets/products/sofa.webp', badge: 'Hot Deal', badgeKind: 'warm' },
+      { id: 'sofa-accent', name: 'Accent Armchair â€” Teal', category: 'Chairs & Sofas', price: 12500, was: 15000, off: '17% OFF', rating: 4.7, reviews: 58, sold: 22, stock: 2, image: 'assets/products/sofa.webp', badge: 'Hot Deal', badgeKind: 'warm' },
     ];
 
-    let CATEGORIES = [
-      { id: 'wall-decor',             label: 'Wall Décor',         img: 'assets/categories/cat_wall_decor.webp'         },
-      { id: 'decor',                  label: 'Décor',              img: 'assets/categories/cat_decor.webp'              },
-      { id: 'vases-plants',           label: 'Vases & Plants',        img: 'assets/categories/cat_vases_decor_new.webp'    },
-      { id: 'lifestyle-accessories',  label: 'Lifestyle',             img: 'assets/categories/cat_lifestyle.webp'          },
-      { id: 'furniture',              label: 'Furniture',             img: 'assets/categories/cat_sofas.webp'              },
-      { id: 'gifts',                  label: 'Gifts',                 img: 'assets/categories/cat_gifts_new.webp'          },
-      { id: 'lighting',               label: 'Lighting',              img: 'assets/categories/cat_lighting_only.webp'      },
+        let CATEGORIES = [
+      { id: 'artificial-plants',  label: 'Artificial Plants',   img: 'assets/categories/cat_artificial_plants.webp' },
+      { id: 'artificial-flowers', label: 'Artificial Flowers',  img: 'assets/categories/cat_artificial_flowers.webp' },
+      { id: 'bags-accessories',   label: 'Bags & Accessories',  img: 'assets/categories/cat_bags_accessories.webp' },
+      { id: 'bottles',            label: 'Bottles',             img: 'assets/categories/cat_bottles.webp' },
+      { id: 'vases-decor',        label: 'Vases & DÃ©cor',       img: 'assets/categories/cat_vases_decor_new.webp' },
+      { id: 'fountains-pooja',    label: 'Fountains & Pooja',   img: 'assets/categories/cat_fountains_new.webp' },
+      { id: 'gifts-hampers',      label: 'Gifts & Hampers',     img: 'assets/categories/cat_gifts_new.webp' },
+      { id: 'chairs-sofas',       label: 'Chairs & Sofas',      img: 'assets/categories/cat_chairs_sofas.webp' },
+      { id: 'clocks',             label: 'Clocks',              img: 'assets/categories/cat_clocks_new.webp' },
+      { id: 'lighting',           label: 'Lighting',            img: 'assets/categories/cat_lighting_only.webp' },
+      { id: 'blower-fans',        label: 'Blower Fans',         img: 'assets/categories/cat_blower_fans.webp' },
+      { id: 'statues-idols',      label: 'Statues & Idols',     img: 'assets/categories/cat_statues_new.webp' },
+      { id: 'wall-frames',        label: 'Wall Frames',         img: 'assets/categories/cat_wall_frames_new.webp' },
+      { id: 'wall-statues',       label: 'Wall Statues',        img: 'assets/categories/cat_wall_statues.webp' },
     ];
 
     const TESTIMONIALS = [
       { name: 'Priya Sharma', initial: 'P', stars: 5, quote: 'Ordered the tall marble vase and it arrived the next day, packed properly. Looks exactly like the photos. Will order again.', thumb: 'assets/lifestyle/room_bedroom.webp' },
-      { name: 'Rohit Verma', initial: 'R', stars: 5, quote: 'WhatsApped them about a sofa and got a reply in five minutes. Good people. The piece itself is solid — no wobble, good finish.', thumb: 'assets/lifestyle/room_living.webp' },
+      { name: 'Rohit Verma', initial: 'R', stars: 5, quote: 'WhatsApped them about a sofa and got a reply in five minutes. Good people. The piece itself is solid â€” no wobble, good finish.', thumb: 'assets/lifestyle/room_living.webp' },
       { name: 'Ananya Iyer', initial: 'A', stars: 5, quote: 'An incredibly premium selection right here in Virudhachalam. Went to the showroom on Junction Road and ended up buying three things I hadn\'t planned to.', thumb: 'assets/lifestyle/room_hallway.webp' },
     ];
 
@@ -229,9 +236,9 @@
       'assets/categories/cat_lifestyle.webp',
     ];
 
-    const fmtPrice = (n) => '₹' + n.toLocaleString('en-IN');
+    const fmtPrice = (n) => 'â‚¹' + n.toLocaleString('en-IN');
 
-    // ─── Supabase Integration ────────────────────────────────────────────
+    // â”€â”€â”€ Supabase Integration â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const SB_URL     = 'https://rgpkomngygapwjhnbgaf.supabase.co';
     const SB_ANON    = 'sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P';
 
@@ -244,8 +251,8 @@
       'popular':     { badge: 'Popular',     badgeKind: 'gold' },
     };
     const _CAT_LABEL = {
-      'wall-decor':            'Wall Décor',
-      'decor':                 'Décor',
+      'wall-decor':            'Wall DÃ©cor',
+      'decor':                 'DÃ©cor',
       'vases-plants':          'Vases & Plants',
       'lifestyle-accessories': 'Lifestyle',
       'furniture':             'Furniture',
@@ -268,14 +275,33 @@
       }
       // Deterministic rating/reviews from UUID hash (consistent across renders)
       const h = parseInt((p.id || '').replace(/-/g, '').slice(0, 8), 16) || 0;
-      const rating  = +(4.4 + (h % 6) / 10).toFixed(1);   // 4.4–4.9
-      const reviews = 18 + (h % 200);                       // 18–217
-      const sold    = 8  + (h % 95);                        // 8–102
+      const rating  = +(4.4 + (h % 6) / 10).toFixed(1);   // 4.4â€“4.9
+      const reviews = 18 + (h % 200);                       // 18â€“217
+      const sold    = 8  + (h % 95);                        // 8â€“102
       return {
         id:           p.id,
         name:         p.name,
-        category:     _CAT_LABEL[p.category] || p.category,
-        categorySlug: p.category,          // original DB slug — used for filtering
+                let catSlug = p.category;
+        let catLabel = _CAT_LABEL[p.category] || p.category;
+        const url = (p.image_url || '').toLowerCase();
+        const n = (p.name || '').toLowerCase();
+        if (url.includes('ar-plants')) { catSlug = 'artificial-plants'; catLabel = 'Artificial Plants'; }
+        else if (url.includes('artificial-flowers')) { catSlug = 'artificial-flowers'; catLabel = 'Artificial Flowers'; }
+        else if (url.includes('bags-accessories')) { catSlug = 'bags-accessories'; catLabel = 'Bags & Accessories'; }
+        else if (url.includes('bottles')) { catSlug = 'bottles'; catLabel = 'Bottles'; }
+        else if (url.includes('vases') || n.includes('vase')) { catSlug = 'vases-decor'; catLabel = 'Vases & Décor'; }
+        else if (url.includes('fountains') || n.includes('pooja')) { catSlug = 'fountains-pooja'; catLabel = 'Fountains & Pooja'; }
+        else if (url.includes('gifts-toys') || n.includes('hamper') || n.includes('gift')) { catSlug = 'gifts-hampers'; catLabel = 'Gifts & Hampers'; }
+        else if (url.includes('chairs-sofas') || n.includes('sofa') || n.includes('chair')) { catSlug = 'chairs-sofas'; catLabel = 'Chairs & Sofas'; }
+        else if (url.includes('clocks') || n.includes('clock')) { catSlug = 'clocks'; catLabel = 'Clocks'; }
+        else if (url.includes('blower-fan') || n.includes('blower')) { catSlug = 'blower-fans'; catLabel = 'Blower Fans'; }
+        else if (url.includes('wall-frames') || n.includes('frame')) { catSlug = 'wall-frames'; catLabel = 'Wall Frames'; }
+        else if (url.includes('wall-statues') || n.includes('wall statue')) { catSlug = 'wall-statues'; catLabel = 'Wall Statues'; }
+        else if (url.includes('statues') || n.includes('idol') || n.includes('statue')) { catSlug = 'statues-idols'; catLabel = 'Statues & Idols'; }
+        else if (p.category === 'lighting' || url.includes('lighting') || n.includes('light')) { catSlug = 'lighting'; catLabel = 'Lighting'; }
+
+          category:     catLabel,
+          categorySlug: catSlug,          // original DB slug â€” used for filtering
         price:        parseFloat(p.price),
         was:          p.compare_at_price ? parseFloat(p.compare_at_price) : null,
         off:          off,
@@ -311,7 +337,7 @@
     // ===== Announcement bar =====================================================
     function Announcement() {
       const MSGS = [
-        { icon: 'local_shipping',  text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Free delivery'), ' in Virudhachalam — every order, no minimum.') },
+        { icon: 'local_shipping',  text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Free delivery'), ' in Virudhachalam â€” every order, no minimum.') },
         { icon: 'star',            text: React.createElement(React.Fragment, null, React.createElement('b', null, '\u2605 5.0 on Google.'), ' 240 families trust us. Come see why.') },
         { icon: 'storefront',      text: React.createElement(React.Fragment, null, 'Showroom on ', React.createElement('b', null, 'Junction Road'), ' open daily \u00b7 10\u00a0AM\u2013\u200910\u00a0PM') },
         { icon: 'verified',        text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Every piece hand-checked'), ' at our showroom before it ships.') },
@@ -367,12 +393,12 @@
       return (
         React.createElement('div', { className: 'announce', onMouseEnter: () => setPaused(true), onMouseLeave: () => setPaused(false) },
           React.createElement('div', { className: 'container announce-bar' },
-            // Left — live store status
+            // Left â€” live store status
             React.createElement('span', { className: 'announce-side' },
               React.createElement('span', { className: 'material-symbols-outlined' }, 'storefront'),
               time || 'Junction Road \u00b7 Virudhachalam'
             ),
-            // Centre — rotating messages
+            // Centre â€” rotating messages
             React.createElement('span', { className: 'announce-center' },
               MSGS.map((m, n) =>
                 React.createElement('span', { key: n, className: 'announce-msg ' + (n === idx ? cls : 'out-down') },
@@ -381,7 +407,7 @@
                 )
               )
             ),
-            // Right — progress dots + links
+            // Right â€” progress dots + links
             React.createElement('span', { className: 'announce-side announce-side--right' },
               React.createElement('span', { className: 'announce-dots' },
                 MSGS.map((_, n) =>
@@ -422,7 +448,7 @@
               // Scrolled pill state (tighten after 80px)
               setScrolled(y > 80);
 
-              // Progress bar 0–100%
+              // Progress bar 0â€“100%
               setProgress(docH > 0 ? Math.min(100, (y / docH) * 100) : 0);
               ticking = false;
             });
@@ -461,7 +487,7 @@
 
               <a href="#" onClick={(e) => { e.preventDefault(); setRoute('home'); }} className="logo">
                 <span className="mark">KGS</span>
-                <span className="sub">Home Décors</span>
+                <span className="sub">Home DÃ©cors</span>
               </a>
               <div className="nav-links">
                 {link('home', 'Home')}
@@ -499,7 +525,7 @@
                 <span className="material-symbols-outlined">close</span>
               </button>
               <div style={{ fontFamily: '"Crimson Pro",serif', fontWeight: 500, fontSize: '1.3rem', color: '#1A1A1A', marginBottom: 8 }}>
-                KGS Home Décors
+                KGS Home DÃ©cors
               </div>
               {mobileLink('home', 'Home')}
               {mobileLink('shop', 'Shop')}
@@ -513,7 +539,7 @@
                   WhatsApp Us
                 </a>
                 <div style={{ fontSize: 11, color: '#5E5B59', marginTop: 12, lineHeight: 1.6 }}>
-                  185/G Junction Rd<br />Virudhachalam 606001<br />10 AM – 10 PM, every day
+                  185/G Junction Rd<br />Virudhachalam 606001<br />10 AM â€“ 10 PM, every day
                 </div>
               </div>
             </div>
@@ -543,7 +569,7 @@
 
               {item('verified', 'Hand-Checked', 'We look at every piece before it ships.')}
               {item('payments', 'Pay How You Like', 'UPI, card, net banking, or COD.')}
-              {item('chat', 'Text Us Anytime', 'WhatsApp — we reply fast.')}
+              {item('chat', 'Text Us Anytime', 'WhatsApp â€” we reply fast.')}
             </div>
           </div>
         </section>
@@ -557,7 +583,7 @@
           <section className="newsletter">
             <div>
               <h3>New pieces land every month. Be the first to know.</h3>
-              <p>Drop your email. We send one newsletter a month — new arrivals, sale pieces, and whatever just came in from the showroom.</p>
+              <p>Drop your email. We send one newsletter a month â€” new arrivals, sale pieces, and whatever just came in from the showroom.</p>
             </div>
             <div className="newsletter-form">
               <input className="newsletter-input" placeholder="your@email.com" type="email" />
@@ -589,10 +615,10 @@
               <div className="footer-col">
                 <a href="#" onClick={(e) => { e.preventDefault(); if (setRoute) setRoute('home'); }} className="logo" style={{ marginBottom: 18 }}>
                   <span className="mark" style={{ color: '#fff' }}>KGS</span>
-                  <span className="sub" style={{ color: '#C5A880' }}>Home Décors</span>
+                  <span className="sub" style={{ color: '#C5A880' }}>Home DÃ©cors</span>
                 </a>
                 <p style={{ fontSize: 13.5, color: 'rgba(255,255,255,0.55)', maxWidth: 260, lineHeight: 1.75 }}>
-                  Bringing premium, hand-curated home décor directly to your doorstep.
+                  Bringing premium, hand-curated home dÃ©cor directly to your doorstep.
                 </p>
                 <div style={{ fontSize: 12.5, color: 'rgba(255,255,255,0.45)', marginTop: 10, lineHeight: 1.7 }}>
                   185/G Junction Road<br />Virudhachalam 606001<br />Tamil Nadu
@@ -617,7 +643,7 @@
                 </div>
               </div>
               {col('Shop', [
-                ['Vases & Décor', 'shop'],
+                ['Vases & DÃ©cor', 'shop'],
                 ['Fountains & Pooja', 'shop'],
                 ['Chairs & Sofas', 'shop'],
                 ['Lighting', 'shop'],
@@ -650,7 +676,7 @@
                   </li>
                   <li className="info-line">
                     <span className="material-symbols-outlined">schedule</span>
-                    Every day · 10 AM – 10 PM
+                    Every day Â· 10 AM â€“ 10 PM
                   </li>
                 </ul>
                 <div className="footer-pay" style={{ marginTop: 18 }}>
@@ -663,7 +689,7 @@
               </div>
             </div>
             <div className="footer-bottom">
-              <span>© 2026 KGS Home Décors, Virudhachalam. All rights reserved.</span>
+              <span>Â© 2026 KGS Home DÃ©cors, Virudhachalam. All rights reserved.</span>
               <div className="links">
                 <a href="#" onClick={(e) => e.preventDefault()}>Privacy Policy</a>
                 <a href="#" onClick={(e) => e.preventDefault()}>Terms</a>
@@ -698,7 +724,7 @@
 // ===== NEXT SCRIPT BLOCK =====
 
 
-    /* KGS Home Décors — Home page sections */
+    /* KGS Home DÃ©cors â€” Home page sections */
 
     // ====== HERO ================================================================
     function Hero({ onShop, onSellers }) {
@@ -735,7 +761,7 @@
       return (
         <div className="hero">
           <div className="hero-copy">
-            {/* Slide indicators — horizontal row above headline */}
+            {/* Slide indicators â€” horizontal row above headline */}
             <div className="hero-slides-indicator">
               {SLIDES.map((_, idx) => (
                 <React.Fragment key={idx}>
@@ -772,7 +798,7 @@
               </div>
               <div className="hero-stats__divider" />
               <div>
-                <b>5.0<span className="hero-stats__star">★</span></b>
+                <b>5.0<span className="hero-stats__star">â˜…</span></b>
                 <span>240+ on Google</span>
               </div>
               <div className="hero-stats__divider" />
@@ -801,7 +827,7 @@
           <div className="hero-photo">
             <img key={s.img} src={s.img} alt="" style={{ animation: 'heroFade 700ms ease' }} />
             <div className="hero-floating-chip">
-              <span className="stars">★★★★★</span>
+              <span className="stars">â˜…â˜…â˜…â˜…â˜…</span>
               <b>5.0</b>
               <span style={{ color: '#5E5B59' }}>240+ on Google</span>
             </div>
@@ -887,8 +913,8 @@
             <div className="prod-cat">{p.category}</div>
             <div className="prod-name">{p.name}</div>
             <div className="prod-rating">
-              <span className="stars">★★★★★</span>
-              <span><b style={{ color: '#1A1A1A' }}>{p.rating.toFixed(1)}</b> · {p.reviews} reviews</span>
+              <span className="stars">â˜…â˜…â˜…â˜…â˜…</span>
+              <span><b style={{ color: '#1A1A1A' }}>{p.rating.toFixed(1)}</b> Â· {p.reviews} reviews</span>
             </div>
           </div>
           <div className="prod-price">
@@ -1037,7 +1063,7 @@
                   fontWeight: 300,
                   letterSpacing: '0.01em'
                 }}>
-                  Open every day, 10 AM – 10 PM on Junction Road, Virudhachalam.<br />
+                  Open every day, 10 AM â€“ 10 PM on Junction Road, Virudhachalam.<br />
                   No appointment needed. Complimentary parking available.
                 </p>
               </div>
@@ -1129,7 +1155,7 @@
                     <div className="avatar">{t.initial}</div>
                     <div>
                       <div className="name">{t.name}</div>
-                      <div className="stars">{'★'.repeat(t.stars)}</div>
+                      <div className="stars">{'â˜…'.repeat(t.stars)}</div>
                     </div>
                   </div>
                   <div className="quote">"{t.quote}"</div>
@@ -1150,7 +1176,7 @@
                 <button onClick={() => setShowReviewModal(false)} style={{
                   position: 'absolute', right: 20, top: 20, background: 'none', border: 'none',
                   cursor: 'pointer', fontSize: 24, color: '#5E5B59'
-                }}>×</button>
+                }}>Ã—</button>
                 <h3 style={{ fontFamily: '"Crimson Pro", serif', fontSize: 28, marginBottom: 8, color: '#1A1A1A' }}>Write a Review</h3>
                 <p style={{ fontSize: 14, color: '#5E5B59', marginBottom: 24 }}>Your feedback helps us improve and guides other customers.</p>
                 
@@ -1162,11 +1188,11 @@
                   <div>
                     <label style={{ display: 'block', fontSize: 12, fontWeight: 600, marginBottom: 8, color: '#1A1A1A' }}>Rating</label>
                     <select required style={{ width: '100%', padding: '12px 16px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: 8, fontFamily: '"Jost", sans-serif', fontSize: 14 }}>
-                      <option value="5">★★★★★ (5 Stars)</option>
-                      <option value="4">★★★★☆ (4 Stars)</option>
-                      <option value="3">★★★☆☆ (3 Stars)</option>
-                      <option value="2">★★☆☆☆ (2 Stars)</option>
-                      <option value="1">★☆☆☆☆ (1 Star)</option>
+                      <option value="5">â˜…â˜…â˜…â˜…â˜… (5 Stars)</option>
+                      <option value="4">â˜…â˜…â˜…â˜…â˜† (4 Stars)</option>
+                      <option value="3">â˜…â˜…â˜…â˜†â˜† (3 Stars)</option>
+                      <option value="2">â˜…â˜…â˜†â˜†â˜† (2 Stars)</option>
+                      <option value="1">â˜…â˜†â˜†â˜†â˜† (1 Star)</option>
                     </select>
                   </div>
                   <div>
@@ -1239,7 +1265,7 @@
 // ===== NEXT SCRIPT BLOCK =====
 
 
-    /* KGS Home Décors — Inner pages: Shop, ProductDetail, Cart, Checkout, OrderConfirmation, Wishlist, About, Contact */
+    /* KGS Home DÃ©cors â€” Inner pages: Shop, ProductDetail, Cart, Checkout, OrderConfirmation, Wishlist, About, Contact */
 
     // ===== SHARED SUMLINE =======================================================
     function Sumline({ label, value, note, bold }) {
@@ -1289,9 +1315,7 @@
       }, [filter, sort]);
 
       // Use DB category slugs from CATEGORIES array (ordered + labeled)
-      // Only show categories that actually have products
-      const activeSlugs = new Set(PRODUCTS.map(p => p.categorySlug || p.category));
-      const cats = ['all', ...CATEGORIES.filter(cat => activeSlugs.has(cat.id)).map(cat => cat.id)];
+      const cats = ['all', ...CATEGORIES.map(cat => cat.id)];
 
       const ITEMS_PER_PAGE = 12;
       const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
@@ -1504,7 +1528,7 @@
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 24, flexWrap: 'wrap' }}>
                   <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', background: 'rgba(184,150,87,0.10)', borderRadius: 9999 }}>
-                    <span style={{ color: '#B89657', letterSpacing: '.14em', fontSize: 13 }}>★★★★★</span>
+                    <span style={{ color: '#B89657', letterSpacing: '.14em', fontSize: 13 }}>â˜…â˜…â˜…â˜…â˜…</span>
                     <span style={{ fontSize: 12.5, fontWeight: 600, color: '#1A1A1A' }}>{p.rating.toFixed(1)}</span>
                     <span style={{ fontSize: 12, color: '#5E5B59' }}>({p.reviews} reviews)</span>
                   </div>
@@ -1529,7 +1553,7 @@
                   )}
                 </div>
                 <div style={{ fontSize: 12, color: '#5E5B59', marginBottom: 22 }}>
-                  All taxes included · Free delivery in Virudhachalam only
+                  All taxes included Â· Free delivery in Virudhachalam only
                 </div>
 
                 {p.stock && p.stock <= 6 && (
@@ -1539,13 +1563,13 @@
                     </div>
                     <div className="pdp-stock__text">
                       <span className="material-symbols-outlined">local_fire_department</span>
-                      <b>Only {p.stock} left</b> · restocking takes around 3 weeks
+                      <b>Only {p.stock} left</b> Â· restocking takes around 3 weeks
                     </div>
                   </div>
                 )}
 
                 <p style={{ marginBottom: 28, fontSize: 14.5, lineHeight: 1.8, color: '#5E5B59' }}>
-                  Made to last — not just to look good in photos. We checked this one ourselves before listing it. If there's a defect when it arrives, we'll replace it, no argument.
+                  Made to last â€” not just to look good in photos. We checked this one ourselves before listing it. If there's a defect when it arrives, we'll replace it, no argument.
                 </p>
 
                 <div className="pdp-trust">
@@ -1568,20 +1592,20 @@
                     <span className="material-symbols-outlined">lock</span>
                     <div>
                       <b>Secure checkout</b>
-                      <span>UPI · Cards · COD</span>
+                      <span>UPI Â· Cards Â· COD</span>
                     </div>
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', gap: 12, marginBottom: 14, marginTop: 26 }}>
                   <div style={{ display: 'flex', alignItems: 'center', border: '1px solid rgba(26,26,26,0.16)', borderRadius: 9999 }}>
-                    <button onClick={() => setQty(Math.max(1, qty - 1))} style={{ width: 44, height: 50, background: 'none', border: 'none', fontSize: 17, cursor: 'pointer' }}>−</button>
+                    <button onClick={() => setQty(Math.max(1, qty - 1))} style={{ width: 44, height: 50, background: 'none', border: 'none', fontSize: 17, cursor: 'pointer' }}>âˆ’</button>
                     <span style={{ width: 36, textAlign: 'center', fontWeight: 500 }}>{qty}</span>
                     <button onClick={() => setQty(qty + 1)} style={{ width: 44, height: 50, background: 'none', border: 'none', fontSize: 17, cursor: 'pointer' }}>+</button>
                   </div>
                   <button className="btn btn-dark" style={{ flex: 1 }} onClick={() => onAdd(p, qty)}>
                     <span className="material-symbols-outlined">shopping_bag</span>
-                    Add to Cart · {fmtPrice(lineTotal)}
+                    Add to Cart Â· {fmtPrice(lineTotal)}
                   </button>
                 </div>
                 <button
@@ -1589,7 +1613,7 @@
                   style={{ width: '100%', background: '#25D366', borderColor: '#25D366' }}
                   onClick={() => window.open('https://wa.me/919789182921?text=Hi, I want to ask about: ' + p.name, '_blank')}>
                   <span className="material-symbols-outlined">chat</span>
-                  Ask on WhatsApp · We reply fast
+                  Ask on WhatsApp Â· We reply fast
                 </button>
               </div>
             </div>
@@ -1627,8 +1651,8 @@
                     {p.name}
                   </div>
                   <div style={{ fontSize: 11.5, color: '#5E5B59', display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <span style={{ color: '#B89657' }}>★</span>
-                    {p.rating.toFixed(1)} · {p.reviews} reviews
+                    <span style={{ color: '#B89657' }}>â˜…</span>
+                    {p.rating.toFixed(1)} Â· {p.reviews} reviews
                   </div>
                 </div>
               </div>
@@ -1642,7 +1666,7 @@
                   )}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', border: '1px solid rgba(26,26,26,0.16)', borderRadius: 9999 }}>
-                  <button onClick={() => setQty(Math.max(1, qty - 1))} style={{ width: 34, height: 40, background: 'none', border: 'none', cursor: 'pointer' }}>−</button>
+                  <button onClick={() => setQty(Math.max(1, qty - 1))} style={{ width: 34, height: 40, background: 'none', border: 'none', cursor: 'pointer' }}>âˆ’</button>
                   <span style={{ width: 28, textAlign: 'center', fontSize: 13, fontWeight: 500 }}>{qty}</span>
                   <button onClick={() => setQty(qty + 1)} style={{ width: 34, height: 40, background: 'none', border: 'none', cursor: 'pointer' }}>+</button>
                 </div>
@@ -1679,7 +1703,7 @@
               <p style={{ marginTop: 8 }}>
                 {items.length === 0
                   ? 'Nothing in here yet.'
-                  : items.length + ' item' + (items.length > 1 ? 's' : '') + ' · ' + fmtPrice(subtotal) + ' subtotal'}
+                  : items.length + ' item' + (items.length > 1 ? 's' : '') + ' Â· ' + fmtPrice(subtotal) + ' subtotal'}
               </p>
             </div>
           </section>
@@ -1700,7 +1724,7 @@
                       <div className="cart-progress__head">
                         <>
                           <span className="material-symbols-outlined" style={{ color: '#B89657' }}>local_shipping</span>
-                          <b>Free delivery</b> · in Virudhachalam only
+                          <b>Free delivery</b> Â· in Virudhachalam only
                         </>
                       </div>
                     </div>
@@ -1720,11 +1744,11 @@
                             </div>
                             <div style={{ fontSize: 11.5, color: '#5E5B59', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
                               <span className="material-symbols-outlined" style={{ fontSize: 14, color: '#25D366' }}>check_circle</span>
-                              In stock · ships within 24 hours
+                              In stock Â· ships within 24 hours
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
                               <div style={{ display: 'flex', alignItems: 'center', border: '1px solid rgba(26,26,26,0.16)', borderRadius: 9999 }}>
-                                <button onClick={() => onChangeQty(ci.id, Math.max(1, ci.qty - 1))} style={{ width: 32, height: 34, background: 'none', border: 'none', cursor: 'pointer' }}>−</button>
+                                <button onClick={() => onChangeQty(ci.id, Math.max(1, ci.qty - 1))} style={{ width: 32, height: 34, background: 'none', border: 'none', cursor: 'pointer' }}>âˆ’</button>
                                 <span style={{ width: 28, textAlign: 'center', fontSize: 12.5, fontWeight: 500 }}>{ci.qty}</span>
                                 <button onClick={() => onChangeQty(ci.id, ci.qty + 1)} style={{ width: 32, height: 34, background: 'none', border: 'none', cursor: 'pointer' }}>+</button>
                               </div>
@@ -1751,7 +1775,7 @@
                       <div><span className="material-symbols-outlined">lock</span>Secure checkout</div>
                       <div><span className="material-symbols-outlined">replay</span>7-day returns</div>
                       <div><span className="material-symbols-outlined">verified_user</span>Hand-checked</div>
-                      <div><span className="material-symbols-outlined">payments</span>UPI · Cards · COD</div>
+                      <div><span className="material-symbols-outlined">payments</span>UPI Â· Cards Â· COD</div>
                     </div>
                   </div>
 
@@ -1761,11 +1785,11 @@
                     <Sumline
                       label="Delivery"
                       value={delivery === 0 ? 'FREE' : fmtPrice(delivery)}
-                      note={delivery === 0 ? 'Ships complimentary' : 'Free over ₹5,000'}
+                      note={delivery === 0 ? 'Ships complimentary' : 'Free over â‚¹5,000'}
                     />
                     <div style={{ background: '#F3EBDC', borderRadius: 10, padding: 12, marginTop: 12, fontSize: 12, color: '#5E5B59', display: 'flex', alignItems: 'flex-start', gap: 10 }}>
                       <span className="material-symbols-outlined" style={{ color: '#B89657', fontSize: 18 }}>schedule</span>
-                      <span><b style={{ color: '#1A1A1A' }}>3–7 days</b> across India. Same-day or next-day in Virudhachalam.</span>
+                      <span><b style={{ color: '#1A1A1A' }}>3â€“7 days</b> across India. Same-day or next-day in Virudhachalam.</span>
                     </div>
                     <div style={{ borderTop: '1px solid rgba(197,168,128,0.30)', marginTop: 14, paddingTop: 14 }}>
                       <Sumline label="Total" value={fmtPrice(total)} bold />
@@ -1865,7 +1889,7 @@
                 <span className="material-symbols-outlined" style={{ fontSize: 16 }}>arrow_back</span>
                 Back to Cart
               </button>
-              {/* Checkout Progress Bar — Phase 6 */}
+              {/* Checkout Progress Bar â€” Phase 6 */}
               <div className="checkout-steps" style={{ maxWidth: 400 }}>
                 <div className="checkout-step">
                   <div className="checkout-step__dot done">
@@ -1895,7 +1919,7 @@
             <div className="container">
               <form onSubmit={handleSubmit}>
                 <div className="checkout-wrap">
-                  {/* Left — form */}
+                  {/* Left â€” form */}
                   <div>
                     {/* Delivery section */}
                     <div className="checkout-form-section" style={{ marginBottom: 20 }}>
@@ -1977,7 +2001,7 @@
                       <h3>How do you want to pay?</h3>
                       {[
                         { id: 'upi', icon: 'payment', label: 'UPI', sub: 'Google Pay, PhonePe, Paytm, or any UPI app' },
-                        { id: 'card', icon: 'credit_card', label: 'Card', sub: 'Debit or credit card — Visa, Mastercard, Amex' },
+                        { id: 'card', icon: 'credit_card', label: 'Card', sub: 'Debit or credit card â€” Visa, Mastercard, Amex' },
                         { id: 'cod', icon: 'local_shipping', label: 'Cash on Delivery', sub: 'Pay when it arrives at your door' },
                       ].map(opt => (
                         <div
@@ -2011,7 +2035,7 @@
                     </div>
                   </div>
 
-                  {/* Right — order summary */}
+                  {/* Right â€” order summary */}
                   <div className="checkout-summary">
                     <h3>Your order</h3>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 18 }}>
@@ -2038,7 +2062,7 @@
                       <Sumline
                         label="Delivery"
                         value={delivery === 0 ? 'FREE' : fmtPrice(delivery)}
-                        note={delivery === 0 ? 'Ships free' : 'Free over ₹5,000'}
+                        note={delivery === 0 ? 'Ships free' : 'Free over â‚¹5,000'}
                       />
                       <div style={{ borderTop: '1px solid rgba(197,168,128,0.25)', marginTop: 10, paddingTop: 10 }}>
                         <Sumline label="Total" value={fmtPrice(total)} bold />
@@ -2053,10 +2077,10 @@
                     <div className="checkout-trust">
                       <span className="material-symbols-outlined">lock</span>
                       Secure payment
-                      <span style={{ color: 'rgba(26,26,26,0.20)' }}>·</span>
+                      <span style={{ color: 'rgba(26,26,26,0.20)' }}>Â·</span>
                       <span className="material-symbols-outlined">local_shipping</span>
                       Free delivery
-                      <span style={{ color: 'rgba(26,26,26,0.20)' }}>·</span>
+                      <span style={{ color: 'rgba(26,26,26,0.20)' }}>Â·</span>
                       <span className="material-symbols-outlined">verified</span>
                       Hand-checked
                     </div>
@@ -2089,7 +2113,7 @@
                 <h1>Your order is placed.</h1>
                 <div className="order-num">Order #{orderNum}</div>
                 <p style={{ fontSize: 15, color: '#5E5B59', lineHeight: 1.85, maxWidth: 500, margin: '0 auto 28px' }}>
-                  We'll WhatsApp you the tracking link. It usually ships within 24 hours — if there's any delay, we'll let you know first.
+                  We'll WhatsApp you the tracking link. It usually ships within 24 hours â€” if there's any delay, we'll let you know first.
                 </p>
 
                 {items.length > 0 && (
@@ -2199,14 +2223,14 @@
           <section style={{ background: '#F2E8D6', padding: '80px 0', textAlign: 'center' }}>
             <div className="container" style={{ maxWidth: 720, margin: '0 auto' }}>
               <div style={{ fontSize: 10.5, fontWeight: 600, letterSpacing: '.26em', textTransform: 'uppercase', color: '#7A5C1E', marginBottom: 16 }}>
-                Virudhachalam · Junction Road
+                Virudhachalam Â· Junction Road
               </div>
               <h1 style={{ fontFamily: '"Crimson Pro",serif', fontWeight: 500, fontSize: '3rem', lineHeight: 1.08, letterSpacing: '-0.018em', marginBottom: 20 }}>
                 Curating the finest pieces,<br />
                 <em style={{ fontStyle: 'italic', color: '#B89657', fontWeight: 400 }}>right here at home.</em>
               </h1>
               <p style={{ fontSize: 15, lineHeight: 1.85, color: '#5E5B59' }}>
-                KGS Home Décors started on Junction Road, Virudhachalam. We had a simple vision: to bring premium, high-end furniture and décor directly to our community, offering uncompromising quality and timeless design.
+                KGS Home DÃ©cors started on Junction Road, Virudhachalam. We had a simple vision: to bring premium, high-end furniture and dÃ©cor directly to our community, offering uncompromising quality and timeless design.
               </p>
             </div>
           </section>
@@ -2225,7 +2249,7 @@
                   <em style={{ fontStyle: 'italic', color: '#B89657', fontWeight: 400 }}>Here every day.</em>
                 </h2>
                 <p style={{ marginBottom: 16, fontSize: 14.5, lineHeight: 1.85, color: '#5E5B59' }}>
-                  When we started, we had a small space and a few hundred pieces. We'd travel to pick things ourselves — Rajasthan for brass, Pune for ceramics, local artisans for handmade pieces. If we wouldn't put it in our own home, we didn't stock it.
+                  When we started, we had a small space and a few hundred pieces. We'd travel to pick things ourselves â€” Rajasthan for brass, Pune for ceramics, local artisans for handmade pieces. If we wouldn't put it in our own home, we didn't stock it.
                 </p>
                 <p style={{ marginBottom: 16, fontSize: 14.5, lineHeight: 1.85, color: '#5E5B59' }}>
                   We have 500+ pieces on the floor at any time, a team that genuinely loves what we sell, and customers who keep coming back. We ship pan-India now, but we still answer the WhatsApp ourselves.
@@ -2246,7 +2270,7 @@
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 28 }}>
                 {[
                   { num: '500+', label: 'Pieces in stock', sub: 'Every single one checked before it goes on the floor.' },
-                  { num: '5.0★', label: 'On Google', sub: '240 families have left a review. We reply to every one.' },
+                  { num: '5.0â˜…', label: 'On Google', sub: '240 families have left a review. We reply to every one.' },
                   { num: '100%', label: 'Hand-Checked Quality', sub: 'Every piece inspected at our showroom before it reaches you.' },
                   { num: 'Free', label: 'Delivery in Virudhachalam', sub: 'Every order, no minimum.' },
                 ].map(card => (
@@ -2287,7 +2311,7 @@
                 Talk to us like a neighbour.
               </h1>
               <p style={{ fontSize: 15, color: '#5E5B59', lineHeight: 1.8 }}>
-                No bots. No ticket numbers. We're in the shop every day — WhatsApp us, call us, or drop in.
+                No bots. No ticket numbers. We're in the shop every day â€” WhatsApp us, call us, or drop in.
               </p>
             </div>
           </section>
@@ -2302,7 +2326,7 @@
                   <div style={{ padding: '28px 24px', background: 'rgba(37,211,102,0.08)', border: '1px solid rgba(37,211,102,0.25)', borderRadius: 16, textAlign: 'center' }}>
                     <span className="material-symbols-outlined" style={{ fontSize: 44, color: '#25D366', fontVariationSettings: '"FILL" 1', display: 'block', marginBottom: 10 }}>check_circle</span>
                     <h4 style={{ fontFamily: '"Crimson Pro",serif', fontSize: 20, marginBottom: 8 }}>Got it. We'll reply shortly.</h4>
-                    <p style={{ fontSize: 13.5, color: '#5E5B59' }}>Usually within the hour during shop hours (10 AM – 10 PM).</p>
+                    <p style={{ fontSize: 13.5, color: '#5E5B59' }}>Usually within the hour during shop hours (10 AM â€“ 10 PM).</p>
                   </div>
                 ) : (
                   <form onSubmit={handleSend} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -2355,9 +2379,9 @@
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 {[
                   { icon: 'location_on', title: 'Find Us', body: '185/G Junction Road, Virudhachalam, Tamil Nadu 606001' },
-                  { icon: 'schedule', title: 'Hours', body: 'Every day · 10:00 AM – 10:00 PM. Free parking out front.' },
+                  { icon: 'schedule', title: 'Hours', body: 'Every day Â· 10:00 AM â€“ 10:00 PM. Free parking out front.' },
                   { icon: 'call', title: 'Call', body: '+91 97891 82921' },
-                  { icon: 'chat', title: 'WhatsApp', body: 'Send a message and we\'ll reply — usually within the hour.' },
+                  { icon: 'chat', title: 'WhatsApp', body: 'Send a message and we\'ll reply â€” usually within the hour.' },
                 ].map(card => (
                   <div key={card.title} style={{ display: 'flex', gap: 16, padding: '18px 20px', background: '#fff', border: '1px solid rgba(197,168,128,0.25)', borderRadius: 14 }}>
                     <span className="material-symbols-outlined" style={{ color: '#C5A880', fontSize: 22, flexShrink: 0, marginTop: 2 }}>
@@ -2409,7 +2433,7 @@
       // Popular tags = actual category labels from DB
       const popular = CATEGORIES.length > 0
         ? CATEGORIES.map(cat => cat.label)
-        : ['Wall Décor', 'Décor', 'Vases', 'Furniture', 'Gifts', 'Lighting'];
+        : ['Wall DÃ©cor', 'DÃ©cor', 'Vases', 'Furniture', 'Gifts', 'Lighting'];
 
       return (
         <div className={'search-overlay' + (open ? ' open' : '')}>
@@ -2421,7 +2445,7 @@
                 <input
                   ref={inputRef}
                   className="search-input"
-                  placeholder="Search products, categories…"
+                  placeholder="Search products, categoriesâ€¦"
                   value={query}
                   onChange={e => setQuery(e.target.value)}
                   onKeyDown={e => e.key === 'Escape' && onClose()}
@@ -2507,7 +2531,7 @@
 // ===== NEXT SCRIPT BLOCK =====
 
 
-    /* KGS Home Décors — App root: routing + global state */
+    /* KGS Home DÃ©cors â€” App root: routing + global state */
 
     function Toast({ msg, show }) {
       return (
@@ -2551,10 +2575,6 @@
           .then(live => {
             if (live && live.length > 0) {
               PRODUCTS = live;
-              // Update CATEGORIES to only include cats with actual products
-              // Keep categories that have live products (match on slug)
-              const liveSlugs = new Set(live.map(p => p.categorySlug));
-              CATEGORIES = CATEGORIES.filter(cat => liveSlugs.has(cat.id));
             }
             // Clean up cart items whose IDs no longer exist
             setCart(prev => prev.filter(ci => PRODUCTS.some(p => p.id === ci.id)));
@@ -2568,9 +2588,9 @@
           });
       }, []);
 
-      // ─── GSAP Animation System ──────────────────────────────────────────
-      // Skills: gsap-core · gsap-timeline · gsap-scrolltrigger · gsap-react
-      //         gsap-performance · gsap-plugins · gsap-utils · gsap-frameworks
+      // â”€â”€â”€ GSAP Animation System â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+      // Skills: gsap-core Â· gsap-timeline Â· gsap-scrolltrigger Â· gsap-react
+      //         gsap-performance Â· gsap-plugins Â· gsap-utils Â· gsap-frameworks
       React.useEffect(() => {
         if (typeof gsap === 'undefined') return;
 
@@ -2583,7 +2603,7 @@
         const timer = setTimeout(() => {
           ctx = gsap.context(() => {
 
-            // ── 0. Global Reveal Trigger ──────────────────────────────────
+            // â”€â”€ 0. Global Reveal Trigger â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             // Ensures all .reveal elements become visible on scroll
             gsap.utils.toArray('.reveal').forEach(el => {
               ScrollTrigger.create({
@@ -2594,7 +2614,7 @@
               });
             });
 
-            // ── 1. Hero Entrance Timeline (gsap-core + gsap-timeline) ──────
+            // â”€â”€ 1. Hero Entrance Timeline (gsap-core + gsap-timeline) â”€â”€â”€â”€â”€â”€
             // Performance: only transform + opacity (gsap-performance rule)
             const heroEl = document.querySelector('.hero');
             if (heroEl) {
@@ -2617,7 +2637,7 @@
                 .fromTo('.hero-slides-indicator',
                   { x: -12 },
                   { x: 0, opacity: 1, duration: 0.5 }, '-=0.6')
-                // Hero photo scales in — gsap-timeline position param
+                // Hero photo scales in â€” gsap-timeline position param
                 .fromTo('.hero-photo',
                   { scale: 1.06 },
                   { scale: 1, opacity: 1, duration: 1.1, ease: 'power2.out' }, 0.1)
@@ -2627,7 +2647,7 @@
                   { scale: 1, opacity: 1, y: 0, stagger: 0.1, duration: 0.55, ease: 'back.out(1.6)' }, '-=0.5');
             }
 
-            // ── 2. Trust Strip (gsap-scrolltrigger stagger) ───────────────
+            // â”€â”€ 2. Trust Strip (gsap-scrolltrigger stagger) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             const trustStrip = document.querySelector('.trust-strip');
             if (trustStrip) {
               gsap.fromTo('.trust-item',
@@ -2638,7 +2658,7 @@
               );
             }
 
-            // ── 3. Section headings — staggered reveal (gsap-scrolltrigger) ─
+            // â”€â”€ 3. Section headings â€” staggered reveal (gsap-scrolltrigger) â”€
             document.querySelectorAll('.section-head').forEach(el => {
               gsap.fromTo(el,
                 { y: 32 },
@@ -2648,7 +2668,7 @@
               );
             });
 
-            // ── 4. Best Sellers cards — stagger (gsap-scrolltrigger) ──────
+            // â”€â”€ 4. Best Sellers cards â€” stagger (gsap-scrolltrigger) â”€â”€â”€â”€â”€â”€
             const bsTrack = document.querySelector('.best-sellers-track');
             if (bsTrack) {
               gsap.fromTo('.best-sellers-track .prod-card',
@@ -2659,7 +2679,7 @@
               );
             }
 
-            // ── 5. Category grid — scale+fade stagger (gsap-utils.toArray) ─
+            // â”€â”€ 5. Category grid â€” scale+fade stagger (gsap-utils.toArray) â”€
             const catGrid = document.querySelector('.cat-grid');
             if (catGrid) {
               // gsap-utils: toArray for safe NodeList handling
@@ -2672,7 +2692,7 @@
               );
             }
 
-            // ── 6. Why-KGS cards — cascade (gsap-timeline + scrolltrigger) ─
+            // â”€â”€ 6. Why-KGS cards â€” cascade (gsap-timeline + scrolltrigger) â”€
             const whyGrid = document.querySelector('.why-grid');
             if (whyGrid) {
               gsap.fromTo('.why-card',
@@ -2683,7 +2703,7 @@
               );
             }
 
-            // ── 7. Promo/offer banner parallax scrub (gsap-scrolltrigger) ──
+            // â”€â”€ 7. Promo/offer banner parallax scrub (gsap-scrolltrigger) â”€â”€
             const promoPhoto = document.querySelector('.promo-photo img');
             if (promoPhoto) {
               gsap.to(promoPhoto, {
@@ -2698,7 +2718,7 @@
               });
             }
 
-            // ── 8. Promo copy entrance (gsap-timeline) ────────────────────
+            // â”€â”€ 8. Promo copy entrance (gsap-timeline) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             const promoSection = document.querySelector('.promo-copy');
             if (promoSection) {
               const promoTl = gsap.timeline({
@@ -2710,7 +2730,7 @@
                 .fromTo('.promo-cta-row .btn, .promo-cta-row a', { y: 18 }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.5 }, '-=0.3');
             }
 
-            // ── 9. Testimonials stagger (gsap-scrolltrigger) ──────────────
+            // â”€â”€ 9. Testimonials stagger (gsap-scrolltrigger) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             const testimonialSection = document.querySelector('.testimonials-wrap, [class*="testimonial"]');
             if (testimonialSection) {
               gsap.fromTo('.testimonial',
@@ -2721,7 +2741,7 @@
               );
             }
 
-            // ── 10. Instagram grid — fast stagger (gsap-utils) ────────────
+            // â”€â”€ 10. Instagram grid â€” fast stagger (gsap-utils) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             const igGrid = document.querySelector('.ig-grid');
             if (igGrid) {
               const tiles = gsap.utils.toArray('.ig-tile');
@@ -2733,7 +2753,7 @@
               );
             }
 
-            // ── 11. Newsletter section (gsap-scrolltrigger) ───────────────
+            // â”€â”€ 11. Newsletter section (gsap-scrolltrigger) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             const newsletter = document.querySelector('.newsletter');
             if (newsletter) {
               gsap.fromTo(newsletter,
@@ -2744,7 +2764,7 @@
               );
             }
 
-            // ── 12. Footer entrance (gsap-scrolltrigger) ──────────────────
+            // â”€â”€ 12. Footer entrance (gsap-scrolltrigger) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             const footer = document.querySelector('.footer');
             if (footer) {
               gsap.fromTo(footer,
@@ -2755,7 +2775,7 @@
               );
             }
 
-            // ── 13. Scroll-progress bar in nav (gsap-scrolltrigger scrub) ──
+            // â”€â”€ 13. Scroll-progress bar in nav (gsap-scrolltrigger scrub) â”€â”€
             const progressBar = document.querySelector('.nav-progress');
             if (progressBar) {
               gsap.to(progressBar, {
@@ -2948,13 +2968,13 @@
           <Footer setRoute={setRoute} />
           <WAFloat />
           <Toast msg={toast.msg} show={toast.show} />
-          {/* Search drawer — Phase 5 */}
+          {/* Search drawer â€” Phase 5 */}
           <SearchDrawer
             open={searchOpen}
             onClose={() => setSearchOpen(false)}
             onView={(p) => { handleView(p); }}
           />
-          {/* Mobile bottom navigation — Phase 2 */}
+          {/* Mobile bottom navigation â€” Phase 2 */}
           <MobileBottomNav
             route={route}
             setRoute={setRoute}
