@@ -2090,49 +2090,28 @@ function Testimonials() {
     }
   }, /*#__PURE__*/React.createElement("a", {
     href: "#",
-    onClick: function onClick(e) {
-      e.preventDefault();
-      setShowReviewModal(true);
-    },
-    className: "btn btn-gold",
-    style: {
-      padding: '12px 24px',
-      fontSize: 13
-    }
+    onClick: function onClick(e) { e.preventDefault(); setShowReviewModal(true); },
+    className: "view-all",
+    style: { fontSize: 13 }
   }, "Write a Review ", /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined",
-    style: {
-      fontSize: 16
-    }
-  }, "edit")), /*#__PURE__*/React.createElement("a", {
-    href: "#",
-    onClick: function onClick(e) {
-      return e.preventDefault();
-    },
-    className: "view-all"
-  }, "All Reviews ", /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
-  }, "arrow_forward")))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-      gap: 20
-    }
+    className: "material-symbols-outlined", style: { fontSize: 14 }
+  }, "edit")))), /*#__PURE__*/React.createElement("div", {
+    className: "testimonials-grid"
   }, TESTIMONIALS.map(function (t) {
     return /*#__PURE__*/React.createElement("div", {
       key: t.name,
       className: "testimonial"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "head-row"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "avatar"
-    }, t.initial), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-      className: "name"
-    }, t.name), /*#__PURE__*/React.createElement("div", {
-      className: "stars"
-    }, '★'.repeat(t.stars)))), /*#__PURE__*/React.createElement("div", {
-      className: "quote"
-    }, "\"", t.quote, "\""));
+    },
+      /*#__PURE__*/React.createElement("div", { className: "quote-mark" }, "“"),
+      /*#__PURE__*/React.createElement("div", { className: "quote" }, t.quote),
+      /*#__PURE__*/React.createElement("div", { className: "head-row" },
+        /*#__PURE__*/React.createElement("div", { className: "avatar" }, t.initial),
+        /*#__PURE__*/React.createElement("div", null,
+          /*#__PURE__*/React.createElement("div", { className: "name" }, t.name),
+          /*#__PURE__*/React.createElement("div", { className: "stars" }, '★'.repeat(t.stars))
+        )
+      )
+    );
   }))), showReviewModal && /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'fixed',

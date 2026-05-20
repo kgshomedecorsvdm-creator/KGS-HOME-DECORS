@@ -1868,25 +1868,72 @@
       background: linear-gradient(90deg, #1A1614 0%, rgba(26, 22, 20, 0.7) 14%, transparent 40%);
     }
 
-    /* ===== Testimonial card =========================================== */
+    /* ===== Testimonials — editorial strip ============================= */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 48px;
+    }
+
     .testimonial {
-      background: #fff;
-      border-radius: 18px;
-      padding: 24px;
+      padding: 0 40px 0 0;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 14px 32px -16px rgba(60, 40, 15, 0.10);
+      position: relative;
+    }
+
+    .testimonial + .testimonial {
+      padding: 0 40px 0 40px;
+    }
+
+    .testimonial + .testimonial + .testimonial {
+      padding: 0 0 0 40px;
+    }
+
+    /* Thin vertical divider between testimonials */
+    .testimonial + .testimonial::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 0;
+      width: 1px;
+      background: rgba(197, 168, 128, 0.30);
+    }
+
+    /* Large gold opening quotation mark */
+    .testimonial .quote-mark {
+      font-family: 'Crimson Pro', serif;
+      font-size: 72px;
+      line-height: 1;
+      color: #C5A880;
+      margin-bottom: 4px;
+      opacity: 0.7;
+      user-select: none;
+    }
+
+    .testimonial .quote {
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.65;
+      color: #1A1A1A;
+      flex: 1;
     }
 
     .testimonial .head-row {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(197, 168, 128, 0.22);
     }
 
     .testimonial .avatar {
-      width: 40px;
-      height: 40px;
+      width: 34px;
+      height: 34px;
       border-radius: 9999px;
       background: #ECE0C7;
       display: flex;
@@ -1895,42 +1942,36 @@
       font-family: 'Crimson Pro', serif;
       font-weight: 500;
       color: #6B4F1F;
-      font-size: 17px;
+      font-size: 14px;
+      flex-shrink: 0;
     }
 
     .testimonial .name {
       font-weight: 600;
-      font-size: 13.5px;
+      font-size: 12.5px;
       color: #1A1A1A;
+      letter-spacing: .02em;
     }
 
     .testimonial .stars {
       color: #B89657;
-      font-size: 13px;
-      letter-spacing: .12em;
+      font-size: 10px;
+      letter-spacing: .14em;
       margin-top: 2px;
     }
 
-    .testimonial .quote {
-      font-family: 'Crimson Pro', serif;
-      font-style: italic;
-      font-size: 15px;
-      line-height: 1.65;
-      color: #1A1A1A;
-      margin-top: 14px;
-    }
+    /* Mobile: vertical stack with horizontal dividers */
+    @media (max-width: 768px) {
+      .testimonials-grid { grid-template-columns: 1fr; margin-top: 32px; }
 
-    .testimonial .thumb {
-      aspect-ratio: 3/4;
-      border-radius: 14px;
-      overflow: hidden;
-      background: #ECE0C7;
-    }
+      .testimonial { padding: 28px 0 !important; }
 
-    .testimonial .thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      .testimonial + .testimonial::before {
+        top: 0; left: 0; right: 0; bottom: auto;
+        width: auto; height: 1px;
+      }
+
+      .testimonial .quote { font-size: 16px; }
     }
 
     /* ===== Instagram grid ============================================= */
