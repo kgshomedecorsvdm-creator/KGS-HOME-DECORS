@@ -2090,7 +2090,7 @@ function Testimonials(_ref_t) {
     var sb = getSB();
     if (!sb) return;
     sb.from('store_reviews')
-      .select('id,reviewer_name,rating,review_text,created_at')
+      .select('*')
       .eq('is_approved', true)
       .order('created_at', { ascending: false })
       .limit(6)
@@ -3349,15 +3349,6 @@ function CartPage(_ref16) {
   }, "Go to Shop")) : /*#__PURE__*/React.createElement("div", {
     className: "cart-wrap"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    className: "cart-progress"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "cart-progress__head"
-  }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined",
-    style: {
-      color: '#B89657'
-    }
-  }, "local_shipping"), /*#__PURE__*/React.createElement("b", null, "Free delivery"), " \xB7 in Virudhachalam only"))), /*#__PURE__*/React.createElement("div", {
     style: {
       background: '#fff',
       border: '1px solid rgba(197,168,128,0.25)',
@@ -4331,7 +4322,7 @@ function AllReviewsPage(_ref_ar) {
     var sb = getSB();
     if (!sb) { setLoading(false); return; }
     sb.from('store_reviews')
-      .select('id,reviewer_name,rating,review_text,created_at')
+      .select('*')
       .eq('is_approved', true)
       .order('created_at', { ascending: false })
       .then(function(res) {
