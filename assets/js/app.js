@@ -2170,10 +2170,9 @@ function Testimonials(_ref_t) {
     style: { fontSize: 13 }
   }, "Write a Review ", /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined", style: { fontSize: 14 }
-  }, "edit"))),
-  onViewAll && /*#__PURE__*/React.createElement("a", {
+  }, "edit")), /*#__PURE__*/React.createElement("a", {
     href: "#",
-    onClick: function(e) { e.preventDefault(); onViewAll(); },
+    onClick: function(e) { e.preventDefault(); if (onViewAll) onViewAll(); },
     className: "view-all",
     style: { fontSize: 13 }
   }, "All Reviews ", /*#__PURE__*/React.createElement("span", {
