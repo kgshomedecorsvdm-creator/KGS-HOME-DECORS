@@ -5641,12 +5641,6 @@ function App() {
       }
     })), /*#__PURE__*/React.createElement("div", {
       className: "reveal"
-    }, /*#__PURE__*/React.createElement(PromoBanner, {
-      onShop: function onShop() {
-        return setRoute('shop');
-      }
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "reveal"
     }, /*#__PURE__*/React.createElement(Testimonials, null)), /*#__PURE__*/React.createElement("div", {
       className: "reveal"
     }, /*#__PURE__*/React.createElement(Instagram, null)), /*#__PURE__*/React.createElement("div", {
