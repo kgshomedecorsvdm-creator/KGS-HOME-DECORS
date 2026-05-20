@@ -3290,11 +3290,7 @@ function CartPage(_ref16) {
   var subtotal = items.reduce(function (s, ci) {
     return s + ci.product.price * ci.qty;
   }, 0);
-  var FREE_OVER = 5000;
-  var delivery = subtotal >= FREE_OVER ? 0 : 250;
-  var toFree = Math.max(0, FREE_OVER - subtotal);
-  var progress = Math.min(100, Math.round(subtotal / FREE_OVER * 100));
-  var total = subtotal + delivery;
+  var total = subtotal;
   return /*#__PURE__*/React.createElement("div", {
     "data-screen-label": "Cart"
   }, /*#__PURE__*/React.createElement("section", {
@@ -3514,8 +3510,8 @@ function CartPage(_ref16) {
     value: fmtPrice(subtotal)
   }), /*#__PURE__*/React.createElement(Sumline, {
     label: "Delivery",
-    value: delivery === 0 ? 'FREE' : fmtPrice(delivery),
-    note: delivery === 0 ? 'Ships complimentary' : 'Free over ₹5,000'
+    value: 'At checkout',
+    note: 'Free in Virudhachalam · calculated on address'
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       background: '#F3EBDC',
@@ -4030,8 +4026,8 @@ function CheckoutPage(_ref17) {
     value: fmtPrice(subtotal)
   }), /*#__PURE__*/React.createElement(Sumline, {
     label: "Delivery",
-    value: delivery === 0 ? 'FREE' : fmtPrice(delivery),
-    note: delivery === 0 ? 'Ships free' : 'Free over ₹5,000'
+    value: 'FREE',
+    note: 'Free in Virudhachalam · may vary outside'
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       borderTop: '1px solid rgba(197,168,128,0.25)',
