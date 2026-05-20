@@ -1739,6 +1739,11 @@ function ProductCard(_ref1) {
       e.preventDefault();
       onWishToggle(p.id);
     },
+    onTouchEnd: function onTouchEnd(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      onWishToggle(p.id);
+    },
     "aria-label": "Save to wishlist"
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
@@ -2077,10 +2082,11 @@ function Testimonials(_ref_t) {
       .order('created_at', { ascending: false })
       .limit(6)
       .then(function(res) {
+        // Silently fall back to hardcoded if 401/403 (RLS blocks anon) or empty
         if (!res.error && res.data && res.data.length > 0) {
           setLiveReviews(res.data);
         }
-      });
+      }).catch(function() { /* silently use hardcoded fallback */ });
   }, []);
 
   var displayReviews = liveReviews
@@ -2098,11 +2104,23 @@ function Testimonials(_ref_t) {
     setShowReviewModal(true);
     document.body.style.overflow = 'hidden';
     if (window._lenis) window._lenis.stop();
+    // Intercept touchmove at capture phase so Lenis never prevents default inside modal
+    window._reviewTouchStop = function(e) {
+      var modal = document.querySelector('.review-modal-dialog');
+      if (modal && modal.contains(e.target)) {
+        e.stopImmediatePropagation();
+      }
+    };
+    window.addEventListener('touchmove', window._reviewTouchStop, { capture: true, passive: false });
   };
   var closeReviewModal = function closeReviewModal() {
     setShowReviewModal(false);
     document.body.style.overflow = '';
     if (window._lenis) window._lenis.start();
+    if (window._reviewTouchStop) {
+      window.removeEventListener('touchmove', window._reviewTouchStop, { capture: true });
+      window._reviewTouchStop = null;
+    }
   };
   var _submitState = React.useState('idle'), submitState = _submitState[0], setSubmitState = _submitState[1];
 
@@ -2191,18 +2209,20 @@ function Testimonials(_ref_t) {
       WebkitOverflowScrolling: 'touch'
     }
   }, /*#__PURE__*/React.createElement("div", {
+    className: "review-modal-dialog",
     style: {
       background: '#fff',
       padding: 40,
       borderRadius: 24,
       width: '100%',
       maxWidth: 480,
-      maxHeight: '90vh',
+      maxHeight: '88vh',
       overflowY: 'auto',
       WebkitOverflowScrolling: 'touch',
       overscrollBehavior: 'contain',
       position: 'relative',
-      boxShadow: '0 24px 48px -12px rgba(0,0,0,0.2)'
+      boxShadow: '0 24px 48px -12px rgba(0,0,0,0.2)',
+      touchAction: 'pan-y'
     },
     onTouchMove: function(e) { e.stopPropagation(); }
   }, /*#__PURE__*/React.createElement("button", {
@@ -4309,7 +4329,7 @@ function AllReviewsPage(_ref_ar) {
       .then(function(res) {
         if (!res.error && res.data) setReviews(res.data);
         setLoading(false);
-      });
+      }).catch(function() { setLoading(false); });
   }, []);
 
   return /*#__PURE__*/React.createElement("div", { className: "section container", style: { minHeight: '60vh', padding: '48px 20px' } },
