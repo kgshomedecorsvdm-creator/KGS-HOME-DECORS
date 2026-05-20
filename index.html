@@ -1963,22 +1963,44 @@
       margin-top: 2px;
     }
 
-    /* Mobile: vertical stack */
+    /* Mobile: horizontal swipe carousel */
     @media (max-width: 768px) {
       .testimonials-grid {
-        grid-template-columns: 1fr;
-        padding: 32px 24px;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 16px;
+        padding: 32px 20px;
         margin-top: 32px;
+        background: transparent;
+        border-radius: 0;
+        margin-left: -20px;
+        margin-right: -20px;
       }
 
-      .testimonial { padding: 24px 0 !important; }
+      .testimonials-grid::-webkit-scrollbar { display: none; }
 
-      .testimonial + .testimonial::before {
-        top: 0; left: 0; right: 0; bottom: auto;
-        width: auto; height: 1px;
+      /* Each testimonial is a standalone card on mobile */
+      .testimonial,
+      .testimonial + .testimonial,
+      .testimonial + .testimonial + .testimonial {
+        flex: 0 0 82%;
+        scroll-snap-align: start;
+        padding: 28px 24px !important;
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 8px 28px -8px rgba(60, 40, 15, 0.12);
       }
+
+      /* Remove vertical divider — each is its own card */
+      .testimonial + .testimonial::before { display: none; }
 
       .testimonial .quote { font-size: 16.5px; }
+      .testimonial .quote-mark { font-size: 48px; }
     }
 
     /* ===== Instagram grid ============================================= */
