@@ -755,6 +755,14 @@ var fmtPrice = function fmtPrice(n) {
 // ─── Supabase Integration ────────────────────────────────────────────
 var SB_URL = 'https://rgpkomngygapwjhnbgaf.supabase.co';
 var SB_ANON = 'sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P';
+// Single shared Supabase client — avoids multiple GoTrueClient instances
+var _sbClient = null;
+function getSB() {
+  if (!_sbClient && typeof window.supabase !== 'undefined') {
+    _sbClient = window.supabase.createClient(SB_URL, SB_ANON);
+  }
+  return _sbClient;
+}
 var _TAG_BADGE = {
   'bestseller': { badge: 'Best Seller', badgeKind: 'gold' },
   'new-arrival': { badge: 'New', badgeKind: 'ink' },
@@ -878,7 +886,7 @@ function _fetchAllProductsFromSupabase() {
     return _regenerator().w(function (_context) {
       while (1) switch (_context.n) {
         case 0:
-          sb = window.supabase.createClient(SB_URL, SB_ANON);
+          sb = getSB();
           all = [], offset = 0, batchSize = 500;
         case 1:
           if (!true) {
@@ -5017,7 +5025,7 @@ function App() {
   // ─── Auth session check ──────────────────────────────────────────────
   React.useEffect(function() {
     if (typeof window.supabase === 'undefined') { setAuthLoading(false); return; }
-    var sb = window.supabase.createClient(SB_URL, SB_ANON);
+    var sb = getSB();
     sb.auth.getSession().then(function(res) {
       var session = res.data && res.data.session;
       setCurrentUser(session ? session.user : null);
@@ -5441,7 +5449,7 @@ function App() {
     });
   };
   var handleLogin = function handleLogin(email, password) {
-    var sb = window.supabase.createClient(SB_URL, SB_ANON);
+    var sb = getSB();
     return sb.auth.signInWithPassword({ email: email, password: password }).then(function(res) {
       if (res.error) throw res.error;
       setCurrentUser(res.data.user);
@@ -5449,7 +5457,7 @@ function App() {
     });
   };
   var handleRegister = function handleRegister(email, password, fullName) {
-    var sb = window.supabase.createClient(SB_URL, SB_ANON);
+    var sb = getSB();
     return sb.auth.signUp({ email: email, password: password, options: { data: { full_name: fullName } } }).then(function(res) {
       if (res.error) throw res.error;
       setCurrentUser(res.data.user);
@@ -5457,7 +5465,7 @@ function App() {
     });
   };
   var handleLogout = function handleLogout() {
-    var sb = window.supabase.createClient(SB_URL, SB_ANON);
+    var sb = getSB();
     return sb.auth.signOut().then(function() {
       setCurrentUser(null);
       setRoute('home');
