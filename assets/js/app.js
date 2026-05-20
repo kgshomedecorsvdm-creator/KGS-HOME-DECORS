@@ -2543,12 +2543,12 @@ function ShopPage(_ref14) {
     style: {
       fontFamily: '"Crimson Pro",serif',
       fontWeight: 500,
-      fontSize: '3rem',
-      lineHeight: 1.05,
+      fontSize: 'clamp(1.6rem, 5vw, 3rem)',
+      lineHeight: 1.1,
       letterSpacing: '-0.018em',
-      marginBottom: 10
+      marginBottom: 8
     }
-  }, "Our complete collection.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("em", {
+  }, "Our complete collection. ", /*#__PURE__*/React.createElement("em", {
     style: {
       fontStyle: 'italic',
       color: '#B89657',
