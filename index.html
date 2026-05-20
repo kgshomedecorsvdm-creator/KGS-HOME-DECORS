@@ -3324,9 +3324,12 @@
 
       /* ── Mobile footer: brand + contact only ──────────────────────── */
       .footer { padding: 44px 0 108px; }
-      /* Cart page: hide footer — sticky checkout bar is all users need */
+      /* Task-flow pages: no footer needed */
       [data-route="cart"] .footer,
-      [data-route="checkout"] .footer { display: none; }
+      [data-route="checkout"] .footer,
+      [data-route="order-confirmation"] .footer,
+      [data-route="login"] .footer,
+      [data-route="register"] .footer { display: none; }
 
       .footer-grid {
         grid-template-columns: 1fr;
