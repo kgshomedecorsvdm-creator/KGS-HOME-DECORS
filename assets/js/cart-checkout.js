@@ -34,12 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
       emptyCartMsg.style.display = 'block';
       btnCheckout.disabled = true;
       btnCheckout.style.opacity = '0.5';
-      progressCard.style.display = 'none';
-      
-      elSubtotal.textContent = '₹0';
-      elDiscount.textContent = '-₹0';
-      elShipping.textContent = '₹0';
-      elTotal.textContent = '₹0';
+      if (progressCard) progressCard.style.display = 'none';
+
+      const subtotalLabel = document.getElementById('subtotal-label');
+      if (subtotalLabel) subtotalLabel.textContent = 'Subtotal';
+      if (elSubtotal) elSubtotal.textContent = '₹0';
+      if (elDiscount) elDiscount.textContent = '—';
+      if (elShipping) elShipping.textContent = '₹0';
+      if (elTotal) elTotal.textContent = '₹0';
       return;
     }
     
@@ -111,7 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const total = subtotal + shipping;
 
     // Update DOM
-    document.querySelector('.summary-row span:first-child').textContent = `Subtotal (${items.length} items)`;
+    const subtotalLabel = document.getElementById('subtotal-label');
+    if (subtotalLabel) subtotalLabel.textContent = `Subtotal (${items.length} item${items.length !== 1 ? 's' : ''})`;
     elSubtotal.textContent = `₹${subtotal.toLocaleString('en-IN')}`;
     elDiscount.textContent = discount > 0 ? `-₹${discount.toLocaleString('en-IN')}` : '₹0';
     elShipping.textContent = shipping === 0 ? 'FREE' : `₹${shipping.toLocaleString('en-IN')}`;

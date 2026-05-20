@@ -3,16 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Premium 3-Seater Sofa | KGS Home Décors</title>
-  
+  <title>Product | KGS Home Décors</title>
+  <meta name="description" content="Premium home décor at KGS Home Décors, Virudhachalam.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap">
   <link rel="stylesheet" href="assets/css/icons.css">
-  
   <link rel="stylesheet" href="assets/css/styles.css">
   <style>
-    /* Additions for PDP strictly derived from inline React styles */
     .pdp-trust { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .pdp-trust__item { display: flex; align-items: center; gap: 12px; }
     .pdp-trust__item .material-symbols-outlined { color: #C5A880; font-size: 24px; }
@@ -27,27 +25,42 @@
     .pdp-stock__text b { color: #C97840; font-weight: 600; }
     .pdp-stock__text .material-symbols-outlined { color: #C97840; font-size: 15px; }
 
+    /* Sticky bar — hidden by default, shown by product.js on scroll */
     .pdp-sticky {
       position: fixed; bottom: 0; left: 0; width: 100%;
       background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
       border-top: 1px solid rgba(26,26,26,0.08);
       padding: 16px 0; z-index: 90;
-      transform: translateY(100%); transition: transform 0.3s ease;
+      transform: translateY(100%);
+      transition: transform 0.32s cubic-bezier(0.32,0.72,0,1);
     }
     .pdp-sticky.visible { transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .pdp-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+      .pdp-trust { grid-template-columns: 1fr; }
+      #product-thumbnails { grid-template-columns: repeat(3,1fr) !important; }
+    }
+    @media (max-width: 600px) {
+      .pdp-sticky .container { flex-wrap: wrap; gap: 10px; }
+      .pdp-sticky .sticky-actions { width: 100%; }
+    }
   </style>
 </head>
 <body>
+<!-- CSS-only mobile nav toggle -->
+<input type="checkbox" id="nav-toggle" aria-hidden="true">
+
 <!-- NAV -->
 <div class="nav-wrap">
   <div class="nav-bar container">
     <a href="index.html" class="logo">
       <span class="mark">KGS</span>
-      <span class="sub">Home D�cor</span>
+      <span class="sub">Home Décors</span>
     </a>
     <nav class="nav-links">
       <a class="nav-link" href="index.html">Home</a>
-      <a class="nav-link" href="product-listing.html">Shop</a>
+      <a class="nav-link active" href="product-listing.html">Shop</a>
       <a class="nav-link" href="about.html">Our Story</a>
       <a class="nav-link" href="contact.html">Contact</a>
     </nav>
@@ -55,222 +68,171 @@
       <a class="icon-btn" href="account.html" aria-label="Account">
         <span class="material-symbols-outlined">person</span>
       </a>
-      <a class="icon-btn" href="wishlist.html" aria-label="Wishlist">
-        <span class="material-symbols-outlined">favorite</span>
-      </a>
       <a class="icon-btn" href="cart-checkout.html" aria-label="Cart">
         <span class="material-symbols-outlined">shopping_bag</span>
+        <span class="pip cart-count" style="display:none">0</span>
       </a>
+      <label for="nav-toggle" class="nav-hamburger" aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </label>
     </div>
   </div>
 </div>
 
+<!-- Mobile nav drawer (CSS-only) -->
+<div class="static-mobile-nav">
+  <label for="nav-toggle" class="static-mobile-nav__overlay" aria-label="Close menu"></label>
+  <div class="static-mobile-nav__panel">
+    <label for="nav-toggle" class="static-mobile-nav__close" aria-label="Close menu">
+      <span class="material-symbols-outlined">close</span>
+    </label>
+    <div style="font-family:'Crimson Pro',serif;font-weight:500;font-size:1.3rem;color:#1A1A1A;margin-bottom:12px">KGS Home Décors</div>
+    <a class="static-mobile-nav__link" href="index.html">Home</a>
+    <a class="static-mobile-nav__link active" href="product-listing.html">Shop</a>
+    <a class="static-mobile-nav__link" href="about.html">Our Story</a>
+    <a class="static-mobile-nav__link" href="contact.html">Contact</a>
+    <a class="static-mobile-nav__link" href="account.html">Account</a>
+    <a class="static-mobile-nav__link" href="cart-checkout.html">Cart</a>
+    <div style="margin-top:auto;padding-top:24px">
+      <a href="https://wa.me/919789182921" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:12px 0;color:#25D366;font-weight:600;font-family:'Jost',sans-serif;font-size:14px">
+        <span class="material-symbols-outlined">chat</span>WhatsApp Us
+      </a>
+      <div style="font-size:11px;color:#5E5B59;margin-top:12px;line-height:1.6">
+        185/G Junction Rd<br>Virudhachalam 606001<br>10 AM – 10 PM, every day
+      </div>
+    </div>
+  </div>
+</div>
 
 <main>
-  <div data-screen-label="Product / Premium 3-Seater Sofa">
-    <section style="background:#FAF8F4; padding:18px 0; border-bottom:1px solid rgba(197,168,128,0.20)">
-      <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px">
-        <a href="product-listing.html" style="font-size:11px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:#5E5B59; display:inline-flex; align-items:center; gap:6px;">
-          <span class="material-symbols-outlined" style="font-size:16px">arrow_back</span> Back to Shop
-        </a>
-        <div style="font-size:11.5px; color:#5E5B59; display:flex; align-items:center; gap:8px">
-          <span class="material-symbols-outlined" style="color:#B89657; font-size:14px">local_fire_department</span>
-          <b style="color:#1A1A1A; font-weight: 600" id="product-sold">24</b> people bought this in the last 7 days
-        </div>
+  <!-- Breadcrumb / Social proof bar -->
+  <section style="background:#FAF8F4;padding:18px 0;border-bottom:1px solid rgba(197,168,128,0.20)">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <a href="product-listing.html" style="font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#5E5B59;display:inline-flex;align-items:center;gap:6px">
+        <span class="material-symbols-outlined" style="font-size:16px">arrow_back</span> Back to Shop
+      </a>
+      <div style="font-size:11.5px;color:#5E5B59;display:flex;align-items:center;gap:8px">
+        <span class="material-symbols-outlined" style="color:#B89657;font-size:14px">local_fire_department</span>
+        <b style="color:#1A1A1A;font-weight:600" id="product-sold">24</b> people bought this in the last 7 days
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section style="background:#fff; padding:56px 0 80px">
-      <div class="container" style="display:grid; grid-template-columns:1.1fr 1fr; gap:64px">
-        
-        <!-- Left: Image Gallery -->
-        <div>
-          <div style="background:#F3EBDC; border:1px solid rgba(197,168,128,0.30); border-radius:18px; padding:48px; aspect-ratio:1; display:flex; align-items:center; justify-content:center; position:relative">
-            <span id="product-badge" style="position:absolute; top:18px; left:18px; background:#C97840; color:#fff; font-size:10px; font-weight:700; letter-spacing:.16em; padding:6px 12px; border-radius:9999px; text-transform:uppercase">16% OFF</span>
-            <img id="product-main-img" src="assets/products/sofa.webp" alt="Product Name" style="max-width:100%; max-height:100%; object-fit:contain">
-          </div>
-          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:14px" id="product-thumbnails">
-            <div style="aspect-ratio:1; background:#F3EBDC; border-radius:10px; overflow:hidden; border: 2px solid #1A1A1A; cursor:pointer; display:flex; align-items:center; justify-content:center; padding: 10px">
-              <img src="assets/products/sofa.webp" alt="" style="max-width:100%; max-height:100%; object-fit:contain">
-            </div>
-          </div>
+  <!-- Main PDP -->
+  <section style="background:#fff;padding:56px 0 80px">
+    <div class="container pdp-grid" style="display:grid;grid-template-columns:1.1fr 1fr;gap:64px">
+
+      <!-- Left: Image Gallery -->
+      <div>
+        <div style="background:#F3EBDC;border:1px solid rgba(197,168,128,0.30);border-radius:18px;padding:48px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+          <span id="product-badge" style="position:absolute;top:18px;left:18px;background:#C97840;color:#fff;font-size:10px;font-weight:700;letter-spacing:.16em;padding:6px 12px;border-radius:9999px;text-transform:uppercase">16% OFF</span>
+          <img id="product-main-img" src="assets/images/placeholder.svg" alt="Product" style="max-width:100%;max-height:100%;object-fit:contain;transition:opacity .3s ease">
         </div>
-
-        <!-- Right: Details -->
-        <div>
-          <div id="product-category" style="font-size:10.5px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#B89657; margin-bottom:12px">Furniture</div>
-          <h1 id="product-title" style="font-family:'Crimson Pro',serif; font-weight:500; font-size:2.4rem; line-height:1.05; letter-spacing:-0.018em; margin-bottom:16px">Premium 3-Seater Sofa</h1>
-
-          <div style="display:flex; align-items:center; gap:14px; margin-bottom:24px; flex-wrap:wrap">
-            <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 12px; background:rgba(184,150,87,0.10); border-radius:9999px">
-              <span style="color:#B89657; letter-spacing:.14em; font-size:13px">★★★★★</span>
-              <span id="product-rating" style="font-size:12.5px; font-weight: 600; color:#1A1A1A">4.8</span>
-              <span style="font-size:12px; color:#5E5B59">(<span id="product-reviews">124</span> reviews)</span>
-            </div>
-            <span id="product-stock-badge" style="font-size:10.5px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:#1A1A1A; padding:6px 14px; border:1px solid rgba(26,26,26,0.16); border-radius:9999px">Best Seller</span>
-          </div>
-
-          <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:8px">
-            <span id="product-price-now" style="font-family:'Crimson Pro',serif; font-weight:500; font-size:2.6rem; letter-spacing:-0.01em">₹18,500</span>
-            <span id="product-price-was" style="font-size:15px; color:#5E5B59; text-decoration:line-through">₹22,000</span>
-            <span id="product-price-save" style="font-size:11.5px; color:#C97840; font-weight:700; letter-spacing:.14em; text-transform:uppercase">Save ₹3,500</span>
-          </div>
-          <div style="font-size:12px; color:#5E5B59; margin-bottom:22px">Inclusive of all taxes · Free delivery in Vridhachalam only</div>
-
-          <div class="pdp-stock">
-            <div class="pdp-stock__bar"><span style="width: 20%;"></span></div>
-            <div class="pdp-stock__text">
-              <span class="material-symbols-outlined">local_fire_department</span>
-              <b>Only 4 left</b> &middot; reorder takes ~3 weeks
-            </div>
-          </div>
-
-          <p id="product-description" style="margin-bottom:28px; font-size:14.5px; line-height:1.8">
-            Handcrafted with premium materials and finished to export quality. Personally selected for the KGS showroom — every piece passes a hand-check before it ships.
-          </p>
-
-          <div class="pdp-trust">
-            <div class="pdp-trust__item">
-              <span class="material-symbols-outlined">local_shipping</span>
-              <div>
-                <b>Free delivery</b>
-                <span>In Vridhachalam only</span>
-              </div>
-            </div>
-
-
-
-
-
-
-
-            <div class="pdp-trust__item">
-              <span class="material-symbols-outlined">verified_user</span>
-              <div>
-                <b>Hand-checked</b>
-                <span>QC at the showroom</span>
-              </div>
-            </div>
-            <div class="pdp-trust__item">
-              <span class="material-symbols-outlined">lock</span>
-              <div>
-                <b>Secure checkout</b>
-                <span>UPI · Cards · COD</span>
-              </div>
-            </div>
-          </div>
-
-          <div style="display:flex; gap:12px; margin-bottom:14px; margin-top: 26px">
-            <div style="display:flex; align-items:center; border:1px solid rgba(26,26,26,0.16); border-radius: 9999px">
-              <button id="qty-minus" style="width:44px; height:50px; background:none; border:none; font-size:17px; cursor:pointer">−</button>
-              <span id="qty-value" style="width:36px; text-align:center; font-weight:500">1</span>
-              <button id="qty-plus" style="width:44px; height:50px; background:none; border:none; font-size:17px; cursor:pointer">+</button>
-            </div>
-            <button id="btn-add-cart" class="btn btn-dark" style="flex:1">
-              <span class="material-symbols-outlined">shopping_bag</span> Add to Cart · ₹18,500
-            </button>
-          </div>
-          <a href="#" class="btn btn-gold" style="width:100%; background:#25D366; border-color:#25D366">
-            <span class="material-symbols-outlined">chat</span> Ask on WhatsApp · Replies in ~10 min
-          </a>
-        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px" id="product-thumbnails"></div>
       </div>
-    </section>
 
-    <!-- Related products -->
-    <section style="background:#FAF8F4; padding:64px 0 80px; border-top:1px solid rgba(197,168,128,0.20)">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <div class="label-tag">You May Also Love</div>
-            <h2>Pairs beautifully with</h2>
+      <!-- Right: Details -->
+      <div>
+        <div id="product-category" style="font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#B89657;margin-bottom:12px">Loading…</div>
+        <h1 id="product-title" style="font-family:'Crimson Pro',serif;font-weight:500;font-size:2.4rem;line-height:1.05;letter-spacing:-0.018em;margin-bottom:16px">Loading product…</h1>
+
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap">
+          <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;background:rgba(184,150,87,0.10);border-radius:9999px">
+            <span style="color:#B89657;letter-spacing:.14em;font-size:13px">★★★★★</span>
+            <span id="product-rating" style="font-size:12.5px;font-weight:600;color:#1A1A1A">4.8</span>
+            <span style="font-size:12px;color:#5E5B59">(<span id="product-reviews">—</span> reviews)</span>
+          </div>
+          <span id="product-stock-badge" style="font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#1A1A1A;padding:6px 14px;border:1px solid rgba(26,26,26,0.16);border-radius:9999px"></span>
+        </div>
+
+        <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:8px">
+          <span id="product-price-now" style="font-family:'Crimson Pro',serif;font-weight:500;font-size:2.6rem;letter-spacing:-0.01em">—</span>
+          <span id="product-price-was" style="font-size:15px;color:#5E5B59;text-decoration:line-through"></span>
+          <span id="product-price-save" style="font-size:11.5px;color:#C97840;font-weight:700;letter-spacing:.14em;text-transform:uppercase"></span>
+        </div>
+        <div style="font-size:12px;color:#5E5B59;margin-bottom:22px">Inclusive of all taxes · Free delivery in Virudhachalam</div>
+
+        <div class="pdp-stock">
+          <div class="pdp-stock__bar"><span style="width:20%"></span></div>
+          <div class="pdp-stock__text">
+            <span class="material-symbols-outlined">local_fire_department</span>
+            <b>Only 4 left</b> &middot; reorder takes ~3 weeks
           </div>
         </div>
-        <div id="related-products-grid" class="grid-4">
-          <div class="prod-card">
-            <div class="prod-img">
-              <span class="prod-badge prod-badge--gold">Best Seller</span>
-              <button class="heart-btn"><span class="material-symbols-outlined">favorite</span></button>
-              <img src="assets/products/sofa.webp" alt="Premium 3-Seater Sofa">
-              <div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div>
-            </div>
-            <div class="prod-body">
-              <div class="prod-cat">Furniture</div>
-              <div class="prod-name">Premium 3-Seater Sofa</div>
-              <div class="prod-rating"><span class="stars">★★★★★</span><span><b style="color:#1A1A1A">4.8</b> · 124 reviews</span></div>
-            </div>
-            <div class="prod-price"><span class="now">₹18,500</span><span class="was">₹22,000</span></div>
-            <button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span> Add to Cart</button>
-          </div>
-          <div class="prod-card">
-            <div class="prod-img">
-              <span class="prod-badge prod-badge--ink">New</span>
-              <button class="heart-btn"><span class="material-symbols-outlined">favorite</span></button>
-              <img src="assets/products/clock.webp" alt="Antique Brass Wall Clock">
-              <div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div>
-            </div>
-            <div class="prod-body">
-              <div class="prod-cat">Wall Clocks</div>
-              <div class="prod-name">Antique Brass Wall Clock</div>
-              <div class="prod-rating"><span class="stars">★★★★★</span><span><b style="color:#1A1A1A">4.7</b> · 98 reviews</span></div>
-            </div>
-            <div class="prod-price"><span class="now">₹1,299</span></div>
-            <button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span> Add to Cart</button>
-          </div>
-          <div class="prod-card">
-            <div class="prod-img">
-              <span class="prod-badge prod-badge--gold">Staff Pick</span>
-              <button class="heart-btn"><span class="material-symbols-outlined">favorite</span></button>
-              <img src="assets/products/fountain.webp" alt="Indoor Tabletop Fountain">
-              <div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div>
-            </div>
-            <div class="prod-body">
-              <div class="prod-cat">Fountains</div>
-              <div class="prod-name">Indoor Tabletop Fountain</div>
-              <div class="prod-rating"><span class="stars">★★★★★</span><span><b style="color:#1A1A1A">4.9</b> · 56 reviews</span></div>
-            </div>
-            <div class="prod-price"><span class="now">₹2,850</span></div>
-            <button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span> Add to Cart</button>
-          </div>
-          <div class="prod-card">
-            <div class="prod-img">
-              <button class="heart-btn"><span class="material-symbols-outlined">favorite</span></button>
-              <img src="assets/products/wall_decor.webp" alt="Botanical Wall Art Panel">
-              <div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div>
-            </div>
-            <div class="prod-body">
-              <div class="prod-cat">Wall Frames</div>
-              <div class="prod-name">Botanical Wall Art Panel</div>
-              <div class="prod-rating"><span class="stars">★★★★★</span><span><b style="color:#1A1A1A">4.8</b> · 113 reviews</span></div>
-            </div>
-            <div class="prod-price"><span class="now">₹1,850</span></div>
-            <button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span> Add to Cart</button>
-          </div>
-</div>
-      </div>
-    </section>
 
-    <!-- Sticky purchase bar -->
-    <div class="pdp-sticky visible">
-      <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap: 20px">
-        <div style="display:flex; align-items:center; gap: 14px; min-width: 0">
-          <img id="sticky-img" src="assets/products/sofa.webp" alt="" style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #F3EBDC">
-          <div style="min-width: 0">
-            <div id="sticky-title" style="font-family:'Crimson Pro',serif; font-weight: 500; font-size: 15px; color:#1A1A1A; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">Premium 3-Seater Sofa</div>
-            <div style="font-size: 11.5px; color: #5E5B59; display:flex; align-items:center; gap: 6px">
-              <span style="color:#B89657">★</span> 4.8 · 124 reviews
-            </div>
+        <p id="product-description" style="margin-bottom:28px;font-size:14.5px;line-height:1.8;color:#5E5B59">
+          Handcrafted with premium materials, finished to export quality. Personally selected for the KGS showroom — every piece passes a hand-check before it ships.
+        </p>
+
+        <div class="pdp-trust">
+          <div class="pdp-trust__item">
+            <span class="material-symbols-outlined">local_shipping</span>
+            <div><b>Free delivery</b><span>In Virudhachalam only</span></div>
+          </div>
+          <div class="pdp-trust__item">
+            <span class="material-symbols-outlined">replay</span>
+            <div><b>7-day returns</b><span>No-fuss full refund</span></div>
+          </div>
+          <div class="pdp-trust__item">
+            <span class="material-symbols-outlined">verified_user</span>
+            <div><b>Hand-checked</b><span>QC at the showroom</span></div>
+          </div>
+          <div class="pdp-trust__item">
+            <span class="material-symbols-outlined">lock</span>
+            <div><b>Secure checkout</b><span>UPI · Cards · COD</span></div>
           </div>
         </div>
-        <div style="display:flex; align-items:center; gap: 16px">
-          <div style="text-align:right">
-            <div id="sticky-price-now" style="font-family:'Crimson Pro',serif; font-weight: 500; font-size: 22px; color:#1A1A1A; line-height: 1">₹18,500</div>
-            <div id="sticky-price-was" style="font-size: 11px; color:#5E5B59; text-decoration:line-through">₹22,000</div>
+
+        <div style="display:flex;gap:12px;margin-bottom:14px;margin-top:26px;align-items:center">
+          <div style="display:flex;align-items:center;border:1px solid rgba(26,26,26,0.16);border-radius:9999px">
+            <button id="qty-minus" style="width:44px;height:50px;background:none;border:none;font-size:17px;cursor:pointer" aria-label="Decrease quantity">−</button>
+            <span id="qty-value" style="width:36px;text-align:center;font-weight:500" aria-live="polite">1</span>
+            <button id="qty-plus" style="width:44px;height:50px;background:none;border:none;font-size:17px;cursor:pointer" aria-label="Increase quantity">+</button>
           </div>
-          <button id="sticky-add-cart" class="btn btn-dark">
+          <button id="btn-add-cart" class="btn btn-dark" style="flex:1">
             <span class="material-symbols-outlined">shopping_bag</span> Add to Cart
           </button>
         </div>
+        <a href="https://wa.me/919789182921" class="btn btn-gold" target="_blank" rel="noopener" style="width:100%;background:#25D366;border-color:#25D366;text-decoration:none">
+          <span class="material-symbols-outlined">chat</span> Ask on WhatsApp · Replies in ~10 min
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related products -->
+  <section style="background:#FAF8F4;padding:64px 0 80px;border-top:1px solid rgba(197,168,128,0.20)">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="label-tag">You May Also Love</div>
+          <h2>Pairs beautifully with</h2>
+        </div>
+      </div>
+      <div id="related-products-grid" class="grid-4"></div>
+    </div>
+  </section>
+
+  <!-- Sticky purchase bar — hidden by default, shown by product.js -->
+  <div class="pdp-sticky">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:20px">
+      <div style="display:flex;align-items:center;gap:14px;min-width:0">
+        <img id="sticky-img" src="assets/images/placeholder.svg" alt="" style="width:44px;height:44px;border-radius:8px;object-fit:cover;background:#F3EBDC">
+        <div style="min-width:0">
+          <div id="sticky-title" style="font-family:'Crimson Pro',serif;font-weight:500;font-size:15px;color:#1A1A1A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Loading…</div>
+          <div style="font-size:11.5px;color:#5E5B59">
+            <span style="color:#B89657">★</span> 4.8 · KGS Home Décors
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px" class="sticky-actions">
+        <div style="text-align:right">
+          <div id="sticky-price-now" style="font-family:'Crimson Pro',serif;font-weight:500;font-size:22px;color:#1A1A1A;line-height:1">—</div>
+          <div id="sticky-price-was" style="font-size:11px;color:#5E5B59;text-decoration:line-through"></div>
+        </div>
+        <button id="sticky-add-cart" class="btn btn-dark">
+          <span class="material-symbols-outlined">shopping_bag</span> Add to Cart
+        </button>
       </div>
     </div>
   </div>
@@ -295,17 +257,17 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-col">
-        <a href="index.html" class="logo" style="margin-bottom: 18px">
+        <a href="index.html" class="logo" style="margin-bottom:18px">
           <span class="mark" style="color:#fff">KGS</span>
           <span class="sub" style="color:#C5A880">Home Décors</span>
         </a>
-        <p style="font-size:13.5px; color:rgba(255,255,255,0.55); max-width:260px; line-height:1.7;">
+        <p style="font-size:13.5px;color:rgba(255,255,255,0.55);max-width:260px;line-height:1.7">
           Timeless home décor crafted to bring beauty, elegance and comfort to your spaces.
         </p>
         <div class="footer-socials">
-          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">photo_camera</span></a>
-          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">thumb_up</span></a>
-          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">play_circle</span></a>
+          <a href="https://www.instagram.com/kgshomedecors" target="_blank" rel="noopener" aria-label="Instagram"><span class="material-symbols-outlined" style="font-size:17px">photo_camera</span></a>
+          <a href="https://www.facebook.com/kgshomedecors" target="_blank" rel="noopener" aria-label="Facebook"><span class="material-symbols-outlined" style="font-size:17px">thumb_up</span></a>
+          <a href="https://www.youtube.com/@kgshomedecors" target="_blank" rel="noopener" aria-label="YouTube"><span class="material-symbols-outlined" style="font-size:17px">play_circle</span></a>
         </div>
       </div>
       <div class="footer-col">
@@ -324,11 +286,11 @@
       <div class="footer-col">
         <h4>Help</h4>
         <ul>
-          <li><a href="#">Shipping & Delivery</a></li>
-          <li><a href="#">Returns & Refunds</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Track Order</a></li>
-          <li><a href="#">Payment Options</a></li>
+          <li><a href="shipping-policy.html">Shipping &amp; Delivery</a></li>
+          <li><a href="returns-policy.html">Returns &amp; Refunds</a></li>
+          <li><a href="contact.html">FAQ</a></li>
+          <li><a href="order-tracking.html">Track Order</a></li>
+          <li><a href="contact.html">Payment Options</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -336,19 +298,17 @@
         <ul>
           <li><a href="about.html">About Us</a></li>
           <li><a href="about.html">Our Story</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Blog</a></li>
           <li><a href="contact.html">Contact Us</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Customer Support</h4>
         <ul>
-          <li class="info-line"><span class="material-symbols-outlined">mail</span><a href="#">support@kgshome.com</a></li>
-          <li class="info-line"><span class="material-symbols-outlined">call</span><a href="#">+91 97891 82921</a></li>
+          <li class="info-line"><span class="material-symbols-outlined">mail</span><a href="mailto:kgshomedecors@gmail.com">kgshomedecors@gmail.com</a></li>
+          <li class="info-line"><span class="material-symbols-outlined">call</span><a href="tel:+919789182921">+91 97891 82921</a></li>
           <li class="info-line"><span class="material-symbols-outlined">schedule</span>Mon – Sun · 10 AM – 10 PM</li>
         </ul>
-        <div class="footer-pay" style="margin-top: 18px">
+        <div class="footer-pay" style="margin-top:18px">
           <span>VISA</span><span>MC</span><span>UPI</span><span>AMEX</span><span>COD</span>
         </div>
       </div>
@@ -357,7 +317,7 @@
       <span>© 2026 KGS Home Décors. All Rights Reserved.</span>
       <div class="links">
         <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="terms.html">Terms & Conditions</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
         <a href="shipping-policy.html">Shipping Policy</a>
         <a href="returns-policy.html">Return Policy</a>
       </div>
@@ -365,22 +325,30 @@
   </div>
 </footer>
 
-<a class="wa-float" href="#">
-  <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px; height:22px; flex-shrink:0;">
+<a class="wa-float" href="https://wa.me/919789182921" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;flex-shrink:0">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
   </svg>
   Chat With Us
 </a>
 
+<div id="cart-toast" style="
+  position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(16px);
+  background:#1A1A1A;color:#fff;padding:12px 22px;border-radius:9999px;
+  font-family:'Jost',sans-serif;font-size:13px;font-weight:500;
+  display:none;align-items:center;gap:10px;z-index:200;
+  box-shadow:0 10px 32px -8px rgba(0,0,0,0.35);
+  transition:opacity .25s ease,transform .25s ease;opacity:0">
+  <span class="material-symbols-outlined" style="color:#25D366;font-size:18px">check_circle</span>
+  <span id="toast-text">Item added to cart</span>
+</div>
+<style>
+  #cart-toast.show{display:flex!important;opacity:1!important;transform:translateX(-50%) translateY(0)!important}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/store.js"></script>
 <script src="assets/js/product.js"></script>
-<script>
-// Highlight active nav link on legacy pages
-(function() {
-  var page = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-link').forEach(function(a) {
-    if (a.getAttribute('href') === page) a.classList.add('active');
-    if (page === '' && a.getAttribute('href') === 'index.html') a.classList.add('active');
-  });
-})();
-</script></body>
+</body>
 </html>

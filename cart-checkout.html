@@ -163,6 +163,7 @@
       </a>
       <a class="icon-btn active" href="cart-checkout.html" aria-label="Cart">
         <span class="material-symbols-outlined">shopping_bag</span>
+        <span class="pip cart-count" style="display:none">0</span>
       </a>
       <label for="nav-toggle" class="nav-hamburger" aria-label="Open menu">
         <span class="material-symbols-outlined">menu</span>
@@ -221,97 +222,8 @@
 
 
 
-        <div id="cart-items-container">
-
-          <!-- Item 1 (Placeholder) -->
-
-          <div class="cart-item">
-
-            <div class="cart-item__img">
-
-              <img src="assets/products/sofa.webp" alt="Premium 3-Seater Sofa">
-
-            </div>
-
-            <div class="cart-item__info">
-
-              <div class="cart-item__cat">Furniture</div>
-
-              <a href="product-detail.html" class="cart-item__name">Premium 3-Seater Sofa</a>
-
-              <div class="cart-item__actions">
-
-                <div class="cart-qty">
-
-                  <button">−</button>
-
-                  <span>1</span>
-
-                  <button>+</button>
-
-                </div>
-
-                <button class="cart-item__remove">Remove</button>
-
-              </div>
-
-            </div>
-
-            <div class="cart-item__price">
-
-              <div class="now">₹18,500</div>
-
-              <div class="was">₹22,000</div>
-
-            </div>
-
-          </div>
-
-          
-
-          <!-- Item 2 (Placeholder) -->
-
-          <div class="cart-item">
-
-            <div class="cart-item__img">
-
-              <img src="assets/products/clock.webp" alt="Antique Brass Wall Clock">
-
-            </div>
-
-            <div class="cart-item__info">
-
-              <div class="cart-item__cat">Wall Clocks</div>
-
-              <a href="product-detail.html" class="cart-item__name">Antique Brass Wall Clock</a>
-
-              <div class="cart-item__actions">
-
-                <div class="cart-qty">
-
-                  <button">−</button>
-
-                  <span>2</span>
-
-                  <button>+</button>
-
-                </div>
-
-                <button class="cart-item__remove">Remove</button>
-
-              </div>
-
-            </div>
-
-            <div class="cart-item__price">
-
-              <div class="now">₹2,598</div>
-
-            </div>
-
-          </div>
-
-        </div>
+        <!-- Cart items rendered by cart-checkout.js from localStorage -->
+        <div id="cart-items-container"></div>
 
 
 
@@ -499,7 +411,7 @@
 
             <div class="delivery-progress__text">
 
-              <span><b>Free Delivery</b> in Vridhachalam only</span>
+              <span><b>Free Delivery</b> in Virudhachalam only</span>
 
             </div>
 
@@ -514,37 +426,20 @@
 
 
           <div class="summary-row">
-
-            <span>Subtotal (3 items)</span>
-
-            <span id="summary-subtotal">₹21,098</span>
-
+            <span id="subtotal-label">Subtotal</span>
+            <span id="summary-subtotal">—</span>
           </div>
-
           <div class="summary-row">
-
             <span>Discount</span>
-
-            <span id="summary-discount" style="color:#C97840">-₹3,500</span>
-
+            <span id="summary-discount" style="color:#C97840">—</span>
           </div>
-
           <div class="summary-row">
-
             <span>Delivery</span>
-
-            <span id="summary-shipping">₹500</span>
-
+            <span id="summary-shipping">—</span>
           </div>
-
-          
-
           <div class="summary-row total">
-
             <span>Total</span>
-
-            <span id="summary-total">₹21,598</span>
-
+            <span id="summary-total">—</span>
           </div>
 
 
@@ -642,103 +537,52 @@
         </p>
 
         <div class="footer-socials">
-
-          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">photo_camera</span></a>
-
-          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">thumb_up</span></a>
-
-          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">play_circle</span></a>
-
+          <a href="https://www.instagram.com/kgshomedecors" target="_blank" rel="noopener" aria-label="Instagram"><span class="material-symbols-outlined" style="font-size:17px">photo_camera</span></a>
+          <a href="https://www.facebook.com/kgshomedecors" target="_blank" rel="noopener" aria-label="Facebook"><span class="material-symbols-outlined" style="font-size:17px">thumb_up</span></a>
+          <a href="https://www.youtube.com/@kgshomedecors" target="_blank" rel="noopener" aria-label="YouTube"><span class="material-symbols-outlined" style="font-size:17px">play_circle</span></a>
         </div>
-
       </div>
-
       <div class="footer-col">
-
         <h4>Shop</h4>
-
         <ul>
-
           <li><a href="product-listing.html">New Arrivals</a></li>
-
           <li><a href="product-listing.html">Best Sellers</a></li>
-
           <li><a href="product-listing.html">Artificial Plants</a></li>
-
           <li><a href="product-listing.html">Statues &amp; Idols</a></li>
-
           <li><a href="product-listing.html">Clocks</a></li>
-
           <li><a href="product-listing.html">Lighting</a></li>
-
           <li><a href="product-listing.html">Wall Frames</a></li>
-
           <li><a href="product-listing.html">Gifts &amp; Hampers</a></li>
-
         </ul>
-
       </div>
-
       <div class="footer-col">
-
         <h4>Help</h4>
-
         <ul>
-
-          <li><a href="#">Shipping & Delivery</a></li>
-
-          <li><a href="#">Returns & Refunds</a></li>
-
-          <li><a href="#">FAQ</a></li>
-
-          <li><a href="#">Track Order</a></li>
-
-          <li><a href="#">Payment Options</a></li>
-
+          <li><a href="shipping-policy.html">Shipping &amp; Delivery</a></li>
+          <li><a href="returns-policy.html">Returns &amp; Refunds</a></li>
+          <li><a href="contact.html">FAQ</a></li>
+          <li><a href="order-tracking.html">Track Order</a></li>
+          <li><a href="contact.html">Payment Options</a></li>
         </ul>
-
       </div>
-
       <div class="footer-col">
-
         <h4>Company</h4>
-
         <ul>
-
           <li><a href="about.html">About Us</a></li>
-
           <li><a href="about.html">Our Story</a></li>
-
-          <li><a href="#">Careers</a></li>
-
-          <li><a href="#">Blog</a></li>
-
           <li><a href="contact.html">Contact Us</a></li>
-
         </ul>
-
       </div>
-
       <div class="footer-col">
-
         <h4>Customer Support</h4>
-
         <ul>
-
-          <li class="info-line"><span class="material-symbols-outlined">mail</span><a href="#">support@kgshome.com</a></li>
-
-          <li class="info-line"><span class="material-symbols-outlined">call</span><a href="#">+91 97891 82921</a></li>
-
+          <li class="info-line"><span class="material-symbols-outlined">mail</span><a href="mailto:kgshomedecors@gmail.com">kgshomedecors@gmail.com</a></li>
+          <li class="info-line"><span class="material-symbols-outlined">call</span><a href="tel:+919789182921">+91 97891 82921</a></li>
           <li class="info-line"><span class="material-symbols-outlined">schedule</span>Mon – Sun · 10 AM – 10 PM</li>
-
         </ul>
-
-        <div class="footer-pay" style="margin-top: 18px">
-
+        <div class="footer-pay" style="margin-top:18px">
           <span>VISA</span><span>MC</span><span>UPI</span><span>AMEX</span><span>COD</span>
-
         </div>
-
       </div>
 
     </div>
@@ -767,34 +611,18 @@
 
 
 
-<a class="wa-float" href="#">
-
-  <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px; height:22px; flex-shrink:0;">
-
+<a class="wa-float" href="https://wa.me/919789182921" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;flex-shrink:0">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
-
   </svg>
-
   Chat With Us
-
 </a>
 
 
 
+<script src="assets/js/config.js"></script>
 <script src="assets/js/store.js"></script>
-
 <script src="assets/js/cart-checkout.js"></script>
-
-<script>
-// Highlight active nav link on legacy pages
-(function() {
-  var page = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-link').forEach(function(a) {
-    if (a.getAttribute('href') === page) a.classList.add('active');
-    if (page === '' && a.getAttribute('href') === 'index.html') a.classList.add('active');
-  });
-})();
-</script></body>
-
+</body>
 </html>
 

@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -H 'apikey: sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P' -H 'Authorization: Bearer sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P' 'https://rgpkomngygapwjhnbgaf.supabase.co/rest/v1/products?select=id,name,category,price,compare_at_price,image_url,images,in_stock,stock_quantity,tags,is_active&limit=1')",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d[0], indent=2\\)\\)\")",
+      "Bash(curl -s -H 'apikey: sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P' -H 'Authorization: Bearer sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P' 'https://rgpkomngygapwjhnbgaf.supabase.co/rest/v1/products?select=category&is_active=eq.true')",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s -H 'apikey: sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P' -H 'Authorization: Bearer sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P' 'https://rgpkomngygapwjhnbgaf.supabase.co/rest/v1/products?select=id,name,category,price,compare_at_price,image_url,in_stock,stock_quantity,tags&is_active=eq.true&limit=3')",
+      "Bash(python3 -c \"import json,sys; [print\\(json.dumps\\(p\\)\\) for p in json.load\\(sys.stdin\\)]\")",
+      "Bash(curl -s -H 'apikey: sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P' -H 'Authorization: Bearer sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P' 'https://rgpkomngygapwjhnbgaf.supabase.co/rest/v1/products?select=category,subcategory,tags,name,price&is_active=eq.true&limit=500')",
+      "Skill(gstack)",
+      "Skill(gstack:*)"
+    ]
+  }
+}

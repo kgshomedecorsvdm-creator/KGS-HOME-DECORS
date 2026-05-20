@@ -334,3 +334,34 @@ document.addEventListener('keydown', e => {
     if(overlay && overlay.style.display === 'flex') closeSearch();
   }
 });
+
+/* ─── CART CLEAR ────────────────────────────────────────── */
+function clearCart() {
+  saveLocalCart([]);
+  updateCartBadge();
+}
+
+/* ─── STORE COMPATIBILITY OBJECT ───────────────────────── */
+// cart-checkout.js uses store.getCart(), store.removeFromCart(), etc.
+// This shim bridges the flat function API to an object API.
+const store = {
+  getCart() {
+    return getLocalCart();
+  },
+  getProductById(id) {
+    const cart = getLocalCart();
+    const item = cart.find(i => i.id === id);
+    if (!item) return null;
+    return {
+      id: item.id,
+      name: item.name,
+      category: item.category || '',
+      image_url: item.image || 'assets/images/placeholder.webp',
+      price: item.price,
+      original_price: item.compare_at_price || item.original_price || null,
+    };
+  },
+  removeFromCart(id) { return removeFromCart(id); },
+  updateCartQuantity(id, qty) { return updateCartLine(id, qty); },
+  clearCart() { return clearCart(); },
+};
