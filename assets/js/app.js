@@ -1463,25 +1463,6 @@ function Footer(_ref6) {
     }
   }, /*#__PURE__*/React.createElement("span", null, "VISA"), /*#__PURE__*/React.createElement("span", null, "MC"), /*#__PURE__*/React.createElement("span", null, "UPI"), /*#__PURE__*/React.createElement("span", null, "AMEX")))),
 
-  /* Mobile-only policy strip */
-  /*#__PURE__*/React.createElement("div", { className: "footer-policy-strip" },
-    /*#__PURE__*/React.createElement("div", { className: "footer-policy-strip__label" }, "Policies & Help"),
-    /*#__PURE__*/React.createElement("div", { className: "footer-policy-strip__grid" },
-      [
-        ['Returns & Refunds', 'returns'],
-        ['Shipping & Delivery', 'shipping'],
-        ['Privacy Policy', 'privacy'],
-        ['Terms & Conditions', 'terms']
-      ].map(function(item) {
-        return /*#__PURE__*/React.createElement("a", {
-          key: item[0],
-          href: "#",
-          onClick: function(e) { e.preventDefault(); if (setRoute) setRoute(item[1]); }
-        }, item[0]);
-      })
-    )
-  ),
-
   /*#__PURE__*/React.createElement("div", {
     className: "footer-bottom"
   }, /*#__PURE__*/React.createElement("span", null, "\xA9 2026 KGS Home D\xE9cors, Virudhachalam. All rights reserved."), /*#__PURE__*/React.createElement("div", {

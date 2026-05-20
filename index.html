@@ -3410,19 +3410,26 @@
         color: #C5A880;
       }
 
-      /* Footer bottom: centred, links in a wrapping row */
+      /* Footer bottom: centred, links more visible on mobile */
       .footer-bottom {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 14px;
-        margin-top: 28px;
+        gap: 18px;
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(255,255,255,0.08);
       }
       .footer-bottom .links {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 8px 16px;
+        gap: 10px 20px;
+      }
+      .footer-bottom .links a {
+        font-size: 13px;
+        color: rgba(255,255,255,0.65);
+        padding: 4px 0;
       }
 
       .promo {
