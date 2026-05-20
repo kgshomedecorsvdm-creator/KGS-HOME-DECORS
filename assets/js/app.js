@@ -2057,11 +2057,40 @@ function PromoBanner(_ref12) {
 }
 
 // ====== TESTIMONIALS ========================================================
-function Testimonials() {
+function Testimonials(_ref_t) {
+  var onViewAll = _ref_t && _ref_t.onViewAll;
   var _React$useState17 = React.useState(false),
     _React$useState18 = _slicedToArray(_React$useState17, 2),
     showReviewModal = _React$useState18[0],
     setShowReviewModal = _React$useState18[1];
+  var _liveRev = React.useState(null), liveReviews = _liveRev[0], setLiveReviews = _liveRev[1];
+
+  React.useEffect(function() {
+    var sb = getSB();
+    if (!sb) return;
+    sb.from('store_reviews')
+      .select('id,reviewer_name,rating,review_text,created_at')
+      .eq('is_approved', true)
+      .order('created_at', { ascending: false })
+      .limit(6)
+      .then(function(res) {
+        if (!res.error && res.data && res.data.length > 0) {
+          setLiveReviews(res.data);
+        }
+      });
+  }, []);
+
+  var displayReviews = liveReviews
+    ? liveReviews.slice(0, 3).map(function(r) {
+        return {
+          name: r.reviewer_name || 'Customer',
+          initial: (r.reviewer_name || 'C')[0].toUpperCase(),
+          stars: r.rating || 5,
+          quote: r.review_text,
+          id: r.id
+        };
+      })
+    : TESTIMONIALS;
   var openReviewModal = function openReviewModal() {
     setShowReviewModal(true);
     document.body.style.overflow = 'hidden';
@@ -2072,10 +2101,32 @@ function Testimonials() {
     document.body.style.overflow = '';
     if (window._lenis) window._lenis.start();
   };
+  var _submitState = React.useState('idle'), submitState = _submitState[0], setSubmitState = _submitState[1];
+
   var handleSubmitReview = function handleSubmitReview(e) {
     e.preventDefault();
-    closeReviewModal();
-    alert("Thank you! Your review has been successfully submitted to the admin portal for approval.");
+    var form = e.target;
+    var reviewData = {
+      reviewer_name: form[0].value.trim(),
+      rating: parseInt(form[1].value),
+      review_text: form[2].value.trim(),
+      is_approved: false
+    };
+    if (!reviewData.reviewer_name || !reviewData.review_text) return;
+    setSubmitState('loading');
+    var sb = getSB();
+    if (!sb) { setSubmitState('idle'); closeReviewModal(); return; }
+    sb.from('store_reviews').insert(reviewData).then(function(res) {
+      if (res.error) {
+        console.error('[KGS] Review submit error:', res.error.message);
+        setSubmitState('idle');
+        alert('Could not submit your review. Please try again.');
+      } else {
+        setSubmitState('idle');
+        closeReviewModal();
+        alert('Thank you! Your review has been submitted and is awaiting approval.');
+      }
+    });
   };
   return /*#__PURE__*/React.createElement("section", {
     className: "section"
@@ -2098,11 +2149,19 @@ function Testimonials() {
     style: { fontSize: 13 }
   }, "Write a Review ", /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined", style: { fontSize: 14 }
-  }, "edit")))), /*#__PURE__*/React.createElement("div", {
+  }, "edit"))),
+  onViewAll && /*#__PURE__*/React.createElement("a", {
+    href: "#",
+    onClick: function(e) { e.preventDefault(); onViewAll(); },
+    className: "view-all",
+    style: { fontSize: 13 }
+  }, "All Reviews ", /*#__PURE__*/React.createElement("span", {
+    className: "material-symbols-outlined", style: { fontSize: 14 }
+  }, "arrow_forward")))), /*#__PURE__*/React.createElement("div", {
     className: "testimonials-grid"
-  }, TESTIMONIALS.map(function (t) {
+  }, displayReviews.map(function (t) {
     return /*#__PURE__*/React.createElement("div", {
-      key: t.name,
+      key: t.id || t.name,
       className: "testimonial"
     },
       /*#__PURE__*/React.createElement("div", { className: "quote-mark" }, "“"),
@@ -4242,6 +4301,62 @@ function WishlistPage(_ref19) {
   }))))));
 }
 
+// ===== ALL REVIEWS PAGE =====================================================
+function AllReviewsPage(_ref_ar) {
+  var onBack = _ref_ar.onBack;
+  var _rev = React.useState([]), reviews = _rev[0], setReviews = _rev[1];
+  var _load = React.useState(true), loading = _load[0], setLoading = _load[1];
+
+  React.useEffect(function() {
+    var sb = getSB();
+    if (!sb) { setLoading(false); return; }
+    sb.from('store_reviews')
+      .select('id,reviewer_name,rating,review_text,created_at')
+      .eq('is_approved', true)
+      .order('created_at', { ascending: false })
+      .then(function(res) {
+        if (!res.error && res.data) setReviews(res.data);
+        setLoading(false);
+      });
+  }, []);
+
+  return /*#__PURE__*/React.createElement("div", { className: "section container", style: { minHeight: '60vh', padding: '48px 20px' } },
+    /*#__PURE__*/React.createElement("button", {
+      onClick: onBack,
+      className: "btn btn-ghost",
+      style: { marginBottom: 32, display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13 }
+    }, /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: 16 } }, "arrow_back"), "Back"),
+    /*#__PURE__*/React.createElement("div", { className: "section-head", style: { marginBottom: 36 } },
+      /*#__PURE__*/React.createElement("div", null,
+        /*#__PURE__*/React.createElement("div", { className: "label-tag" }, "Customer Stories"),
+        /*#__PURE__*/React.createElement("h2", null, "All Reviews")
+      )
+    ),
+    loading
+      ? /*#__PURE__*/React.createElement("div", { style: { textAlign: 'center', color: '#5E5B59', padding: '60px 0' } }, "Loading reviews…")
+      : reviews.length === 0
+        ? /*#__PURE__*/React.createElement("div", { style: { textAlign: 'center', color: '#5E5B59', padding: '60px 0' } }, "No reviews yet. Be the first to write one!")
+        : /*#__PURE__*/React.createElement("div", { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 24 } },
+            reviews.map(function(r) {
+              return /*#__PURE__*/React.createElement("div", {
+                key: r.id,
+                style: { background: '#fff', borderRadius: 18, padding: 28, boxShadow: '0 8px 24px -8px rgba(60,40,15,0.10)' }
+              },
+                /*#__PURE__*/React.createElement("div", { style: { fontFamily: '"Crimson Pro",serif', fontSize: 48, lineHeight: 1, color: '#C5A880', opacity: 0.5, marginBottom: 8 } }, "“"),
+                /*#__PURE__*/React.createElement("div", { style: { fontFamily: '"Crimson Pro",serif', fontStyle: 'italic', fontSize: 17, lineHeight: 1.65, color: '#1A1A1A', marginBottom: 16 } }, r.review_text),
+                /*#__PURE__*/React.createElement("div", { style: { display: 'flex', alignItems: 'center', gap: 10, paddingTop: 14, borderTop: '1px solid rgba(197,168,128,0.25)' } },
+                  /*#__PURE__*/React.createElement("div", { style: { width: 34, height: 34, borderRadius: '50%', background: '#E8D9BE', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '"Crimson Pro",serif', fontWeight: 500, color: '#6B4F1F', fontSize: 15 } }, (r.reviewer_name || 'C')[0].toUpperCase()),
+                  /*#__PURE__*/React.createElement("div", null,
+                    /*#__PURE__*/React.createElement("div", { style: { fontWeight: 600, fontSize: 12.5, color: '#1A1A1A' } }, r.reviewer_name || 'Customer'),
+                    /*#__PURE__*/React.createElement("div", { style: { color: '#B89657', fontSize: 10, letterSpacing: '.16em', marginTop: 2 } }, '★'.repeat(r.rating || 5))
+                  )
+                )
+              );
+            })
+          )
+  );
+}
+
 // ===== ABOUT PAGE ===========================================================
 function AboutPage(_ref20) {
   var onShop = _ref20.onShop;
@@ -5528,7 +5643,7 @@ function App() {
       }
     })), /*#__PURE__*/React.createElement("div", {
       className: "reveal"
-    }, /*#__PURE__*/React.createElement(Testimonials, null)), /*#__PURE__*/React.createElement("div", {
+    }, /*#__PURE__*/React.createElement(Testimonials, { onViewAll: function() { return setRoute('reviews'); } })), /*#__PURE__*/React.createElement("div", {
       className: "reveal"
     }, /*#__PURE__*/React.createElement(Instagram, null)), /*#__PURE__*/React.createElement("div", {
       className: "reveal"
@@ -5602,6 +5717,10 @@ function App() {
       onShop: function onShop() {
         return setRoute('shop');
       }
+    });
+  } else if (route === 'reviews') {
+    body = /*#__PURE__*/React.createElement(AllReviewsPage, {
+      onBack: function() { return setRoute('home'); }
     });
   } else if (route === 'about') {
     body = /*#__PURE__*/React.createElement(AboutPage, {

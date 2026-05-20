@@ -505,6 +505,67 @@ async function handleSignUp(e){
       cs.querySelector('.cs-value').textContent = text;
     }
   }
+
+  // ── Admin Reviews ──────────────────────────────────────────────────
+  async function loadAdminReviews() {
+    const status = document.getElementById('review-filter').value;
+    const tbody = document.getElementById('reviews-tbody');
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px;color:#5E5B59">Loading…</td></tr>';
+    try {
+      if (!sb) throw new Error('Admin not initialised');
+      let q = sb.from('store_reviews').select('*').order('created_at', { ascending: false });
+      if (status === 'pending') q = q.eq('is_approved', false);
+      else if (status === 'approved') q = q.eq('is_approved', true);
+      const { data, error } = await q;
+      if (error) throw error;
+      if (!data || data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px;color:#5E5B59">No reviews found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = data.map(r => `
+        <tr>
+          <td style="color:#5E5B59;font-size:12px">${new Date(r.created_at).toLocaleDateString('en-IN')}</td>
+          <td style="font-weight:500">${r.reviewer_name || '—'}</td>
+          <td style="color:#B89657">${'★'.repeat(r.rating || 5)}</td>
+          <td style="max-width:320px;font-size:13px;color:#5E5B59">${r.review_text || ''}</td>
+          <td>
+            ${!r.is_approved ? `<button onclick="approveReview('${r.id}')" style="background:#1A1A1A;color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;margin-right:6px">Approve</button>` : '<span style="color:#25D366;font-size:12px;font-weight:600">✓ Live</span>'}
+            <button onclick="deleteReview('${r.id}')" style="background:rgba(201,56,64,0.08);color:#C03840;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px">Delete</button>
+          </td>
+        </tr>`).join('');
+    } catch(e) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:24px;color:#C03840">Error: ${e.message}</td></tr>`;
+    }
+  }
+
+  async function approveReview(id) {
+    try {
+      if (!sb) throw new Error('Admin not initialised');
+      const { error } = await sb.from('store_reviews').update({ is_approved: true }).eq('id', id);
+      if (error) throw error;
+      loadAdminReviews();
+    } catch(e) { alert('Could not approve: ' + e.message); }
+  }
+
+  async function deleteReview(id) {
+    if (!confirm('Delete this review permanently?')) return;
+    try {
+      if (!sb) throw new Error('Admin not initialised');
+      const { error } = await sb.from('store_reviews').delete().eq('id', id);
+      if (error) throw error;
+      loadAdminReviews();
+    } catch(e) { alert('Could not delete: ' + e.message); }
+  }
+
+  // Load reviews when the reviews page is shown
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new MutationObserver(() => {
+      const page = document.getElementById('page-reviews');
+      if (page && page.style.display !== 'none') loadAdminReviews();
+    });
+    const reviewPage = document.getElementById('page-reviews');
+    if (reviewPage) observer.observe(reviewPage, { attributes: true, attributeFilter: ['style'] });
+  });
 </script>
 </body>
 </html>
