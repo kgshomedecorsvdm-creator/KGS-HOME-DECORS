@@ -2071,35 +2071,9 @@ function Testimonials(_ref_t) {
     _React$useState18 = _slicedToArray(_React$useState17, 2),
     showReviewModal = _React$useState18[0],
     setShowReviewModal = _React$useState18[1];
-  var _liveRev = React.useState(null), liveReviews = _liveRev[0], setLiveReviews = _liveRev[1];
-
-  React.useEffect(function() {
-    var sb = getSB();
-    if (!sb) return;
-    sb.from('store_reviews')
-      .select('*')
-      .eq('is_approved', true)
-      .order('created_at', { ascending: false })
-      .limit(6)
-      .then(function(res) {
-        // Silently fall back to hardcoded if 401/403 (RLS blocks anon) or empty
-        if (!res.error && res.data && res.data.length > 0) {
-          setLiveReviews(res.data);
-        }
-      }).catch(function() { /* silently use hardcoded fallback */ });
-  }, []);
-
-  var displayReviews = liveReviews
-    ? liveReviews.slice(0, 3).map(function(r) {
-        return {
-          name: r.reviewer_name || 'Customer',
-          initial: (r.reviewer_name || 'C')[0].toUpperCase(),
-          stars: r.rating || 5,
-          quote: r.review_text,
-          id: r.id
-        };
-      })
-    : TESTIMONIALS;
+  // Use hardcoded testimonials — live fetch skipped until Supabase RLS
+  // policy "Public can read approved reviews" is added for anon role
+  var displayReviews = TESTIMONIALS;
   var openReviewModal = function openReviewModal() {
     setShowReviewModal(true);
     document.body.style.overflow = 'hidden';
