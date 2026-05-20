@@ -2172,6 +2172,9 @@
       color: #1A1A1A;
     }
 
+    /* Policy strip — hidden on desktop, shown on mobile */
+    .footer-policy-strip { display: none; }
+
     .footer-pay {
       display: flex;
       gap: 8px;
@@ -3368,6 +3371,45 @@
       .footer-col:last-child ul { align-items: center; }
       .footer-col:last-child h4 { text-align: center; }
       .footer-pay { justify-content: center; }
+
+      /* Policy strip — mobile only */
+      .footer-policy-strip {
+        display: block;
+        margin-top: 32px;
+        padding: 24px 0;
+        border-top: 1px solid rgba(255,255,255,0.07);
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        text-align: center;
+      }
+      .footer-policy-strip__label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.35);
+        margin-bottom: 16px;
+      }
+      .footer-policy-strip__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 16px;
+      }
+      .footer-policy-strip__grid a {
+        font-size: 13px;
+        color: rgba(255,255,255,0.65);
+        font-family: 'Jost', sans-serif;
+        padding: 10px 14px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.08);
+        transition: background 200ms ease, color 200ms ease;
+        text-align: center;
+      }
+      .footer-policy-strip__grid a:hover,
+      .footer-policy-strip__grid a:active {
+        background: rgba(197,168,128,0.12);
+        color: #C5A880;
+      }
 
       /* Footer bottom: centred, links in a wrapping row */
       .footer-bottom {
