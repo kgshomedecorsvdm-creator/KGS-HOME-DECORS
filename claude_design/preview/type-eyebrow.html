@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Eyebrow / Overline</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+  .eb-card {
+    background: linear-gradient(180deg, #FDF9F3 0%, #F8F1E6 100%);
+    padding: 26px 32px;
+    display: block;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 36px;
+    width: 100%;
+  }
+
+  .cell {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 16px 16px;
+    border-radius: 4px;
+    position: relative;
+  }
+  /* Hairline gold tick — like a tab marker on each specimen */
+  .cell::before {
+    content: '';
+    position: absolute;
+    top: 14px; left: 0;
+    width: 2px; height: 18px;
+    background: rgba(197,168,128,0.5);
+  }
+
+  .cell--surface { background: #FDF9F3; border: 1px solid rgba(26,26,26,0.05); }
+  .cell--tint    { background: #F3EDE4; border: 1px solid rgba(197,168,128,0.30); }
+  .cell--ink     { background: #1A1A1A; border: 1px solid rgba(0,0,0,0.5); }
+  .cell--ink::before { background: rgba(197,168,128,0.7); }
+
+  .eb {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+  }
+
+  .heading {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 19px;
+    line-height: 1.15;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    margin: 0;
+  }
+  .heading--light { color: #fff; }
+
+  .micro {
+    font-family: var(--font-sans);
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: .02em;
+    color: var(--muted);
+    display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  }
+  .micro b { color: var(--ink); font-weight: 600; }
+  .micro--light b { color: rgba(255,255,255,0.85); }
+  .micro--light { color: rgba(255,255,255,0.5); }
+
+  .role {
+    font-family: var(--font-sans);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .role--light { color: rgba(255,255,255,0.45); }
+
+  .head-row {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .head-row .cap {
+    font-family: var(--font-sans);
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--label);
+  }
+  .head-row em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 12px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+<div class="card eb-card">
+  <div class="head-row">
+    <span class="cap">Eyebrow · Overline</span>
+    <em>11 / 600 / .22em · always before a heading</em>
+  </div>
+
+  <div class="grid">
+
+    <!-- Amber on warm — the default ecommerce variant -->
+    <div class="cell cell--surface">
+      <div class="eb" style="color:#7A5C1E">Collections</div>
+      <h3 class="heading">Shop by Category</h3>
+      <div class="role">Default · on Surface</div>
+    </div>
+
+    <!-- Gold on tint — for storytelling sections -->
+    <div class="cell cell--tint">
+      <div class="eb" style="color:#A0824A">Our Story</div>
+      <h3 class="heading">Built for the Homes of Virudhachalam</h3>
+      <div class="role">Storytelling · on Tint</div>
+    </div>
+
+    <!-- Ink eyebrow chip (rare, "come visit us" style) -->
+    <div class="cell cell--surface">
+      <span class="eb" style="background:#1A1A1A;color:#C5A880;padding:5px 10px;align-self:flex-start;letter-spacing:.25em">Come Visit Us</span>
+      <h3 class="heading">Our Showroom is Open Every Day</h3>
+      <div class="role">Chip eyebrow · Ink fill</div>
+    </div>
+
+    <!-- Gold on ink — used inside dark panels (footer CTA) -->
+    <div class="cell cell--ink">
+      <div class="eb" style="color:#C5A880">Come Visit Us</div>
+      <h3 class="heading heading--light">10 AM — 10 PM, Every Day</h3>
+      <div class="role role--light">On Dark Panel · Footer CTA</div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:14px;display:flex;gap:18px;flex-wrap:wrap;font-size:10px;color:var(--muted)">
+    <span><b style="color:var(--ink);font-weight:600">Color</b> #7A5C1E label · #C5A880 gold · #A0824A on tint</span>
+    <span><b style="color:var(--ink);font-weight:600">Pair</b> always preceded by a serif heading 1–3 lines below</span>
+    <span><b style="color:var(--ink);font-weight:600">Length</b> 1–4 words, Title Case or all caps</span>
+  </div>
+</div>
+</body>
+</html>

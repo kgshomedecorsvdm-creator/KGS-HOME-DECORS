@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Iconography</title>
+<link rel="stylesheet" href="_card.css">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>
+  .icon-card {
+    background: linear-gradient(180deg, #FDF9F3 0%, #F3EDE4 100%);
+    padding: 24px 28px;
+    display: block;
+  }
+  .head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 14px; padding-bottom: 12px;
+    border-bottom: 1px solid rgba(197,168,128,0.30);
+  }
+  .head .cap {
+    font-family: var(--font-sans); font-size: 10px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase; color: var(--label);
+  }
+  .head em { font-family: var(--font-serif); font-style: italic; font-size: 12.5px; color: var(--muted); }
+
+  /* === Weight ladder === */
+  .ladder {
+    display: grid;
+    grid-template-columns: 80px repeat(5, 1fr);
+    gap: 16px;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed rgba(197,168,128,0.25);
+    margin-bottom: 16px;
+  }
+  .ladder .label {
+    font-family: var(--font-sans);
+    font-size: 9.5px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--label);
+  }
+  .ladder .wt {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    color: var(--ink);
+  }
+  .ladder .wt .material-symbols-outlined { font-size: 26px; }
+  .ladder .wt .num {
+    font-family: ui-monospace, monospace;
+    font-size: 9px; color: var(--muted);
+  }
+  .ladder .wt .num b { color: var(--ink); font-weight: 600; }
+  .ladder .wt.active .material-symbols-outlined { color: var(--gold-dark, #8E7449); }
+  .ladder .wt.active .num b { color: var(--gold-dark, #8E7449); }
+
+  /* === Library grid === */
+  .lib {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 8px;
+  }
+  .ig {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 12px 6px 10px;
+    background: #fff;
+    border: 1px solid rgba(197,168,128,0.20);
+    border-radius: 4px;
+    gap: 6px;
+    transition: all 200ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .ig:hover {
+    border-color: rgba(197,168,128,0.55);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px -8px rgba(120,90,40,0.30);
+  }
+  .ig .material-symbols-outlined {
+    font-size: 22px;
+    color: var(--ink);
+    font-variation-settings: 'wght' 200;
+  }
+  .ig .name {
+    font-family: ui-monospace, monospace;
+    font-size: 8px; color: var(--muted);
+    letter-spacing: .02em;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  /* === Variant strip — sizes / fills / colors === */
+  .variants {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed rgba(197,168,128,0.25);
+  }
+  .var {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .var .ttl {
+    font-family: var(--font-sans);
+    font-size: 9px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--label);
+  }
+  .var .demo {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--ink);
+  }
+  .var .demo .material-symbols-outlined { font-variation-settings: 'wght' 200; }
+  .var .lbl { font-family: ui-monospace, monospace; font-size: 9px; color: var(--muted); }
+
+  .fill-on { font-variation-settings: 'FILL' 1, 'wght' 300 !important; color: #C97840 !important; }
+  .fill-gd { color: #C5A880 !important; }
+  .fill-success { color: #25D366 !important; font-variation-settings: 'FILL' 1, 'wght' 300 !important; }
+</style>
+</head>
+<body>
+<div class="card icon-card">
+  <div class="head">
+    <span class="cap">Iconography · Material Symbols Outlined</span>
+    <em>weight 200 · 24px · default fill 0</em>
+  </div>
+
+  <!-- Weight ladder -->
+  <div class="ladder">
+    <span class="label">Weights</span>
+    <div class="wt"><span class="material-symbols-outlined" style="font-variation-settings:'wght' 100">favorite</span><span class="num"><b>100</b></span></div>
+    <div class="wt active"><span class="material-symbols-outlined" style="font-variation-settings:'wght' 200">favorite</span><span class="num"><b>200</b> · default</span></div>
+    <div class="wt"><span class="material-symbols-outlined" style="font-variation-settings:'wght' 300">favorite</span><span class="num"><b>300</b></span></div>
+    <div class="wt"><span class="material-symbols-outlined" style="font-variation-settings:'wght' 400">favorite</span><span class="num"><b>400</b></span></div>
+    <div class="wt"><span class="material-symbols-outlined" style="font-variation-settings:'wght' 500">favorite</span><span class="num"><b>500</b></span></div>
+  </div>
+
+  <!-- Library -->
+  <div class="lib">
+    <div class="ig"><span class="material-symbols-outlined">search</span><span class="name">search</span></div>
+    <div class="ig"><span class="material-symbols-outlined">person</span><span class="name">person</span></div>
+    <div class="ig"><span class="material-symbols-outlined">favorite</span><span class="name">favorite</span></div>
+    <div class="ig"><span class="material-symbols-outlined">shopping_bag</span><span class="name">shopping_bag</span></div>
+    <div class="ig"><span class="material-symbols-outlined">menu</span><span class="name">menu</span></div>
+    <div class="ig"><span class="material-symbols-outlined">close</span><span class="name">close</span></div>
+    <div class="ig"><span class="material-symbols-outlined">arrow_forward</span><span class="name">arrow_forward</span></div>
+    <div class="ig"><span class="material-symbols-outlined">expand_more</span><span class="name">expand_more</span></div>
+    <div class="ig"><span class="material-symbols-outlined">payments</span><span class="name">payments</span></div>
+    <div class="ig"><span class="material-symbols-outlined">local_shipping</span><span class="name">local_shipping</span></div>
+    <div class="ig"><span class="material-symbols-outlined">replay</span><span class="name">replay</span></div>
+    <div class="ig"><span class="material-symbols-outlined">support_agent</span><span class="name">support_agent</span></div>
+    <div class="ig"><span class="material-symbols-outlined">star</span><span class="name">star</span></div>
+    <div class="ig"><span class="material-symbols-outlined">verified</span><span class="name">verified</span></div>
+    <div class="ig"><span class="material-symbols-outlined">storefront</span><span class="name">storefront</span></div>
+    <div class="ig"><span class="material-symbols-outlined">location_on</span><span class="name">location_on</span></div>
+    <div class="ig"><span class="material-symbols-outlined">schedule</span><span class="name">schedule</span></div>
+    <div class="ig"><span class="material-symbols-outlined">directions</span><span class="name">directions</span></div>
+    <div class="ig"><span class="material-symbols-outlined">call</span><span class="name">call</span></div>
+    <div class="ig"><span class="material-symbols-outlined">chat</span><span class="name">chat</span></div>
+    <div class="ig"><span class="material-symbols-outlined">lock</span><span class="name">lock</span></div>
+    <div class="ig"><span class="material-symbols-outlined">check_circle</span><span class="name">check_circle</span></div>
+    <div class="ig"><span class="material-symbols-outlined">shield</span><span class="name">shield</span></div>
+    <div class="ig"><span class="material-symbols-outlined">public</span><span class="name">public</span></div>
+  </div>
+
+  <!-- Variants -->
+  <div class="variants">
+    <div class="var">
+      <span class="ttl">Sizes</span>
+      <div class="demo">
+        <span class="material-symbols-outlined" style="font-size:13px">favorite</span>
+        <span class="material-symbols-outlined" style="font-size:18px">favorite</span>
+        <span class="material-symbols-outlined" style="font-size:22px">favorite</span>
+        <span class="material-symbols-outlined" style="font-size:32px">favorite</span>
+        <span class="lbl" style="margin-left:auto">13 · 18 · 22 · 32</span>
+      </div>
+    </div>
+    <div class="var">
+      <span class="ttl">Fill</span>
+      <div class="demo">
+        <span class="material-symbols-outlined">favorite</span>
+        <span class="material-symbols-outlined fill-on">favorite</span>
+        <span class="lbl" style="margin-left:auto">outline → active</span>
+      </div>
+    </div>
+    <div class="var">
+      <span class="ttl">Color roles</span>
+      <div class="demo">
+        <span class="material-symbols-outlined">favorite</span>
+        <span class="material-symbols-outlined fill-gd">verified</span>
+        <span class="material-symbols-outlined fill-on">favorite</span>
+        <span class="material-symbols-outlined fill-success">check_circle</span>
+        <span class="lbl" style="margin-left:auto">ink · gold · warm · success</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

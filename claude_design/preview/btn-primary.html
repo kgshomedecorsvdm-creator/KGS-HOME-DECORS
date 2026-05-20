@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Primary button</title>
+<link rel="stylesheet" href="_card.css">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<style>
+  .btn-card {
+    background: linear-gradient(180deg, #FDF9F3 0%, #F3EDE4 100%);
+    padding: 26px 30px;
+    display: block;
+  }
+  .head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 18px; padding-bottom: 12px;
+    border-bottom: 1px solid rgba(197,168,128,0.30);
+  }
+  .head .cap {
+    font-family: var(--font-sans); font-size: 10px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase; color: var(--label);
+  }
+  .head em { font-family: var(--font-serif); font-style: italic; font-size: 12.5px; color: var(--muted); }
+
+  .row { display: grid; grid-template-columns: 96px 1fr; gap: 22px; align-items: center; padding: 12px 0; }
+  .row + .row { border-top: 1px dashed rgba(197,168,128,0.25); }
+  .state {
+    font-family: var(--font-sans); font-size: 9.5px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase; color: var(--label);
+  }
+  .stage { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+
+  /* ====== Premium primary CTA ====== */
+  /* No big shadow. Hairline darker border. Slow elegant transition.
+     Arrow "reveals" on hover via a sliding underline-like pattern. */
+  .btn {
+    position: relative;
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 15px 30px;
+    background: #C97840; color: #fff;
+    font-family: 'Jost', sans-serif;
+    font-size: 10.5px; font-weight: 600;
+    letter-spacing: .22em; text-transform: uppercase;
+    border: 1px solid #B86C39;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.10) inset,
+      0 -1px 0 rgba(0,0,0,0.12) inset;
+    transition: all 500ms cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .btn .label { position: relative; z-index: 2; transition: transform 500ms cubic-bezier(0.25, 1, 0.5, 1); }
+  .btn .arrow {
+    position: relative; z-index: 2;
+    width: 16px; height: 12px; overflow: hidden;
+    display: inline-block;
+  }
+  .btn .arrow span {
+    position: absolute; left: 0; top: 0;
+    display: inline-flex; transition: transform 500ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .btn .arrow .material-symbols-outlined { font-size: 14px; }
+
+  /* hairline accent line that crosses the button on hover */
+  .btn::before {
+    content: ''; position: absolute; left: 0; right: 0; top: 50%;
+    height: 1px; background: rgba(255,255,255,0.20);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 500ms cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 1;
+  }
+
+  /* States */
+  .btn-hover {
+    background: #B36732; border-color: #934F25;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.10) inset,
+      0 -1px 0 rgba(0,0,0,0.15) inset,
+      0 14px 26px -14px rgba(120, 60, 20, 0.40);
+  }
+  .btn-hover::before { transform: scaleX(1); }
+  .btn-hover .label { transform: translateX(-4px); }
+  .btn-hover .arrow span { transform: translateX(2px); }
+
+  .btn-press {
+    transform: scale(0.97);
+    background: #A05D2A; border-color: #864B22;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.10) inset,
+      0 -1px 0 rgba(0,0,0,0.20) inset;
+  }
+  .btn-disabled {
+    background: rgba(201,120,64,0.18);
+    border-color: rgba(201,120,64,0.20);
+    color: rgba(26,26,26,0.35);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  /* Size variants */
+  .btn-sm { padding: 10px 22px; font-size: 9.5px; letter-spacing: .20em; gap: 9px; }
+  .btn-sm .arrow { width: 13px; height: 11px; }
+  .btn-sm .arrow .material-symbols-outlined { font-size: 12px; }
+  .btn-xl { padding: 19px 40px; font-size: 11.5px; letter-spacing: .24em; gap: 14px; }
+  .btn-xl .arrow .material-symbols-outlined { font-size: 16px; }
+
+  /* Ink alt */
+  .btn-ink {
+    background: linear-gradient(180deg, #232120, #1A1A1A);
+    border-color: #0c0c0c;
+  }
+  .btn-ink.btn-hover {
+    background: linear-gradient(180deg, #2d2a28, #0f0f0f);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.06) inset,
+      0 14px 26px -14px rgba(0,0,0,0.55);
+  }
+
+  .spec {
+    display: flex; gap: 18px; flex-wrap: wrap;
+    margin-top: 14px; padding-top: 12px;
+    border-top: 1px solid rgba(197,168,128,0.30);
+    font-family: ui-monospace, monospace; font-size: 10px; color: var(--muted);
+  }
+  .spec b { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="card btn-card">
+  <div class="head">
+    <span class="cap">Primary · Terracotta</span>
+    <em>quiet weight · slow reveal · no glossy shadow</em>
+  </div>
+
+  <div class="row">
+    <span class="state">Default</span>
+    <div class="stage">
+      <button class="btn"><span class="label">Shop the Collection</span><span class="arrow"><span><span class="material-symbols-outlined">arrow_forward</span></span></span></button>
+      <button class="btn btn-ink"><span class="label">Reserve in Showroom</span><span class="arrow"><span><span class="material-symbols-outlined">arrow_forward</span></span></span></button>
+    </div>
+  </div>
+  <div class="row">
+    <span class="state">Hover</span>
+    <div class="stage">
+      <button class="btn btn-hover"><span class="label">Shop the Collection</span><span class="arrow"><span><span class="material-symbols-outlined">arrow_forward</span></span></span></button>
+      <button class="btn btn-ink btn-hover"><span class="label">Reserve in Showroom</span><span class="arrow"><span><span class="material-symbols-outlined">arrow_forward</span></span></span></button>
+    </div>
+  </div>
+  <div class="row">
+    <span class="state">Pressed</span>
+    <div class="stage">
+      <button class="btn btn-press"><span class="label">Shop the Collection</span><span class="arrow"><span><span class="material-symbols-outlined">arrow_forward</span></span></span></button>
+    </div>
+  </div>
+  <div class="row">
+    <span class="state">Sizes</span>
+    <div class="stage">
+      <button class="btn btn-sm"><span class="label">Quick Add</span><span class="arrow"><span><span class="material-symbols-outlined">arrow_forward</span></span></span></button>
+      <button class="btn"><span class="label">Add to Cart</span><span class="arrow"><span><span class="material-symbols-outlined">arrow_forward</span></span></span></button>
+      <button class="btn btn-xl"><span class="label">Complete Purchase</span><span class="arrow"><span><span class="material-symbols-outlined">arrow_forward</span></span></span></button>
+    </div>
+  </div>
+  <div class="row">
+    <span class="state">Disabled</span>
+    <div class="stage">
+      <button class="btn btn-disabled"><span class="label">Out of Stock</span></button>
+    </div>
+  </div>
+
+  <div class="spec">
+    <span><b>Fill</b> #C97840 → #B36732</span>
+    <span><b>Border</b> #B86C39 hairline</span>
+    <span><b>Inset</b> 1px white-10% top · 1px black-12% bottom</span>
+    <span><b>Type</b> Jost 600 · 10.5 · .22em</span>
+    <span><b>Ease</b> --ease-cta · 500ms</span>
+  </div>
+</div>
+</body>
+</html>
