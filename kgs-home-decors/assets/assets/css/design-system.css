@@ -1,0 +1,260 @@
+/* 
+  KGS HOME DECORS — PREMIUM DESIGN SYSTEM 
+  Based on Emil Kowalski UI Physics and High-End Minimalist Aesthetics 
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Emil Kowalski physics */
+  --ease-out-punch: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in-out-smooth: cubic-bezier(0.77, 0, 0.175, 1);
+  
+  /* Double Bezel geometry */
+  --radius-outer: 1.5rem; /* 24px */
+  --radius-inner: calc(1.5rem - 0.375rem);
+}
+
+/* ——— BASE RESETS & SMOOTH SCROLL —————————— */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #F9F6F0; /* Timeless Neutral Base */
+  color: #1A1A1A;
+}
+::selection { background: #1A1A1A; color: #fff; }
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; }
+
+/* ——— LENIS REQUIRED ———————————————— */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
+/* ——— BUTTON ARCHITECTURE (EMIL KOWALSKI STYLE) ————— */
+
+/* Primary Button: Sophisticated, minimal, luxury-brand feel (Ink Black) */
+.btn-primary {
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 8px;
+  padding: 14px 32px; 
+  background: #1A1A1A; 
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif; 
+  font-size: 12px; 
+  font-weight: 600;
+  letter-spacing: .12em; 
+  text-transform: uppercase; 
+  text-decoration: none;
+  border-radius: 4px; /* Sharp but slightly softened */
+  border: 1px solid #1A1A1A;
+  cursor: pointer;
+  transition: transform 160ms var(--ease-out-punch), opacity 200ms ease, box-shadow 300ms ease;
+  will-change: transform;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover { 
+    opacity: 0.92;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px -8px rgba(26,26,26,0.3);
+  }
+}
+.btn-primary:active { 
+  transform: scale(0.97); /* Haptic press feedback */
+  opacity: 1;
+  box-shadow: 0 2px 4px rgba(26,26,26,0.1); 
+}
+
+/* Secondary Button: Outline */
+.btn-secondary {
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 8px;
+  padding: 14px 32px; 
+  background: transparent; 
+  color: #1A1A1A;
+  font-family: 'Inter', sans-serif; 
+  font-size: 12px; 
+  font-weight: 600;
+  letter-spacing: .12em; 
+  text-transform: uppercase; 
+  text-decoration: none;
+  border-radius: 4px;
+  border: 1px solid rgba(26,26,26,0.2); 
+  cursor: pointer;
+  transition: transform 160ms var(--ease-out-punch), border-color 200ms ease, background 200ms ease;
+  will-change: transform;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-secondary:hover { 
+    border-color: #1A1A1A; 
+    color: #1A1A1A;
+    background: rgba(26,26,26,0.02);
+  }
+}
+.btn-secondary:active { transform: scale(0.97); }
+
+/* Conversion Button (Add to Cart only) - Terracotta/Warm Orange */
+.btn-conversion {
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  width: 100%;
+  gap: 8px;
+  padding: 16px 24px; 
+  background: #C97840; 
+  color: #fff;
+  font-family: 'Inter', sans-serif; 
+  font-size: 12px; 
+  font-weight: 600;
+  letter-spacing: .12em; 
+  text-transform: uppercase; 
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 160ms var(--ease-out-punch), opacity 200ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-conversion:hover { opacity: 0.9; transform: translateY(-1px); }
+}
+.btn-conversion:active { transform: scale(0.97); }
+
+/* ——— NAV LINKS & DRAWER ———————————————— */
+.nav-link {
+  position: relative; 
+  color: #5E5B59;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; 
+  font-weight: 500; 
+  letter-spacing: .08em;
+  text-transform: uppercase; 
+  text-decoration: none;
+  transition: color 160ms var(--ease-out-punch);
+}
+.nav-link::after {
+  content: ''; 
+  position: absolute; 
+  left: 0; 
+  bottom: -4px;
+  width: 0; 
+  height: 1px; 
+  background: #1A1A1A;
+  transition: width 250ms var(--ease-out-punch);
+}
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover { color: #1A1A1A; }
+  .nav-link:hover::after { width: 100%; }
+}
+
+#mobile-drawer { transition: transform 400ms var(--ease-drawer); }
+
+/* ——— SKELETON LOADING (SHIMMER) ————————— */
+.skel { 
+  position: relative; 
+  overflow: hidden; 
+  background: rgba(26,26,26,0.04); 
+  border-radius: 4px; 
+}
+.skel::after { 
+  content: ''; 
+  position: absolute; 
+  inset: 0; 
+  transform: translateX(-100%); 
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%); 
+  animation: shimmer 1.4s ease-in-out infinite; 
+  will-change: transform; 
+}
+@keyframes shimmer { to { transform: translateX(100%); } }
+
+/* ——— PRODUCT CARD (BENTO/MINIMALIST) ————— */
+.prod-card {
+  position: relative;
+  background: #FFFFFF; /* nested pure white inside F9F6F0 */
+  border-radius: 8px; /* High-end subtle rounding */
+  border: 1px solid rgba(26,26,26,0.04);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.01);
+  overflow: hidden;
+  transition: transform 300ms var(--ease-out-punch), box-shadow 300ms ease;
+  will-change: transform;
+}
+@media (hover: hover) and (pointer: fine) {
+  .prod-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px -12px rgba(0,0,0,0.06);
+  }
+  .prod-card:hover .prod-img { transform: scale(1.04); }
+}
+
+.prod-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1; /* Enforce square images for grid stability */
+  background: #F3EDE4; /* Subtle Oat placeholder background */
+  overflow: hidden;
+}
+.prod-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms var(--ease-out-punch);
+}
+
+.prod-info {
+  padding: 20px;
+  text-align: left;
+}
+
+/* Wishlist Heart Button inside Card */
+.heart-btn {
+  position: absolute; 
+  top: 12px; 
+  right: 12px; 
+  z-index: 10; 
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(4px);
+  width: 32px; 
+  height: 32px; 
+  border-radius: 50%; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  cursor: pointer; 
+  transition: transform 160ms var(--ease-out-punch); 
+  border: 1px solid rgba(26,26,26,0.05);
+}
+@media (hover: hover) and (pointer: fine) { 
+  .heart-btn:hover { transform: scale(1.1); } 
+}
+.heart-btn:active { transform: scale(0.9); }
+.heart-btn.active .material-symbols-outlined { font-variation-settings: 'FILL' 1; color: #1A1A1A; }
+
+/* Announcement Bar */
+.announcement-bar {
+  background: #1A1A1A;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 8px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Search Overlay */
+#search-overlay {
+  transition: opacity 300ms var(--ease-out-punch);
+}
+
+/* Scroll Reveals */
+.gsap-rv, .gsap-hero-el, .gsap-trust { opacity: 0; visibility: hidden; }
+
+/* Utilities */
+.text-label { color: #7A5C1E; } /* WCAG AA accessible */
