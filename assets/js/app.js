@@ -2069,9 +2069,19 @@ function Testimonials() {
     _React$useState18 = _slicedToArray(_React$useState17, 2),
     showReviewModal = _React$useState18[0],
     setShowReviewModal = _React$useState18[1];
+  var openReviewModal = function openReviewModal() {
+    setShowReviewModal(true);
+    document.body.style.overflow = 'hidden';
+    if (window._lenis) window._lenis.stop();
+  };
+  var closeReviewModal = function closeReviewModal() {
+    setShowReviewModal(false);
+    document.body.style.overflow = '';
+    if (window._lenis) window._lenis.start();
+  };
   var handleSubmitReview = function handleSubmitReview(e) {
     e.preventDefault();
-    setShowReviewModal(false);
+    closeReviewModal();
     alert("Thank you! Your review has been successfully submitted to the admin portal for approval.");
   };
   return /*#__PURE__*/React.createElement("section", {
@@ -2090,7 +2100,7 @@ function Testimonials() {
     }
   }, /*#__PURE__*/React.createElement("a", {
     href: "#",
-    onClick: function onClick(e) { e.preventDefault(); setShowReviewModal(true); },
+    onClick: function onClick(e) { e.preventDefault(); openReviewModal(); },
     className: "view-all",
     style: { fontSize: 13 }
   }, "Write a Review ", /*#__PURE__*/React.createElement("span", {
@@ -2131,13 +2141,13 @@ function Testimonials() {
       borderRadius: 24,
       width: '100%',
       maxWidth: 480,
+      maxHeight: '90vh',
+      overflowY: 'auto',
       position: 'relative',
       boxShadow: '0 24px 48px -12px rgba(0,0,0,0.2)'
     }
   }, /*#__PURE__*/React.createElement("button", {
-    onClick: function onClick() {
-      return setShowReviewModal(false);
-    },
+    onClick: function onClick() { return closeReviewModal(); },
     style: {
       position: 'absolute',
       right: 20,
