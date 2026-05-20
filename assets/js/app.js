@@ -27,252 +27,103 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 function AccountLoginPage(_ref) {
   var onRegister = _ref.onRegister,
     onLogin = _ref.onLogin;
+  var _es = React.useState(''), email = _es[0], setEmail = _es[1];
+  var _ps = React.useState(''), password = _ps[0], setPassword = _ps[1];
+  var _ls = React.useState(false), loading = _ls[0], setLoading = _ls[1];
+  var _err = React.useState(''), error = _err[0], setError = _err[1];
+
+  var handleSubmit = function() {
+    if (!email || !password) { setError('Please enter your email and password.'); return; }
+    setLoading(true); setError('');
+    onLogin(email, password).catch(function(e) {
+      setError(e.message || 'Sign in failed. Check your credentials and try again.');
+      setLoading(false);
+    });
+  };
+
+  var inputStyle = { width: '100%', padding: '14px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: '8px', fontSize: '14px', fontFamily: '"Jost", sans-serif', boxSizing: 'border-box' };
+
   return /*#__PURE__*/React.createElement("div", {
     className: "section",
-    style: {
-      minHeight: '60vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }
+    style: { minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }
   }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: '#fff',
-      padding: '48px',
-      borderRadius: '24px',
-      width: '100%',
-      maxWidth: '440px',
-      boxShadow: '0 20px 40px -10px rgba(0,0,0,0.05)'
-    }
-  }, /*#__PURE__*/React.createElement("h1", {
-    style: {
-      fontFamily: '"Crimson Pro", serif',
-      fontSize: '32px',
-      marginBottom: '8px',
-      color: '#1A1A1A'
-    }
-  }, "Welcome Back"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: '#5E5B59',
-      fontSize: '14px',
-      marginBottom: '32px'
-    }
-  }, "Sign in to access your orders, saved items, and personalized recommendations."), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginBottom: '20px'
-    }
-  }, /*#__PURE__*/React.createElement("label", {
-    style: {
-      display: 'block',
-      fontSize: '12px',
-      fontWeight: 600,
-      color: '#5E5B59',
-      marginBottom: '8px'
-    }
-  }, "Email Address"), /*#__PURE__*/React.createElement("input", {
-    type: "email",
-    placeholder: "Enter your email",
-    style: {
-      width: '100%',
-      padding: '14px',
-      border: '1px solid rgba(26,26,26,0.15)',
-      borderRadius: '8px',
-      fontSize: '14px',
-      fontFamily: '"Jost", sans-serif'
-    }
-  })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginBottom: '24px'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      marginBottom: '8px'
-    }
-  }, /*#__PURE__*/React.createElement("label", {
-    style: {
-      fontSize: '12px',
-      fontWeight: 600,
-      color: '#5E5B59'
-    }
-  }, "Password"), /*#__PURE__*/React.createElement("a", {
-    href: "#",
-    style: {
-      fontSize: '12px',
-      color: '#B89657',
-      fontWeight: 500
-    }
-  }, "Forgot?")), /*#__PURE__*/React.createElement("input", {
-    type: "password",
-    placeholder: "Enter your password",
-    style: {
-      width: '100%',
-      padding: '14px',
-      border: '1px solid rgba(26,26,26,0.15)',
-      borderRadius: '8px',
-      fontSize: '14px',
-      fontFamily: '"Jost", sans-serif'
-    }
-  })), /*#__PURE__*/React.createElement("button", {
-    onClick: onLogin,
-    className: "btn btn-dark",
-    style: {
-      width: '100%',
-      padding: '16px',
-      fontSize: '14px',
-      marginBottom: '24px'
-    }
-  }, "Sign In"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      textAlign: 'center',
-      fontSize: '13px',
-      color: '#5E5B59'
-    }
-  }, "Don't have an account? ", /*#__PURE__*/React.createElement("a", {
-    href: "#",
-    onClick: function onClick(e) {
-      e.preventDefault();
-      onRegister();
-    },
-    style: {
-      color: '#1A1A1A',
-      fontWeight: 600
-    }
-  }, "Create one"))));
+    style: { background: '#fff', padding: '48px', borderRadius: '24px', width: '100%', maxWidth: '440px', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.05)' }
+  },
+    /*#__PURE__*/React.createElement("h1", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '32px', marginBottom: '8px', color: '#1A1A1A' } }, "Welcome Back"),
+    /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '32px' } }, "Sign in to access your orders, saved items, and personalized recommendations."),
+    error && /*#__PURE__*/React.createElement("div", { style: { background: 'rgba(201,120,64,0.08)', color: '#C97840', fontSize: '13px', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px' } }, error),
+    /*#__PURE__*/React.createElement("div", { style: { marginBottom: '20px' } },
+      /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Email Address"),
+      /*#__PURE__*/React.createElement("input", { type: "email", placeholder: "Enter your email", value: email, onChange: function(e) { setEmail(e.target.value); }, style: inputStyle })
+    ),
+    /*#__PURE__*/React.createElement("div", { style: { marginBottom: '24px' } },
+      /*#__PURE__*/React.createElement("div", { style: { display: 'flex', justifyContent: 'space-between', marginBottom: '8px' } },
+        /*#__PURE__*/React.createElement("label", { style: { fontSize: '12px', fontWeight: 600, color: '#5E5B59' } }, "Password"),
+        /*#__PURE__*/React.createElement("a", { href: "#", style: { fontSize: '12px', color: '#B89657', fontWeight: 500 } }, "Forgot?")
+      ),
+      /*#__PURE__*/React.createElement("input", { type: "password", placeholder: "Enter your password", value: password, onChange: function(e) { setPassword(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: inputStyle })
+    ),
+    /*#__PURE__*/React.createElement("button", { onClick: handleSubmit, disabled: loading, className: "btn btn-dark", style: { width: '100%', padding: '16px', fontSize: '14px', marginBottom: '24px', opacity: loading ? 0.7 : 1 } }, loading ? "Signing in…" : "Sign In"),
+    /*#__PURE__*/React.createElement("div", { style: { textAlign: 'center', fontSize: '13px', color: '#5E5B59' } },
+      "Don't have an account? ",
+      /*#__PURE__*/React.createElement("a", { href: "#", onClick: function(e) { e.preventDefault(); onRegister(); }, style: { color: '#1A1A1A', fontWeight: 600 } }, "Create one")
+    )
+  ));
 }
 function AccountRegisterPage(_ref2) {
   var onLogin = _ref2.onLogin,
     onRegister = _ref2.onRegister;
+  var _fn = React.useState(''), fullName = _fn[0], setFullName = _fn[1];
+  var _es = React.useState(''), email = _es[0], setEmail = _es[1];
+  var _ps = React.useState(''), password = _ps[0], setPassword = _ps[1];
+  var _ls = React.useState(false), loading = _ls[0], setLoading = _ls[1];
+  var _err = React.useState(''), error = _err[0], setError = _err[1];
+
+  var handleSubmit = function() {
+    if (!fullName || !email || !password) { setError('Please fill in all fields.'); return; }
+    if (password.length < 6) { setError('Password must be at least 6 characters.'); return; }
+    setLoading(true); setError('');
+    onRegister(email, password, fullName).catch(function(e) {
+      setError(e.message || 'Registration failed. Please try again.');
+      setLoading(false);
+    });
+  };
+
+  var inputStyle = { width: '100%', padding: '14px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: '8px', fontSize: '14px', fontFamily: '"Jost", sans-serif', boxSizing: 'border-box' };
+
   return /*#__PURE__*/React.createElement("div", {
     className: "section",
-    style: {
-      minHeight: '60vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }
+    style: { minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }
   }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: '#fff',
-      padding: '48px',
-      borderRadius: '24px',
-      width: '100%',
-      maxWidth: '440px',
-      boxShadow: '0 20px 40px -10px rgba(0,0,0,0.05)'
-    }
-  }, /*#__PURE__*/React.createElement("h1", {
-    style: {
-      fontFamily: '"Crimson Pro", serif',
-      fontSize: '32px',
-      marginBottom: '8px',
-      color: '#1A1A1A'
-    }
-  }, "Create Account"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: '#5E5B59',
-      fontSize: '14px',
-      marginBottom: '32px'
-    }
-  }, "Join us for exclusive access to new collections and priority support."), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginBottom: '20px'
-    }
-  }, /*#__PURE__*/React.createElement("label", {
-    style: {
-      display: 'block',
-      fontSize: '12px',
-      fontWeight: 600,
-      color: '#5E5B59',
-      marginBottom: '8px'
-    }
-  }, "Full Name"), /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    placeholder: "Enter your full name",
-    style: {
-      width: '100%',
-      padding: '14px',
-      border: '1px solid rgba(26,26,26,0.15)',
-      borderRadius: '8px',
-      fontSize: '14px',
-      fontFamily: '"Jost", sans-serif'
-    }
-  })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginBottom: '20px'
-    }
-  }, /*#__PURE__*/React.createElement("label", {
-    style: {
-      display: 'block',
-      fontSize: '12px',
-      fontWeight: 600,
-      color: '#5E5B59',
-      marginBottom: '8px'
-    }
-  }, "Email Address"), /*#__PURE__*/React.createElement("input", {
-    type: "email",
-    placeholder: "Enter your email",
-    style: {
-      width: '100%',
-      padding: '14px',
-      border: '1px solid rgba(26,26,26,0.15)',
-      borderRadius: '8px',
-      fontSize: '14px',
-      fontFamily: '"Jost", sans-serif'
-    }
-  })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginBottom: '24px'
-    }
-  }, /*#__PURE__*/React.createElement("label", {
-    style: {
-      display: 'block',
-      fontSize: '12px',
-      fontWeight: 600,
-      color: '#5E5B59',
-      marginBottom: '8px'
-    }
-  }, "Password"), /*#__PURE__*/React.createElement("input", {
-    type: "password",
-    placeholder: "Create a password",
-    style: {
-      width: '100%',
-      padding: '14px',
-      border: '1px solid rgba(26,26,26,0.15)',
-      borderRadius: '8px',
-      fontSize: '14px',
-      fontFamily: '"Jost", sans-serif'
-    }
-  })), /*#__PURE__*/React.createElement("button", {
-    onClick: onRegister,
-    className: "btn btn-dark",
-    style: {
-      width: '100%',
-      padding: '16px',
-      fontSize: '14px',
-      marginBottom: '24px'
-    }
-  }, "Create Account"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      textAlign: 'center',
-      fontSize: '13px',
-      color: '#5E5B59'
-    }
-  }, "Already have an account? ", /*#__PURE__*/React.createElement("a", {
-    href: "#",
-    onClick: function onClick(e) {
-      e.preventDefault();
-      onLogin();
-    },
-    style: {
-      color: '#1A1A1A',
-      fontWeight: 600
-    }
-  }, "Sign in"))));
+    style: { background: '#fff', padding: '48px', borderRadius: '24px', width: '100%', maxWidth: '440px', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.05)' }
+  },
+    /*#__PURE__*/React.createElement("h1", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '32px', marginBottom: '8px', color: '#1A1A1A' } }, "Create Account"),
+    /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '32px' } }, "Join us for exclusive access to new collections and priority support."),
+    error && /*#__PURE__*/React.createElement("div", { style: { background: 'rgba(201,120,64,0.08)', color: '#C97840', fontSize: '13px', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px' } }, error),
+    /*#__PURE__*/React.createElement("div", { style: { marginBottom: '20px' } },
+      /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Full Name"),
+      /*#__PURE__*/React.createElement("input", { type: "text", placeholder: "Enter your full name", value: fullName, onChange: function(e) { setFullName(e.target.value); }, style: inputStyle })
+    ),
+    /*#__PURE__*/React.createElement("div", { style: { marginBottom: '20px' } },
+      /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Email Address"),
+      /*#__PURE__*/React.createElement("input", { type: "email", placeholder: "Enter your email", value: email, onChange: function(e) { setEmail(e.target.value); }, style: inputStyle })
+    ),
+    /*#__PURE__*/React.createElement("div", { style: { marginBottom: '24px' } },
+      /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Password"),
+      /*#__PURE__*/React.createElement("input", { type: "password", placeholder: "Min. 6 characters", value: password, onChange: function(e) { setPassword(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: inputStyle })
+    ),
+    /*#__PURE__*/React.createElement("button", { onClick: handleSubmit, disabled: loading, className: "btn btn-dark", style: { width: '100%', padding: '16px', fontSize: '14px', marginBottom: '24px', opacity: loading ? 0.7 : 1 } }, loading ? "Creating account…" : "Create Account"),
+    /*#__PURE__*/React.createElement("div", { style: { textAlign: 'center', fontSize: '13px', color: '#5E5B59' } },
+      "Already have an account? ",
+      /*#__PURE__*/React.createElement("a", { href: "#", onClick: function(e) { e.preventDefault(); onLogin(); }, style: { color: '#1A1A1A', fontWeight: 600 } }, "Sign in")
+    )
+  ));
 }
 function AccountDashboardPage(_ref3) {
   var onLogout = _ref3.onLogout,
-    onShop = _ref3.onShop;
+    onShop = _ref3.onShop,
+    user = _ref3.user;
+  var displayName = (user && (user.user_metadata && user.user_metadata.full_name || user.email)) || 'there';
   return /*#__PURE__*/React.createElement("div", {
     className: "section container",
     style: {
@@ -298,7 +149,7 @@ function AccountDashboardPage(_ref3) {
       color: '#5E5B59',
       fontSize: '15px'
     }
-  }, "Welcome back, Meena.")), /*#__PURE__*/React.createElement("button", {
+  }, "Welcome back, " + displayName + ".")), /*#__PURE__*/React.createElement("button", {
     onClick: onLogout,
     className: "btn btn-ghost",
     style: {
@@ -5151,6 +5002,13 @@ function App() {
     _React$useState58 = _slicedToArray(_React$useState57, 2),
     productsError = _React$useState58[0],
     setProductsError = _React$useState58[1];
+  // Auth state
+  var _authUser = React.useState(null),
+    currentUser = _authUser[0],
+    setCurrentUser = _authUser[1];
+  var _authLoad = React.useState(true),
+    authLoading = _authLoad[0],
+    setAuthLoading = _authLoad[1];
   var _React$useReducer = React.useReducer(function (x) {
       return x + 1;
     }, 0),
@@ -5180,6 +5038,25 @@ function App() {
       setProductsReady(true);
       setProductsError(true);
     });
+  }, []);
+
+  // ─── Auth session check ──────────────────────────────────────────────
+  React.useEffect(function() {
+    if (typeof window.supabase === 'undefined') { setAuthLoading(false); return; }
+    var sb = window.supabase.createClient(SB_URL, SB_ANON);
+    sb.auth.getSession().then(function(res) {
+      var session = res.data && res.data.session;
+      setCurrentUser(session ? session.user : null);
+      setAuthLoading(false);
+    });
+    var listener = sb.auth.onAuthStateChange(function(_event, session) {
+      setCurrentUser(session ? session.user : null);
+    });
+    return function() {
+      if (listener && listener.data && listener.data.subscription) {
+        listener.data.subscription.unsubscribe();
+      }
+    };
   }, []);
 
   // ─── GSAP Animation System ──────────────────────────────────────────
@@ -5589,6 +5466,29 @@ function App() {
       }) : [].concat(_toConsumableArray(prev), [id]);
     });
   };
+  var handleLogin = function handleLogin(email, password) {
+    var sb = window.supabase.createClient(SB_URL, SB_ANON);
+    return sb.auth.signInWithPassword({ email: email, password: password }).then(function(res) {
+      if (res.error) throw res.error;
+      setCurrentUser(res.data.user);
+      setRoute('account');
+    });
+  };
+  var handleRegister = function handleRegister(email, password, fullName) {
+    var sb = window.supabase.createClient(SB_URL, SB_ANON);
+    return sb.auth.signUp({ email: email, password: password, options: { data: { full_name: fullName } } }).then(function(res) {
+      if (res.error) throw res.error;
+      setCurrentUser(res.data.user);
+      setRoute('account');
+    });
+  };
+  var handleLogout = function handleLogout() {
+    var sb = window.supabase.createClient(SB_URL, SB_ANON);
+    return sb.auth.signOut().then(function() {
+      setCurrentUser(null);
+      setRoute('home');
+    });
+  };
   var handleCheckout = function handleCheckout() {
     setRoute('checkout');
   };
@@ -5725,32 +5625,27 @@ function App() {
   } else if (route === 'contact') {
     body = /*#__PURE__*/React.createElement(ContactPage, null);
   } else if (route === 'account') {
-    // If we had a real auth state, we'd check it here. For the prototype, we just go to login or dashboard.
-    body = /*#__PURE__*/React.createElement(AccountDashboardPage, {
-      onLogout: function onLogout() {
-        return setRoute('home');
-      },
-      onShop: function onShop() {
-        return setRoute('shop');
-      }
-    });
+    if (authLoading) {
+      body = /*#__PURE__*/React.createElement("div", { style: { minHeight: '60vh' } });
+    } else if (!currentUser) {
+      setRoute('login');
+      body = /*#__PURE__*/React.createElement("div", { style: { minHeight: '60vh' } });
+    } else {
+      body = /*#__PURE__*/React.createElement(AccountDashboardPage, {
+        user: currentUser,
+        onLogout: handleLogout,
+        onShop: function onShop() { return setRoute('shop'); }
+      });
+    }
   } else if (route === 'login') {
     body = /*#__PURE__*/React.createElement(AccountLoginPage, {
-      onRegister: function onRegister() {
-        return setRoute('register');
-      },
-      onLogin: function onLogin() {
-        return setRoute('account');
-      }
+      onRegister: function onRegister() { return setRoute('register'); },
+      onLogin: handleLogin
     });
   } else if (route === 'register') {
     body = /*#__PURE__*/React.createElement(AccountRegisterPage, {
-      onLogin: function onLogin() {
-        return setRoute('login');
-      },
-      onRegister: function onRegister() {
-        return setRoute('account');
-      }
+      onLogin: function onLogin() { return setRoute('login'); },
+      onRegister: handleRegister
     });
   } else if (route === 'privacy') {
     body = /*#__PURE__*/React.createElement(PrivacyPolicyPage, null);
