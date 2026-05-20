@@ -1064,7 +1064,8 @@ function Announcement() {
   }), React.createElement('a', {
     href: '#',
     onClick: function onClick(e) {
-      return e.preventDefault();
+      e.preventDefault();
+      if (window._kgsSetRoute) window._kgsSetRoute('account');
     }
   }, 'Track Order'), React.createElement('span', {
     className: 'announce-divider'
@@ -3589,9 +3590,6 @@ function CheckoutPage(_ref17) {
   var subtotal = items.reduce(function (s, ci) {
     return s + ci.product.price * ci.qty;
   }, 0);
-  var FREE_OVER = 5000;
-  var delivery = subtotal >= FREE_OVER ? 0 : 250;
-  var total = subtotal + delivery;
   var _React$useState27 = React.useState({
       name: '',
       phone: '',
@@ -3611,6 +3609,12 @@ function CheckoutPage(_ref17) {
     _React$useState32 = _slicedToArray(_React$useState31, 2),
     errors = _React$useState32[0],
     setErrors = _React$useState32[1];
+
+  // Dynamic delivery: free in Virudhachalam, ₹250 elsewhere
+  var isVirudhachalam = form.city.trim().toLowerCase().replace(/\s+/g, '') === 'virudhachalam';
+  var delivery = form.city.trim() === '' ? null : (isVirudhachalam ? 0 : 250);
+  var total = subtotal + (delivery || 0);
+
   var update = function update(k, v) {
     return setForm(function (f) {
       return _objectSpread(_objectSpread({}, f), {}, _defineProperty({}, k, v));
@@ -3636,7 +3640,7 @@ function CheckoutPage(_ref17) {
   };
   var handleSubmit = function handleSubmit(ev) {
     ev.preventDefault();
-    if (validate()) onPlaceOrder(form, payment);
+    if (validate()) onPlaceOrder(form, payment, delivery);
   };
   var inputStyle = function inputStyle(k) {
     return {
@@ -3760,7 +3764,7 @@ function CheckoutPage(_ref17) {
     className: "form-input",
     "aria-invalid": !!errors.name,
     style: inputStyle('name'),
-    placeholder: "Meena Krishnamurthy",
+    placeholder: "Your full name",
     value: form.name,
     onChange: function onChange(e) {
       return update('name', e.target.value);
@@ -3775,7 +3779,7 @@ function CheckoutPage(_ref17) {
   }, /*#__PURE__*/React.createElement("label", null, "Phone (WhatsApp)"), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     style: inputStyle('phone'),
-    placeholder: "+91 98765 43210",
+    placeholder: "+91 XXXXX XXXXX",
     type: "tel",
     value: form.phone,
     onChange: function onChange(e) {
@@ -3791,7 +3795,7 @@ function CheckoutPage(_ref17) {
   }, /*#__PURE__*/React.createElement("label", null, "Address line 1"), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     style: inputStyle('address'),
-    placeholder: "25, Gandhi Street, Virudhachalam",
+    placeholder: "Door no., Street name",
     value: form.address,
     onChange: function onChange(e) {
       return update('address', e.target.value);
@@ -3808,7 +3812,7 @@ function CheckoutPage(_ref17) {
   }, /*#__PURE__*/React.createElement("label", null, "City"), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     style: inputStyle('city'),
-    placeholder: "Virudhachalam",
+    placeholder: "Your city",
     value: form.city,
     onChange: function onChange(e) {
       return update('city', e.target.value);
@@ -3836,7 +3840,7 @@ function CheckoutPage(_ref17) {
   }, /*#__PURE__*/React.createElement("label", null, "Pincode"), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     style: inputStyle('pincode'),
-    placeholder: "606001",
+    placeholder: "6-digit pincode",
     maxLength: 6,
     value: form.pincode,
     onChange: function onChange(e) {
@@ -4007,8 +4011,8 @@ function CheckoutPage(_ref17) {
     value: fmtPrice(subtotal)
   }), /*#__PURE__*/React.createElement(Sumline, {
     label: "Delivery",
-    value: 'FREE',
-    note: 'Free in Virudhachalam · may vary outside'
+    value: delivery === null ? 'Enter city' : delivery === 0 ? 'FREE' : fmtPrice(delivery),
+    note: delivery === null ? 'Free in Virudhachalam · ₹250 elsewhere' : delivery === 0 ? 'Free — Virudhachalam delivery' : 'Outside Virudhachalam'
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       borderTop: '1px solid rgba(197,168,128,0.25)',
@@ -4689,7 +4693,7 @@ function ContactPage() {
       color: '#5E5B59'
     }
   }, "Phone or WhatsApp"), /*#__PURE__*/React.createElement("input", {
-    placeholder: "+91 98765 43210",
+    placeholder: "+91 XXXXX XXXXX",
     type: "tel",
     value: form.phone,
     onChange: function onChange(e) {
@@ -5582,8 +5586,51 @@ function App() {
   var handleCheckout = function handleCheckout() {
     setRoute('checkout');
   };
-  var handlePlaceOrder = function handlePlaceOrder(formData, paymentMethod) {
-    setLastCart(_toConsumableArray(cart));
+  // Expose setRoute globally for components without prop access (Announcement bar)
+  window._kgsSetRoute = setRoute;
+  var handlePlaceOrder = function handlePlaceOrder(formData, paymentMethod, deliveryFee) {
+    var cartSnapshot = _toConsumableArray(cart);
+    var subtotal = cartSnapshot.reduce(function(s, ci) {
+      var prod = PRODUCTS.find(function(p) { return p.id === ci.id; });
+      return s + (prod ? prod.price * ci.qty : 0);
+    }, 0);
+    var orderTotal = subtotal + (deliveryFee || 0);
+
+    // Save to Supabase
+    var sb = getSB();
+    if (sb && currentUser) {
+      var orderData = {
+        customer_id: currentUser.id,
+        customer_name: formData.name,
+        customer_phone: formData.phone,
+        shipping_address: formData.address + ', ' + formData.city + ', ' + formData.state + ' - ' + formData.pincode,
+        city: formData.city,
+        payment_method: paymentMethod,
+        delivery_fee: deliveryFee || 0,
+        subtotal: subtotal,
+        total: orderTotal,
+        status: 'confirmed'
+      };
+      sb.from('orders').insert(orderData).select().single().then(function(res) {
+        if (!res.error && res.data) {
+          var orderItems = cartSnapshot.map(function(ci) {
+            var prod = PRODUCTS.find(function(p) { return p.id === ci.id; });
+            return {
+              order_id: res.data.id,
+              product_id: ci.id,
+              product_name: prod ? prod.name : ci.id,
+              product_image: prod ? prod.image : '',
+              quantity: ci.qty,
+              unit_price: prod ? prod.price : 0,
+              total_price: prod ? prod.price * ci.qty : 0
+            };
+          });
+          sb.from('order_items').insert(orderItems).then(function() {});
+        }
+      }).catch(function(err) { console.warn('[KGS] Order save failed:', err); });
+    }
+
+    setLastCart(cartSnapshot);
     setCart([]);
     setRoute('order-confirmation');
     window.scrollTo(0, 0);
@@ -5682,13 +5729,17 @@ function App() {
       }
     });
   } else if (route === 'checkout') {
-    body = /*#__PURE__*/React.createElement(CheckoutPage, {
-      cart: cart,
-      onPlaceOrder: handlePlaceOrder,
-      onBack: function onBack() {
-        return setRoute('cart');
-      }
-    });
+    if (!currentUser) {
+      setRoute('login');
+      body = /*#__PURE__*/React.createElement("div", { style: { minHeight: '60vh' } });
+    } else {
+      body = /*#__PURE__*/React.createElement(CheckoutPage, {
+        cart: cart,
+        user: currentUser,
+        onPlaceOrder: handlePlaceOrder,
+        onBack: function onBack() { return setRoute('cart'); }
+      });
+    }
   } else if (route === 'order-confirmation') {
     body = /*#__PURE__*/React.createElement(OrderConfirmationPage, {
       cart: lastCart,
