@@ -6106,26 +6106,26 @@ body { overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
             if (heroEl) {
               const tl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.7 } });
               tl.fromTo('.hero-eyebrow',
-                  { y: 22, opacity: 0 },
+                  { y: 22 },
                   { y: 0, opacity: 1, duration: 0.55 })
                 .fromTo('.hero h1',
-                  { y: 38, opacity: 0 },
+                  { y: 38 },
                   { y: 0, opacity: 1, duration: 0.85, ease: 'power4.out' }, '-=0.25')
                 .fromTo('.hero-sub',
-                  { y: 22, opacity: 0 },
+                  { y: 22 },
                   { y: 0, opacity: 1, duration: 0.6 }, '-=0.5')
                 .fromTo('.hero-ctas .btn',
-                  { y: 20, opacity: 0 },
+                  { y: 20 },
                   { y: 0, opacity: 1, stagger: 0.13, duration: 0.5 }, '-=0.4')
                 .fromTo('.hero-stats',
-                  { y: 16, opacity: 0 },
+                  { y: 16 },
                   { y: 0, opacity: 1, duration: 0.5 }, '-=0.3')
                 .fromTo('.hero-slides-indicator',
-                  { x: -12, opacity: 0 },
+                  { x: -12 },
                   { x: 0, opacity: 1, duration: 0.5 }, '-=0.6')
                 // Hero photo scales in — gsap-timeline position param
                 .fromTo('.hero-photo',
-                  { scale: 1.06, opacity: 0 },
+                  { scale: 1.06 },
                   { scale: 1, opacity: 1, duration: 1.1, ease: 'power2.out' }, 0.1)
                 // Floating chip pops in last
                 .fromTo('.hero-floating-chip, .hero-delivery-chip',
@@ -6137,7 +6137,7 @@ body { overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
             const trustStrip = document.querySelector('.trust-strip');
             if (trustStrip) {
               gsap.fromTo('.trust-item',
-                { y: 28, opacity: 0 },
+                { y: 28 },
                 { y: 0, opacity: 1, stagger: 0.1, duration: 0.6,
                   scrollTrigger: { trigger: trustStrip, start: 'top 88%', once: true }
                 }
@@ -6147,7 +6147,7 @@ body { overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
             // ── 3. Section headings — staggered reveal (gsap-scrolltrigger) ─
             document.querySelectorAll('.section-head').forEach(el => {
               gsap.fromTo(el,
-                { y: 32, opacity: 0 },
+                { y: 32 },
                 { y: 0, opacity: 1, duration: 0.7,
                   scrollTrigger: { trigger: el, start: 'top 86%', once: true }
                 }
@@ -6158,7 +6158,7 @@ body { overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
             const bsTrack = document.querySelector('.best-sellers-track');
             if (bsTrack) {
               gsap.fromTo('.best-sellers-track .prod-card',
-                { y: 44, opacity: 0 },
+                { y: 44 },
                 { y: 0, opacity: 1, stagger: 0.09, duration: 0.65,
                   scrollTrigger: { trigger: bsTrack, start: 'top 82%', once: true }
                 }
@@ -6182,7 +6182,7 @@ body { overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
             const whyGrid = document.querySelector('.why-grid');
             if (whyGrid) {
               gsap.fromTo('.why-card',
-                { y: 40, opacity: 0 },
+                { y: 40 },
                 { y: 0, opacity: 1, stagger: 0.11, duration: 0.65,
                   scrollTrigger: { trigger: whyGrid, start: 'top 82%', once: true }
                 }
@@ -6211,16 +6211,16 @@ body { overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
                 scrollTrigger: { trigger: '.promo', start: 'top 78%', once: true }
               });
               promoTl
-                .fromTo('.promo-eyebrow', { x: -20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5 })
-                .fromTo('.promo-headline', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power4.out' }, '-=0.2')
-                .fromTo('.promo-cta-row .btn, .promo-cta-row a', { y: 18, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.5 }, '-=0.3');
+                .fromTo('.promo-eyebrow', { x: -20 }, { x: 0, opacity: 1, duration: 0.5 })
+                .fromTo('.promo-headline', { y: 30 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power4.out' }, '-=0.2')
+                .fromTo('.promo-cta-row .btn, .promo-cta-row a', { y: 18 }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.5 }, '-=0.3');
             }
 
             // ── 9. Testimonials stagger (gsap-scrolltrigger) ──────────────
             const testimonialSection = document.querySelector('.testimonials-wrap, [class*="testimonial"]');
             if (testimonialSection) {
               gsap.fromTo('.testimonial',
-                { y: 36, opacity: 0 },
+                { y: 36 },
                 { y: 0, opacity: 1, stagger: 0.14, duration: 0.65,
                   scrollTrigger: { trigger: testimonialSection, start: 'top 82%', once: true }
                 }
@@ -6254,7 +6254,7 @@ body { overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
             const footer = document.querySelector('.footer');
             if (footer) {
               gsap.fromTo(footer,
-                { y: 24, opacity: 0 },
+                { y: 24 },
                 { y: 0, opacity: 1, duration: 0.8,
                   scrollTrigger: { trigger: footer, start: 'top 92%', once: true }
                 }
