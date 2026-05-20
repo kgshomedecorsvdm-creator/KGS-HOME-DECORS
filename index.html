@@ -3105,31 +3105,108 @@
       .nav-actions { display: none; }
       .nav-progress { display: none; }
 
+      /* ── Mobile hero: full-screen editorial overlay ── */
       .hero {
-        margin: 12px 12px 0;
-        border-radius: 20px;
+        margin: 0;
+        border-radius: 0;
+        min-height: calc(100svh - 50px);
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: unset;
+        position: relative;
+        overflow: hidden;
+        background: #1A1614;
       }
 
+      /* Image floods the entire hero */
+      .hero-photo {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 0;
+      }
+
+      .hero-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 20%;
+        filter: saturate(0.88) brightness(0.92);
+      }
+
+      /* Gradient: dark at bottom for text, light at top */
+      .hero-photo::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(12, 10, 8, 0.92) 0%,
+          rgba(12, 10, 8, 0.55) 40%,
+          rgba(12, 10, 8, 0.10) 100%
+        );
+        z-index: 1;
+      }
+
+      /* Text anchored to bottom */
       .hero-copy {
-        padding: 40px 24px 32px;
+        position: relative;
+        z-index: 2;
+        margin-top: auto;
+        padding: 0 24px 52px;
+        justify-content: flex-end;
       }
 
       .hero h1 {
-        font-size: 2.2rem;
+        color: #fff;
+        font-size: clamp(2rem, 7vw, 2.6rem);
+        margin-bottom: 10px;
       }
 
+      .hero h1 em { color: #C5A880; }
+
+      .hero-eyebrow {
+        background: rgba(255, 255, 255, 0.10);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-color: rgba(255, 255, 255, 0.16);
+        color: #C5A880;
+        margin-bottom: 16px;
+      }
+
+      .hero-sub {
+        color: rgba(255, 255, 255, 0.68);
+        font-size: 13.5px;
+        margin-bottom: 24px;
+      }
+
+      /* Single CTA — white pill, full width */
       .hero-ctas {
-        flex-direction: column;
+        flex-direction: row;
+        margin-bottom: 0;
+        gap: 12px;
       }
 
-      .hero-ctas .btn {
-        width: 100%;
+      .hero-ctas .btn-dark {
+        flex: 1;
         justify-content: center;
+        background: #fff;
+        color: #1A1A1A;
+        border-color: #fff;
       }
 
-      .hero-stats {
-        gap: 16px;
-      }
+      .hero-ctas .btn-ghost { display: none; }
+
+      /* Hide elements that clutter the overlay */
+      .hero-stats,
+      .hero-arrows,
+      .hero-floating-chip,
+      .hero-delivery-chip,
+      .hero-slides-indicator { display: none; }
+
+      /* Override tablet photo height */
+      .hero-photo { height: auto; }
 
       .trust-row {
         grid-template-columns: repeat(2, 1fr);
@@ -3327,11 +3404,12 @@
       }
 
       .hero {
-        margin: 8px 8px 0;
+        margin: 0;
+        border-radius: 0;
       }
 
       .hero h1 {
-        font-size: 1.9rem;
+        font-size: clamp(1.85rem, 7vw, 2.2rem);
       }
 
       .hero-stats {
