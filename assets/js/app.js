@@ -4781,7 +4781,11 @@ function SearchDrawer(_ref21) {
       setTimeout(function () {
         return inputRef.current && inputRef.current.focus();
       }, 360);
+      document.body.classList.add('search-open');
+    } else {
+      document.body.classList.remove('search-open');
     }
+    return function () { document.body.classList.remove('search-open'); };
   }, [open]);
   var results = React.useMemo(function () {
     if (!query.trim()) return [];
