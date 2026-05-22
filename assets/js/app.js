@@ -4807,8 +4807,9 @@ function SearchDrawer(_ref21) {
   }), /*#__PURE__*/React.createElement("div", {
     className: "search-panel"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "container",
-    style: { paddingTop: 24 }
+    className: "search-panel__scroll"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "search-input-wrap"
   }, /*#__PURE__*/React.createElement("span", {
@@ -4899,7 +4900,7 @@ function SearchDrawer(_ref21) {
     }, p.name)), /*#__PURE__*/React.createElement("div", {
       className: "search-result-price"
     }, fmtPrice(p.price)));
-  })))));
+  }))))));
 }
 
 // ===== MOBILE BOTTOM NAVIGATION =============================================
