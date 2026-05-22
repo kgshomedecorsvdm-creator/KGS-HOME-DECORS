@@ -1230,6 +1230,7 @@
       cursor: pointer;
       opacity: 1 !important;
       pointer-events: all !important;
+      touch-action: manipulation;
     }
 
     .heart-btn:hover {
@@ -3737,16 +3738,14 @@ body.search-open { position: fixed; overflow: hidden; width: 100%; }
     }
     .search-input::placeholder { color: rgba(94,91,89,0.55); }
     .search-clear { background: none; border: none; color: #5E5B59; cursor: pointer; padding: 4px; display: flex; align-items: center; }
-    .search-results {
+        .search-results {
       margin-top: 12px;
-      max-height: 60vh;
+      max-height: 72vh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      overscroll-behavior: contain;
-      padding-bottom: 16px;
-      scrollbar-width: none;
+      padding-bottom: 80px;
     }
-    .search-results::-webkit-scrollbar { display: none; }
+    
     .search-result-item {
       display: flex; align-items: center; gap: 14px;
       padding: 12px 0; border-bottom: 1px solid rgba(197,168,128,0.15);
