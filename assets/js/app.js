@@ -4781,11 +4781,19 @@ function SearchDrawer(_ref21) {
       setTimeout(function () {
         return inputRef.current && inputRef.current.focus();
       }, 360);
+      var scrollY = window.scrollY;
+      document.body.style.top = '-' + scrollY + 'px';
       document.body.classList.add('search-open');
     } else {
+      var scrollY = parseFloat(document.body.style.top || '0') * -1;
       document.body.classList.remove('search-open');
+      document.body.style.top = '';
+      if (scrollY) window.scrollTo(0, scrollY);
     }
-    return function () { document.body.classList.remove('search-open'); };
+    return function () {
+      document.body.classList.remove('search-open');
+      document.body.style.top = '';
+    };
   }, [open]);
   var results = React.useMemo(function () {
     if (!query.trim()) return [];
