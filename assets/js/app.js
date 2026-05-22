@@ -4813,7 +4813,7 @@ function SearchDrawer(_ref21) {
     className: "search-overlay__bg",
     onClick: onClose
   }), /*#__PURE__*/React.createElement("div", {
-    className: "search-panel"
+    className: "search-panel", "data-lenis-prevent": "true"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
@@ -4884,7 +4884,7 @@ function SearchDrawer(_ref21) {
       color: '#8E7449'
     }
   }, "Try a different keyword or browse categories")) : /*#__PURE__*/React.createElement("div", {
-    className: "search-results"
+    className: "search-results", "data-lenis-prevent": "true", onWheel: function(e){ e.stopPropagation(); }, onTouchStart: function(e){ e.stopPropagation(); }, onTouchMove: function(e){ e.stopPropagation(); }
   }, results.map(function (p) {
     return /*#__PURE__*/React.createElement("div", {
       key: p.id,
@@ -4963,16 +4963,18 @@ Object.assign(window, {
 
 function Toast(_ref23) {
   var msg = _ref23.msg,
-    show = _ref23.show;
+    show = _ref23.show,
+    icon = _ref23.icon,
+    iconColor = _ref23.iconColor;
   return /*#__PURE__*/React.createElement("div", {
     className: 'toast ' + (show ? 'toast--in' : 'toast--out')
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined",
     style: {
-      color: '#25D366',
+      color: iconColor || '#25D366',
       fontVariationSettings: '"FILL" 1'
     }
-  }, "check_circle"), /*#__PURE__*/React.createElement("span", null, msg));
+  }, icon || "check_circle"), /*#__PURE__*/React.createElement("span", null, msg));
 }
 function App() {
   var _React$useState39 = React.useState('home'),
@@ -5454,16 +5456,11 @@ function App() {
       localStorage.setItem('kgs_wish', JSON.stringify(wishlist));
     } catch (_unused4) {}
   }, [wishlist]);
-  var showToast = function showToast(msg) {
-    setToast({
-      msg: msg,
-      show: true
-    });
+  var showToast = function showToast(msg, icon, iconColor) {
+    setToast({ msg: msg, show: true, icon: icon || null, iconColor: iconColor || null });
     setTimeout(function () {
       return setToast(function (t) {
-        return _objectSpread(_objectSpread({}, t), {}, {
-          show: false
-        });
+        return _objectSpread(_objectSpread({}, t), {}, { show: false });
       });
     }, 2200);
   };
@@ -5492,9 +5489,9 @@ function App() {
   };
   var handleWishToggle = function handleWishToggle(id) {
     setWish(function (prev) {
-      return prev.includes(id) ? prev.filter(function (x) {
-        return x !== id;
-      }) : [].concat(_toConsumableArray(prev), [id]);
+      var adding = !prev.includes(id);
+      if (adding) showToast('Added to Wishlist', 'favorite', '#E8434A');
+      return adding ? [].concat(_toConsumableArray(prev), [id]) : prev.filter(function (x) { return x !== id; });
     });
   };
   var handleLogin = function handleLogin(email, password) {
@@ -5758,7 +5755,9 @@ function App() {
     setRoute: setRoute
   }), /*#__PURE__*/React.createElement(WAFloat, null), /*#__PURE__*/React.createElement(Toast, {
     msg: toast.msg,
-    show: toast.show
+    show: toast.show,
+    icon: toast.icon,
+    iconColor: toast.iconColor
   }), /*#__PURE__*/React.createElement(SearchDrawer, {
     open: searchOpen,
     onClose: function onClose() {
