@@ -2757,13 +2757,13 @@ function ProductDetail(_ref15) {
   var FREE_OVER = 5000;
   var lineTotal = p.price * qty;
   var toFree = Math.max(0, FREE_OVER - lineTotal);
-  // Match related by categorySlug (exact) then fallback to display label
-  var related = PRODUCTS.filter(function (x) {
-    return x.id !== p.id && (x.categorySlug && p.categorySlug && x.categorySlug === p.categorySlug || x.category === p.category);
+  // Strictly same category — no unrelated fallback
+  var moreFromUs = PRODUCTS.filter(function (x) {
+    return x.id !== p.id && (
+      (x.categorySlug && p.categorySlug && x.categorySlug === p.categorySlug) ||
+      x.category === p.category
+    );
   }).slice(0, 4);
-  var moreFromUs = related.length < 4 ? [].concat(_toConsumableArray(related), _toConsumableArray(PRODUCTS.filter(function (x) {
-    return x.id !== p.id && !related.includes(x);
-  }))).slice(0, 4) : related;
   return /*#__PURE__*/React.createElement("div", {
     "data-screen-label": 'Product / ' + p.name
   }, /*#__PURE__*/React.createElement("section", {
@@ -5629,6 +5629,7 @@ function App() {
     });
   } else if (route === 'product') {
     body = /*#__PURE__*/React.createElement(ProductDetail, {
+      key: viewing && viewing.id,
       p: viewing,
       onAdd: handleAdd,
       onBack: function onBack() {
