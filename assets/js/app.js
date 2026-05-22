@@ -4807,7 +4807,8 @@ function SearchDrawer(_ref21) {
   }), /*#__PURE__*/React.createElement("div", {
     className: "search-panel"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "container"
+    className: "container",
+    style: { paddingTop: 24 }
   }, /*#__PURE__*/React.createElement("div", {
     className: "search-input-wrap"
   }, /*#__PURE__*/React.createElement("span", {
