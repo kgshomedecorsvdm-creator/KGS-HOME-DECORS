@@ -3804,6 +3804,30 @@ body { overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         display: flex; align-items: center; justify-content: center;
         border: 2px solid #FDFAF5;
       }
+      /* Hero Shop button */
+      .mobile-bottom-nav__hero {
+        flex: 1; display: flex; flex-direction: column; align-items: center;
+        justify-content: flex-end; padding-bottom: 10px; position: relative;
+        background: none; border: none; cursor: pointer;
+      }
+      .mobile-bottom-nav__hero-bubble {
+        width: 50px; height: 50px; border-radius: 9999px;
+        background: #1A1A1A;
+        display: flex; align-items: center; justify-content: center;
+        transform: translateY(-14px);
+        box-shadow: 0 4px 16px rgba(26,26,26,0.28);
+        transition: transform 200ms cubic-bezier(0.23,1,0.32,1), background 200ms;
+      }
+      .mobile-bottom-nav__hero-bubble .material-symbols-outlined {
+        font-size: 22px; color: #fff;
+        font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      }
+      .mobile-bottom-nav__hero.active .mobile-bottom-nav__hero-bubble {
+        background: #B89657;
+      }
+      .mobile-bottom-nav__hero:active .mobile-bottom-nav__hero-bubble {
+        transform: translateY(-14px) scale(0.90);
+      }
       /* Push page content above bottom nav */
       .page-body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
       /* Adjust WA float above bottom nav */

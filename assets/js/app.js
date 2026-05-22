@@ -4902,6 +4902,7 @@ function MobileBottomNav(_ref22) {
   var route = _ref22.route,
     setRoute = _ref22.setRoute,
     cartCount = _ref22.cartCount,
+    wishlistCount = _ref22.wishlistCount,
     onSearch = _ref22.onSearch;
   var items = [{
     id: 'home',
@@ -4914,7 +4915,12 @@ function MobileBottomNav(_ref22) {
   }, {
     id: 'shop',
     icon: 'storefront',
-    label: 'Shop'
+    label: null,
+    hero: true
+  }, {
+    id: 'wishlist',
+    icon: 'favorite',
+    label: 'Wishlist'
   }, {
     id: 'cart',
     icon: 'shopping_bag',
@@ -4928,6 +4934,18 @@ function MobileBottomNav(_ref22) {
     className: "mobile-bottom-nav",
     "aria-label": "Main navigation"
   }, items.map(function (it) {
+    if (it.hero) {
+      return /*#__PURE__*/React.createElement("button", {
+        key: it.id,
+        className: 'mobile-bottom-nav__item mobile-bottom-nav__hero' + (route === it.id ? ' active' : ''),
+        onClick: function onClick() { return setRoute(it.id); },
+        "aria-label": "Shop"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "mobile-bottom-nav__hero-bubble"
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "material-symbols-outlined"
+      }, it.icon)));
+    }
     return /*#__PURE__*/React.createElement("button", {
       key: it.id,
       className: 'mobile-bottom-nav__item' + (route === it.id ? ' active' : ''),
@@ -4937,9 +4955,14 @@ function MobileBottomNav(_ref22) {
       "aria-label": it.label
     }, /*#__PURE__*/React.createElement("span", {
       className: "material-symbols-outlined"
-    }, it.icon), it.id === 'cart' && cartCount > 0 && /*#__PURE__*/React.createElement("span", {
+    }, it.icon),
+    it.id === 'cart' && cartCount > 0 && /*#__PURE__*/React.createElement("span", {
       className: "mobile-bottom-nav__pip"
-    }, cartCount > 9 ? '9+' : cartCount), /*#__PURE__*/React.createElement("span", null, it.label));
+    }, cartCount > 9 ? '9+' : cartCount),
+    it.id === 'wishlist' && wishlistCount > 0 && /*#__PURE__*/React.createElement("span", {
+      className: "mobile-bottom-nav__pip"
+    }, wishlistCount > 9 ? '9+' : wishlistCount),
+    /*#__PURE__*/React.createElement("span", null, it.label));
   }));
 }
 Object.assign(window, {
@@ -5761,6 +5784,7 @@ function App() {
     route: route,
     setRoute: setRoute,
     cartCount: cartCount,
+    wishlistCount: wishlist.length,
     onSearch: function onSearch() {
       return setSearchOpen(true);
     }
