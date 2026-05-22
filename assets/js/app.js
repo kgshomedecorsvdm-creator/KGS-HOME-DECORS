@@ -4905,47 +4905,22 @@ function MobileBottomNav(_ref22) {
     wishlistCount = _ref22.wishlistCount,
     onSearch = _ref22.onSearch;
   var items = [{
-    id: 'home',
-    icon: 'home',
-    label: 'Home'
+    id: 'home',    icon: 'home',          label: 'Home'
   }, {
-    id: 'search',
-    icon: 'search',
-    label: 'Search'
+    id: 'search',  icon: 'search',        label: 'Search'
   }, {
-    id: 'shop',
-    icon: 'storefront',
-    label: null,
-    hero: true
+    id: 'shop',    icon: 'storefront',    label: 'Shop'
   }, {
-    id: 'wishlist',
-    icon: 'favorite',
-    label: 'Wishlist'
+    id: 'wishlist',icon: 'favorite',      label: 'Wishlist'
   }, {
-    id: 'cart',
-    icon: 'shopping_bag',
-    label: 'Cart'
+    id: 'cart',    icon: 'shopping_bag',  label: 'Cart'
   }, {
-    id: 'account',
-    icon: 'person',
-    label: 'Account'
+    id: 'account', icon: 'person',        label: 'Account'
   }];
   return /*#__PURE__*/React.createElement("nav", {
     className: "mobile-bottom-nav",
     "aria-label": "Main navigation"
   }, items.map(function (it) {
-    if (it.hero) {
-      return /*#__PURE__*/React.createElement("button", {
-        key: it.id,
-        className: 'mobile-bottom-nav__item mobile-bottom-nav__hero' + (route === it.id ? ' active' : ''),
-        onClick: function onClick() { return setRoute(it.id); },
-        "aria-label": "Shop"
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "mobile-bottom-nav__hero-bubble"
-      }, /*#__PURE__*/React.createElement("span", {
-        className: "material-symbols-outlined"
-      }, it.icon)));
-    }
     return /*#__PURE__*/React.createElement("button", {
       key: it.id,
       className: 'mobile-bottom-nav__item' + (route === it.id ? ' active' : ''),
