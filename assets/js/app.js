@@ -200,7 +200,7 @@ function PrivacyPolicyPage() {
     style: {
       marginBottom: '24px'
     }
-  }, "At KGS Home D\xE9cor, we are committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your personal information."), /*#__PURE__*/React.createElement("h2", {
+  }, "When you shop with us, you share some personal details. Here’s exactly what we collect and why — short, plain, no jargon."), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontFamily: '"Crimson Pro", serif',
       fontSize: '24px',
@@ -246,7 +246,7 @@ function TermsPage() {
     style: {
       marginBottom: '24px'
     }
-  }, "Welcome to KGS Home D\xE9cor. By accessing our website, you agree to be bound by these Terms and Conditions."), /*#__PURE__*/React.createElement("h2", {
+  }, "Using this site means you're okay with these terms. We've kept them short and honest."), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontFamily: '"Crimson Pro", serif',
       fontSize: '24px',
@@ -258,7 +258,7 @@ function TermsPage() {
     style: {
       marginBottom: '24px'
     }
-  }, "We strive to ensure that all details, descriptions, and prices of products appearing on the website are accurate. However, errors may occur. We reserve the right to correct any errors and to change or update information at any time without prior notice."));
+  }, "We keep prices and details as accurate as we can. If something's wrong — a typo, a stale price — we'll fix it and tell you before processing your order."));
 }
 function ReturnPolicyPage() {
   return /*#__PURE__*/React.createElement(LegalPage, {
@@ -292,7 +292,7 @@ function ShippingPolicyPage() {
     style: {
       marginBottom: '24px'
     }
-  }, "We offer reliable and secure shipping for all our products."), /*#__PURE__*/React.createElement("h2", {
+  }, "We pack every order ourselves and ship within 24 hours on working days."), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontFamily: '"Crimson Pro", serif',
       fontSize: '24px',
