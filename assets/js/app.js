@@ -4944,7 +4944,9 @@ function MobileBottomNav(_ref22) {
         className: "mobile-bottom-nav__hero-bubble"
       }, /*#__PURE__*/React.createElement("span", {
         className: "material-symbols-outlined"
-      }, it.icon)));
+      }, it.icon)), /*#__PURE__*/React.createElement("span", {
+        className: "mobile-bottom-nav__hero-label"
+      }, "Shop"));
     }
     return /*#__PURE__*/React.createElement("button", {
       key: it.id,

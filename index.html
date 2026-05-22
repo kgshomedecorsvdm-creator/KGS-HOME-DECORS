@@ -3828,6 +3828,13 @@ body { overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
       .mobile-bottom-nav__hero:active .mobile-bottom-nav__hero-bubble {
         transform: translateY(-14px) scale(0.90);
       }
+      .mobile-bottom-nav__hero-label {
+        font-family: 'Jost', sans-serif;
+        font-size: 10px; font-weight: 500; letter-spacing: .04em;
+        color: #767270; margin-top: -6px;
+      }
+      .mobile-bottom-nav__hero.active .mobile-bottom-nav__hero-label { color: #1A1A1A; }
+      .mobile-bottom-nav__hero { flex: 1.15; }
       /* Push page content above bottom nav */
       .page-body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
       /* Adjust WA float above bottom nav */
