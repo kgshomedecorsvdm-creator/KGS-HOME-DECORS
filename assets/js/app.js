@@ -124,110 +124,49 @@ function AccountDashboardPage(_ref3) {
     onShop = _ref3.onShop,
     user = _ref3.user;
   var displayName = (user && (user.user_metadata && user.user_metadata.full_name || user.email)) || 'there';
+  var initials = displayName.split(' ').map(function(w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
   return /*#__PURE__*/React.createElement("div", {
-    className: "section container",
-    style: {
-      minHeight: '60vh',
-      padding: '64px 40px'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'flex-end',
-      marginBottom: '40px'
-    }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-    style: {
-      fontFamily: '"Crimson Pro", serif',
-      fontSize: '40px',
-      color: '#1A1A1A',
-      marginBottom: '8px'
-    }
-  }, "My Account"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: '#5E5B59',
-      fontSize: '15px'
-    }
-  }, "Welcome back, " + displayName + ".")), /*#__PURE__*/React.createElement("button", {
-    onClick: onLogout,
-    className: "btn btn-ghost",
-    style: {
-      padding: '10px 20px'
-    }
-  }, "Log Out")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'grid',
-      gridTemplateColumns: '300px 1fr',
-      gap: '48px'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '12px'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: '16px 20px',
-      background: '#fff',
-      borderRadius: '12px',
-      fontWeight: 500,
-      color: '#B89657',
-      cursor: 'pointer',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
-    }
-  }, "Order History"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: '16px 20px',
-      borderRadius: '12px',
-      color: '#5E5B59',
-      cursor: 'pointer'
-    }
-  }, "Saved Addresses"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: '16px 20px',
-      borderRadius: '12px',
-      color: '#5E5B59',
-      cursor: 'pointer'
-    }
-  }, "Account Settings")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", {
-    style: {
-      fontFamily: '"Crimson Pro", serif',
-      fontSize: '24px',
-      marginBottom: '24px'
-    }
-  }, "Recent Orders"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: '#fff',
-      borderRadius: '16px',
-      padding: '40px',
-      textAlign: 'center',
-      border: '1px dashed rgba(26,26,26,0.15)'
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined",
-    style: {
-      fontSize: '48px',
-      color: '#C5A880',
-      marginBottom: '16px'
-    }
-  }, "inventory_2"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: '18px',
-      fontWeight: 500,
-      marginBottom: '8px'
-    }
-  }, "No orders yet"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: '#5E5B59',
-      fontSize: '14px',
-      marginBottom: '24px'
-    }
-  }, "When you place an order, it will appear here."), /*#__PURE__*/React.createElement("button", {
-    onClick: onShop,
-    className: "btn btn-dark"
-  }, "Start Shopping")))));
+    className: "section container account-page"
+  },
+  /*#__PURE__*/React.createElement("div", { className: "account-header" },
+    /*#__PURE__*/React.createElement("div", { style: { display: 'flex', alignItems: 'center', gap: 16 } },
+      /*#__PURE__*/React.createElement("div", {
+        style: { width: 52, height: 52, borderRadius: '50%', background: 'linear-gradient(135deg,#C5A880,#B89657)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 18, flexShrink: 0 }
+      }, initials),
+      /*#__PURE__*/React.createElement("div", null,
+        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '28px', color: '#1A1A1A', marginBottom: '2px' } }, "My Account"),
+        /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px' } }, "Welcome back, " + displayName + ".")
+      )
+    ),
+    /*#__PURE__*/React.createElement("button", { onClick: onLogout, className: "btn btn-ghost", style: { padding: '10px 20px', flexShrink: 0 } }, "Log Out")
+  ),
+  /*#__PURE__*/React.createElement("div", { className: "account-grid" },
+    /*#__PURE__*/React.createElement("nav", { className: "account-nav" },
+      /*#__PURE__*/React.createElement("div", { className: "account-nav-item active" },
+        /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "receipt_long"),
+        "Order History"
+      ),
+      /*#__PURE__*/React.createElement("div", { className: "account-nav-item" },
+        /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "location_on"),
+        "Saved Addresses"
+      ),
+      /*#__PURE__*/React.createElement("div", { className: "account-nav-item" },
+        /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "manage_accounts"),
+        "Account Settings"
+      )
+    ),
+    /*#__PURE__*/React.createElement("div", { className: "account-main" },
+      /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', marginBottom: '20px' } }, "Recent Orders"),
+      /*#__PURE__*/React.createElement("div", {
+        style: { background: '#fff', borderRadius: '16px', padding: '40px 24px', textAlign: 'center', border: '1px dashed rgba(26,26,26,0.15)' }
+      },
+        /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '48px', color: '#C5A880', display: 'block', marginBottom: '16px' } }, "inventory_2"),
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '17px', fontWeight: 500, marginBottom: '8px' } }, "No orders yet"),
+        /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '24px' } }, "When you place an order, it will appear here."),
+        /*#__PURE__*/React.createElement("button", { onClick: onShop, className: "btn btn-dark" }, "Start Shopping")
+      )
+    )
+  ));
 }
 function LegalPage(_ref4) {
   var title = _ref4.title,
@@ -1736,12 +1675,6 @@ function ProductCard(_ref1) {
     className: 'heart-btn' + (wishlisted ? ' active' : ''),
     onClick: function onClick(e) {
       e.stopPropagation();
-      e.preventDefault();
-      onWishToggle(p.id);
-    },
-    onTouchEnd: function onTouchEnd(e) {
-      e.stopPropagation();
-      e.preventDefault();
       onWishToggle(p.id);
     },
     "aria-label": "Save to wishlist"
@@ -1807,7 +1740,7 @@ function BestSellers(_ref10) {
       arr[j] = _ref11[1];
     }
     return arr;
-  }, [onShop]); // re-run after Supabase loads (onShop ref changes via key remount)
+  }, []); // empty deps: component remounts via key when Supabase loads, so shuffle is stable between renders
   var total = pool.length;
   var view = Array.from({
     length: 4
@@ -5811,7 +5744,7 @@ function App() {
     }
   }), /*#__PURE__*/React.createElement("main", {
     className: "page-body"
-  }, body), /*#__PURE__*/React.createElement(Footer, {
+  }, body), ['cart', 'checkout', 'order-confirmation', 'account', 'login', 'register'].indexOf(route) === -1 && /*#__PURE__*/React.createElement(Footer, {
     setRoute: setRoute
   }), /*#__PURE__*/React.createElement(WAFloat, null), /*#__PURE__*/React.createElement(Toast, {
     msg: toast.msg,

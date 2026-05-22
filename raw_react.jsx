@@ -949,7 +949,7 @@
           [arr[i], arr[j]] = [arr[j], arr[i]];
         }
         return arr;
-      }, [onShop]); // re-run after Supabase loads (onShop ref changes via key remount)
+      }, []); // empty deps: component remounts via key when Supabase loads, so shuffle is stable between renders
       const total = pool.length;
       const view = Array.from({ length: 4 }, (_, k) => pool[(start + k) % total]);
 
