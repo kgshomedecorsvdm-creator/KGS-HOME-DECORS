@@ -1335,14 +1335,15 @@ function Footer(_ref6) {
     style: {
       marginTop: 32
     }
-  }, /*#__PURE__*/React.createElement("h4", {
+  }, /*#__PURE__*/React.createElement("p", {
     style: {
       marginBottom: 12,
       color: '#fff',
       fontSize: 11,
       textTransform: 'uppercase',
       letterSpacing: '0.12em',
-      fontWeight: 600
+      fontWeight: 600,
+      margin: '0 0 12px'
     }
   }, "Stay in the loop"), /*#__PURE__*/React.createElement("div", {
     style: {

@@ -643,7 +643,7 @@
                   </a>
                 </div>
                 <div style={{ marginTop: 32 }}>
-                  <h4 style={{ marginBottom: 12, color: '#fff', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 600 }}>Stay in the loop</h4>
+                  <p style={{ margin: '0 0 12px', color: '#fff', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 600 }}>Stay in the loop</p>
                   <div style={{ display: 'flex', gap: 0, borderRadius: 4, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.2)' }}>
                     <input type="email" placeholder="Email address..." style={{ flex: 1, background: 'transparent', border: 'none', padding: '10px 14px', color: '#fff', fontSize: 13, outline: 'none' }} />
                     <button style={{ background: '#C5A880', color: '#1A1614', border: 'none', padding: '0 16px', fontWeight: 600, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'pointer' }}>Join</button>

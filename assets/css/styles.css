@@ -126,7 +126,7 @@ p { line-height: 1.7; color: #5E5B59; margin: 0; }
 }
 .logo { display: flex; flex-direction: column; line-height: 1; }
 .logo .mark { font-family: 'Crimson Pro', serif; font-weight: 600; font-size: 1.45rem; letter-spacing: .03em; color: #1A1A1A; }
-.logo .sub { font-size: 8px; font-weight: 600; letter-spacing: .32em; text-transform: uppercase; color: #B89657; margin-top: 2px; }
+.logo .sub { font-size: 8px; font-weight: 600; letter-spacing: .32em; text-transform: uppercase; color: #7D5C1C; margin-top: 2px; }
 
 .nav-links { display: flex; gap: 28px; align-items: center; justify-self: center; }
 .nav-link {
@@ -176,7 +176,7 @@ p { line-height: 1.7; color: #5E5B59; margin: 0; }
 .wa-float {
   position: fixed; right: 24px; bottom: 24px; z-index: 80;
   display: flex; align-items: center; gap: 10px;
-  background: #25D366; color: #fff;
+  background: #25D366; color: #08280F;
   height: 54px; padding: 0 22px 0 18px; border-radius: 9999px;
   animation: wa-pulse 2.5s ease-in-out infinite;
   font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 500;
@@ -595,7 +595,7 @@ p { line-height: 1.7; color: #5E5B59; margin: 0; }
 .wa-float {
   position: fixed; right: 24px; bottom: 24px; z-index: 80;
   display: flex; align-items: center; gap: 10px;
-  background: #25D366; color: #fff;
+  background: #25D366; color: #08280F;
   height: 54px; padding: 0 22px 0 18px;
   border-radius: 9999px;
   animation: wa-pulse 2.5s ease-in-out infinite;
