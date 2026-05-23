@@ -23,3 +23,4 @@ supabase_tracking.sql
 drive-download-*.zip
 
 product-images-extracted/
+.gstack/

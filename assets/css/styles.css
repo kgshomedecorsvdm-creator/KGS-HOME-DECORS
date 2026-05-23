@@ -78,6 +78,7 @@ p { line-height: 1.7; color: #5E5B59; margin: 0; }
   padding: 0 22px;
   box-shadow: 0 14px 36px -16px rgba(60,40,15,0.18);
   max-width: 1320px; margin: 0 auto;
+  position: relative; overflow: hidden;
 }
 .logo { display: flex; flex-direction: column; line-height: 1; }
 .logo .mark { font-family: 'Crimson Pro', serif; font-weight: 600; font-size: 1.45rem; letter-spacing: .03em; color: #1A1A1A; }
@@ -471,18 +472,24 @@ p { line-height: 1.7; color: #5E5B59; margin: 0; }
   padding: 64px 0 24px;
 }
 .footer h4 {
-  font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 600;
-  color: #fff;
-  margin-bottom: 20px;
+  font-family: 'Jost', sans-serif;
+  font-size: 10.5px; font-weight: 700;
+  color: rgba(255,255,255,0.90);
+  letter-spacing: .15em; text-transform: uppercase;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(197,168,128,0.18);
+  margin-bottom: 18px;
 }
 .footer-grid {
   display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr 1.2fr;
   gap: 40px;
 }
-.footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
 .footer-col a {
-  font-size: 13.5px; color: rgba(255,255,255,0.55);
-  transition: color 200ms ease;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px; color: rgba(255,255,255,0.62);
+  letter-spacing: 0.01em;
+  transition: color 200ms ease, transform 200ms ease;
 }
 .footer-col a:hover { color: #C5A880; }
 .footer-col .info-line {

@@ -957,7 +957,7 @@
           [arr[i], arr[j]] = [arr[j], arr[i]];
         }
         return arr;
-      }, []); // empty deps: component remounts via key when Supabase loads, so shuffle is stable between renders
+      }, [onShop]); // re-run after Supabase loads (onShop ref changes via key remount)
       const total = pool.length;
       const view = Array.from({ length: 4 }, (_, k) => pool[(start + k) % total]);
 
@@ -1323,7 +1323,9 @@
       }, [filter, sort]);
 
       // Use DB category slugs from CATEGORIES array (ordered + labeled)
-      const cats = ['all', ...CATEGORIES.map(cat => cat.id)];
+      // Only show categories that actually have products
+      const activeSlugs = new Set(PRODUCTS.map(p => p.categorySlug || p.category));
+      const cats = ['all', ...CATEGORIES.filter(cat => activeSlugs.has(cat.id)).map(cat => cat.id)];
 
       const ITEMS_PER_PAGE = 12;
       const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
@@ -2583,6 +2585,10 @@
           .then(live => {
             if (live && live.length > 0) {
               PRODUCTS = live;
+              // Update CATEGORIES to only include cats with actual products
+              // Keep categories that have live products (match on slug)
+              const liveSlugs = new Set(live.map(p => p.categorySlug));
+              CATEGORIES = CATEGORIES.filter(cat => liveSlugs.has(cat.id));
             }
             // Clean up cart items whose IDs no longer exist
             setCart(prev => prev.filter(ci => PRODUCTS.some(p => p.id === ci.id)));
@@ -2610,17 +2616,6 @@
         let ctx;
         const timer = setTimeout(() => {
           ctx = gsap.context(() => {
-
-            // â”€â”€ 0. Global Reveal Trigger â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-            // Ensures all .reveal elements become visible on scroll
-            gsap.utils.toArray('.reveal').forEach(el => {
-              ScrollTrigger.create({
-                trigger: el,
-                start: 'top 88%',
-                onEnter: () => el.classList.add('visible'),
-                once: true
-              });
-            });
 
             // â”€â”€ 1. Hero Entrance Timeline (gsap-core + gsap-timeline) â”€â”€â”€â”€â”€â”€
             // Performance: only transform + opacity (gsap-performance rule)
@@ -2651,7 +2646,7 @@
                   { scale: 1, opacity: 1, duration: 1.1, ease: 'power2.out' }, 0.1)
                 // Floating chip pops in last
                 .fromTo('.hero-floating-chip, .hero-delivery-chip',
-                  { scale: 0.88, opacity: 0, y: 10 },
+                  { scale: 0.88, opacity: 1, y: 10 },
                   { scale: 1, opacity: 1, y: 0, stagger: 0.1, duration: 0.55, ease: 'back.out(1.6)' }, '-=0.5');
             }
 
@@ -2693,7 +2688,7 @@
               // gsap-utils: toArray for safe NodeList handling
               const cats = gsap.utils.toArray('.cat-card');
               gsap.fromTo(cats,
-                { y: 30, opacity: 0, scale: 0.94 },
+                { y: 30, opacity: 1, scale: 0.94 },
                 { y: 0, opacity: 1, scale: 1, stagger: 0.055, duration: 0.55, ease: 'power2.out',
                   scrollTrigger: { trigger: catGrid, start: 'top 83%', once: true }
                 }
@@ -2754,7 +2749,7 @@
             if (igGrid) {
               const tiles = gsap.utils.toArray('.ig-tile');
               gsap.fromTo(tiles,
-                { opacity: 0, scale: 0.92 },
+                { opacity: 1, scale: 0.92 },
                 { opacity: 1, scale: 1, stagger: 0.04, duration: 0.45, ease: 'power2.out',
                   scrollTrigger: { trigger: igGrid, start: 'top 85%', once: true }
                 }
@@ -2765,7 +2760,7 @@
             const newsletter = document.querySelector('.newsletter');
             if (newsletter) {
               gsap.fromTo(newsletter,
-                { y: 30, opacity: 0, scale: 0.98 },
+                { y: 30, opacity: 1, scale: 0.98 },
                 { y: 0, opacity: 1, scale: 1, duration: 0.75,
                   scrollTrigger: { trigger: newsletter, start: 'top 85%', once: true }
                 }

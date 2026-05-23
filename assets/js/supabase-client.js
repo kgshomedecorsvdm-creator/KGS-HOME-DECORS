@@ -42,6 +42,51 @@ async function signOut() {
   localStorage.removeItem('kgs_auth_token');
 }
 
+async function resetPasswordForEmail(email) {
+  const sb = getSupabase();
+  const { error } = await sb.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin + '/update-password.html'
+  });
+  if (error) throw error;
+}
+
+async function updateAuthPassword(newPassword) {
+  const sb = getSupabase();
+  const { error } = await sb.auth.updateUser({ password: newPassword });
+  if (error) throw error;
+}
+
+async function resendConfirmationEmail(email) {
+  const sb = getSupabase();
+  const { error } = await sb.auth.resend({ type: 'signup', email });
+  if (error) throw error;
+}
+
+async function getWishlist() {
+  const sb = getSupabase();
+  const user = await getUser();
+  if (!user) return [];
+  const { data, error } = await sb.from('wishlists').select('product_id').eq('customer_id', user.id);
+  if (error) throw error;
+  return (data || []).map(r => r.product_id);
+}
+
+async function addToWishlist(productId) {
+  const sb = getSupabase();
+  const user = await getUser();
+  if (!user) throw new Error('Not authenticated');
+  const { error } = await sb.from('wishlists').upsert({ customer_id: user.id, product_id: productId }, { onConflict: 'customer_id,product_id' });
+  if (error) throw error;
+}
+
+async function removeFromWishlist(productId) {
+  const sb = getSupabase();
+  const user = await getUser();
+  if (!user) return;
+  const { error } = await sb.from('wishlists').delete().eq('customer_id', user.id).eq('product_id', productId);
+  if (error) throw error;
+}
+
 async function getUser() {
   const sb = getSupabase();
   const { data: { user } } = await sb.auth.getUser();
@@ -218,6 +263,28 @@ async function addAddress(address) {
   return data;
 }
 
+async function updateAddress(id, updates) {
+  const sb = getSupabase();
+  const { data, error } = await sb.from('addresses').update(updates).eq('id', id).select().single();
+  if (error) throw error;
+  return data;
+}
+
+async function deleteAddress(id) {
+  const sb = getSupabase();
+  const { error } = await sb.from('addresses').delete().eq('id', id);
+  if (error) throw error;
+}
+
+async function setDefaultAddress(id) {
+  const sb = getSupabase();
+  const user = await getUser();
+  if (!user) throw new Error('Not authenticated');
+  await sb.from('addresses').update({ is_default: false }).eq('customer_id', user.id);
+  const { error } = await sb.from('addresses').update({ is_default: true }).eq('id', id);
+  if (error) throw error;
+}
+
 /* ─── CUSTOMER: Orders ─────────────────────────────────── */
 
 async function getMyOrders() {
@@ -227,6 +294,16 @@ async function getMyOrders() {
     .order('created_at', { ascending: false });
   if (error) throw error;
   return data || [];
+}
+
+async function getOrderById(orderId) {
+  const sb = getSupabase();
+  const { data, error } = await sb.from('orders')
+    .select('*, order_items(*)')
+    .eq('id', orderId)
+    .single();
+  if (error) throw error;
+  return data;
 }
 
 async function createOrder(orderData, items) {

@@ -1,44 +1,145 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Account | KGS Home Décors</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
   <link rel="stylesheet" href="assets/css/icons.css">
   <link rel="stylesheet" href="assets/css/styles.css">
   <style>
-    .account-layout { display: grid; grid-template-columns: 240px 1fr; gap: 64px; }
-    .account-menu { display: flex; flex-direction: column; gap: 8px; }
-    .account-menu a { padding: 12px 16px; border-radius: 6px; font-size: 14px; font-weight: 500; color: #5E5B59; display: flex; align-items: center; gap: 12px; transition: background 0.2s, color 0.2s; }
-    .account-menu a:hover { background: rgba(197,168,128,0.1); color: #1A1A1A; }
-    .account-menu a.active { background: #1A1A1A; color: #fff; }
-    .account-menu a.logout { color: #D32F2F; margin-top: 24px; }
-    .account-menu a.logout:hover { background: rgba(211,47,47,0.1); }
-    
-    .order-card { background: #fff; border: 1px solid rgba(197,168,128,0.25); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
-    .order-header { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(26,26,26,0.08); padding-bottom: 16px; margin-bottom: 16px; }
-    .order-meta { display: flex; flex-direction: column; gap: 4px; }
-    .order-meta span { font-size: 12px; color: #5E5B59; }
-    .order-meta b { font-size: 14px; color: #1A1A1A; }
-    .order-status { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 9999px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; }
-    .order-status.shipped { background: rgba(37,211,102,0.1); color: #128C7E; }
-    .order-status.processing { background: rgba(184,150,87,0.1); color: #B89657; }
-    
-    .order-item { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
-    .order-item img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; background: #F3EBDC; }
-    .order-item div { flex: 1; }
-    
-    @media(max-width: 768px) {
-      .account-layout { grid-template-columns: 1fr; gap: 40px; }
+    /* ── Layout ── */
+    .acct-layout { display: grid; grid-template-columns: 220px 1fr; gap: 48px; align-items: start; }
+    @media (max-width: 768px) { .acct-layout { grid-template-columns: 1fr; gap: 0; } }
+
+    /* ── Sidebar ── */
+    .acct-sidebar { position: sticky; top: 96px; }
+    .acct-user-card { background: #fff; border: 1px solid rgba(197,168,128,0.25); border-radius: 14px; padding: 24px 20px; margin-bottom: 12px; text-align: center; }
+    .acct-avatar { width: 52px; height: 52px; background: rgba(184,150,87,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+    .acct-avatar .material-symbols-outlined { font-size: 26px; color: #B89657; }
+    .acct-name { font-family: 'Crimson Pro', serif; font-size: 17px; font-weight: 500; color: #1A1A1A; margin-bottom: 3px; }
+    .acct-email { font-size: 11.5px; color: #9E9B98; word-break: break-all; }
+
+    .acct-menu { background: #fff; border: 1px solid rgba(197,168,128,0.25); border-radius: 14px; overflow: hidden; }
+    .acct-menu-item { display: flex; align-items: center; gap: 12px; padding: 13px 18px; font-size: 13.5px; font-weight: 500; color: #5E5B59; cursor: pointer; transition: background 180ms, color 180ms; border: none; background: none; width: 100%; text-align: left; font-family: 'Jost', sans-serif; }
+    .acct-menu-item:not(:last-child) { border-bottom: 1px solid rgba(197,168,128,0.12); }
+    .acct-menu-item .material-symbols-outlined { font-size: 18px; }
+    .acct-menu-item:hover { background: rgba(197,168,128,0.07); color: #1A1A1A; }
+    .acct-menu-item.active { background: #1A1614; color: #fff; }
+    .acct-menu-item.active .material-symbols-outlined { color: #C5A880; }
+    .acct-menu-item.danger { color: #C62828; }
+    .acct-menu-item.danger:hover { background: rgba(211,47,47,0.06); }
+    @media (max-width: 768px) {
+      .acct-sidebar { position: static; margin-bottom: 32px; }
+      .acct-user-card { display: flex; align-items: center; gap: 16px; text-align: left; }
+      .acct-avatar { margin: 0; flex-shrink: 0; }
+      .acct-menu { display: flex; overflow-x: auto; border-radius: 12px; }
+      .acct-menu-item { flex-direction: column; gap: 4px; padding: 12px 14px; font-size: 11px; white-space: nowrap; min-width: 80px; border-bottom: none !important; }
+      .acct-menu-item:not(:last-child) { border-right: 1px solid rgba(197,168,128,0.12); }
+      .acct-menu-item .material-symbols-outlined { font-size: 20px; }
     }
+
+    /* ── Tab panels ── */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Section heading ── */
+    .section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .section-head h2 { font-family: 'Crimson Pro', serif; font-size: 24px; font-weight: 500; color: #1A1A1A; }
+
+    /* ── Order cards ── */
+    .order-card { background: #fff; border: 1px solid rgba(197,168,128,0.22); border-radius: 12px; padding: 22px 24px; margin-bottom: 16px; }
+    .order-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid rgba(26,26,26,0.07); }
+    .order-metas { display: flex; gap: 28px; flex-wrap: wrap; }
+    .order-meta { display: flex; flex-direction: column; gap: 3px; }
+    .order-meta span { font-size: 11px; color: #9E9B98; letter-spacing: .04em; text-transform: uppercase; }
+    .order-meta b { font-size: 13.5px; color: #1A1A1A; font-weight: 600; }
+    .status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 9999px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .status-badge.processing { background: rgba(184,150,87,0.12); color: #8A6820; }
+    .status-badge.confirmed { background: rgba(33,150,243,0.10); color: #1565C0; }
+    .status-badge.shipped { background: rgba(103,58,183,0.10); color: #4527A0; }
+    .status-badge.delivered { background: rgba(56,142,60,0.12); color: #2E7D32; }
+    .status-badge.cancelled { background: rgba(211,47,47,0.10); color: #C62828; }
+    .order-items-list { display: flex; flex-direction: column; gap: 14px; }
+    .order-item-row { display: flex; align-items: center; gap: 14px; }
+    .order-item-img { width: 58px; height: 58px; object-fit: cover; border-radius: 8px; background: #F3EBDC; flex-shrink: 0; }
+    .order-item-info { flex: 1; min-width: 0; }
+    .order-item-name { font-size: 13.5px; font-weight: 600; color: #1A1A1A; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .order-item-sub { font-size: 12px; color: #5E5B59; }
+    .order-item-price { font-size: 13.5px; font-weight: 600; color: #1A1A1A; white-space: nowrap; }
+    .empty-state { text-align: center; padding: 64px 24px; }
+    .empty-state .material-symbols-outlined { font-size: 48px; color: rgba(197,168,128,0.5); margin-bottom: 16px; display: block; }
+    .empty-state h3 { font-family: 'Crimson Pro', serif; font-size: 22px; font-weight: 400; color: #1A1A1A; margin-bottom: 8px; }
+    .empty-state p { font-size: 13.5px; color: #5E5B59; margin-bottom: 24px; }
+
+    /* ── Forms ── */
+    .auth-input { padding: 13px 15px; border: 1px solid rgba(197,168,128,0.40); border-radius: 8px; font-family: 'Jost', sans-serif; font-size: 14px; background: #fff; width: 100%; box-sizing: border-box; transition: border-color 200ms, box-shadow 200ms; }
+    .auth-input:focus { outline: none; border-color: #B89657; box-shadow: 0 0 0 3px rgba(184,150,87,0.12); }
+    .auth-input:disabled { background: #F9F7F4; color: #9E9B98; cursor: not-allowed; }
+    .auth-input.error { border-color: #D32F2F; box-shadow: 0 0 0 3px rgba(211,47,47,0.08); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+    .auth-label { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+    .auth-label > span { font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #1A1A1A; }
+    .field-wrap { position: relative; }
+    .field-wrap .auth-input { padding-right: 46px; }
+    .eye-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #9E9B98; padding: 4px; display: flex; align-items: center; transition: color 200ms; }
+    .eye-btn:hover { color: #1A1A1A; }
+    .eye-btn .material-symbols-outlined { font-size: 18px; }
+
+    /* ── Toast ── */
+    .toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1A1614; color: #fff; padding: 12px 22px; border-radius: 10px; font-size: 13.5px; font-family: 'Jost', sans-serif; opacity: 0; pointer-events: none; transition: opacity 300ms, transform 300ms; z-index: 9999; white-space: nowrap; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.error { background: #C62828; }
+
+    /* ── Error / inline msgs ── */
+    .err-msg { display: none; align-items: center; gap: 8px; background: rgba(211,47,47,0.06); border: 1px solid rgba(211,47,47,0.20); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #C62828; margin-bottom: 20px; text-align: left; }
+    .err-msg.show { display: flex; }
+
+    /* ── Strength bar ── */
+    .strength-bars { display: flex; gap: 4px; margin-top: 10px; margin-bottom: 5px; }
+    .strength-bar { flex: 1; height: 3px; background: rgba(197,168,128,0.2); border-radius: 9999px; transition: background 300ms; }
+    .strength-bar.s1 { background: #D32F2F; }
+    .strength-bar.s2 { background: #F57C00; }
+    .strength-bar.s3 { background: #388E3C; }
+    .strength-bar.s4 { background: #1B5E20; }
+    .strength-label { font-size: 11px; color: #5E5B59; }
+
+    /* ── Address cards ── */
+    .addr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .addr-card { background: #fff; border: 1px solid rgba(197,168,128,0.22); border-radius: 12px; padding: 20px; position: relative; }
+    .addr-card.default-card { border-color: rgba(184,150,87,0.55); }
+    .addr-default-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(184,150,87,0.12); color: #8A6820; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 3px 9px; border-radius: 9999px; margin-bottom: 10px; }
+    .addr-name { font-size: 14px; font-weight: 600; color: #1A1A1A; margin-bottom: 6px; }
+    .addr-text { font-size: 13px; color: #5E5B59; line-height: 1.6; margin-bottom: 14px; }
+    .addr-actions { display: flex; gap: 8px; }
+    .addr-btn { background: none; border: 1px solid rgba(197,168,128,0.35); border-radius: 7px; padding: 6px 14px; font-size: 12px; font-family: 'Jost', sans-serif; cursor: pointer; color: #5E5B59; transition: background 180ms, color 180ms, border-color 180ms; }
+    .addr-btn:hover { background: rgba(197,168,128,0.10); color: #1A1A1A; border-color: rgba(197,168,128,0.6); }
+    .addr-btn.danger { color: #C62828; border-color: rgba(211,47,47,0.25); }
+    .addr-btn.danger:hover { background: rgba(211,47,47,0.06); }
+    .add-addr-btn { display: flex; align-items: center; gap: 8px; background: none; border: 1.5px dashed rgba(197,168,128,0.45); border-radius: 12px; padding: 20px; font-size: 13.5px; font-family: 'Jost', sans-serif; color: #B89657; cursor: pointer; width: 100%; justify-content: center; font-weight: 500; transition: border-color 200ms, background 200ms; }
+    .add-addr-btn:hover { border-color: #B89657; background: rgba(184,150,87,0.05); }
+
+    /* ── Modal / overlay for address form ── */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.40); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+    .modal-overlay.show { display: flex; }
+    .modal-box { background: #fff; border-radius: 16px; padding: 36px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; }
+    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+    .modal-head h3 { font-family: 'Crimson Pro', serif; font-size: 22px; font-weight: 500; }
+    .modal-close { background: none; border: none; cursor: pointer; color: #9E9B98; padding: 4px; display: flex; }
+    .modal-close .material-symbols-outlined { font-size: 22px; }
+    .modal-close:hover { color: #1A1A1A; }
+
+    /* ── Loading skeleton ── */
+    .skeleton { background: linear-gradient(90deg, #f0ebe3 25%, #e8e1d7 50%, #f0ebe3 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 6px; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    .skel-line { height: 14px; margin-bottom: 10px; }
+    .skel-card { height: 140px; border-radius: 12px; margin-bottom: 16px; }
   </style>
 </head>
-<body>
-<!-- CSS-only mobile nav toggle -->
-<input type="checkbox" id="nav-toggle" aria-hidden="true">
+<body style="background: #FAF8F4; display: flex; flex-direction: column; min-height: 100vh;">
 
-<!-- NAV -->
 <div class="nav-wrap">
   <div class="nav-bar container">
     <a href="index.html" class="logo">
@@ -47,241 +148,643 @@
     </a>
     <nav class="nav-links">
       <a class="nav-link" href="index.html">Home</a>
-      <a class="nav-link" href="product-listing.html">Shop</a>
-      <a class="nav-link" href="about.html">Our Story</a>
-      <a class="nav-link" href="contact.html">Contact</a>
+      <a class="nav-link" href="index.html#shop">Shop</a>
+      <a class="nav-link" href="index.html#about">Our Story</a>
+      <a class="nav-link" href="index.html#contact">Contact</a>
     </nav>
     <div class="nav-actions">
-      <a class="icon-btn" href="account.html" aria-label="Account">
-        <span class="material-symbols-outlined">person</span>
-      </a>
-      <a class="icon-btn" href="cart-checkout.html" aria-label="Cart">
-        <span class="material-symbols-outlined">shopping_bag</span>
-      </a>
-      <label for="nav-toggle" class="nav-hamburger" aria-label="Open menu">
-        <span class="material-symbols-outlined">menu</span>
-      </label>
+      <a class="icon-btn" href="account.html" aria-label="Account"><span class="material-symbols-outlined">person</span></a>
+      <a class="icon-btn" href="index.html" aria-label="Cart"><span class="material-symbols-outlined">shopping_bag</span></a>
     </div>
   </div>
 </div>
 
-<!-- Mobile nav drawer (CSS-only) -->
-<div class="static-mobile-nav">
-  <label for="nav-toggle" class="static-mobile-nav__overlay" aria-label="Close menu"></label>
-  <div class="static-mobile-nav__panel">
-    <label for="nav-toggle" class="static-mobile-nav__close" aria-label="Close menu">
-      <span class="material-symbols-outlined">close</span>
-    </label>
-    <div style="font-family:'Crimson Pro',serif; font-weight:500; font-size:1.3rem; color:#1A1A1A; margin-bottom:12px">KGS Home Décors</div>
-    <a class="static-mobile-nav__link" href="index.html">Home</a>
-    <a class="static-mobile-nav__link" href="product-listing.html">Shop</a>
-    <a class="static-mobile-nav__link" href="about.html">Our Story</a>
-    <a class="static-mobile-nav__link" href="contact.html">Contact</a>
-    <a class="static-mobile-nav__link active" href="account.html">Account</a>
-    <a class="static-mobile-nav__link" href="cart-checkout.html">Cart</a>
-    <div style="margin-top:auto; padding-top:24px">
-      <a href="https://wa.me/919789182921" style="display:flex; align-items:center; gap:10px; padding:12px 0; color:#25D366; font-weight:600; font-family:'Jost',sans-serif; font-size:14px">
-        <span class="material-symbols-outlined">chat</span>WhatsApp Us
-      </a>
-      <div style="font-size:11px; color:#5E5B59; margin-top:12px; line-height:1.6">
-        185/G Junction Rd<br>Virudhachalam 606001<br>10 AM – 10 PM, every day
-      </div>
-    </div>
-  </div>
-</div>
-
-<main style="flex: 1; padding: 64px 0 96px;">
+<main style="flex: 1; padding: 56px 0 96px;">
   <div class="container">
-    <h1 style="font-family:'Crimson Pro',serif; font-size: 36px; font-weight: 500; margin-bottom: 48px;">My Account</h1>
-    
-    <div class="account-layout">
-      <!-- Sidebar -->
-      <aside>
-        <div class="account-menu">
-          <a href="#" class="active"><span class="material-symbols-outlined">package</span> Order History</a>
-          <a href="#"><span class="material-symbols-outlined">person</span> Profile Details</a>
-          <a href="#"><span class="material-symbols-outlined">location_on</span> Addresses</a>
-          <a href="wishlist.html"><span class="material-symbols-outlined">favorite</span> Wishlist</a>
-          <a href="#" class="logout" id="logout-btn"><span class="material-symbols-outlined">logout</span> Sign Out</a>
-        </div>
-      </aside>
-      
-      <!-- Content -->
-      <div>
-        <h2 style="font-size: 20px; font-weight: 500; margin-bottom: 24px;">Recent Orders</h2>
-        
-        <div id="orders-container">
-          <!-- Order Card Mock -->
-          <div class="order-card">
-            <div class="order-header">
-              <div style="display: flex; gap: 32px">
-                <div class="order-meta">
-                  <span>Order Number</span>
-                  <b>#KGS-10042</b>
-                </div>
-                <div class="order-meta">
-                  <span>Date Placed</span>
-                  <b>May 12, 2026</b>
-                </div>
-                <div class="order-meta">
-                  <span>Total Amount</span>
-                  <b>₹18,500</b>
-                </div>
-              </div>
-              <div>
-                <span class="order-status shipped">Shipped</span>
-              </div>
-            </div>
-            <div class="order-item">
-              <img src="assets/products/sofa.webp" alt="">
-              <div>
-                <div style="font-size: 14px; font-weight: 600; color: #1A1A1A; margin-bottom: 4px;">Premium 3-Seater Sofa</div>
-                <div style="font-size: 12px; color: #5E5B59;">Qty: 1</div>
-              </div>
-              <a href="order-tracking.html" class="btn btn-ghost" style="padding: 8px 16px; font-size: 12px;">Track Order</a>
-            </div>
-          </div>
-          
-          <div class="order-card">
-            <div class="order-header">
-              <div style="display: flex; gap: 32px">
-                <div class="order-meta">
-                  <span>Order Number</span>
-                  <b>#KGS-09881</b>
-                </div>
-                <div class="order-meta">
-                  <span>Date Placed</span>
-                  <b>April 28, 2026</b>
-                </div>
-                <div class="order-meta">
-                  <span>Total Amount</span>
-                  <b>₹2,598</b>
-                </div>
-              </div>
-              <div>
-                <span class="order-status processing">Delivered</span>
-              </div>
-            </div>
-            <div class="order-item">
-              <img src="assets/products/clock.webp" alt="">
-              <div>
-                <div style="font-size: 14px; font-weight: 600; color: #1A1A1A; margin-bottom: 4px;">Antique Brass Wall Clock</div>
-                <div style="font-size: 12px; color: #5E5B59;">Qty: 2</div>
-              </div>
-              <button class="btn btn-ghost" style="padding: 8px 16px; font-size: 12px;">Buy Again</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div style="margin-bottom: 40px;">
+      <h1 style="font-family:'Crimson Pro',serif; font-size: 34px; font-weight: 500; color: #1A1A1A; margin-bottom: 4px;">My Account</h1>
+      <p style="font-size: 13.5px; color: #9E9B98;" id="header-email"></p>
     </div>
+
+    <div class="acct-layout">
+      <!-- Sidebar -->
+      <aside class="acct-sidebar">
+        <div class="acct-user-card">
+          <div class="acct-avatar"><span class="material-symbols-outlined">person</span></div>
+          <div>
+            <div class="acct-name" id="sidebar-name">Loading…</div>
+            <div class="acct-email" id="sidebar-email"></div>
+          </div>
+        </div>
+        <nav class="acct-menu">
+          <button class="acct-menu-item active" data-tab="orders">
+            <span class="material-symbols-outlined">package_2</span> My Orders
+          </button>
+          <button class="acct-menu-item" data-tab="profile">
+            <span class="material-symbols-outlined">person</span> Profile
+          </button>
+          <button class="acct-menu-item" data-tab="addresses">
+            <span class="material-symbols-outlined">location_on</span> Addresses
+          </button>
+          <button class="acct-menu-item" data-tab="password">
+            <span class="material-symbols-outlined">lock</span> Password
+          </button>
+          <button class="acct-menu-item danger" id="signout-btn">
+            <span class="material-symbols-outlined">logout</span> Sign Out
+          </button>
+        </nav>
+      </aside>
+
+      <!-- Content panels -->
+      <div>
+
+        <!-- ── ORDERS TAB ── -->
+        <div class="tab-panel active" id="tab-orders">
+          <div class="section-head">
+            <h2>My Orders</h2>
+          </div>
+          <div id="orders-loading">
+            <div class="skel-card skeleton"></div>
+            <div class="skel-card skeleton"></div>
+          </div>
+          <div id="orders-list" style="display:none;"></div>
+          <div id="orders-empty" class="empty-state" style="display:none;">
+            <span class="material-symbols-outlined">package_2</span>
+            <h3>No orders yet</h3>
+            <p>When you place your first order, it'll show up here.</p>
+            <a href="index.html#shop" class="btn btn-dark" style="font-size: 13.5px;">Start Shopping</a>
+          </div>
+          <div id="orders-error" class="empty-state" style="display:none;">
+            <span class="material-symbols-outlined">error_outline</span>
+            <h3>Couldn't load orders</h3>
+            <p>Something went wrong. Please try again.</p>
+            <button onclick="loadOrders()" class="btn btn-ghost" style="font-size: 13.5px;">Try Again</button>
+          </div>
+        </div>
+
+        <!-- ── PROFILE TAB ── -->
+        <div class="tab-panel" id="tab-profile">
+          <div class="section-head">
+            <h2>Profile Details</h2>
+          </div>
+          <div style="background: #fff; border: 1px solid rgba(197,168,128,0.22); border-radius: 14px; padding: 32px; max-width: 480px;">
+            <div class="err-msg" id="profile-err">
+              <span class="material-symbols-outlined" style="font-size:16px; flex-shrink:0;">error</span>
+              <span id="profile-err-text"></span>
+            </div>
+            <form id="profile-form" novalidate>
+              <div class="form-row">
+                <label class="auth-label">
+                  <span>First Name</span>
+                  <input type="text" id="p-fname" class="auth-input" placeholder="Meena" autocomplete="given-name">
+                </label>
+                <label class="auth-label">
+                  <span>Last Name</span>
+                  <input type="text" id="p-lname" class="auth-input" placeholder="Rajesh" autocomplete="family-name">
+                </label>
+              </div>
+              <label class="auth-label">
+                <span>Email Address</span>
+                <input type="email" id="p-email" class="auth-input" disabled>
+              </label>
+              <label class="auth-label">
+                <span>Phone Number</span>
+                <input type="tel" id="p-phone" class="auth-input" placeholder="+91 98765 43210" autocomplete="tel">
+              </label>
+              <button type="submit" id="profile-btn" class="btn btn-dark" style="width: 100%; font-size: 14px; margin-top: 4px;">Save Changes</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- ── ADDRESSES TAB ── -->
+        <div class="tab-panel" id="tab-addresses">
+          <div class="section-head">
+            <h2>My Addresses</h2>
+          </div>
+          <div id="addr-loading">
+            <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:16px;">
+              <div class="skeleton" style="height:140px; border-radius:12px;"></div>
+              <div class="skeleton" style="height:140px; border-radius:12px;"></div>
+            </div>
+          </div>
+          <div id="addr-content" style="display:none;">
+            <div class="addr-grid" id="addr-grid"></div>
+            <button class="add-addr-btn" onclick="openAddrModal()">
+              <span class="material-symbols-outlined" style="font-size:20px;">add</span> Add New Address
+            </button>
+          </div>
+        </div>
+
+        <!-- ── CHANGE PASSWORD TAB ── -->
+        <div class="tab-panel" id="tab-password">
+          <div class="section-head">
+            <h2>Change Password</h2>
+          </div>
+          <div style="background: #fff; border: 1px solid rgba(197,168,128,0.22); border-radius: 14px; padding: 32px; max-width: 420px;">
+            <div class="err-msg" id="pwd-err">
+              <span class="material-symbols-outlined" style="font-size:16px; flex-shrink:0;">error</span>
+              <span id="pwd-err-text"></span>
+            </div>
+            <form id="pwd-form" novalidate>
+              <label class="auth-label">
+                <span>New Password</span>
+                <div class="field-wrap">
+                  <input type="password" id="new-pwd" class="auth-input" placeholder="••••••••" autocomplete="new-password">
+                  <button type="button" class="eye-btn" onclick="toggleEye('new-pwd',this)" aria-label="Show password">
+                    <span class="material-symbols-outlined">visibility</span>
+                  </button>
+                </div>
+                <div id="pwd-strength-wrap" style="display:none;">
+                  <div class="strength-bars">
+                    <div class="strength-bar" id="psb1"></div>
+                    <div class="strength-bar" id="psb2"></div>
+                    <div class="strength-bar" id="psb3"></div>
+                    <div class="strength-bar" id="psb4"></div>
+                  </div>
+                  <div class="strength-label" id="pwd-strength-label">Weak</div>
+                </div>
+              </label>
+              <label class="auth-label">
+                <span>Confirm New Password</span>
+                <div class="field-wrap">
+                  <input type="password" id="confirm-pwd" class="auth-input" placeholder="••••••••" autocomplete="new-password">
+                  <button type="button" class="eye-btn" onclick="toggleEye('confirm-pwd',this)" aria-label="Show password">
+                    <span class="material-symbols-outlined">visibility</span>
+                  </button>
+                </div>
+              </label>
+              <p style="font-size: 12.5px; color: #9E9B98; margin-bottom: 20px; line-height: 1.6;">You'll be signed out after your password is updated.</p>
+              <button type="submit" id="pwd-btn" class="btn btn-dark" style="width: 100%; font-size: 14px;">Update Password</button>
+            </form>
+          </div>
+        </div>
+
+      </div><!-- /content -->
+    </div><!-- /layout -->
   </div>
 </main>
 
-<!-- NEWSLETTER -->
-<div class="container">
-  <section class="newsletter">
-    <div>
-      <h3>Stay Updated With New Arrivals &amp; Offers</h3>
-      <p>Subscribe to our newsletter and get 10% off on your first order.</p>
+<!-- Address Modal -->
+<div class="modal-overlay" id="addr-modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="addr-modal-title">Add Address</h3>
+      <button class="modal-close" onclick="closeAddrModal()" aria-label="Close">
+        <span class="material-symbols-outlined">close</span>
+      </button>
     </div>
-    <div class="newsletter-form">
-      <input type="email" class="newsletter-input" placeholder="Enter your email" />
-      <button class="btn btn-dark">Subscribe</button>
+    <div class="err-msg" id="addr-err">
+      <span class="material-symbols-outlined" style="font-size:16px; flex-shrink:0;">error</span>
+      <span id="addr-err-text"></span>
     </div>
-  </section>
+    <form id="addr-form" novalidate>
+      <input type="hidden" id="addr-edit-id">
+      <div class="form-row">
+        <label class="auth-label">
+          <span>Full Name</span>
+          <input type="text" id="a-name" class="auth-input" placeholder="Meena Rajesh" required>
+        </label>
+        <label class="auth-label">
+          <span>Phone</span>
+          <input type="tel" id="a-phone" class="auth-input" placeholder="+91 98765 43210" required>
+        </label>
+      </div>
+      <label class="auth-label">
+        <span>Address Line 1</span>
+        <input type="text" id="a-line1" class="auth-input" placeholder="House / Flat / Block No." required>
+      </label>
+      <label class="auth-label">
+        <span>Address Line 2</span>
+        <input type="text" id="a-line2" class="auth-input" placeholder="Street, Area, Landmark (optional)">
+      </label>
+      <div class="form-row">
+        <label class="auth-label">
+          <span>City</span>
+          <input type="text" id="a-city" class="auth-input" placeholder="Chennai" required>
+        </label>
+        <label class="auth-label">
+          <span>State</span>
+          <input type="text" id="a-state" class="auth-input" placeholder="Tamil Nadu" required>
+        </label>
+      </div>
+      <div class="form-row">
+        <label class="auth-label">
+          <span>Pincode</span>
+          <input type="text" id="a-pin" class="auth-input" placeholder="600001" maxlength="6" required>
+        </label>
+        <label class="auth-label" style="justify-content: flex-end; padding-bottom: 4px;">
+          <label style="display:flex; align-items:center; gap:8px; font-size:13px; color:#5E5B59; cursor:pointer; margin-bottom:0;">
+            <input type="checkbox" id="a-default" style="accent-color:#B89657; width:15px; height:15px;"> Set as default address
+          </label>
+        </label>
+      </div>
+      <button type="submit" id="addr-submit-btn" class="btn btn-dark" style="width:100%; margin-top:8px; font-size:14px;">Save Address</button>
+    </form>
+  </div>
 </div>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <a href="index.html" class="logo" style="margin-bottom: 18px">
-          <span class="mark" style="color:#fff">KGS</span>
-          <span class="sub" style="color:#C5A880">Home Décors</span>
-        </a>
-        <p style="font-size:13.5px; color:rgba(255,255,255,0.55); max-width:260px; line-height:1.7;">
-          Timeless home décor crafted to bring beauty, elegance and comfort to your spaces.
-        </p>
-        <div class="footer-socials">
-          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">photo_camera</span></a>
-          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">thumb_up</span></a>
-          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">play_circle</span></a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Shop</h4>
-        <ul>
-          <li><a href="product-listing.html">New Arrivals</a></li>
-          <li><a href="product-listing.html">Best Sellers</a></li>
-          <li><a href="product-listing.html">Artificial Plants</a></li>
-          <li><a href="product-listing.html">Statues &amp; Idols</a></li>
-          <li><a href="product-listing.html">Clocks</a></li>
-          <li><a href="product-listing.html">Lighting</a></li>
-          <li><a href="product-listing.html">Wall Frames</a></li>
-          <li><a href="product-listing.html">Gifts &amp; Hampers</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Help</h4>
-        <ul>
-          <li><a href="#">Shipping & Delivery</a></li>
-          <li><a href="#">Returns & Refunds</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Track Order</a></li>
-          <li><a href="#">Payment Options</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="about.html">Our Story</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Customer Support</h4>
-        <ul>
-          <li class="info-line"><span class="material-symbols-outlined">mail</span><a href="#">support@kgshome.com</a></li>
-          <li class="info-line"><span class="material-symbols-outlined">call</span><a href="#">+91 97891 82921</a></li>
-          <li class="info-line"><span class="material-symbols-outlined">schedule</span>Mon – Sun · 10 AM – 10 PM</li>
-        </ul>
-        <div class="footer-pay" style="margin-top: 18px">
-          <span>VISA</span><span>MC</span><span>UPI</span><span>AMEX</span><span>COD</span>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 KGS Home Décors. All Rights Reserved.</span>
-      <div class="links">
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="terms.html">Terms & Conditions</a>
-        <a href="shipping-policy.html">Shipping Policy</a>
-        <a href="returns-policy.html">Return Policy</a>
-      </div>
-    </div>
-  </div>
-</footer>
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
-<a class="wa-float" href="#">
-  <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px; height:22px; flex-shrink:0;">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
-  </svg>
-  Chat With Us
-</a>
-
-<script src="assets/js/account.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/supabase-client.js"></script>
 <script>
-// Highlight active nav link on legacy pages
-(function() {
-  var page = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-link').forEach(function(a) {
-    if (a.getAttribute('href') === page) a.classList.add('active');
-    if (page === '' && a.getAttribute('href') === 'index.html') a.classList.add('active');
+/* ── Utilities ──────────────────────────────────────────── */
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isError ? ' error' : '');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function toggleEye(inputId, btn) {
+  const inp = document.getElementById(inputId);
+  const hidden = inp.type === 'password';
+  inp.type = hidden ? 'text' : 'password';
+  btn.querySelector('.material-symbols-outlined').textContent = hidden ? 'visibility_off' : 'visibility';
+  btn.setAttribute('aria-label', hidden ? 'Hide password' : 'Show password');
+}
+
+function fmtDate(str) {
+  if (!str) return '—';
+  return new Date(str).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function fmtINR(n) {
+  return '₹' + Number(n || 0).toLocaleString('en-IN');
+}
+
+function calcStrength(pwd) {
+  let s = 0;
+  if (pwd.length >= 8) s++;
+  if (/\d/.test(pwd)) s++;
+  if (/[a-z]/.test(pwd) && /[A-Z]/.test(pwd)) s++;
+  if (/[^a-zA-Z0-9]/.test(pwd)) s++;
+  return s;
+}
+
+/* ── Tab switching ──────────────────────────────────────── */
+let ordersLoaded = false, addrLoaded = false;
+
+document.querySelectorAll('.acct-menu-item[data-tab]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.acct-menu-item').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const tab = btn.dataset.tab;
+    document.getElementById('tab-' + tab).classList.add('active');
+    if (tab === 'orders' && !ordersLoaded) loadOrders();
+    if (tab === 'addresses' && !addrLoaded) loadAddresses();
   });
+});
+
+/* ── Auth guard + init ──────────────────────────────────── */
+let currentUser = null;
+
+(async () => {
+  try {
+    const session = await getSession();
+    if (!session) {
+      window.location.replace('account-login.html');
+      return;
+    }
+    currentUser = session.user;
+    const profile = await getProfile();
+
+    const fullName = profile?.full_name || currentUser.user_metadata?.full_name || '';
+    const email = currentUser.email || '';
+    const phone = profile?.phone || '';
+
+    document.getElementById('header-email').textContent = email;
+    document.getElementById('sidebar-name').textContent = fullName || 'My Account';
+    document.getElementById('sidebar-email').textContent = email;
+    document.getElementById('p-email').value = email;
+
+    const parts = fullName.split(' ');
+    document.getElementById('p-fname').value = parts[0] || '';
+    document.getElementById('p-lname').value = parts.slice(1).join(' ') || '';
+    document.getElementById('p-phone').value = phone;
+
+    loadOrders();
+  } catch (_) {
+    window.location.replace('account-login.html');
+  }
 })();
-</script></body>
+
+/* ── Sign out ────────────────────────────────────────────── */
+document.getElementById('signout-btn').addEventListener('click', async () => {
+  await signOut();
+  window.location.replace('account-login.html?msg=signed-out');
+});
+
+/* ── Orders ─────────────────────────────────────────────── */
+function statusBadge(status) {
+  const s = (status || 'processing').toLowerCase();
+  return `<span class="status-badge ${s}">${s.charAt(0).toUpperCase() + s.slice(1)}</span>`;
+}
+
+async function loadOrders() {
+  ordersLoaded = true;
+  document.getElementById('orders-loading').style.display = 'block';
+  document.getElementById('orders-list').style.display = 'none';
+  document.getElementById('orders-empty').style.display = 'none';
+  document.getElementById('orders-error').style.display = 'none';
+
+  try {
+    const orders = await getMyOrders();
+    document.getElementById('orders-loading').style.display = 'none';
+
+    if (!orders.length) {
+      document.getElementById('orders-empty').style.display = 'block';
+      return;
+    }
+
+    const list = document.getElementById('orders-list');
+    list.innerHTML = orders.map(order => {
+      const items = order.order_items || [];
+      const itemsHtml = items.map(item => `
+        <div class="order-item-row">
+          <img class="order-item-img" src="${item.product_image || 'assets/images/placeholder.webp'}" alt="${item.product_name || ''}">
+          <div class="order-item-info">
+            <div class="order-item-name">${item.product_name || 'Product'}</div>
+            <div class="order-item-sub">Qty: ${item.quantity}</div>
+          </div>
+          <div class="order-item-price">${fmtINR(item.total_price)}</div>
+        </div>
+      `).join('');
+
+      return `
+        <div class="order-card">
+          <div class="order-top">
+            <div class="order-metas">
+              <div class="order-meta"><span>Order No.</span><b>#KGS-${String(order.id || '').slice(-5).toUpperCase() || '—'}</b></div>
+              <div class="order-meta"><span>Date Placed</span><b>${fmtDate(order.created_at)}</b></div>
+              <div class="order-meta"><span>Total</span><b>${fmtINR(order.total_amount)}</b></div>
+            </div>
+            ${statusBadge(order.status)}
+          </div>
+          <div class="order-items-list">${itemsHtml || '<p style="font-size:13px;color:#9E9B98;">No items found</p>'}</div>
+          ${status !== 'cancelled' ? `<div style="margin-top:16px; padding-top:16px; border-top:1px solid rgba(197,168,128,0.12);"><a href="order-tracking.html?id=${order.id}" style="font-size:13px; color:#B89657; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:4px;"><span class="material-symbols-outlined" style="font-size:15px;">location_on</span> Track Order</a></div>` : ''}
+        </div>
+      `;
+    }).join('');
+
+    list.style.display = 'block';
+  } catch (_) {
+    document.getElementById('orders-loading').style.display = 'none';
+    document.getElementById('orders-error').style.display = 'block';
+  }
+}
+
+/* ── Profile ─────────────────────────────────────────────── */
+document.getElementById('profile-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const errBox = document.getElementById('profile-err');
+  errBox.classList.remove('show');
+
+  const fname = document.getElementById('p-fname').value.trim();
+  const lname = document.getElementById('p-lname').value.trim();
+  const phone = document.getElementById('p-phone').value.trim();
+  const btn = document.getElementById('profile-btn');
+
+  if (!fname) {
+    document.getElementById('profile-err-text').textContent = 'Please enter your first name.';
+    errBox.classList.add('show');
+    return;
+  }
+
+  btn.textContent = 'Saving…';
+  btn.disabled = true;
+
+  try {
+    const fullName = (fname + ' ' + lname).trim();
+    await updateProfile({ full_name: fullName, phone });
+    document.getElementById('sidebar-name').textContent = fullName || 'My Account';
+    showToast('Profile updated successfully.');
+  } catch (_) {
+    document.getElementById('profile-err-text').textContent = 'Failed to save. Please try again.';
+    errBox.classList.add('show');
+  } finally {
+    btn.textContent = 'Save Changes';
+    btn.disabled = false;
+  }
+});
+
+/* ── Addresses ────────────────────────────────────────────── */
+let _addresses = [];
+
+async function loadAddresses() {
+  addrLoaded = true;
+  document.getElementById('addr-loading').style.display = 'block';
+  document.getElementById('addr-content').style.display = 'none';
+  try {
+    _addresses = await getAddresses();
+    renderAddresses();
+    document.getElementById('addr-loading').style.display = 'none';
+    document.getElementById('addr-content').style.display = 'block';
+  } catch (_) {
+    document.getElementById('addr-loading').style.display = 'none';
+    document.getElementById('addr-content').style.display = 'block';
+    showToast('Could not load addresses.', true);
+  }
+}
+
+function renderAddresses() {
+  const grid = document.getElementById('addr-grid');
+  grid.innerHTML = _addresses.map(addr => `
+    <div class="addr-card${addr.is_default ? ' default-card' : ''}">
+      ${addr.is_default ? '<div class="addr-default-badge"><span class="material-symbols-outlined" style="font-size:11px;">star</span> Default</div>' : ''}
+      <div class="addr-name">${addr.full_name || ''}</div>
+      <div class="addr-text">
+        ${addr.address_line1 || ''}${addr.address_line2 ? ', ' + addr.address_line2 : ''}<br>
+        ${addr.city || ''}, ${addr.state || ''} – ${addr.pincode || ''}<br>
+        ${addr.phone || ''}
+      </div>
+      <div class="addr-actions">
+        <button class="addr-btn" onclick="editAddr('${addr.id}')">Edit</button>
+        ${!addr.is_default ? `<button class="addr-btn" onclick="makeDefault('${addr.id}')">Set Default</button>` : ''}
+        <button class="addr-btn danger" onclick="deleteAddr('${addr.id}')">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openAddrModal(addrId) {
+  document.getElementById('addr-err').classList.remove('show');
+  document.getElementById('addr-edit-id').value = '';
+  document.getElementById('addr-form').reset();
+  document.getElementById('addr-modal-title').textContent = 'Add Address';
+  document.getElementById('addr-submit-btn').textContent = 'Save Address';
+
+  if (addrId) {
+    const a = _addresses.find(x => x.id === addrId);
+    if (a) {
+      document.getElementById('addr-modal-title').textContent = 'Edit Address';
+      document.getElementById('addr-submit-btn').textContent = 'Update Address';
+      document.getElementById('addr-edit-id').value = a.id;
+      document.getElementById('a-name').value = a.full_name || '';
+      document.getElementById('a-phone').value = a.phone || '';
+      document.getElementById('a-line1').value = a.address_line1 || '';
+      document.getElementById('a-line2').value = a.address_line2 || '';
+      document.getElementById('a-city').value = a.city || '';
+      document.getElementById('a-state').value = a.state || '';
+      document.getElementById('a-pin').value = a.pincode || '';
+      document.getElementById('a-default').checked = !!a.is_default;
+    }
+  }
+
+  document.getElementById('addr-modal').classList.add('show');
+}
+
+function closeAddrModal() {
+  document.getElementById('addr-modal').classList.remove('show');
+}
+
+function editAddr(id) { openAddrModal(id); }
+
+async function makeDefault(id) {
+  try {
+    await setDefaultAddress(id);
+    _addresses = _addresses.map(a => ({ ...a, is_default: a.id === id }));
+    renderAddresses();
+    showToast('Default address updated.');
+  } catch (_) {
+    showToast('Failed to update. Please try again.', true);
+  }
+}
+
+async function deleteAddr(id) {
+  if (!confirm('Delete this address?')) return;
+  try {
+    await deleteAddress(id);
+    _addresses = _addresses.filter(a => a.id !== id);
+    renderAddresses();
+    showToast('Address deleted.');
+  } catch (_) {
+    showToast('Failed to delete. Please try again.', true);
+  }
+}
+
+document.getElementById('addr-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const errBox = document.getElementById('addr-err');
+  errBox.classList.remove('show');
+
+  const editId = document.getElementById('addr-edit-id').value;
+  const payload = {
+    full_name: document.getElementById('a-name').value.trim(),
+    phone: document.getElementById('a-phone').value.trim(),
+    address_line1: document.getElementById('a-line1').value.trim(),
+    address_line2: document.getElementById('a-line2').value.trim(),
+    city: document.getElementById('a-city').value.trim(),
+    state: document.getElementById('a-state').value.trim(),
+    pincode: document.getElementById('a-pin').value.trim(),
+    is_default: document.getElementById('a-default').checked,
+  };
+
+  if (!payload.full_name || !payload.address_line1 || !payload.city || !payload.state || !payload.pincode) {
+    document.getElementById('addr-err-text').textContent = 'Please fill in all required fields.';
+    errBox.classList.add('show');
+    return;
+  }
+
+  const btn = document.getElementById('addr-submit-btn');
+  btn.textContent = 'Saving…';
+  btn.disabled = true;
+
+  try {
+    if (editId) {
+      const updated = await updateAddress(editId, payload);
+      _addresses = _addresses.map(a => a.id === editId ? { ...a, ...updated } : (payload.is_default ? { ...a, is_default: false } : a));
+    } else {
+      const created = await addAddress(payload);
+      if (payload.is_default) {
+        _addresses = _addresses.map(a => ({ ...a, is_default: false }));
+      }
+      _addresses = [created, ..._addresses];
+    }
+    renderAddresses();
+    closeAddrModal();
+    showToast(editId ? 'Address updated.' : 'Address added.');
+  } catch (_) {
+    document.getElementById('addr-err-text').textContent = 'Failed to save address. Please try again.';
+    errBox.classList.add('show');
+  } finally {
+    btn.textContent = editId ? 'Update Address' : 'Save Address';
+    btn.disabled = false;
+  }
+});
+
+// Close modal on overlay click
+document.getElementById('addr-modal').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('addr-modal')) closeAddrModal();
+});
+
+/* ── Change Password ─────────────────────────────────────── */
+const pStrengthLabels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+const pBarClass = ['', 's1', 's2', 's3', 's4'];
+
+document.getElementById('new-pwd').addEventListener('input', function() {
+  const pwd = this.value;
+  const wrap = document.getElementById('pwd-strength-wrap');
+  if (!pwd) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  const score = calcStrength(pwd);
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('psb' + i).className = 'strength-bar' + (i <= score ? ' ' + pBarClass[score] : '');
+  }
+  document.getElementById('pwd-strength-label').textContent = pStrengthLabels[score] || 'Weak';
+});
+
+document.getElementById('pwd-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const errBox = document.getElementById('pwd-err');
+  errBox.classList.remove('show');
+
+  const newPwd = document.getElementById('new-pwd').value;
+  const confirmPwd = document.getElementById('confirm-pwd').value;
+  const btn = document.getElementById('pwd-btn');
+
+  if (newPwd.length < 8) {
+    document.getElementById('pwd-err-text').textContent = 'Password must be at least 8 characters.';
+    errBox.classList.add('show');
+    return;
+  }
+  if (calcStrength(newPwd) < 2) {
+    document.getElementById('pwd-err-text').textContent = 'Password is too weak. Add numbers or uppercase letters.';
+    errBox.classList.add('show');
+    return;
+  }
+  if (newPwd !== confirmPwd) {
+    document.getElementById('pwd-err-text').textContent = 'Passwords do not match.';
+    document.getElementById('confirm-pwd').classList.add('error');
+    errBox.classList.add('show');
+    return;
+  }
+  document.getElementById('confirm-pwd').classList.remove('error');
+
+  btn.textContent = 'Updating…';
+  btn.disabled = true;
+
+  try {
+    await updateAuthPassword(newPwd);
+    showToast('Password updated. Signing you out…');
+    setTimeout(async () => {
+      await signOut();
+      window.location.replace('account-login.html?msg=password-updated');
+    }, 2000);
+  } catch (err) {
+    const msg = (err.message || '').toLowerCase();
+    let text = 'Failed to update password. Please try again.';
+    if (msg.includes('weak') || msg.includes('should')) text = 'Password is too weak. Use 8+ characters with letters and numbers.';
+    document.getElementById('pwd-err-text').textContent = text;
+    errBox.classList.add('show');
+    btn.textContent = 'Update Password';
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
 </html>

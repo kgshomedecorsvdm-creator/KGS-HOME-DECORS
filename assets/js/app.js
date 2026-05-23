@@ -31,6 +31,7 @@ function AccountLoginPage(_ref) {
   var _ps = React.useState(''), password = _ps[0], setPassword = _ps[1];
   var _ls = React.useState(false), loading = _ls[0], setLoading = _ls[1];
   var _err = React.useState(''), error = _err[0], setError = _err[1];
+  var _sp = React.useState(false), showPwd = _sp[0], setShowPwd = _sp[1];
 
   var handleSubmit = function() {
     if (!email || !password) { setError('Please enter your email and password.'); return; }
@@ -59,9 +60,14 @@ function AccountLoginPage(_ref) {
     /*#__PURE__*/React.createElement("div", { style: { marginBottom: '24px' } },
       /*#__PURE__*/React.createElement("div", { style: { display: 'flex', justifyContent: 'space-between', marginBottom: '8px' } },
         /*#__PURE__*/React.createElement("label", { style: { fontSize: '12px', fontWeight: 600, color: '#5E5B59' } }, "Password"),
-        /*#__PURE__*/React.createElement("a", { href: "#", style: { fontSize: '12px', color: '#B89657', fontWeight: 500 } }, "Forgot?")
+        /*#__PURE__*/React.createElement("a", { href: "forgot-password.html", style: { fontSize: '12px', color: '#B89657', fontWeight: 500 } }, "Forgot?")
       ),
-      /*#__PURE__*/React.createElement("input", { type: "password", placeholder: "Enter your password", value: password, onChange: function(e) { setPassword(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: inputStyle })
+      /*#__PURE__*/React.createElement("div", { style: { position: 'relative' } },
+        /*#__PURE__*/React.createElement("input", { type: showPwd ? "text" : "password", placeholder: "Enter your password", value: password, onChange: function(e) { setPassword(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: Object.assign({}, inputStyle, { paddingRight: '46px' }) }),
+        /*#__PURE__*/React.createElement("button", { type: "button", onClick: function() { setShowPwd(!showPwd); }, style: { position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#9E9B98', padding: '4px', display: 'flex', alignItems: 'center' } },
+          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '18px' } }, showPwd ? "visibility_off" : "visibility")
+        )
+      )
     ),
     /*#__PURE__*/React.createElement("button", { onClick: handleSubmit, disabled: loading, className: "btn btn-dark", style: { width: '100%', padding: '16px', fontSize: '14px', marginBottom: '24px', opacity: loading ? 0.7 : 1 } }, loading ? "Signing in…" : "Sign In"),
     /*#__PURE__*/React.createElement("div", { style: { textAlign: 'center', fontSize: '13px', color: '#5E5B59' } },
@@ -1060,6 +1066,9 @@ function Nav(_ref5) {
       return window.removeEventListener('scroll', onScroll);
     };
   }, []);
+  React.useEffect(function () {
+    setProgress(0);
+  }, [route]);
   var link = function link(id, label) {
     return /*#__PURE__*/React.createElement("a", {
       className: 'nav-link' + (route === id ? ' active' : ''),
@@ -5416,20 +5425,7 @@ function App() {
           });
         }
 
-        // ── 13. Scroll-progress bar in nav (gsap-scrolltrigger scrub) ──
-        var progressBar = document.querySelector('.nav-progress');
-        if (progressBar) {
-          gsap.to(progressBar, {
-            width: '100%',
-            ease: 'none',
-            scrollTrigger: {
-              trigger: document.documentElement,
-              start: 'top top',
-              end: 'bottom bottom',
-              scrub: 0 // instant sync (gsap-performance: no scrub lag on simple progress)
-            }
-          });
-        }
+
       }); // end gsap.context
     }, (function() {
       // First load: wait for loader to start fading (2000ms)
@@ -5711,11 +5707,8 @@ function App() {
       setRoute('login');
       body = /*#__PURE__*/React.createElement("div", { style: { minHeight: '60vh' } });
     } else {
-      body = /*#__PURE__*/React.createElement(AccountDashboardPage, {
-        user: currentUser,
-        onLogout: handleLogout,
-        onShop: function onShop() { return setRoute('shop'); }
-      });
+      window.location.replace('account.html');
+      body = /*#__PURE__*/React.createElement("div", { style: { minHeight: '60vh' } });
     }
   } else if (route === 'login') {
     body = /*#__PURE__*/React.createElement(AccountLoginPage, {
