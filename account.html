@@ -140,6 +140,26 @@
 </head>
 <body style="background: #FAF8F4; display: flex; flex-direction: column; min-height: 100vh;">
 
+<!-- Announcement bar -->
+<div class="announce">
+  <div class="container announce-bar">
+    <span class="announce-side">
+      <span class="material-symbols-outlined">storefront</span>
+      <span id="store-time">Junction Road · Virudhachalam</span>
+    </span>
+    <span class="announce-center">
+      <span class="material-symbols-outlined">star</span>
+      <span><b>★ 5.0 on Google.</b> 240 families trust us. Come see why.</span>
+    </span>
+    <span class="announce-side announce-side--right">
+      <span class="announce-divider"></span>
+      <a href="order-tracking.html">Track Order</a>
+      <span class="announce-divider"></span>
+      <a href="https://wa.me/919789182921" target="_blank" rel="noreferrer">WhatsApp</a>
+    </span>
+  </div>
+</div>
+
 <div class="nav-wrap">
   <div class="nav-bar container">
     <a href="index.html" class="logo">
@@ -148,13 +168,15 @@
     </a>
     <nav class="nav-links">
       <a class="nav-link" href="index.html">Home</a>
-      <a class="nav-link" href="index.html#shop">Shop</a>
+      <a class="nav-link" href="product-listing.html">Shop</a>
       <a class="nav-link" href="index.html#about">Our Story</a>
       <a class="nav-link" href="index.html#contact">Contact</a>
     </nav>
     <div class="nav-actions">
-      <a class="icon-btn" href="account.html" aria-label="Account"><span class="material-symbols-outlined">person</span></a>
-      <a class="icon-btn" href="index.html" aria-label="Cart"><span class="material-symbols-outlined">shopping_bag</span></a>
+      <a class="icon-btn" href="product-listing.html" aria-label="Search"><span class="material-symbols-outlined">search</span></a>
+      <a class="icon-btn active" href="account.html" aria-label="Account"><span class="material-symbols-outlined">person</span></a>
+      <a class="icon-btn" href="wishlist.html" aria-label="Wishlist"><span class="material-symbols-outlined">favorite</span></a>
+      <a class="icon-btn" href="cart-checkout.html" aria-label="Cart"><span class="material-symbols-outlined">shopping_bag</span></a>
     </div>
   </div>
 </div>
@@ -386,10 +408,29 @@
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
+<!-- WhatsApp float -->
+<a class="wa-float" href="https://wa.me/919789182921" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.115 1.522 5.845L.057 23.428a.5.5 0 0 0 .609.61l5.701-1.494A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.545 9.545 0 0 1-4.862-1.326l-.35-.208-3.624.95.967-3.53-.228-.362A9.538 9.538 0 0 1 2.4 12C2.4 6.698 6.698 2.4 12 2.4S21.6 6.698 21.6 12 17.302 21.6 12 21.6z"/></svg>
+  Chat With Us
+</a>
+
 <script src="assets/js/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="assets/js/supabase-client.js"></script>
 <script>
+/* ── Store time ─────────────────────────────────────────── */
+(function() {
+  function tick() {
+    const now = new Date();
+    const h = now.getHours(), m = now.getMinutes();
+    const hh = ((h % 12) || 12), mm = String(m).padStart(2, '0'), ampm = h >= 12 ? 'PM' : 'AM';
+    const open = h >= 10 && h < 22;
+    const el = document.getElementById('store-time');
+    if (el) el.textContent = (open ? 'Open now' : 'Opens 10 AM') + ' \xB7 ' + hh + ':' + mm + ' ' + ampm;
+  }
+  tick(); setInterval(tick, 30000);
+})();
+
 /* ── Utilities ──────────────────────────────────────────── */
 function showToast(msg, isError = false) {
   const t = document.getElementById('toast');
