@@ -658,20 +658,20 @@ var PRODUCTS = [{
   badgeKind: 'warm'
 }];
 var CATEGORIES = [
-  { id: 'artificial-plants',  label: 'Artificial Plants',   img: 'assets/categories/cat_artificial_plants.webp' },
-  { id: 'artificial-flowers', label: 'Artificial Flowers',  img: 'assets/categories/cat_artificial_flowers.webp' },
-  { id: 'bags-accessories',   label: 'Bags & Accessories',  img: 'assets/categories/cat_bags_accessories.webp' },
-  { id: 'bottles',            label: 'Bottles',             img: 'assets/categories/cat_bottles.webp' },
-  { id: 'vases-decor',        label: 'Vases & Décor',       img: 'assets/categories/cat_vases_decor_new.webp' },
-  { id: 'fountains-pooja',    label: 'Fountains & Pooja',   img: 'assets/categories/cat_fountains_new.webp' },
-  { id: 'gifts-hampers',      label: 'Gifts & Hampers',     img: 'assets/categories/cat_gifts_new.webp' },
-  { id: 'chairs-sofas',       label: 'Chairs & Sofas',      img: 'assets/categories/cat_chairs_sofas.webp' },
-  { id: 'clocks',             label: 'Clocks',              img: 'assets/categories/cat_clocks_new.webp' },
-  { id: 'lighting',           label: 'Lighting',            img: 'assets/categories/cat_lighting_only.webp' },
-  { id: 'blower-fans',        label: 'Blower Fans',         img: 'assets/categories/cat_blower_fans.webp' },
-  { id: 'statues-idols',      label: 'Statues & Idols',     img: 'assets/categories/cat_statues_new.webp' },
-  { id: 'wall-frames',        label: 'Wall Frames',         img: 'assets/categories/cat_wall_frames_new.webp' },
-  { id: 'wall-statues',       label: 'Wall Statues',        img: 'assets/categories/cat_wall_statues.webp' },
+  { id: 'artificial-plants',  label: 'Artificial Plants',   img: 'assets/categories/cat_artificial_plants_thumb.webp' },
+  { id: 'artificial-flowers', label: 'Artificial Flowers',  img: 'assets/categories/cat_artificial_flowers_thumb.webp' },
+  { id: 'bags-accessories',   label: 'Bags & Accessories',  img: 'assets/categories/cat_bags_accessories_thumb.webp' },
+  { id: 'bottles',            label: 'Bottles',             img: 'assets/categories/cat_bottles_thumb.webp' },
+  { id: 'vases-decor',        label: 'Vases & Décor',       img: 'assets/categories/cat_vases_decor_new_thumb.webp' },
+  { id: 'fountains-pooja',    label: 'Fountains & Pooja',   img: 'assets/categories/cat_fountains_new_thumb.webp' },
+  { id: 'gifts-hampers',      label: 'Gifts & Hampers',     img: 'assets/categories/cat_gifts_new_thumb.webp' },
+  { id: 'chairs-sofas',       label: 'Chairs & Sofas',      img: 'assets/categories/cat_chairs_sofas_thumb.webp' },
+  { id: 'clocks',             label: 'Clocks',              img: 'assets/categories/cat_clocks_new_thumb.webp' },
+  { id: 'lighting',           label: 'Lighting',            img: 'assets/categories/cat_lighting_only_thumb.webp' },
+  { id: 'blower-fans',        label: 'Blower Fans',         img: 'assets/categories/cat_blower_fans_thumb.webp' },
+  { id: 'statues-idols',      label: 'Statues & Idols',     img: 'assets/categories/cat_statues_new_thumb.webp' },
+  { id: 'wall-frames',        label: 'Wall Frames',         img: 'assets/categories/cat_wall_frames_new_thumb.webp' },
+  { id: 'wall-statues',       label: 'Wall Statues',        img: 'assets/categories/cat_wall_statues_thumb.webp' },
 ];
 var TESTIMONIALS = [{
   name: 'Priya Sharma',
@@ -692,7 +692,7 @@ var TESTIMONIALS = [{
   quote: 'An incredibly premium selection right here in Virudhachalam. Went to the showroom on Junction Road and ended up buying three things I hadn\'t planned to.',
   thumb: 'assets/lifestyle/room_hallway.webp'
 }];
-var IG_TILES = ['assets/lifestyle/room_living.webp', 'assets/lifestyle/room_bedroom.webp', 'assets/lifestyle/room_hallway.webp', 'assets/lifestyle/room_zen.webp', 'assets/lifestyle/showroom.webp', 'assets/lifestyle/showroom_interior.webp', 'assets/categories/cat_decor.webp', 'assets/categories/cat_lighting.webp', 'assets/categories/cat_plants.webp', 'assets/categories/cat_lifestyle.webp'];
+var IG_TILES = ['assets/lifestyle/room_living.webp', 'assets/lifestyle/room_bedroom.webp', 'assets/lifestyle/room_hallway.webp', 'assets/lifestyle/room_zen.webp', 'assets/lifestyle/showroom.webp', 'assets/lifestyle/showroom_interior.webp', 'assets/categories/cat_decor_thumb.webp', 'assets/categories/cat_lighting_thumb.webp', 'assets/categories/cat_plants_thumb.webp', 'assets/categories/cat_lifestyle_thumb.webp'];
 var fmtPrice = function fmtPrice(n) {
   return '₹' + n.toLocaleString('en-IN');
 };
@@ -1479,17 +1479,17 @@ function Hero(_ref9) {
   var onShop = _ref9.onShop,
     onSellers = _ref9.onSellers;
   var SLIDES = [{
-    img: 'assets/lifestyle/showroom_interior.png',
+    img: 'assets/lifestyle/showroom_interior.webp',
     eyebrow: 'Curated Spaces',
     headline: /*#__PURE__*/React.createElement(React.Fragment, null, "Elevate your home.", /*#__PURE__*/React.createElement("br", null), "Discover our ", /*#__PURE__*/React.createElement("em", null, "exclusive"), /*#__PURE__*/React.createElement("br", null), "collections."),
     sub: 'Premium interior designs. Free delivery in Virudhachalam only.'
   }, {
-    img: 'assets/lifestyle/premium_decor_bright.png',
+    img: 'assets/lifestyle/premium_decor_bright.webp',
     eyebrow: 'Modern Elegance',
     headline: /*#__PURE__*/React.createElement(React.Fragment, null, "Statement pieces", /*#__PURE__*/React.createElement("br", null), "that transform ", /*#__PURE__*/React.createElement("em", null, "ordinary"), /*#__PURE__*/React.createElement("br", null), "into extraordinary."),
     sub: 'Handpicked artifacts, luxury lighting, and elegant decor.'
   }, {
-    img: 'assets/lifestyle/room_zen.png',
+    img: 'assets/lifestyle/room_zen.webp',
     eyebrow: 'Heritage Pieces',
     headline: /*#__PURE__*/React.createElement(React.Fragment, null, "Made the way", /*#__PURE__*/React.createElement("br", null), "things were ", /*#__PURE__*/React.createElement("em", null, "made"), /*#__PURE__*/React.createElement("br", null), "to last."),
     sub: 'Brass. Stone. Slow craft. Every piece hand-checked before it ships.'
