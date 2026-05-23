@@ -68,8 +68,7 @@
       <span class="material-symbols-outlined">storefront</span>
       <span id="store-time">Junction Road · Virudhachalam</span>
     </span>
-    <span class="announce-center">
-      <span class="material-symbols-outlined">star</span>
+    <span class="announce-center"></span>
       <span><b>★ 5.0 on Google.</b> 240 families trust us. Come see why.</span>
     </span>
     <span class="announce-side announce-side--right">
@@ -336,16 +335,6 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
   document.getElementById('contact-success').style.display = 'block';
 });
 </script>
-<script>
-(function() {
-  function tick() {
-    var now = new Date(), h = now.getHours(), m = now.getMinutes();
-    var hh = (h % 12) || 12, mm = String(m).padStart(2,'0'), ampm = h >= 12 ? 'PM' : 'AM';
-    var el = document.getElementById('store-time');
-    if (el) el.textContent = (h >= 10 && h < 22 ? 'Open now' : 'Opens 10 AM') + ' · ' + hh + ':' + mm + ' ' + ampm;
-  }
-  tick(); setInterval(tick, 30000);
-})();
-</script>
+<script src="assets/js/announce.js"></script>
 </body>
 </html>

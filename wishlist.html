@@ -16,8 +16,7 @@
       <span class="material-symbols-outlined">storefront</span>
       <span id="store-time">Junction Road · Virudhachalam</span>
     </span>
-    <span class="announce-center">
-      <span class="material-symbols-outlined">star</span>
+    <span class="announce-center"></span>
       <span><b>★ 5.0 on Google.</b> 240 families trust us. Come see why.</span>
     </span>
     <span class="announce-side announce-side--right">
@@ -122,17 +121,7 @@
             <button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span> Add to Cart</button>
           </div>
 </div>
-          </div>
-          <div class="prod-body">
-            <div class="prod-cat">Fountains</div>
-            <a href="product-detail.html" class="prod-name">Indoor Tabletop Fountain</a>
-            <div class="prod-rating"><span class="stars">★★★★★</span><span><b style="color:#1A1A1A">4.9</b> · 56 reviews</span></div>
-          </div>
-          <div class="prod-price"><span class="now">₹2,850</span></div>
-          <button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span> Add to Cart</button>
-        </div>
-      </div>
-      
+
       <div id="empty-wishlist-msg" style="display:none; text-align:center; padding: 64px 0">
         <span class="material-symbols-outlined" style="font-size:48px; color:#C5A880; margin-bottom:16px">favorite_border</span>
         <h2 style="font-family:'Crimson Pro',serif; font-size:24px; font-weight:500; margin-bottom:8px">Your wishlist is empty</h2>
@@ -248,17 +237,7 @@
     if (page === '' && a.getAttribute('href') === 'index.html') a.classList.add('active');
   });
 })();
-</script>
-<script>
-(function() {
-  function tick() {
-    var now = new Date(), h = now.getHours(), m = now.getMinutes();
-    var hh = (h % 12) || 12, mm = String(m).padStart(2,'0'), ampm = h >= 12 ? 'PM' : 'AM';
-    var el = document.getElementById('store-time');
-    if (el) el.textContent = (h >= 10 && h < 22 ? 'Open now' : 'Opens 10 AM') + ' · ' + hh + ':' + mm + ' ' + ampm;
-  }
-  tick(); setInterval(tick, 30000);
-})();
-</script></body>
+</script><script src="assets/js/announce.js"></script>
+</body>
 </html>
 
