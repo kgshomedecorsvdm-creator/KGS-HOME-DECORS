@@ -1468,7 +1468,7 @@ function Hero(_ref9) {
   var onShop = _ref9.onShop,
     onSellers = _ref9.onSellers;
   var SLIDES = [{
-    img: 'assets/lifestyle/showroom_interior.webp',
+    img: 'assets/lifestyle/showroom_interior.png',
     eyebrow: 'Curated Spaces',
     headline: /*#__PURE__*/React.createElement(React.Fragment, null, "Elevate your home.", /*#__PURE__*/React.createElement("br", null), "Discover our ", /*#__PURE__*/React.createElement("em", null, "exclusive"), /*#__PURE__*/React.createElement("br", null), "collections."),
     sub: 'Premium interior designs. Free delivery in Virudhachalam only.'
@@ -1478,7 +1478,7 @@ function Hero(_ref9) {
     headline: /*#__PURE__*/React.createElement(React.Fragment, null, "Statement pieces", /*#__PURE__*/React.createElement("br", null), "that transform ", /*#__PURE__*/React.createElement("em", null, "ordinary"), /*#__PURE__*/React.createElement("br", null), "into extraordinary."),
     sub: 'Handpicked artifacts, luxury lighting, and elegant decor.'
   }, {
-    img: 'assets/lifestyle/room_zen.webp',
+    img: 'assets/lifestyle/room_zen.png',
     eyebrow: 'Heritage Pieces',
     headline: /*#__PURE__*/React.createElement(React.Fragment, null, "Made the way", /*#__PURE__*/React.createElement("br", null), "things were ", /*#__PURE__*/React.createElement("em", null, "made"), /*#__PURE__*/React.createElement("br", null), "to last."),
     sub: 'Brass. Stone. Slow craft. Every piece hand-checked before it ships.'
