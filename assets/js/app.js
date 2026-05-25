@@ -4280,6 +4280,7 @@ function AboutPage(_ref20) {
   return /*#__PURE__*/React.createElement("div", {
     "data-screen-label": "About"
   }, /*#__PURE__*/React.createElement("section", {
+    className: "about-hero-section",
     style: {
       background: '#F2E8D6',
       padding: '80px 0',
@@ -4327,7 +4328,7 @@ function AboutPage(_ref20) {
       padding: '72px 0'
     }
   }, /*#__PURE__*/React.createElement("div", {
-    className: "container",
+    className: "container about-story-grid",
     style: {
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
@@ -4335,6 +4336,7 @@ function AboutPage(_ref20) {
       alignItems: 'center'
     }
   }, /*#__PURE__*/React.createElement("div", {
+    className: "about-story-img",
     style: {
       aspectRatio: '4/5',
       overflow: 'hidden',
