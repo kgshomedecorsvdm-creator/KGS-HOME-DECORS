@@ -4407,6 +4407,7 @@ function AboutPage(_ref20) {
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
+    className: "about-stats-grid",
     style: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
@@ -4431,6 +4432,7 @@ function AboutPage(_ref20) {
   }].map(function (card) {
     return /*#__PURE__*/React.createElement("div", {
       key: card.num,
+      className: "about-stat-card",
       style: {
         background: 'rgba(255,255,255,0.75)',
         borderRadius: 18,
