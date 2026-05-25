@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>My Account | KGS Home Décors</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,140 +10,634 @@
   <link rel="stylesheet" href="assets/css/icons.css">
   <link rel="stylesheet" href="assets/css/styles.css">
   <style>
-    /* ── Layout ── */
-    .acct-layout { display: grid; grid-template-columns: 220px 1fr; gap: 48px; align-items: start; }
-    @media (max-width: 768px) { .acct-layout { grid-template-columns: 1fr; gap: 0; } }
-
-    /* ── Sidebar ── */
-    .acct-sidebar { position: sticky; top: 96px; }
-    .acct-user-card { background: #fff; border: 1px solid rgba(197,168,128,0.25); border-radius: 14px; padding: 24px 20px; margin-bottom: 12px; text-align: center; }
-    .acct-avatar { width: 52px; height: 52px; background: rgba(184,150,87,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
-    .acct-avatar .material-symbols-outlined { font-size: 26px; color: #B89657; }
-    .acct-name { font-family: 'Crimson Pro', serif; font-size: 17px; font-weight: 500; color: #1A1A1A; margin-bottom: 3px; }
-    .acct-email { font-size: 11.5px; color: #9E9B98; word-break: break-all; }
-
-    .acct-menu { background: #fff; border: 1px solid rgba(197,168,128,0.25); border-radius: 14px; overflow: hidden; }
-    .acct-menu-item { display: flex; align-items: center; gap: 12px; padding: 13px 18px; font-size: 13.5px; font-weight: 500; color: #5E5B59; cursor: pointer; transition: background 180ms, color 180ms; border: none; background: none; width: 100%; text-align: left; font-family: 'Jost', sans-serif; }
-    .acct-menu-item:not(:last-child) { border-bottom: 1px solid rgba(197,168,128,0.12); }
-    .acct-menu-item .material-symbols-outlined { font-size: 18px; }
-    .acct-menu-item:hover { background: rgba(197,168,128,0.07); color: #1A1A1A; }
-    .acct-menu-item.active { background: #1A1614; color: #fff; }
-    .acct-menu-item.active .material-symbols-outlined { color: #C5A880; }
-    .acct-menu-item.danger { color: #C62828; }
-    .acct-menu-item.danger:hover { background: rgba(211,47,47,0.06); }
+    /* ─── Page wrapper ───────────────────────────────────────────── */
+    main.acct-main-wrap {
+      flex: 1;
+      padding: 52px 0 96px;
+    }
     @media (max-width: 768px) {
-      .acct-sidebar { position: static; margin-bottom: 32px; }
-      .acct-user-card { display: flex; align-items: center; gap: 16px; text-align: left; }
-      .acct-avatar { margin: 0; flex-shrink: 0; }
-      .acct-menu { display: flex; overflow-x: auto; border-radius: 12px; }
-      .acct-menu-item { flex-direction: column; gap: 4px; padding: 12px 14px; font-size: 11px; white-space: nowrap; min-width: 80px; border-bottom: none !important; }
-      .acct-menu-item:not(:last-child) { border-right: 1px solid rgba(197,168,128,0.12); }
-      .acct-menu-item .material-symbols-outlined { font-size: 20px; }
+      main.acct-main-wrap {
+        padding: 32px 0 calc(80px + env(safe-area-inset-bottom));
+      }
     }
 
-    /* ── Tab panels ── */
+    /* ─── Page heading ───────────────────────────────────────────── */
+    .acct-page-head {
+      margin-bottom: 40px;
+    }
+    .acct-page-head h1 {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 400;
+      color: #1A1A1A;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .acct-page-head p {
+      font-size: 13px;
+      color: #9E9B98;
+      font-family: 'Jost', sans-serif;
+    }
+    @media (max-width: 768px) {
+      .acct-page-head { margin-bottom: 24px; }
+    }
+
+    /* ─── 2-col layout ───────────────────────────────────────────── */
+    .acct-layout {
+      display: grid;
+      grid-template-columns: 224px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .acct-layout {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+
+    /* ─── Sidebar ────────────────────────────────────────────────── */
+    .acct-sidebar { position: sticky; top: 96px; }
+
+    .acct-user-card {
+      background: #fff;
+      border: 1px solid rgba(197,168,128,0.22);
+      border-radius: 16px;
+      padding: 24px 20px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    @media (min-width: 769px) {
+      .acct-user-card { flex-direction: column; align-items: center; text-align: center; padding: 28px 20px; }
+    }
+
+    .acct-avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: rgba(184,150,87,0.12);
+      border: 1px solid rgba(184,150,87,0.25);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Crimson Pro', serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: #B89657;
+      letter-spacing: 0.02em;
+    }
+    .acct-avatar .acct-initials { display: block; }
+    .acct-avatar .material-symbols-outlined { font-size: 24px; color: #B89657; }
+
+    .acct-user-info { min-width: 0; }
+    .acct-name {
+      font-family: 'Crimson Pro', serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: #1A1A1A;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .acct-email {
+      font-size: 11.5px;
+      color: #9E9B98;
+      font-family: 'Jost', sans-serif;
+      word-break: break-all;
+    }
+
+    /* ─── Sidebar nav ────────────────────────────────────────────── */
+    .acct-menu {
+      background: #fff;
+      border: 1px solid rgba(197,168,128,0.22);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .acct-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 13px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #6B6865;
+      cursor: pointer;
+      transition: background 160ms, color 160ms;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      font-family: 'Jost', sans-serif;
+      letter-spacing: 0.01em;
+    }
+    .acct-menu-item:not(:last-child) {
+      border-bottom: 1px solid rgba(197,168,128,0.10);
+    }
+    .acct-menu-item .material-symbols-outlined { font-size: 16px; flex-shrink: 0; }
+    .acct-menu-item:hover { background: rgba(197,168,128,0.06); color: #1A1A1A; }
+    .acct-menu-item.active {
+      background: #1A1614;
+      color: #fff;
+    }
+    .acct-menu-item.active .material-symbols-outlined {
+      color: #C5A880;
+      font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .acct-menu-item.danger { color: #C0392B; }
+    .acct-menu-item.danger:hover { background: rgba(211,47,47,0.05); }
+    .acct-menu-item.danger .material-symbols-outlined { color: #C0392B; }
+
+    /* ─── Mobile: sidebar becomes compact strip ──────────────────── */
+    @media (max-width: 768px) {
+      .acct-sidebar { position: static; margin-bottom: 0; }
+
+      .acct-user-card {
+        border-radius: 0;
+        border-width: 0 0 1px 0;
+        margin-bottom: 0;
+        padding: 20px 18px;
+        background: #FAF8F4;
+        gap: 12px;
+      }
+      .acct-name { font-size: 16px; }
+
+      .acct-menu {
+        border-radius: 0;
+        border-width: 0 0 1px 0;
+        display: flex;
+        overflow-x: auto;
+        background: #fff;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .acct-menu::-webkit-scrollbar { display: none; }
+
+      .acct-menu-item {
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 12px 16px;
+        font-size: 10.5px;
+        white-space: nowrap;
+        letter-spacing: 0.03em;
+        min-width: 72px;
+        flex-shrink: 0;
+        border-bottom: none !important;
+      }
+      .acct-menu-item:not(:last-child) {
+        border-right: 1px solid rgba(197,168,128,0.10) !important;
+      }
+      .acct-menu-item .material-symbols-outlined { font-size: 20px; }
+
+      .acct-menu-item.active {
+        background: none;
+        color: #1A1A1A;
+        position: relative;
+      }
+      .acct-menu-item.active::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 12px; right: 12px;
+        height: 2px;
+        background: #B89657;
+        border-radius: 2px 2px 0 0;
+      }
+      .acct-menu-item.active .material-symbols-outlined {
+        color: #B89657;
+        font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      }
+      .acct-menu-item.danger .material-symbols-outlined { color: #C0392B; }
+    }
+
+    /* ─── Content area ───────────────────────────────────────────── */
+    .acct-content { min-width: 0; }
+    @media (max-width: 768px) {
+      .acct-content { padding: 28px 18px 0; }
+    }
+
+    /* ─── Tab panels ─────────────────────────────────────────────── */
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* ── Section heading ── */
-    .section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-    .section-head h2 { font-family: 'Crimson Pro', serif; font-size: 24px; font-weight: 500; color: #1A1A1A; }
+    /* ─── Section heading ────────────────────────────────────────── */
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(197,168,128,0.18);
+    }
+    .section-head h2 {
+      font-family: 'Crimson Pro', serif;
+      font-size: 26px;
+      font-weight: 400;
+      color: #1A1A1A;
+      letter-spacing: -0.01em;
+    }
 
-    /* ── Order cards ── */
-    .order-card { background: #fff; border: 1px solid rgba(197,168,128,0.22); border-radius: 12px; padding: 22px 24px; margin-bottom: 16px; }
-    .order-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid rgba(26,26,26,0.07); }
+    /* ─── Order cards ────────────────────────────────────────────── */
+    .order-card {
+      background: #fff;
+      border: 1px solid rgba(197,168,128,0.20);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 14px;
+    }
+    .order-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid rgba(26,26,26,0.06);
+    }
     .order-metas { display: flex; gap: 28px; flex-wrap: wrap; }
     .order-meta { display: flex; flex-direction: column; gap: 3px; }
-    .order-meta span { font-size: 11px; color: #9E9B98; letter-spacing: .04em; text-transform: uppercase; }
-    .order-meta b { font-size: 13.5px; color: #1A1A1A; font-weight: 600; }
-    .status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 9999px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .order-meta span {
+      font-size: 10px;
+      color: #9E9B98;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-family: 'Jost', sans-serif;
+      font-weight: 600;
+    }
+    .order-meta b { font-size: 13.5px; color: #1A1A1A; font-weight: 600; font-family: 'Jost', sans-serif; }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-family: 'Jost', sans-serif;
+    }
     .status-badge.processing { background: rgba(184,150,87,0.12); color: #8A6820; }
-    .status-badge.confirmed { background: rgba(33,150,243,0.10); color: #1565C0; }
-    .status-badge.shipped { background: rgba(103,58,183,0.10); color: #4527A0; }
-    .status-badge.delivered { background: rgba(56,142,60,0.12); color: #2E7D32; }
-    .status-badge.cancelled { background: rgba(211,47,47,0.10); color: #C62828; }
+    .status-badge.confirmed  { background: rgba(33,150,243,0.09); color: #1565C0; }
+    .status-badge.shipped    { background: rgba(103,58,183,0.09); color: #4527A0; }
+    .status-badge.delivered  { background: rgba(56,142,60,0.10); color: #2E7D32; }
+    .status-badge.cancelled  { background: rgba(211,47,47,0.09); color: #C62828; }
+
     .order-items-list { display: flex; flex-direction: column; gap: 14px; }
     .order-item-row { display: flex; align-items: center; gap: 14px; }
-    .order-item-img { width: 58px; height: 58px; object-fit: cover; border-radius: 8px; background: #F3EBDC; flex-shrink: 0; }
+    .order-item-img {
+      width: 56px; height: 56px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: rgba(197,168,128,0.12);
+      flex-shrink: 0;
+    }
     .order-item-info { flex: 1; min-width: 0; }
-    .order-item-name { font-size: 13.5px; font-weight: 600; color: #1A1A1A; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .order-item-sub { font-size: 12px; color: #5E5B59; }
-    .order-item-price { font-size: 13.5px; font-weight: 600; color: #1A1A1A; white-space: nowrap; }
-    .empty-state { text-align: center; padding: 64px 24px; }
-    .empty-state .material-symbols-outlined { font-size: 48px; color: rgba(197,168,128,0.5); margin-bottom: 16px; display: block; }
-    .empty-state h3 { font-family: 'Crimson Pro', serif; font-size: 22px; font-weight: 400; color: #1A1A1A; margin-bottom: 8px; }
-    .empty-state p { font-size: 13.5px; color: #5E5B59; margin-bottom: 24px; }
+    .order-item-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1A1A1A;
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: 'Jost', sans-serif;
+    }
+    .order-item-sub { font-size: 12px; color: #9E9B98; font-family: 'Jost', sans-serif; }
+    .order-item-price { font-size: 13.5px; font-weight: 600; color: #1A1A1A; white-space: nowrap; font-family: 'Jost', sans-serif; }
 
-    /* ── Forms ── */
-    .auth-input { padding: 13px 15px; border: 1px solid rgba(197,168,128,0.40); border-radius: 8px; font-family: 'Jost', sans-serif; font-size: 14px; background: #fff; width: 100%; box-sizing: border-box; transition: border-color 200ms, box-shadow 200ms; }
-    .auth-input:focus { outline: none; border-color: #B89657; box-shadow: 0 0 0 3px rgba(184,150,87,0.12); }
-    .auth-input:disabled { background: #F9F7F4; color: #9E9B98; cursor: not-allowed; }
+    .order-track-link {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(197,168,128,0.12);
+    }
+    .order-track-link a {
+      font-size: 12.5px;
+      color: #B89657;
+      font-weight: 600;
+      font-family: 'Jost', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+    }
+    .order-track-link a:hover { color: #9A7840; }
+    .order-track-link a .material-symbols-outlined { font-size: 14px; }
+
+    /* ─── Empty / loading states ─────────────────────────────────── */
+    .empty-state {
+      text-align: center;
+      padding: 64px 24px;
+    }
+    .empty-state .material-symbols-outlined {
+      font-size: 44px;
+      color: rgba(197,168,128,0.45);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .empty-state h3 {
+      font-family: 'Crimson Pro', serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: #1A1A1A;
+      margin-bottom: 8px;
+    }
+    .empty-state p {
+      font-size: 13.5px;
+      color: #9E9B98;
+      margin-bottom: 24px;
+      max-width: 280px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.65;
+    }
+
+    /* ─── Loading skeletons ──────────────────────────────────────── */
+    .skeleton {
+      background: linear-gradient(90deg, #F0EBE3 25%, #E8E1D7 50%, #F0EBE3 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 8px;
+    }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    .skel-card { height: 130px; border-radius: 14px; margin-bottom: 14px; }
+
+    /* ─── Forms ──────────────────────────────────────────────────── */
+    .acct-form-panel {
+      background: #fff;
+      border: 1px solid rgba(197,168,128,0.20);
+      border-radius: 14px;
+      padding: 32px;
+      max-width: 480px;
+    }
+    @media (max-width: 560px) { .acct-form-panel { padding: 24px 18px; } }
+
+    .auth-input {
+      padding: 13px 15px;
+      border: 1px solid rgba(197,168,128,0.38);
+      border-radius: 8px;
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      background: #FDFBF8;
+      width: 100%;
+      box-sizing: border-box;
+      transition: border-color 200ms, box-shadow 200ms;
+      color: #1A1A1A;
+    }
+    .auth-input:focus {
+      outline: none;
+      border-color: #B89657;
+      box-shadow: 0 0 0 3px rgba(184,150,87,0.12);
+      background: #fff;
+    }
+    .auth-input:disabled { background: #F5F2EC; color: #9E9B98; cursor: not-allowed; }
     .auth-input.error { border-color: #D32F2F; box-shadow: 0 0 0 3px rgba(211,47,47,0.08); }
+
+    .auth-label { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+    .auth-label > span {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #1A1A1A;
+      font-family: 'Jost', sans-serif;
+    }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
-    .auth-label { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
-    .auth-label > span { font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #1A1A1A; }
+
     .field-wrap { position: relative; }
     .field-wrap .auth-input { padding-right: 46px; }
-    .eye-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #9E9B98; padding: 4px; display: flex; align-items: center; transition: color 200ms; }
+    .eye-btn {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer;
+      color: #9E9B98; padding: 4px;
+      display: flex; align-items: center;
+      transition: color 200ms;
+    }
     .eye-btn:hover { color: #1A1A1A; }
-    .eye-btn .material-symbols-outlined { font-size: 18px; }
+    .eye-btn .material-symbols-outlined { font-size: 17px; }
 
-    /* ── Toast ── */
-    .toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1A1614; color: #fff; padding: 12px 22px; border-radius: 10px; font-size: 13.5px; font-family: 'Jost', sans-serif; opacity: 0; pointer-events: none; transition: opacity 300ms, transform 300ms; z-index: 9999; white-space: nowrap; }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-    .toast.error { background: #C62828; }
-
-    /* ── Error / inline msgs ── */
-    .err-msg { display: none; align-items: center; gap: 8px; background: rgba(211,47,47,0.06); border: 1px solid rgba(211,47,47,0.20); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #C62828; margin-bottom: 20px; text-align: left; }
+    /* ─── Error / info banners ───────────────────────────────────── */
+    .err-msg {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(211,47,47,0.05);
+      border: 1px solid rgba(211,47,47,0.18);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #C62828;
+      margin-bottom: 20px;
+      font-family: 'Jost', sans-serif;
+    }
     .err-msg.show { display: flex; }
 
-    /* ── Strength bar ── */
+    /* ─── Password strength ──────────────────────────────────────── */
     .strength-bars { display: flex; gap: 4px; margin-top: 10px; margin-bottom: 5px; }
-    .strength-bar { flex: 1; height: 3px; background: rgba(197,168,128,0.2); border-radius: 9999px; transition: background 300ms; }
+    .strength-bar {
+      flex: 1; height: 3px;
+      background: rgba(197,168,128,0.18);
+      border-radius: 9999px;
+      transition: background 300ms;
+    }
     .strength-bar.s1 { background: #D32F2F; }
     .strength-bar.s2 { background: #F57C00; }
     .strength-bar.s3 { background: #388E3C; }
     .strength-bar.s4 { background: #1B5E20; }
-    .strength-label { font-size: 11px; color: #5E5B59; }
+    .strength-label { font-size: 11px; color: #9E9B98; font-family: 'Jost', sans-serif; }
 
-    /* ── Address cards ── */
-    .addr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 24px; }
-    .addr-card { background: #fff; border: 1px solid rgba(197,168,128,0.22); border-radius: 12px; padding: 20px; position: relative; }
-    .addr-card.default-card { border-color: rgba(184,150,87,0.55); }
-    .addr-default-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(184,150,87,0.12); color: #8A6820; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 3px 9px; border-radius: 9999px; margin-bottom: 10px; }
-    .addr-name { font-size: 14px; font-weight: 600; color: #1A1A1A; margin-bottom: 6px; }
-    .addr-text { font-size: 13px; color: #5E5B59; line-height: 1.6; margin-bottom: 14px; }
-    .addr-actions { display: flex; gap: 8px; }
-    .addr-btn { background: none; border: 1px solid rgba(197,168,128,0.35); border-radius: 7px; padding: 6px 14px; font-size: 12px; font-family: 'Jost', sans-serif; cursor: pointer; color: #5E5B59; transition: background 180ms, color 180ms, border-color 180ms; }
-    .addr-btn:hover { background: rgba(197,168,128,0.10); color: #1A1A1A; border-color: rgba(197,168,128,0.6); }
-    .addr-btn.danger { color: #C62828; border-color: rgba(211,47,47,0.25); }
-    .addr-btn.danger:hover { background: rgba(211,47,47,0.06); }
-    .add-addr-btn { display: flex; align-items: center; gap: 8px; background: none; border: 1.5px dashed rgba(197,168,128,0.45); border-radius: 12px; padding: 20px; font-size: 13.5px; font-family: 'Jost', sans-serif; color: #B89657; cursor: pointer; width: 100%; justify-content: center; font-weight: 500; transition: border-color 200ms, background 200ms; }
-    .add-addr-btn:hover { border-color: #B89657; background: rgba(184,150,87,0.05); }
+    /* ─── Address cards ──────────────────────────────────────────── */
+    .addr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .addr-card {
+      background: #fff;
+      border: 1px solid rgba(197,168,128,0.20);
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+    }
+    .addr-card.default-card { border-color: rgba(184,150,87,0.45); }
+    .addr-default-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(184,150,87,0.10);
+      color: #8A6820;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      margin-bottom: 10px;
+      font-family: 'Jost', sans-serif;
+    }
+    .addr-name { font-size: 13.5px; font-weight: 600; color: #1A1A1A; margin-bottom: 6px; font-family: 'Jost', sans-serif; }
+    .addr-text { font-size: 12.5px; color: #6B6865; line-height: 1.65; margin-bottom: 14px; font-family: 'Jost', sans-serif; }
+    .addr-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .addr-btn {
+      background: none;
+      border: 1px solid rgba(197,168,128,0.30);
+      border-radius: 7px;
+      padding: 6px 13px;
+      font-size: 12px;
+      font-family: 'Jost', sans-serif;
+      cursor: pointer;
+      color: #6B6865;
+      transition: background 160ms, color 160ms, border-color 160ms;
+    }
+    .addr-btn:hover { background: rgba(197,168,128,0.08); color: #1A1A1A; border-color: rgba(197,168,128,0.55); }
+    .addr-btn.danger { color: #C62828; border-color: rgba(211,47,47,0.22); }
+    .addr-btn.danger:hover { background: rgba(211,47,47,0.05); }
 
-    /* ── Modal / overlay for address form ── */
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.40); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+    .add-addr-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: 1.5px dashed rgba(197,168,128,0.40);
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 13px;
+      font-family: 'Jost', sans-serif;
+      color: #B89657;
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+      font-weight: 500;
+      transition: border-color 200ms, background 200ms;
+    }
+    .add-addr-btn:hover { border-color: #B89657; background: rgba(184,150,87,0.04); }
+
+    /* ─── Modal ──────────────────────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.38);
+      z-index: 400;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
     .modal-overlay.show { display: flex; }
-    .modal-box { background: #fff; border-radius: 16px; padding: 36px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; }
-    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
-    .modal-head h3 { font-family: 'Crimson Pro', serif; font-size: 22px; font-weight: 500; }
-    .modal-close { background: none; border: none; cursor: pointer; color: #9E9B98; padding: 4px; display: flex; }
-    .modal-close .material-symbols-outlined { font-size: 22px; }
+    .modal-box {
+      background: #FDFBF8;
+      border-radius: 18px;
+      padding: 36px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    @media (max-width: 560px) { .modal-box { padding: 28px 20px; border-radius: 14px; } }
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+    .modal-head h3 {
+      font-family: 'Crimson Pro', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: #1A1A1A;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #9E9B98;
+      padding: 4px;
+      display: flex;
+      transition: color 160ms;
+    }
     .modal-close:hover { color: #1A1A1A; }
+    .modal-close .material-symbols-outlined { font-size: 20px; }
 
-    /* ── Loading skeleton ── */
-    .skeleton { background: linear-gradient(90deg, #f0ebe3 25%, #e8e1d7 50%, #f0ebe3 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 6px; }
-    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-    .skel-line { height: 14px; margin-bottom: 10px; }
-    .skel-card { height: 140px; border-radius: 12px; margin-bottom: 16px; }
+    /* ─── Toast ──────────────────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: calc(90px + env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      background: #1A1614;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-family: 'Jost', sans-serif;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 280ms, transform 280ms;
+      z-index: 500;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+    @media (min-width: 769px) {
+      .toast { bottom: 28px; }
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.error { background: #C62828; }
+
+    /* ─── Mobile bottom nav ──────────────────────────────────────── */
+    .acct-bottom-nav { display: none; }
+    @media (max-width: 768px) {
+      .acct-bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        padding: 0;
+        padding-bottom: env(safe-area-inset-bottom);
+        background: rgba(253,250,245,0.97);
+        backdrop-filter: blur(20px) saturate(180%);
+        border-top: 1px solid rgba(197,168,128,0.22);
+        z-index: 85;
+        box-shadow: 0 -6px 24px -6px rgba(0,0,0,0.09);
+      }
+      .acct-bottom-nav__item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        padding: 10px 0;
+        text-decoration: none;
+        color: #767270;
+        font-family: 'Jost', sans-serif;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: .04em;
+        transition: color 200ms ease;
+        position: relative;
+      }
+      .acct-bottom-nav__item .material-symbols-outlined {
+        font-size: 22px;
+        transition: transform 200ms cubic-bezier(0.23,1,0.32,1);
+      }
+      .acct-bottom-nav__item.active {
+        color: #1A1A1A;
+      }
+      .acct-bottom-nav__item.active .material-symbols-outlined {
+        font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      }
+      .acct-bottom-nav__item:active .material-symbols-outlined {
+        transform: scale(0.88);
+      }
+    }
   </style>
 </head>
-<body style="background:#FAF8F4; display:flex; flex-direction:column; min-height:100vh;">
-<!-- CSS-only mobile nav toggle -->
-<input type="checkbox" id="nav-toggle" aria-hidden="true">
+<body style="background: #FAF8F4; display: flex; flex-direction: column; min-height: 100vh;">
 
-<!-- Announcement bar -->
+<!-- ── Announcement bar ──────────────────────────────────────── -->
 <div class="announce">
   <div class="container announce-bar">
     <span class="announce-side">
@@ -151,8 +645,6 @@
       <span id="store-time">Junction Road · Virudhachalam</span>
     </span>
     <span class="announce-center"></span>
-      <span><b>★ 5.0 on Google.</b> 240 families trust us. Come see why.</span>
-    </span>
     <span class="announce-side announce-side--right">
       <span class="announce-divider"></span>
       <a href="order-tracking.html">Track Order</a>
@@ -162,6 +654,8 @@
   </div>
 </div>
 
+<!-- ── Nav bar ────────────────────────────────────────────────── -->
+<input type="checkbox" id="nav-toggle" aria-hidden="true">
 <div class="nav-wrap">
   <div class="nav-bar container">
     <a href="index.html" class="logo">
@@ -171,8 +665,8 @@
     <nav class="nav-links">
       <a class="nav-link" href="index.html">Home</a>
       <a class="nav-link" href="product-listing.html">Shop</a>
-      <a class="nav-link" href="index.html#about">Our Story</a>
-      <a class="nav-link" href="index.html#contact">Contact</a>
+      <a class="nav-link" href="about.html">Our Story</a>
+      <a class="nav-link" href="contact.html">Contact</a>
     </nav>
     <div class="nav-actions">
       <a class="icon-btn" href="product-listing.html" aria-label="Search"><span class="material-symbols-outlined">search</span></a>
@@ -209,47 +703,63 @@
   </div>
 </div>
 
-<main style="flex: 1; padding: 56px 0 96px;">
+<!-- ── Main ───────────────────────────────────────────────────── -->
+<main class="acct-main-wrap">
   <div class="container">
-    <div style="margin-bottom: 40px;">
-      <h1 style="font-family:'Crimson Pro',serif; font-size: 34px; font-weight: 500; color: #1A1A1A; margin-bottom: 4px;">My Account</h1>
-      <p style="font-size: 13.5px; color: #9E9B98;" id="header-email"></p>
+
+    <!-- Page heading -->
+    <div class="acct-page-head">
+      <h1>My Account</h1>
+      <p id="header-email"></p>
     </div>
 
     <div class="acct-layout">
-      <!-- Sidebar -->
+
+      <!-- ── Sidebar ──────────────────────────────────────────── -->
       <aside class="acct-sidebar">
+
+        <!-- User card -->
         <div class="acct-user-card">
-          <div class="acct-avatar"><span class="material-symbols-outlined">person</span></div>
-          <div>
+          <div class="acct-avatar" id="sidebar-avatar">
+            <span class="material-symbols-outlined">person</span>
+          </div>
+          <div class="acct-user-info">
             <div class="acct-name" id="sidebar-name">Loading…</div>
             <div class="acct-email" id="sidebar-email"></div>
           </div>
         </div>
-        <nav class="acct-menu">
-          <button class="acct-menu-item active" data-tab="orders">
-            <span class="material-symbols-outlined">package_2</span> My Orders
+
+        <!-- Nav menu -->
+        <nav class="acct-menu" role="tablist" aria-label="Account sections">
+          <button class="acct-menu-item active" data-tab="orders" role="tab" aria-selected="true">
+            <span class="material-symbols-outlined">package_2</span>
+            My Orders
           </button>
-          <button class="acct-menu-item" data-tab="profile">
-            <span class="material-symbols-outlined">person</span> Profile
+          <button class="acct-menu-item" data-tab="profile" role="tab" aria-selected="false">
+            <span class="material-symbols-outlined">person</span>
+            Profile
           </button>
-          <button class="acct-menu-item" data-tab="addresses">
-            <span class="material-symbols-outlined">location_on</span> Addresses
+          <button class="acct-menu-item" data-tab="addresses" role="tab" aria-selected="false">
+            <span class="material-symbols-outlined">location_on</span>
+            Addresses
           </button>
-          <button class="acct-menu-item" data-tab="password">
-            <span class="material-symbols-outlined">lock</span> Password
+          <button class="acct-menu-item" data-tab="password" role="tab" aria-selected="false">
+            <span class="material-symbols-outlined">lock</span>
+            Password
           </button>
           <button class="acct-menu-item danger" id="signout-btn">
-            <span class="material-symbols-outlined">logout</span> Sign Out
+            <span class="material-symbols-outlined">logout</span>
+            Sign Out
           </button>
         </nav>
+
       </aside>
 
-      <!-- Content panels -->
-      <div>
+      <!-- ── Content panels ────────────────────────────────────── -->
+      <div class="acct-content">
 
-        <!-- ── ORDERS TAB ── -->
-        <div class="tab-panel active" id="tab-orders">
+        <!-- ORDERS -->
+        <div class="tab-panel active" id="tab-orders" role="tabpanel">
           <div class="section-head">
             <h2>My Orders</h2>
           </div>
@@ -262,22 +772,22 @@
             <span class="material-symbols-outlined">package_2</span>
             <h3>No orders yet</h3>
             <p>When you place your first order, it'll show up here.</p>
-            <a href="index.html#shop" class="btn btn-dark" style="font-size: 13.5px;">Start Shopping</a>
+            <a href="index.html" class="btn btn-dark" style="font-size:13.5px;">Start Shopping</a>
           </div>
           <div id="orders-error" class="empty-state" style="display:none;">
             <span class="material-symbols-outlined">error_outline</span>
             <h3>Couldn't load orders</h3>
             <p>Something went wrong. Please try again.</p>
-            <button onclick="loadOrders()" class="btn btn-ghost" style="font-size: 13.5px;">Try Again</button>
+            <button onclick="loadOrders()" class="btn btn-ghost" style="font-size:13.5px;">Try Again</button>
           </div>
         </div>
 
-        <!-- ── PROFILE TAB ── -->
-        <div class="tab-panel" id="tab-profile">
+        <!-- PROFILE -->
+        <div class="tab-panel" id="tab-profile" role="tabpanel">
           <div class="section-head">
-            <h2>Profile Details</h2>
+            <h2>Profile</h2>
           </div>
-          <div style="background: #fff; border: 1px solid rgba(197,168,128,0.22); border-radius: 14px; padding: 32px; max-width: 480px;">
+          <div class="acct-form-panel">
             <div class="err-msg" id="profile-err">
               <span class="material-symbols-outlined" style="font-size:16px; flex-shrink:0;">error</span>
               <span id="profile-err-text"></span>
@@ -301,36 +811,37 @@
                 <span>Phone Number</span>
                 <input type="tel" id="p-phone" class="auth-input" placeholder="+91 98765 43210" autocomplete="tel">
               </label>
-              <button type="submit" id="profile-btn" class="btn btn-dark" style="width: 100%; font-size: 14px; margin-top: 4px;">Save Changes</button>
+              <button type="submit" id="profile-btn" class="btn btn-dark" style="width:100%; font-size:14px; margin-top:4px; border-radius:8px;">Save Changes</button>
             </form>
           </div>
         </div>
 
-        <!-- ── ADDRESSES TAB ── -->
-        <div class="tab-panel" id="tab-addresses">
+        <!-- ADDRESSES -->
+        <div class="tab-panel" id="tab-addresses" role="tabpanel">
           <div class="section-head">
-            <h2>My Addresses</h2>
+            <h2>Addresses</h2>
           </div>
           <div id="addr-loading">
-            <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:16px;">
-              <div class="skeleton" style="height:140px; border-radius:12px;"></div>
-              <div class="skeleton" style="height:140px; border-radius:12px;"></div>
+            <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); gap:14px;">
+              <div class="skeleton" style="height:130px; border-radius:12px;"></div>
+              <div class="skeleton" style="height:130px; border-radius:12px;"></div>
             </div>
           </div>
           <div id="addr-content" style="display:none;">
             <div class="addr-grid" id="addr-grid"></div>
             <button class="add-addr-btn" onclick="openAddrModal()">
-              <span class="material-symbols-outlined" style="font-size:20px;">add</span> Add New Address
+              <span class="material-symbols-outlined" style="font-size:18px;">add</span>
+              Add New Address
             </button>
           </div>
         </div>
 
-        <!-- ── CHANGE PASSWORD TAB ── -->
-        <div class="tab-panel" id="tab-password">
+        <!-- CHANGE PASSWORD -->
+        <div class="tab-panel" id="tab-password" role="tabpanel">
           <div class="section-head">
             <h2>Change Password</h2>
           </div>
-          <div style="background: #fff; border: 1px solid rgba(197,168,128,0.22); border-radius: 14px; padding: 32px; max-width: 420px;">
+          <div class="acct-form-panel" style="max-width:420px;">
             <div class="err-msg" id="pwd-err">
               <span class="material-symbols-outlined" style="font-size:16px; flex-shrink:0;">error</span>
               <span id="pwd-err-text"></span>
@@ -363,19 +874,21 @@
                   </button>
                 </div>
               </label>
-              <p style="font-size: 12.5px; color: #9E9B98; margin-bottom: 20px; line-height: 1.6;">You'll be signed out after your password is updated.</p>
-              <button type="submit" id="pwd-btn" class="btn btn-dark" style="width: 100%; font-size: 14px;">Update Password</button>
+              <p style="font-size:12.5px; color:#9E9B98; margin-bottom:20px; line-height:1.65; font-family:'Jost',sans-serif;">
+                You'll be signed out after your password is updated.
+              </p>
+              <button type="submit" id="pwd-btn" class="btn btn-dark" style="width:100%; font-size:14px; border-radius:8px;">Update Password</button>
             </form>
           </div>
         </div>
 
-      </div><!-- /content -->
-    </div><!-- /layout -->
-  </div>
+      </div><!-- /acct-content -->
+    </div><!-- /acct-layout -->
+  </div><!-- /container -->
 </main>
 
-<!-- Address Modal -->
-<div class="modal-overlay" id="addr-modal">
+<!-- ── Address modal ──────────────────────────────────────────── -->
+<div class="modal-overlay" id="addr-modal" role="dialog" aria-modal="true" aria-labelledby="addr-modal-title">
   <div class="modal-box">
     <div class="modal-head">
       <h3 id="addr-modal-title">Add Address</h3>
@@ -422,43 +935,50 @@
           <span>Pincode</span>
           <input type="text" id="a-pin" class="auth-input" placeholder="600001" maxlength="6" required>
         </label>
-        <label class="auth-label" style="justify-content: flex-end; padding-bottom: 4px;">
-          <label style="display:flex; align-items:center; gap:8px; font-size:13px; color:#5E5B59; cursor:pointer; margin-bottom:0;">
-            <input type="checkbox" id="a-default" style="accent-color:#B89657; width:15px; height:15px;"> Set as default address
+        <label class="auth-label" style="justify-content:flex-end; padding-bottom:4px;">
+          <label style="display:flex; align-items:center; gap:8px; font-size:13px; color:#6B6865; cursor:pointer; margin-bottom:0; font-family:'Jost',sans-serif;">
+            <input type="checkbox" id="a-default" style="accent-color:#B89657; width:15px; height:15px;"> Set as default
           </label>
         </label>
       </div>
-      <button type="submit" id="addr-submit-btn" class="btn btn-dark" style="width:100%; margin-top:8px; font-size:14px;">Save Address</button>
+      <button type="submit" id="addr-submit-btn" class="btn btn-dark" style="width:100%; margin-top:8px; font-size:14px; border-radius:8px;">Save Address</button>
     </form>
   </div>
 </div>
 
-<!-- Toast -->
+<!-- ── Toast ──────────────────────────────────────────────────── -->
 <div class="toast" id="toast"></div>
 
-<!-- WhatsApp float -->
+<!-- ── WhatsApp float ─────────────────────────────────────────── -->
 <a class="wa-float" href="https://wa.me/919789182921" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.115 1.522 5.845L.057 23.428a.5.5 0 0 0 .609.61l5.701-1.494A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.545 9.545 0 0 1-4.862-1.326l-.35-.208-3.624.95.967-3.53-.228-.362A9.538 9.538 0 0 1 2.4 12C2.4 6.698 6.698 2.4 12 2.4S21.6 6.698 21.6 12 17.302 21.6 12 21.6z"/></svg>
   Chat With Us
 </a>
 
+<!-- ── Mobile bottom nav ───────────────────────────────────────── -->
+<nav class="acct-bottom-nav" aria-label="Site navigation">
+  <a class="acct-bottom-nav__item" href="index.html" aria-label="Home">
+    <span class="material-symbols-outlined">home</span>Home
+  </a>
+  <a class="acct-bottom-nav__item" href="product-listing.html" aria-label="Shop">
+    <span class="material-symbols-outlined">storefront</span>Shop
+  </a>
+  <a class="acct-bottom-nav__item" href="wishlist.html" aria-label="Wishlist">
+    <span class="material-symbols-outlined">favorite</span>Wishlist
+  </a>
+  <a class="acct-bottom-nav__item" href="cart-checkout.html" aria-label="Cart">
+    <span class="material-symbols-outlined">shopping_bag</span>Cart
+  </a>
+  <a class="acct-bottom-nav__item active" href="account.html" aria-label="Account">
+    <span class="material-symbols-outlined">person</span>Account
+  </a>
+</nav>
+
+<!-- ─────────────────────────────────────────────────────────────── -->
 <script src="assets/js/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="assets/js/supabase-client.js"></script>
 <script>
-/* ── Store time ─────────────────────────────────────────── */
-(function() {
-  function tick() {
-    const now = new Date();
-    const h = now.getHours(), m = now.getMinutes();
-    const hh = ((h % 12) || 12), mm = String(m).padStart(2, '0'), ampm = h >= 12 ? 'PM' : 'AM';
-    const open = h >= 10 && h < 22;
-    const el = document.getElementById('store-time');
-    if (el) el.textContent = (open ? 'Open now' : 'Opens 10 AM') + ' \xB7 ' + hh + ':' + mm + ' ' + ampm;
-  }
-  tick(); setInterval(tick, 30000);
-})();
-
 /* ── Utilities ──────────────────────────────────────────── */
 function showToast(msg, isError = false) {
   const t = document.getElementById('toast');
@@ -494,14 +1014,23 @@ function calcStrength(pwd) {
   return s;
 }
 
+function getInitials(name) {
+  if (!name) return '';
+  return name.split(' ').filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+}
+
 /* ── Tab switching ──────────────────────────────────────── */
 let ordersLoaded = false, addrLoaded = false;
 
 document.querySelectorAll('.acct-menu-item[data-tab]').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.acct-menu-item').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.acct-menu-item').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+    });
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
     const tab = btn.dataset.tab;
     document.getElementById('tab-' + tab).classList.add('active');
     if (tab === 'orders' && !ordersLoaded) loadOrders();
@@ -535,6 +1064,14 @@ let currentUser = null;
     document.getElementById('p-fname').value = parts[0] || '';
     document.getElementById('p-lname').value = parts.slice(1).join(' ') || '';
     document.getElementById('p-phone').value = phone;
+
+    // Show initials in avatar if we have a name
+    const initials = getInitials(fullName);
+    if (initials) {
+      const avatarEl = document.getElementById('sidebar-avatar');
+      avatarEl.innerHTML = initials;
+      avatarEl.style.fontSize = initials.length > 1 ? '18px' : '22px';
+    }
 
     loadOrders();
   } catch (_) {
@@ -584,18 +1121,27 @@ async function loadOrders() {
         </div>
       `).join('');
 
+      const st = (order.status || '').toLowerCase();
+      const trackHtml = st !== 'cancelled' ? `
+        <div class="order-track-link">
+          <a href="order-tracking.html?id=${order.id}">
+            <span class="material-symbols-outlined">location_on</span>
+            Track Order
+          </a>
+        </div>` : '';
+
       return `
         <div class="order-card">
           <div class="order-top">
             <div class="order-metas">
               <div class="order-meta"><span>Order No.</span><b>#KGS-${String(order.id || '').slice(-5).toUpperCase() || '—'}</b></div>
-              <div class="order-meta"><span>Date Placed</span><b>${fmtDate(order.created_at)}</b></div>
+              <div class="order-meta"><span>Date</span><b>${fmtDate(order.created_at)}</b></div>
               <div class="order-meta"><span>Total</span><b>${fmtINR(order.total_amount)}</b></div>
             </div>
             ${statusBadge(order.status)}
           </div>
-          <div class="order-items-list">${itemsHtml || '<p style="font-size:13px;color:#9E9B98;">No items found</p>'}</div>
-          ${status !== 'cancelled' ? `<div style="margin-top:16px; padding-top:16px; border-top:1px solid rgba(197,168,128,0.12);"><a href="order-tracking.html?id=${order.id}" style="font-size:13px; color:#B89657; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:4px;"><span class="material-symbols-outlined" style="font-size:15px;">location_on</span> Track Order</a></div>` : ''}
+          <div class="order-items-list">${itemsHtml || '<p style="font-size:13px;color:#9E9B98;font-family:Jost,sans-serif;">No items found</p>'}</div>
+          ${trackHtml}
         </div>
       `;
     }).join('');
@@ -631,7 +1177,13 @@ document.getElementById('profile-form').addEventListener('submit', async (e) => 
     const fullName = (fname + ' ' + lname).trim();
     await updateProfile({ full_name: fullName, phone });
     document.getElementById('sidebar-name').textContent = fullName || 'My Account';
-    showToast('Profile updated successfully.');
+    const initials = getInitials(fullName);
+    if (initials) {
+      const avatarEl = document.getElementById('sidebar-avatar');
+      avatarEl.innerHTML = initials;
+      avatarEl.style.fontSize = initials.length > 1 ? '18px' : '22px';
+    }
+    showToast('Profile updated.');
   } catch (_) {
     document.getElementById('profile-err-text').textContent = 'Failed to save. Please try again.';
     errBox.classList.add('show');
@@ -786,7 +1338,6 @@ document.getElementById('addr-form').addEventListener('submit', async (e) => {
   }
 });
 
-// Close modal on overlay click
 document.getElementById('addr-modal').addEventListener('click', (e) => {
   if (e.target === document.getElementById('addr-modal')) closeAddrModal();
 });

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ | KGS Home Décors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="assets/css/icons.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .faq-section { max-width: 760px; margin: 0 auto; }
+    .faq-category { margin-bottom: 48px; }
+    .faq-category-title {
+      font-family: 'Crimson Pro', serif; font-size: 22px; font-weight: 500;
+      color: #1A1A1A; margin-bottom: 16px; padding-bottom: 12px;
+      border-bottom: 1px solid rgba(197,168,128,0.3);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .faq-category-title .material-symbols-outlined { font-size: 20px; color: #B89657; }
+    .faq-item { border-bottom: 1px solid rgba(197,168,128,0.18); }
+    .faq-item summary {
+      list-style: none; cursor: pointer; padding: 18px 0;
+      font-family: 'Jost', sans-serif; font-size: 14.5px; font-weight: 500;
+      color: #1A1A1A; display: flex; justify-content: space-between; align-items: center;
+      gap: 16px; user-select: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: 'add'; font-family: 'Material Symbols Outlined'; font-size: 18px;
+      color: #B89657; flex-shrink: 0; transition: transform 220ms ease;
+    }
+    .faq-item[open] > summary::after { content: 'remove'; }
+    .faq-answer {
+      font-family: 'Jost', sans-serif; font-size: 14px; color: #5E5B59;
+      line-height: 1.75; padding-bottom: 20px; padding-right: 32px;
+    }
+    .faq-answer a { color: #B89657; text-decoration: none; font-weight: 500; }
+    .faq-answer a:hover { text-decoration: underline; }
+    .faq-answer ul { padding-left: 20px; margin-top: 8px; }
+    .faq-answer li { margin-bottom: 6px; }
+    .faq-cta {
+      background: #F2E8D6; border-radius: 12px; padding: 32px;
+      text-align: center; margin-top: 48px;
+    }
+    .faq-cta h3 { font-family: 'Crimson Pro', serif; font-size: 22px; font-weight: 500; margin-bottom: 8px; }
+    .faq-cta p { font-size: 13.5px; color: #5E5B59; margin-bottom: 20px; }
+    .faq-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  </style>
+</head>
+<body style="background: #FAF8F4; display: flex; flex-direction: column; min-height: 100vh;">
+<!-- CSS-only mobile nav toggle -->
+<input type="checkbox" id="nav-toggle" aria-hidden="true">
+
+<!-- Announcement bar -->
+<div class="announce">
+  <div class="container announce-bar">
+    <span class="announce-side">
+      <span class="material-symbols-outlined">storefront</span>
+      <span id="store-time">Junction Road · Virudhachalam</span>
+    </span>
+    <span class="announce-center"></span>
+    <span class="announce-side announce-side--right">
+      <span class="announce-divider"></span>
+      <a href="order-tracking.html">Track Order</a>
+      <span class="announce-divider"></span>
+      <a href="https://wa.me/919789182921" target="_blank" rel="noreferrer">WhatsApp</a>
+    </span>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-bar container">
+    <a href="index.html" class="logo">
+      <span class="mark">KGS</span>
+      <span class="sub">Home Décors</span>
+    </a>
+    <nav class="nav-links">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="product-listing.html">Shop</a>
+      <a class="nav-link" href="about.html">Our Story</a>
+      <a class="nav-link" href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="icon-btn" href="product-listing.html" aria-label="Search"><span class="material-symbols-outlined">search</span></a>
+      <a class="icon-btn" href="account.html" aria-label="Account"><span class="material-symbols-outlined">person</span></a>
+      <a class="icon-btn" href="wishlist.html" aria-label="Wishlist"><span class="material-symbols-outlined">favorite</span></a>
+      <a class="icon-btn" href="cart-checkout.html" aria-label="Cart"><span class="material-symbols-outlined">shopping_bag</span></a>
+      <label for="nav-toggle" class="nav-hamburger" aria-label="Open menu"><span class="material-symbols-outlined">menu</span></label>
+    </div>
+  </div>
+</div>
+<!-- Mobile nav drawer (CSS-only) -->
+<div class="static-mobile-nav">
+  <label for="nav-toggle" class="static-mobile-nav__overlay" aria-label="Close menu"></label>
+  <div class="static-mobile-nav__panel">
+    <label for="nav-toggle" class="static-mobile-nav__close" aria-label="Close menu">
+      <span class="material-symbols-outlined">close</span>
+    </label>
+    <div style="font-family:'Crimson Pro',serif; font-weight:500; font-size:1.3rem; color:#1A1A1A; margin-bottom:12px">KGS Home Décors</div>
+    <a class="static-mobile-nav__link" href="index.html">Home</a>
+    <a class="static-mobile-nav__link" href="product-listing.html">Shop</a>
+    <a class="static-mobile-nav__link" href="about.html">Our Story</a>
+    <a class="static-mobile-nav__link" href="contact.html">Contact</a>
+    <a class="static-mobile-nav__link" href="account.html">Account</a>
+    <a class="static-mobile-nav__link" href="cart-checkout.html">Cart</a>
+    <div style="margin-top:auto; padding-top:24px">
+      <a href="https://wa.me/919789182921" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:10px; padding:12px 0; color:#25D366; font-weight:600; font-family:'Jost',sans-serif; font-size:14px">
+        <span class="material-symbols-outlined">chat</span>WhatsApp Us
+      </a>
+      <div style="font-size:11px; color:#5E5B59; margin-top:12px; line-height:1.6">
+        185/G Junction Rd<br>Virudhachalam 606001<br>10 AM – 10 PM, every day
+      </div>
+    </div>
+  </div>
+</div>
+
+<main style="flex: 1;">
+  <section style="background:#F2E8D6; padding:64px 0; text-align:center">
+    <div class="container">
+      <h1 style="font-family:'Crimson Pro',serif; font-size: 36px; font-weight: 500; margin-bottom: 8px;">Frequently Asked Questions</h1>
+      <p style="font-size: 14px; color: #5E5B59;">Everything you need to know about shopping with KGS Home Décors.</p>
+    </div>
+  </section>
+
+  <section style="padding: 64px 0 80px">
+    <div class="container">
+      <div class="faq-section">
+
+        <!-- Orders & Delivery -->
+        <div class="faq-category">
+          <h2 class="faq-category-title">
+            <span class="material-symbols-outlined">local_shipping</span>Orders &amp; Delivery
+          </h2>
+
+          <details class="faq-item">
+            <summary>How long does delivery take?</summary>
+            <div class="faq-answer">
+              <p>We deliver within <strong>Virudhachalam free of charge</strong> — same day or next day for most in-stock items. For orders outside Virudhachalam, delivery typically takes 3–7 business days depending on your location.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Do you offer free delivery?</summary>
+            <div class="faq-answer">
+              <p>Yes! We offer <strong>free delivery for every order within Virudhachalam</strong> — no minimum order value required. For orders outside Virudhachalam, shipping charges may apply based on the destination and order size.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Can I track my order?</summary>
+            <div class="faq-answer">
+              <p>Absolutely. Once your order is dispatched, you can track it on our <a href="order-tracking.html">Track Order</a> page. You'll also receive updates via WhatsApp or SMS.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>What if I'm not home at the time of delivery?</summary>
+            <div class="faq-answer">
+              <p>Our delivery team will call before arriving. If you miss the delivery, we'll attempt it again the next day. You can also reschedule by contacting us on <a href="https://wa.me/919789182921" target="_blank" rel="noreferrer">WhatsApp</a>.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Can I change or cancel my order after placing it?</summary>
+            <div class="faq-answer">
+              <p>Yes, you can modify or cancel your order within <strong>2 hours of placing it</strong> by contacting us on WhatsApp at <a href="https://wa.me/919789182921" target="_blank">+91 97891 82921</a>. After that, your order may already be packed and ready to dispatch.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Returns & Refunds -->
+        <div class="faq-category">
+          <h2 class="faq-category-title">
+            <span class="material-symbols-outlined">replay</span>Returns &amp; Refunds
+          </h2>
+
+          <details class="faq-item">
+            <summary>What is your return policy?</summary>
+            <div class="faq-answer">
+              <p>We accept returns within <strong>7 days of delivery</strong> for items that are damaged, defective, or significantly different from what was described. Please read our full <a href="returns-policy.html">Returns Policy</a> for details.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>How do I initiate a return?</summary>
+            <div class="faq-answer">
+              <p>To start a return, contact us on <a href="https://wa.me/919789182921" target="_blank">WhatsApp</a> or email us within 7 days of receiving your order. Share photos of the item and describe the issue. We'll arrange a pickup at no extra cost for valid returns.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>When will I receive my refund?</summary>
+            <div class="faq-answer">
+              <p>Refunds are processed within <strong>5–7 business days</strong> after we receive and inspect the returned item. The amount will be credited back to the original payment method used at checkout.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>What items cannot be returned?</summary>
+            <div class="faq-answer">
+              <p>The following items are non-returnable:</p>
+              <ul>
+                <li>Items that have been used, assembled, or installed</li>
+                <li>Custom or made-to-order products</li>
+                <li>Items damaged due to mishandling after delivery</li>
+                <li>Products without original packaging</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <!-- Payments -->
+        <div class="faq-category">
+          <h2 class="faq-category-title">
+            <span class="material-symbols-outlined">payments</span>Payments
+          </h2>
+
+          <details class="faq-item">
+            <summary>What payment methods do you accept?</summary>
+            <div class="faq-answer">
+              <p>We accept all major payment methods through our secure Razorpay gateway:</p>
+              <ul>
+                <li><strong>Credit &amp; Debit Cards</strong> — Visa, Mastercard, Amex, RuPay</li>
+                <li><strong>UPI</strong> — PhonePe, Google Pay, Paytm, BHIM, and all UPI apps</li>
+                <li><strong>Net Banking</strong> — all major Indian banks</li>
+                <li><strong>Wallets</strong> — Paytm, Mobikwik, and others</li>
+              </ul>
+              <p>See our <a href="payment-options.html">Payment Options</a> page for full details.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Is it safe to pay on your website?</summary>
+            <div class="faq-answer">
+              <p>Yes, completely. All payments are processed through <strong>Razorpay</strong>, a PCI DSS Level 1 compliant payment gateway. Your card details are never stored on our servers — they go directly to Razorpay's secure vault. All transactions are encrypted with industry-standard SSL.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>My payment failed but money was deducted. What should I do?</summary>
+            <div class="faq-answer">
+              <p>This can happen when a payment is interrupted mid-transaction. The amount is usually auto-refunded within <strong>3–5 business days</strong> by your bank. If it's not refunded after 5 days, please contact us on <a href="https://wa.me/919789182921" target="_blank">WhatsApp</a> with your transaction reference and we'll resolve it promptly.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Products -->
+        <div class="faq-category">
+          <h2 class="faq-category-title">
+            <span class="material-symbols-outlined">category</span>Products
+          </h2>
+
+          <details class="faq-item">
+            <summary>Are your products the same as shown in photos?</summary>
+            <div class="faq-answer">
+              <p>We photograph every product in our actual showroom under natural light. Colours may appear slightly different on different screens — but we never use edited or misleading images. What you see is what you get.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Can I see the product in person before buying?</summary>
+            <div class="faq-answer">
+              <p>Yes! Visit our showroom at <strong>185/G Junction Road, Virudhachalam 606001</strong>. We're open <strong>10 AM – 10 PM, every day</strong>. Our staff will be happy to help you find the right piece for your home.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>How do I care for my décor items?</summary>
+            <div class="faq-answer">
+              <p>Care instructions vary by product type. General guidelines:</p>
+              <ul>
+                <li><strong>Resin &amp; ceramic:</strong> Wipe with a dry or lightly damp cloth. Avoid harsh cleaners.</li>
+                <li><strong>Artificial plants:</strong> Dust regularly with a soft brush or cloth.</li>
+                <li><strong>Metal items:</strong> Wipe dry after cleaning to prevent tarnishing.</li>
+                <li><strong>Wall frames &amp; clocks:</strong> Keep away from direct moisture and sunlight.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Do you do custom or bulk orders?</summary>
+            <div class="faq-answer">
+              <p>Yes! We handle bulk orders for events, gifts, and interior projects. For custom or large orders, please contact us directly on <a href="https://wa.me/919789182921" target="_blank">WhatsApp</a> or visit our store. We offer special pricing for bulk purchases.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Account & Orders -->
+        <div class="faq-category">
+          <h2 class="faq-category-title">
+            <span class="material-symbols-outlined">manage_accounts</span>Account &amp; Orders
+          </h2>
+
+          <details class="faq-item">
+            <summary>Do I need an account to place an order?</summary>
+            <div class="faq-answer">
+              <p>Yes, creating a free account allows you to track your orders, save your wishlist, and manage your addresses. <a href="account-register.html">Create an account</a> — it only takes a minute.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>I forgot my password. How do I reset it?</summary>
+            <div class="faq-answer">
+              <p>Go to the <a href="forgot-password.html">Forgot Password</a> page, enter your registered email, and we'll send you a reset link. Check your spam folder if you don't see it within a few minutes.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>How do I view my past orders?</summary>
+            <div class="faq-answer">
+              <p>Sign in to your account and go to <a href="account.html">My Account → My Orders</a>. You'll see a full history of your purchases along with their current status.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Still have questions CTA -->
+        <div class="faq-cta">
+          <h3>Still have questions?</h3>
+          <p>We're here to help — reach us on WhatsApp, call us, or visit the store.</p>
+          <div class="faq-cta-btns">
+            <a href="https://wa.me/919789182921" target="_blank" rel="noreferrer" class="btn btn-dark" style="display:inline-flex; align-items:center; gap:8px;">
+              <span class="material-symbols-outlined" style="font-size:18px">chat</span> Chat on WhatsApp
+            </a>
+            <a href="contact.html" class="btn btn-ghost" style="display:inline-flex; align-items:center; gap:8px;">
+              <span class="material-symbols-outlined" style="font-size:18px">mail</span> Contact Us
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- NEWSLETTER -->
+<div class="container">
+  <section class="newsletter">
+    <div>
+      <h3>Stay Updated With New Arrivals &amp; Offers</h3>
+      <p>Subscribe to our newsletter and get 10% off on your first order.</p>
+    </div>
+    <div class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="Enter your email" />
+      <button class="btn btn-dark">Subscribe</button>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a href="index.html" class="logo" style="margin-bottom: 18px">
+          <span class="mark" style="color:#fff">KGS</span>
+          <span class="sub" style="color:#C5A880">Home Décors</span>
+        </a>
+        <p style="font-size:13.5px; color:rgba(255,255,255,0.55); max-width:260px; line-height:1.7;">
+          Timeless home décor crafted to bring beauty, elegance and comfort to your spaces.
+        </p>
+        <div class="footer-socials">
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">photo_camera</span></a>
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">thumb_up</span></a>
+          <a href="#"><span class="material-symbols-outlined" style="font-size:17px">play_circle</span></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="product-listing.html">New Arrivals</a></li>
+          <li><a href="product-listing.html">Best Sellers</a></li>
+          <li><a href="product-listing.html">Artificial Plants</a></li>
+          <li><a href="product-listing.html">Statues &amp; Idols</a></li>
+          <li><a href="product-listing.html">Clocks</a></li>
+          <li><a href="product-listing.html">Lighting</a></li>
+          <li><a href="product-listing.html">Wall Frames</a></li>
+          <li><a href="product-listing.html">Gifts &amp; Hampers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="shipping-policy.html">Shipping &amp; Delivery</a></li>
+          <li><a href="returns-policy.html">Returns &amp; Refunds</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="order-tracking.html">Track Order</a></li>
+          <li><a href="payment-options.html">Payment Options</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Support</h4>
+        <ul>
+          <li class="info-line"><span class="material-symbols-outlined">mail</span><a href="mailto:kgshomedecors@gmail.com">kgshomedecors@gmail.com</a></li>
+          <li class="info-line"><span class="material-symbols-outlined">call</span><a href="tel:+919789182921">+91 97891 82921</a></li>
+          <li class="info-line"><span class="material-symbols-outlined">schedule</span>Mon – Sun · 10 AM – 10 PM</li>
+        </ul>
+        <div class="footer-pay" style="margin-top: 18px">
+          <span>VISA</span><span>MC</span><span>UPI</span><span>AMEX</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 KGS Home Décors. All Rights Reserved.</span>
+      <div class="links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="shipping-policy.html">Shipping Policy</a>
+        <a href="returns-policy.html">Return Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/919789182921" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px; height:22px; flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.115 1.522 5.845L.057 23.428a.5.5 0 0 0 .609.61l5.701-1.494A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.545 9.545 0 0 1-4.862-1.326l-.35-.208-3.624.95.967-3.53-.228-.362A9.538 9.538 0 0 1 2.4 12C2.4 6.698 6.698 2.4 12 2.4S21.6 6.698 21.6 12 17.302 21.6 12 21.6z"/></svg>
+  Chat With Us
+</a>
+
+<script src="assets/js/announce.js"></script>
+<script>
+(function() {
+  var page = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-link').forEach(function(a) {
+    if (a.getAttribute('href') === page) a.classList.add('active');
+  });
+})();
+</script>
+
+<!-- Mobile bottom navigation -->
+<nav class="acct-bottom-nav" aria-label="Site navigation">
+  <a class="acct-bottom-nav__item" href="index.html"><span class="material-symbols-outlined">home</span>Home</a>
+  <a class="acct-bottom-nav__item" href="product-listing.html"><span class="material-symbols-outlined">grid_view</span>Shop</a>
+  <a class="acct-bottom-nav__item" href="wishlist.html"><span class="material-symbols-outlined">favorite</span>Wishlist</a>
+  <a class="acct-bottom-nav__item" href="cart-checkout.html"><span class="material-symbols-outlined">shopping_bag</span>Cart</a>
+  <a class="acct-bottom-nav__item" href="account.html"><span class="material-symbols-outlined">person</span>Account</a>
+</nav>
+</body>
+</html>

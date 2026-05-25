@@ -9,6 +9,9 @@
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body style="background: #FAF8F4; display: flex; flex-direction: column; min-height: 100vh;">
+<!-- CSS-only mobile nav toggle -->
+<input type="checkbox" id="nav-toggle" aria-hidden="true">
+
 <!-- Announcement bar -->
 <div class="announce">
   <div class="container announce-bar">
@@ -17,8 +20,6 @@
       <span id="store-time">Junction Road · Virudhachalam</span>
     </span>
     <span class="announce-center"></span>
-      <span><b>★ 5.0 on Google.</b> 240 families trust us. Come see why.</span>
-    </span>
     <span class="announce-side announce-side--right">
       <span class="announce-divider"></span>
       <a href="order-tracking.html">Track Order</a>
@@ -45,10 +46,34 @@
       <a class="icon-btn" href="account.html" aria-label="Account"><span class="material-symbols-outlined">person</span></a>
       <a class="icon-btn active" href="wishlist.html" aria-label="Wishlist"><span class="material-symbols-outlined">favorite</span></a>
       <a class="icon-btn" href="cart-checkout.html" aria-label="Cart"><span class="material-symbols-outlined">shopping_bag</span></a>
+      <label for="nav-toggle" class="nav-hamburger" aria-label="Open menu"><span class="material-symbols-outlined">menu</span></label>
     </div>
   </div>
 </div>
-
+<!-- Mobile nav drawer (CSS-only) -->
+<div class="static-mobile-nav">
+  <label for="nav-toggle" class="static-mobile-nav__overlay" aria-label="Close menu"></label>
+  <div class="static-mobile-nav__panel">
+    <label for="nav-toggle" class="static-mobile-nav__close" aria-label="Close menu">
+      <span class="material-symbols-outlined">close</span>
+    </label>
+    <div style="font-family:'Crimson Pro',serif; font-weight:500; font-size:1.3rem; color:#1A1A1A; margin-bottom:12px">KGS Home Décors</div>
+    <a class="static-mobile-nav__link" href="index.html">Home</a>
+    <a class="static-mobile-nav__link" href="product-listing.html">Shop</a>
+    <a class="static-mobile-nav__link" href="about.html">Our Story</a>
+    <a class="static-mobile-nav__link" href="contact.html">Contact</a>
+    <a class="static-mobile-nav__link" href="account.html">Account</a>
+    <a class="static-mobile-nav__link" href="cart-checkout.html">Cart</a>
+    <div style="margin-top:auto; padding-top:24px">
+      <a href="https://wa.me/919789182921" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:10px; padding:12px 0; color:#25D366; font-weight:600; font-family:'Jost',sans-serif; font-size:14px">
+        <span class="material-symbols-outlined">chat</span>WhatsApp Us
+      </a>
+      <div style="font-size:11px; color:#5E5B59; margin-top:12px; line-height:1.6">
+        185/G Junction Rd<br>Virudhachalam 606001<br>10 AM – 10 PM, every day
+      </div>
+    </div>
+  </div>
+</div>
 
 <main style="flex: 1;">
   <section style="background:#F2E8D6; padding:48px 0">
@@ -180,11 +205,11 @@
       <div class="footer-col">
         <h4>Help</h4>
         <ul>
-          <li><a href="#">Shipping & Delivery</a></li>
-          <li><a href="#">Returns & Refunds</a></li>
-          <li><a href="#">FAQ</a></li>
+          <li><a href="shipping-policy.html">Shipping &amp; Delivery</a></li>
+          <li><a href="returns-policy.html">Returns &amp; Refunds</a></li>
+          <li><a href="faq.html">FAQ</a></li>
           <li><a href="order-tracking.html">Track Order</a></li>
-          <li><a href="#">Payment Options</a></li>
+          <li><a href="payment-options.html">Payment Options</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -205,7 +230,7 @@
           <li class="info-line"><span class="material-symbols-outlined">schedule</span>Mon – Sun · 10 AM – 10 PM</li>
         </ul>
         <div class="footer-pay" style="margin-top: 18px">
-          <span>VISA</span><span>MC</span><span>UPI</span><span>AMEX</span><span>COD</span>
+          <span>VISA</span><span>MC</span><span>UPI</span><span>AMEX</span>
         </div>
       </div>
     </div>
@@ -238,6 +263,15 @@
   });
 })();
 </script><script src="assets/js/announce.js"></script>
+
+<!-- Mobile bottom navigation -->
+<nav class="acct-bottom-nav" aria-label="Site navigation">
+  <a class="acct-bottom-nav__item" href="index.html"><span class="material-symbols-outlined">home</span>Home</a>
+  <a class="acct-bottom-nav__item" href="product-listing.html"><span class="material-symbols-outlined">grid_view</span>Shop</a>
+  <a class="acct-bottom-nav__item active" href="wishlist.html"><span class="material-symbols-outlined">favorite</span>Wishlist</a>
+  <a class="acct-bottom-nav__item" href="cart-checkout.html"><span class="material-symbols-outlined">shopping_bag</span>Cart</a>
+  <a class="acct-bottom-nav__item" href="account.html"><span class="material-symbols-outlined">person</span>Account</a>
+</nav>
 </body>
 </html>
 

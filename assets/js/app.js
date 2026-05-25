@@ -1180,7 +1180,7 @@ function Nav(_ref5) {
       color: '#1A1A1A',
       marginBottom: 8
     }
-  }, "KGS Home D\xE9cors"), mobileLink('home', 'Home'), mobileLink('shop', 'Shop'), mobileLink('wishlist', 'Wishlist'), mobileLink('cart', 'Cart'), mobileLink('about', 'Our Story'), mobileLink('contact', 'Contact'), /*#__PURE__*/React.createElement("div", {
+  }, "KGS Home D\xE9cors"), mobileLink('about', 'Our Story'), mobileLink('contact', 'Contact'), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 'auto',
       paddingTop: 24
@@ -1388,7 +1388,7 @@ function Footer(_ref6) {
                 ['Statues & Idols', 'shop'],
                 ['Wall Frames', 'shop'],
                 ['Wall Statues', 'shop'],
-              ]), col('Help', [['Shipping & Delivery', 'shipping'], ['Returns & Refunds', 'returns'], ['FAQ', null], ['Track Order', null], ['Payment Options', null]]), col('Company & Legal', [['Our Story', 'about'], ['Contact', 'contact'], ['Terms', 'terms'], ['Privacy', 'privacy']]), /*#__PURE__*/React.createElement("div", {
+              ]), col('Help', [['Shipping & Delivery', 'shipping'], ['Returns & Refunds', 'returns'], ['FAQ', null], ['Track Order', null], ['Payment Options', null]]), col('Company', [['About Us', 'about'], ['Our Story', 'about'], ['Contact', 'contact']]), /*#__PURE__*/React.createElement("div", {
     className: "footer-col"
   }, /*#__PURE__*/React.createElement("h4", null, "Talk to Us"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", {
     className: "info-line"
@@ -1415,28 +1415,16 @@ function Footer(_ref6) {
 
   /*#__PURE__*/React.createElement("div", {
     className: "footer-bottom"
-  }, /*#__PURE__*/React.createElement("span", null, "\xA9 2026 KGS Home D\xE9cors, Virudhachalam. All rights reserved."), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("span", null, "\xA9 2026 KGS Home D\xE9cors. All Rights Reserved."), /*#__PURE__*/React.createElement("div", {
     className: "links"
   }, /*#__PURE__*/React.createElement("a", {
-    href: "#",
-    onClick: function onClick(e) {
-      return e.preventDefault();
-    }
+    href: "privacy-policy.html"
   }, "Privacy Policy"), /*#__PURE__*/React.createElement("a", {
-    href: "#",
-    onClick: function onClick(e) {
-      return e.preventDefault();
-    }
-  }, "Terms"), /*#__PURE__*/React.createElement("a", {
-    href: "#",
-    onClick: function onClick(e) {
-      return e.preventDefault();
-    }
+    href: "terms.html"
+  }, "Terms & Conditions"), /*#__PURE__*/React.createElement("a", {
+    href: "shipping-policy.html"
   }, "Shipping Policy"), /*#__PURE__*/React.createElement("a", {
-    href: "#",
-    onClick: function onClick(e) {
-      return e.preventDefault();
-    }
+    href: "returns-policy.html"
   }, "Return Policy")))));
 }
 

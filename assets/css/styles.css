@@ -1103,6 +1103,71 @@ p { line-height: 1.7; color: #5E5B59; margin: 0; }
   .nav-bar { display: flex; justify-content: space-between; align-items: center; padding: 0 16px; }
 }
 
+/* ── React app mobile nav (hamburger + drawer) ───────────────── */
+.hamburger-btn {
+  display: none;
+  background: rgba(26,26,26,0.04); border: none;
+  width: 44px; height: 44px; min-width: 44px;
+  border-radius: 9999px;
+  align-items: center; justify-content: center;
+  color: #1A1A1A; cursor: pointer;
+  transition: background 200ms ease;
+}
+.hamburger-btn:hover { background: #1A1A1A; color: #fff; }
+
+@media (max-width: 768px) {
+  .hamburger-btn { display: inline-flex; }
+}
+
+.mobile-nav {
+  display: none;
+  position: fixed; inset: 0; z-index: 200;
+  pointer-events: none; visibility: hidden;
+}
+.mobile-nav.open {
+  display: block;
+  pointer-events: all; visibility: visible;
+}
+.mobile-nav-overlay {
+  position: absolute; inset: 0;
+  background: rgba(26,22,20,0.60); backdrop-filter: blur(4px);
+}
+.mobile-nav-panel {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: 300px; max-width: calc(100vw - 56px);
+  background: #FDFAF5;
+  display: flex; flex-direction: column;
+  padding: 20px 24px;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 320ms cubic-bezier(0.16,1,0.3,1);
+}
+.mobile-nav.open .mobile-nav-panel {
+  transform: translateX(0);
+}
+.mobile-nav-close {
+  align-self: flex-end;
+  background: rgba(26,26,26,0.06); border: none;
+  width: 44px; height: 44px;
+  border-radius: 9999px;
+  display: flex; align-items: center; justify-content: center;
+  color: #1A1A1A; cursor: pointer; margin-bottom: 8px;
+  transition: background 200ms ease;
+}
+.mobile-nav-close:hover { background: #1A1A1A; color: #fff; }
+.mobile-nav-link {
+  display: flex; align-items: center;
+  font-family: 'Jost', sans-serif; font-size: 17px; font-weight: 500;
+  color: #1A1A1A;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(197,168,128,0.18);
+  transition: color 200ms ease, padding-left 200ms ease;
+  cursor: pointer;
+}
+.mobile-nav-link:hover,
+.mobile-nav-link.active { color: #B89657; padding-left: 4px; }
+.mobile-nav-link:last-of-type { border-bottom: none; }
+
 /* ===== ELITE MOBILE ENHANCEMENTS ===== */
 body { overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
 .btn:active, .icon-btn:active, .nav-link:active, .cart-item-remove:active { transform: scale(0.96) !important; transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1) !important; }
@@ -1571,6 +1636,34 @@ input::placeholder, textarea::placeholder {
   .account-nav::-webkit-scrollbar { display: none; }
   .account-nav-item { white-space: nowrap; flex-shrink: 0; padding: 10px 16px; font-size: 13px; }
   .account-main { padding: 0 18px; }
+}
+
+/* ── Site-wide mobile bottom navigation ─────────────────── */
+.acct-bottom-nav { display: none; }
+@media (max-width: 768px) {
+  .acct-bottom-nav {
+    display: flex; position: fixed; bottom: 0; left: 0; right: 0;
+    padding: 0; padding-bottom: env(safe-area-inset-bottom);
+    background: rgba(253,250,245,0.97);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-top: 1px solid rgba(197,168,128,0.22);
+    z-index: 85; box-shadow: 0 -6px 24px -6px rgba(0,0,0,0.09);
+  }
+  .acct-bottom-nav__item {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    gap: 3px; padding: 10px 0; text-decoration: none; color: #767270;
+    font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: .04em; transition: color 200ms ease; position: relative;
+  }
+  .acct-bottom-nav__item .material-symbols-outlined {
+    font-size: 22px; transition: transform 200ms cubic-bezier(0.23,1,0.32,1);
+  }
+  .acct-bottom-nav__item.active { color: #1A1A1A; }
+  .acct-bottom-nav__item.active .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+  }
+  .acct-bottom-nav__item:active .material-symbols-outlined { transform: scale(0.88); }
 }
 
 /* ── Reduced motion — emil-design-eng + a11y ─────────────── */
