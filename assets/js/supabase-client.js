@@ -384,3 +384,11 @@ async function adminDeleteStoreReview(reviewId) {
   const { error } = await sb.from('store_reviews').delete().eq('id', reviewId);
   if (error) throw error;
 }
+
+/* ─── NEWSLETTER ────────────────────────────────────────── */
+
+async function subscribeNewsletter(email) {
+  const sb = getSupabase();
+  const { error } = await sb.from('newsletter_subscribers').insert({ email });
+  if (error) throw error;
+}

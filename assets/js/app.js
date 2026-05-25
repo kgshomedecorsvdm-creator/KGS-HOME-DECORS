@@ -1233,6 +1233,48 @@ function TrustStrip() {
 
 // ===== Newsletter ============================================================
 function Newsletter() {
+  var _React$useState = React.useState(''),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      email = _React$useState2[0],
+      setEmail = _React$useState2[1];
+  var _React$useState3 = React.useState('idle'),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      status = _React$useState4[0],
+      setStatus = _React$useState4[1];
+  var _React$useState5 = React.useState(''),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      errMsg = _React$useState6[0],
+      setErrMsg = _React$useState6[1];
+
+  var handleSubscribe = function handleSubscribe(e) {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setStatus('loading');
+    setErrMsg('');
+    var sb = getSB();
+    if (!sb) { setStatus('idle'); return; }
+    sb.from('newsletter_subscribers').insert({ email: email.trim().toLowerCase() }).then(function(res) {
+      if (res.error) {
+        if (res.error.code === '23505') {
+          setErrMsg("You're already subscribed!");
+        } else {
+          setErrMsg('Something went wrong. Please try again.');
+        }
+        setStatus('error');
+      } else {
+        setStatus('done');
+      }
+    });
+  };
+
+  if (status === 'done') {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "container"
+    }, /*#__PURE__*/React.createElement("section", {
+      className: "newsletter"
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, "You\u2019re in!"), /*#__PURE__*/React.createElement("p", null, "We\u2019ll let you know when new pieces land. One email a month \u2014 no spam, ever."))));
+  }
+
   return /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("section", {
@@ -1241,11 +1283,18 @@ function Newsletter() {
     className: "newsletter-form"
   }, /*#__PURE__*/React.createElement("input", {
     className: "newsletter-input",
-    placeholder: "your@email.com",
-    type: "email"
+    placeholder: "Enter your email",
+    type: "email",
+    value: email,
+    onChange: function onChange(e) { return setEmail(e.target.value); },
+    disabled: status === 'loading'
   }), /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-dark"
-  }, "Subscribe"))));
+    className: "btn btn-dark",
+    onClick: handleSubscribe,
+    disabled: status === 'loading'
+  }, status === 'loading' ? 'Subscribing\u2026' : 'Subscribe'), status === 'error' && /*#__PURE__*/React.createElement("p", {
+    style: { color: '#c0392b', fontSize: 13, marginTop: 8, width: '100%' }
+  }, errMsg))));
 }
 
 // ===== Footer ================================================================
@@ -1355,7 +1404,7 @@ function Footer(_ref6) {
     }
   }, /*#__PURE__*/React.createElement("input", {
     type: "email",
-    placeholder: "Email address...",
+    placeholder: "Enter your email",
     style: {
       flex: 1,
       background: 'transparent',
@@ -2181,7 +2230,7 @@ function Testimonials(_ref_t) {
       fontFamily: '"Jost", sans-serif',
       fontSize: 14
     },
-    placeholder: "John Doe"
+    placeholder: "Enter your name"
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     style: {
       display: 'block',
@@ -3704,7 +3753,7 @@ function CheckoutPage(_ref17) {
   }, /*#__PURE__*/React.createElement("label", null, "Phone (WhatsApp)"), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     style: inputStyle('phone'),
-    placeholder: "+91 XXXXX XXXXX",
+    placeholder: "Enter your phone number",
     type: "tel",
     value: form.phone,
     onChange: function onChange(e) {
@@ -3752,7 +3801,7 @@ function CheckoutPage(_ref17) {
   }, /*#__PURE__*/React.createElement("label", null, "State"), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
     style: inputStyle('state'),
-    placeholder: "Tamil Nadu",
+    placeholder: "Enter your state",
     value: form.state,
     onChange: function onChange(e) {
       return update('state', e.target.value);
@@ -4531,7 +4580,7 @@ function ContactPage() {
       padding: '56px 0 96px'
     }
   }, /*#__PURE__*/React.createElement("div", {
-    className: "container",
+    className: "container contact-grid",
     style: {
       display: 'grid',
       gridTemplateColumns: '1.2fr 1fr',
@@ -4593,7 +4642,7 @@ function ContactPage() {
       color: '#5E5B59'
     }
   }, "Your name"), /*#__PURE__*/React.createElement("input", {
-    placeholder: "Meena R.",
+    placeholder: "Enter your name",
     value: form.name,
     onChange: function onChange(e) {
       return update('name', e.target.value);
@@ -4623,7 +4672,7 @@ function ContactPage() {
       color: '#5E5B59'
     }
   }, "Phone or WhatsApp"), /*#__PURE__*/React.createElement("input", {
-    placeholder: "+91 XXXXX XXXXX",
+    placeholder: "Enter your phone number",
     type: "tel",
     value: form.phone,
     onChange: function onChange(e) {
@@ -4655,7 +4704,7 @@ function ContactPage() {
     }
   }, "What do you need?"), /*#__PURE__*/React.createElement("textarea", {
     rows: "5",
-    placeholder: "I'm looking for a 3-seater sofa that fits a 10-foot wall...",
+    placeholder: "Tell us what you need",
     value: form.message,
     onChange: function onChange(e) {
       return update('message', e.target.value);
