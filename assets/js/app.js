@@ -4196,6 +4196,7 @@ function WishlistPage(_ref19) {
     className: "btn btn-dark",
     onClick: onShop
   }, "Browse the Collection")) : /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "wishlist-grid",
     style: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
