@@ -10,6 +10,21 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap">
   <link rel="stylesheet" href="assets/css/icons.css">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    @media (max-width: 768px) {
+      .about-hero          { padding: 52px 0 44px !important; }
+      .about-hero h1       { font-size: 2rem !important; line-height: 1.12 !important; }
+      .about-hero p        { font-size: 13.5px !important; }
+      .about-story-section { padding: 44px 0 52px !important; }
+      .about-story-img     { aspect-ratio: 3/2 !important; }
+      .why-section         { margin: 16px 12px !important; padding: 48px 0 !important; }
+      .why-head h2         { font-size: 28px !important; }
+      main                 { padding-bottom: 80px; }
+    }
+    @media (max-width: 480px) {
+      .about-hero h1 { font-size: 1.75rem !important; }
+    }
+  </style>
 </head>
 <body style="background:#FAF8F4">
 <!-- CSS-only mobile nav toggle -->
@@ -23,8 +38,6 @@
       <span id="store-time">Junction Road · Virudhachalam</span>
     </span>
     <span class="announce-center"></span>
-      <span><b>★ 5.0 on Google.</b> 240 families trust us. Come see why.</span>
-    </span>
     <span class="announce-side announce-side--right">
       <span class="announce-divider"></span>
       <a href="order-tracking.html">Track Order</a>
@@ -89,7 +102,7 @@
 
 <main>
   <!-- Hero -->
-  <section style="background:#F2E8D6;padding:80px 0;text-align:center">
+  <section class="about-hero" style="background:#F2E8D6;padding:80px 0;text-align:center">
     <div class="container" style="max-width:720px;margin:0 auto">
       <div style="font-size:10.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:#7A5C1E;margin-bottom:16px">Virudhachalam · Junction Road</div>
       <h1 style="font-family:'Crimson Pro',serif;font-weight:500;font-size:3.2rem;line-height:1.06;letter-spacing:-0.018em;margin-bottom:18px">Premium home décor<br>for every Indian home.</h1>
@@ -98,9 +111,9 @@
   </section>
 
   <!-- Story section -->
-  <section style="background:#FAF8F4;padding:72px 0 96px">
+  <section class="about-story-section" style="background:#FAF8F4;padding:72px 0 96px">
     <div class="container about-story-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center">
-      <div style="aspect-ratio:4/5;overflow:hidden;border-radius:12px">
+      <div class="about-story-img" style="aspect-ratio:4/5;overflow:hidden;border-radius:12px">
         <img src="assets/lifestyle/showroom_interior.webp" alt="KGS Showroom interior — curated home décor in Virudhachalam" style="width:100%;height:100%;object-fit:cover"
              onerror="this.src='assets/lifestyle/showroom.webp'">
       </div>
