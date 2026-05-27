@@ -1505,14 +1505,16 @@ function Footer(_ref6) {
     }, /*#__PURE__*/React.createElement("h4", null, title), /*#__PURE__*/React.createElement("ul", null, items.map(function (_ref7) {
       var _ref8 = _slicedToArray(_ref7, 2),
         label = _ref8[0],
-        route = _ref8[1];
+        target = _ref8[1];
+      var isHtml = target && target.endsWith('.html');
       return /*#__PURE__*/React.createElement("li", {
         key: label
       }, /*#__PURE__*/React.createElement("a", {
-        href: "#",
+        href: isHtml ? target : "#",
         onClick: function onClick(e) {
+          if (isHtml) return;
           e.preventDefault();
-          if (route && setRoute) setRoute(route);
+          if (target && setRoute) setRoute(target);
         }
       }, label));
     })));
@@ -1636,7 +1638,8 @@ function Footer(_ref6) {
                 ['Statues & Idols', 'shop'],
                 ['Wall Frames', 'shop'],
                 ['Wall Statues', 'shop'],
-              ]), col('Help', [['Shipping & Delivery', 'shipping'], ['Returns & Refunds', 'returns'], ['FAQ', null], ['Track Order', null], ['Payment Options', null]]), col('Company', [['About Us', 'about'], ['Our Story', 'about'], ['Contact', 'contact']]), /*#__PURE__*/React.createElement("div", {
+              ]), col('Help', [['Shipping & Delivery', 'shipping-policy.html'], ['Returns & Refunds', 'returns-policy.html'], ['FAQ', 'faq.html'], ['Track Order', 'account'], ['Payment Options', 'payment-options.html']]), col('Company', [['About Us', 'about.html'], ['Our Story', 'about.html'], ['Contact', 'contact.html']]), 
+ /*#__PURE__*/React.createElement("div", {
     className: "footer-col"
   }, /*#__PURE__*/React.createElement("h4", null, "Talk to Us"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", {
     className: "info-line"
@@ -6027,6 +6030,10 @@ function App() {
   }));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
+
+
+
+
 
 
 
