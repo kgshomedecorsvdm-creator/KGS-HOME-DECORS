@@ -1812,7 +1812,7 @@ function Footer(_ref6) {
                 ['Statues & Idols', 'shop'],
                 ['Wall Frames', 'shop'],
                 ['Wall Statues', 'shop'],
-              ]), col('Help', [['Shipping & Delivery', 'shipping-policy.html'], ['Returns & Refunds', 'returns-policy.html'], ['FAQ', 'faq.html'], ['Track Order', 'account'], ['Payment Options', 'payment-options.html']]), col('Company', [['About Us', 'about.html'], ['Our Story', 'about.html'], ['Contact', 'contact.html']]), 
+              ]), col('Help', [['Shipping & Delivery', 'shipping'], ['Returns & Refunds', 'returns'], ['FAQ', 'faq'], ['Track Order', 'account'], ['Payment Options', 'payment-options']]), col('Company', [['About Us', 'about'], ['Our Story', 'about'], ['Contact', 'contact']]), 
  /*#__PURE__*/React.createElement("div", {
     className: "footer-col"
   }, /*#__PURE__*/React.createElement("h4", null, "Talk to Us"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", {
@@ -1843,13 +1843,13 @@ function Footer(_ref6) {
   }, /*#__PURE__*/React.createElement("span", null, "\xA9 2026 KGS Home D\xE9cors. All Rights Reserved."), /*#__PURE__*/React.createElement("div", {
     className: "links"
   }, /*#__PURE__*/React.createElement("a", {
-    href: "privacy-policy.html"
+    href: "#", onClick: function(e) { e.preventDefault(); setRoute('privacy'); }
   }, "Privacy Policy"), /*#__PURE__*/React.createElement("a", {
-    href: "terms.html"
+    href: "#", onClick: function(e) { e.preventDefault(); setRoute('terms'); }
   }, "Terms & Conditions"), /*#__PURE__*/React.createElement("a", {
-    href: "shipping-policy.html"
+    href: "#", onClick: function(e) { e.preventDefault(); setRoute('shipping'); }
   }, "Shipping Policy"), /*#__PURE__*/React.createElement("a", {
-    href: "returns-policy.html"
+    href: "#", onClick: function(e) { e.preventDefault(); setRoute('returns'); }
   }, "Return Policy")))));
 }
 
@@ -6122,13 +6122,13 @@ function App() {
   } else if (route === 'faq') {
     body = /*#__PURE__*/React.createElement(FAQPage, null);
   } else if (route === 'privacy') {
-    body = /*#__PURE__*/React.createElement(PrivacyPage, null);
+    body = /*#__PURE__*/React.createElement(PrivacyPolicyPage, null);
   } else if (route === 'terms') {
     body = /*#__PURE__*/React.createElement(TermsPage, null);
   } else if (route === 'shipping') {
     body = /*#__PURE__*/React.createElement(ShippingPolicyPage, null);
   } else if (route === 'returns') {
-    body = /*#__PURE__*/React.createElement(ReturnsPolicyPage, null);
+    body = /*#__PURE__*/React.createElement(ReturnPolicyPage, null);
   } else if (route === 'payment-options') {
     body = /*#__PURE__*/React.createElement(PaymentOptionsPage, null);
   } else if (route === 'account') {
@@ -6217,6 +6217,8 @@ function App() {
   }));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
+
+
 
 
 
