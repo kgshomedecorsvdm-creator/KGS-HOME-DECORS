@@ -469,16 +469,74 @@
       color: #fff;
       border-color: #1A1A1A;
     }
+.btn-gold {
+  background: #B89657;
+  color: #fff;
+  border: 1px solid #B89657;
+}
 
-    .btn-gold {
-      background: #B89657;
-      color: #fff;
-      border: 1px solid #B89657;
-    }
+.btn-gold:hover {
+  background: #A0824B;
+  transform: translateY(-2px);
+}
 
-    .btn-gold:hover {
-      background: #A0824A;
-      transform: translateY(-2px);
+/* Account Dashboard Styles */
+.account-page { padding-top: 40px; padding-bottom: 80px; }
+.account-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid rgba(26,26,26,0.05); }
+.account-grid { display: grid; grid-template-columns: 240px 1fr; gap: 48px; }
+.account-nav { display: flex; flex-direction: column; gap: 8px; }
+.account-nav-item { 
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+  padding: 12px 16px; 
+  border-radius: 12px; 
+  cursor: pointer; 
+  color: #5E5B59; 
+  transition: all 0.2s;
+  font-weight: 500;
+  font-size: 15px;
+}
+.account-nav-item:hover { background: rgba(184,150,87,0.05); color: #B89657; }
+.account-nav-item.active { background: #B89657; color: #fff; }
+.account-nav-item .material-symbols-outlined { font-size: 20px; }
+.account-main h2 { margin-bottom: 24px; font-weight: 600; }
+
+/* Tracking Timeline Styles */
+.tracking-timeline { display: flex; flex-direction: column; gap: 0; position: relative; margin-top: 20px; }
+.tracking-step { position: relative; padding-left: 45px; padding-bottom: 32px; border-left: 2px solid rgba(184,150,87,0.15); }
+.tracking-step:last-child { border-left-color: transparent; padding-bottom: 0; }
+.tracking-icon { 
+  position: absolute; 
+  left: -16px; 
+  top: 0; 
+  width: 30px; 
+  height: 30px; 
+  border-radius: 50%; 
+  background: #fff; 
+  border: 2px solid rgba(184,150,87,0.15); 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  z-index: 2;
+  transition: all 0.3s;
+}
+.tracking-icon span { font-size: 16px; color: #9E9B98; }
+.tracking-step.done .tracking-icon { background: #B89657; border-color: #B89657; }
+.tracking-step.done .tracking-icon span { color: #fff; }
+.tracking-step.active .tracking-icon { border-color: #B89657; }
+.tracking-step.active .tracking-icon span { color: #B89657; }
+.tracking-info h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; color: #1A1A1A; }
+.tracking-info p { font-size: 13px; color: #5E5B59; margin-bottom: 4px; }
+.tracking-time { font-size: 11px; font-weight: 600; color: #B89657; text-transform: uppercase; letter-spacing: .05em; }
+
+@media (max-width: 768px) {
+  .account-grid { grid-template-columns: 1fr; gap: 32px; }
+  .account-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .account-nav { flex-direction: row; overflow-x: auto; padding-bottom: 8px; margin-bottom: 16px; width: 100vw; margin-left: -20px; padding-left: 20px; }
+  .account-nav-item { white-space: nowrap; }
+}
+
       box-shadow: 0 16px 32px -16px rgba(184, 150, 87, 0.55);
     }
 
@@ -4088,3 +4146,4 @@ body.search-open { position: fixed; overflow: hidden; width: 100%; }
 </body>
 
 </html>
+

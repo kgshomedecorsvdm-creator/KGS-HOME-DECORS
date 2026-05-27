@@ -1,0 +1,18 @@
+{
+  "agents": {
+    "agent-1779787528503-tfuilb": {
+      "agentId": "agent-1779787528503-tfuilb",
+      "agentType": "researcher",
+      "status": "idle",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "provider": "anthropic"
+      },
+      "createdAt": "2026-05-26T09:25:28.503Z",
+      "model": "sonnet",
+      "modelRoutedBy": "default"
+    }
+  },
+  "version": "3.0.0"
+}

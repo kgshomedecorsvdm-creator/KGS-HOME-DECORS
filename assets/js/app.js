@@ -24,9 +24,130 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 // ===== Extra Pages (Auth, Legal) ==================================
 // Extra Pages added to the KGS Home Decor React App
 
+function OrderTrackingPage(_ref_ot) {
+  var orderId = _ref_ot.orderId;
+  var onBack = _ref_ot.onBack;
+  var _state_o = React.useState(null), order = _state_o[0], setOrder = _state_o[1];
+  var _state_l = React.useState(true), loading = _state_l[0], setLoading = _state_l[1];
+
+  React.useEffect(function() {
+    if (orderId && typeof getOrderById === 'function') {
+      getOrderById(orderId).then(function(data) {
+        setOrder(data);
+        setLoading(false);
+      })["catch"](function() {
+        setLoading(false);
+      });
+    } else {
+      setLoading(false);
+    }
+  }, [orderId]);
+
+  if (loading) return /*#__PURE__*/React.createElement("div", { className: "section container", style: { minHeight: '60vh', padding: '64px 20px', textAlign: 'center' } }, "Loading order details...");
+  if (!order) return /*#__PURE__*/React.createElement("div", { className: "section container", style: { minHeight: '60vh', padding: '64px 20px', textAlign: 'center' } }, 
+    /*#__PURE__*/React.createElement("h1", null, "Order Not Found"),
+    /*#__PURE__*/React.createElement("p", null, "We couldn't find the order you're looking for."),
+    /*#__PURE__*/React.createElement("button", { onClick: onBack, className: "btn btn-dark", style: { marginTop: '20px' } }, "Back to Account")    
+  );
+
+  var status = (order.status || 'processing').toLowerCase();
+  var STATUS_STEPS = [
+    { key: 'processing', icon: 'receipt_long', label: 'Order Placed', desc: "We've received your order." },
+    { key: 'confirmed', icon: 'inventory_2', label: 'Processing', desc: "Your items are being prepared." },
+    { key: 'shipped', icon: 'local_shipping', label: 'Shipped', desc: "Your order is on the way." },
+    { key: 'delivered', icon: 'home', label: 'Delivered', desc: "Order has been delivered." }
+  ];
+  var statusIndex = { processing: 0, confirmed: 1, shipped: 2, delivered: 3 }[status] || 0;
+
+  return /*#__PURE__*/React.createElement("div", { className: "section container", style: { minHeight: '60vh', padding: '48px 20px' } },
+    /*#__PURE__*/React.createElement("div", { style: { maxWidth: '800px', margin: '0 auto' } },
+      /*#__PURE__*/React.createElement("div", { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' } },
+        /*#__PURE__*/React.createElement("div", null,
+          /*#__PURE__*/React.createElement("div", { className: "label-tag", style: { marginBottom: '8px' } }, "Track Order"),
+          /*#__PURE__*/React.createElement("h1", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '32px' } }, "Order #" + String(order.id).slice(-5).toUpperCase())
+        ),
+        /*#__PURE__*/React.createElement("button", { onClick: onBack, className: "btn btn-ghost" }, "Back to Account")
+      ),
+      /*#__PURE__*/React.createElement("div", { style: { background: '#fff', borderRadius: '16px', padding: '32px', border: '1px solid rgba(26,26,26,0.06)', marginBottom: '32px' } },
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', fontWeight: 600, color: '#B89657', textTransform: 'uppercase', letterSpacing: '.05em', marginBottom: '24px' } }, "Status: " + status.toUpperCase()),
+        /*#__PURE__*/React.createElement("div", { className: "tracking-timeline" },
+          STATUS_STEPS.map(function(step, i) {
+            var done = i <= statusIndex;
+            var active = i === statusIndex;
+            return /*#__PURE__*/React.createElement("div", { key: step.key, className: "tracking-step " + (done ? 'done' : (active ? 'active' : '')) },
+              /*#__PURE__*/React.createElement("div", { className: "tracking-icon" }, /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, done ? "check" : step.icon)),
+              /*#__PURE__*/React.createElement("div", { className: "tracking-info" },
+                /*#__PURE__*/React.createElement("h4", null, step.label),
+                /*#__PURE__*/React.createElement("p", null, step.desc),
+                /*#__PURE__*/React.createElement("div", { className: "tracking-time" }, done ? (i === 0 ? new Date(order.created_at).toLocaleDateString() : 'Completed') : 'Pending')
+              )
+            );
+          })
+        )
+      )
+    )
+  );
+}
+
+function ForgotPasswordPage(_ref_fp) {
+  var onBack = _ref_fp.onBack;
+  var _state_e = React.useState(''), email = _state_e[0], setEmail = _state_e[1];
+  var _state_l = React.useState(false), loading = _state_l[0], setLoading = _state_l[1];
+  var _state_err = React.useState(''), error = _state_err[0], setError = _state_err[1];
+  var _state_s = React.useState(false), success = _state_s[0], setSuccess = _state_s[1];
+
+  var handleSubmit = function() {
+    if (!email) { setError('Please enter your email address.'); return; }
+    setLoading(true); setError('');
+    if (typeof resetPasswordForEmail === 'function') {
+      resetPasswordForEmail(email).then(function() {
+        setSuccess(true);
+        setLoading(false);
+      })["catch"](function(e) {
+        setError(e.message || 'Something went wrong. Please try again.');
+        setLoading(false);
+      });
+    } else {
+      setError('Password reset feature is currently unavailable.');
+      setLoading(false);
+    }
+  };
+
+  return /*#__PURE__*/React.createElement("div", { className: "section", style: { minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+    /*#__PURE__*/React.createElement("div", { style: { background: '#fff', padding: '48px', borderRadius: '24px', width: '100%', maxWidth: '440px', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.05)', textAlign: 'center' } },
+      !success ? /*#__PURE__*/React.createElement(React.Fragment, null,
+        /*#__PURE__*/React.createElement("div", { style: { width: 52, height: 52, background: 'rgba(184,150,87,0.10)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' } },
+          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '24px', color: '#B89657' } }, "lock_reset")
+        ),
+        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '30px', marginBottom: '8px', color: '#1A1A1A' } }, "Forgot Password?"),
+        /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '32px' } }, "Enter your email address and we'll send you a secure link to reset your password."),
+        error && /*#__PURE__*/React.createElement("div", { style: { background: 'rgba(201,120,64,0.08)', color: '#C97840', fontSize: '13px', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px', textAlign: 'left' } }, error),
+        /*#__PURE__*/React.createElement("div", { style: { marginBottom: '24px', textAlign: 'left' } },
+          /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Email Address"),
+          /*#__PURE__*/React.createElement("input", { type: "email", placeholder: "Enter your email", value: email, onChange: function(e) { setEmail(e.target.value); }, style: { width: '100%', padding: '14px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: '8px', fontSize: '14px', fontFamily: '"Jost", sans-serif', boxSizing: 'border-box' } })
+        ),
+        /*#__PURE__*/React.createElement("button", { onClick: handleSubmit, disabled: loading, className: "btn btn-dark", style: { width: '100%', padding: '16px', fontSize: '14px', marginBottom: '24px', opacity: loading ? 0.7 : 1 } }, loading ? "Sending..." : "Send Reset Link"),
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '13.5px', color: '#5E5B59' } },
+          "Remembered it? ",
+          /*#__PURE__*/React.createElement("a", { href: "#", onClick: function(e) { e.preventDefault(); onBack(); }, style: { color: '#B89657', fontWeight: 600 } }, "Back to Sign In")
+        )
+      ) : /*#__PURE__*/React.createElement(React.Fragment, null,
+        /*#__PURE__*/React.createElement("div", { style: { width: 64, height: 64, background: 'rgba(184,150,87,0.10)', borderRadius: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' } },
+          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '32px', color: '#B89657' } }, "mark_email_unread")
+        ),
+        /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '26px', marginBottom: '12px', color: '#1A1A1A' } }, "Check your inbox"),
+        /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', lineHeight: 1.7, marginBottom: '28px' } }, "If an account exists for ", /*#__PURE__*/React.createElement("strong", null, email), ", you'll receive a reset link shortly."),
+        /*#__PURE__*/React.createElement("button", { onClick: onBack, className: "btn btn-ghost", style: { width: '100%', marginBottom: '16px' } }, "Back to Sign In"),
+        /*#__PURE__*/React.createElement("button", { onClick: function() { setSuccess(false); }, style: { background: 'none', border: 'none', fontSize: '13px', color: '#9E9B98', cursor: 'pointer' } }, "Try a different email")
+      )
+    )
+  );
+}
+
 function AccountLoginPage(_ref) {
   var onRegister = _ref.onRegister,
-    onLogin = _ref.onLogin;
+    onLogin = _ref.onLogin,
+    onForgot = _ref.onForgot;
   var _es = React.useState(''), email = _es[0], setEmail = _es[1];
   var _ps = React.useState(''), password = _ps[0], setPassword = _ps[1];
   var _ls = React.useState(false), loading = _ls[0], setLoading = _ls[1];
@@ -60,7 +181,7 @@ function AccountLoginPage(_ref) {
     /*#__PURE__*/React.createElement("div", { style: { marginBottom: '24px' } },
       /*#__PURE__*/React.createElement("div", { style: { display: 'flex', justifyContent: 'space-between', marginBottom: '8px' } },
         /*#__PURE__*/React.createElement("label", { style: { fontSize: '12px', fontWeight: 600, color: '#5E5B59' } }, "Password"),
-        /*#__PURE__*/React.createElement("a", { href: "forgot-password.html", style: { fontSize: '12px', color: '#B89657', fontWeight: 500 } }, "Forgot?")
+        /*#__PURE__*/React.createElement("a", { href: "#", onClick: function(e) { e.preventDefault(); onForgot(); }, style: { fontSize: '12px', color: '#B89657', fontWeight: 500 } }, "Forgot?")
       ),
       /*#__PURE__*/React.createElement("div", { style: { position: 'relative' } },
         /*#__PURE__*/React.createElement("input", { type: showPwd ? "text" : "password", placeholder: "Enter your password", value: password, onChange: function(e) { setPassword(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: Object.assign({}, inputStyle, { paddingRight: '46px' }) }),
@@ -69,13 +190,14 @@ function AccountLoginPage(_ref) {
         )
       )
     ),
-    /*#__PURE__*/React.createElement("button", { onClick: handleSubmit, disabled: loading, className: "btn btn-dark", style: { width: '100%', padding: '16px', fontSize: '14px', marginBottom: '24px', opacity: loading ? 0.7 : 1 } }, loading ? "Signing in…" : "Sign In"),
+    /*#__PURE__*/React.createElement("button", { onClick: handleSubmit, disabled: loading, className: "btn btn-dark", style: { width: '100%', padding: '16px', fontSize: '14px', marginBottom: '24px', opacity: loading ? 0.7 : 1 } }, loading ? "Signing in..." : "Sign In"),
     /*#__PURE__*/React.createElement("div", { style: { textAlign: 'center', fontSize: '13px', color: '#5E5B59' } },
       "Don't have an account? ",
       /*#__PURE__*/React.createElement("a", { href: "#", onClick: function(e) { e.preventDefault(); onRegister(); }, style: { color: '#1A1A1A', fontWeight: 600 } }, "Create one")
     )
   ));
 }
+
 function AccountRegisterPage(_ref2) {
   var onLogin = _ref2.onLogin,
     onRegister = _ref2.onRegister;
@@ -118,19 +240,106 @@ function AccountRegisterPage(_ref2) {
       /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Password"),
       /*#__PURE__*/React.createElement("input", { type: "password", placeholder: "Min. 6 characters", value: password, onChange: function(e) { setPassword(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: inputStyle })
     ),
-    /*#__PURE__*/React.createElement("button", { onClick: handleSubmit, disabled: loading, className: "btn btn-dark", style: { width: '100%', padding: '16px', fontSize: '14px', marginBottom: '24px', opacity: loading ? 0.7 : 1 } }, loading ? "Creating account…" : "Create Account"),
+    /*#__PURE__*/React.createElement("button", { onClick: handleSubmit, disabled: loading, className: "btn btn-dark", style: { width: '100%', padding: '16px', fontSize: '14px', marginBottom: '24px', opacity: loading ? 0.7 : 1 } }, loading ? "Creating account..." : "Create Account"),
     /*#__PURE__*/React.createElement("div", { style: { textAlign: 'center', fontSize: '13px', color: '#5E5B59' } },
       "Already have an account? ",
       /*#__PURE__*/React.createElement("a", { href: "#", onClick: function(e) { e.preventDefault(); onLogin(); }, style: { color: '#1A1A1A', fontWeight: 600 } }, "Sign in")
     )
   ));
 }
+
 function AccountDashboardPage(_ref3) {
   var onLogout = _ref3.onLogout,
     onShop = _ref3.onShop,
+    onTrack = _ref3.onTrack,
     user = _ref3.user;
+
+  var _state_t = React.useState('orders'), activeTab = _state_t[0], setActiveTab = _state_t[1];
+  var _state_o = React.useState([]), orders = _state_o[0], setOrders = _state_o[1];
+  var _state_l = React.useState(true), loading = _state_l[0], setLoading = _state_l[1];
+
+  React.useEffect(function() {
+    if (typeof getMyOrders === 'function') {
+      getMyOrders().then(function(data) {
+        setOrders(data || []);
+        setLoading(false);
+      })["catch"](function() {
+        setLoading(false);
+      });
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
   var displayName = (user && (user.user_metadata && user.user_metadata.full_name || user.email)) || 'there';
   var initials = displayName.split(' ').map(function(w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
+
+  var renderContent = function() {
+    if (activeTab === 'orders') {
+      return /*#__PURE__*/React.createElement(React.Fragment, null,
+        /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', marginBottom: '20px' } }, "Recent Orders"),
+        loading ? /*#__PURE__*/React.createElement("div", { style: { padding: '40px', textAlign: 'center', color: '#5E5B59' } }, "Loading orders...") : 
+        orders.length === 0 ? /*#__PURE__*/React.createElement("div", { style: { background: '#fff', borderRadius: '16px', padding: '40px 24px', textAlign: 'center', border: '1px dashed rgba(26,26,26,0.15)' } },
+          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '48px', color: '#C5A880', display: 'block', marginBottom: '16px' } }, "inventory_2"),
+          /*#__PURE__*/React.createElement("div", { style: { fontSize: '17px', fontWeight: 500, marginBottom: '8px' } }, "No orders yet"),
+          /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '24px' } }, "When you place an order, it will appear here."),
+          /*#__PURE__*/React.createElement("button", { onClick: onShop, className: "btn btn-dark" }, "Start Shopping")
+        ) : /*#__PURE__*/React.createElement("div", { className: "orders-list" }, 
+          orders.map(function(order) {
+            return /*#__PURE__*/React.createElement("div", { key: order.id, className: "order-card", style: { background: '#fff', borderRadius: '12px', padding: '20px', marginBottom: '16px', border: '1px solid rgba(197,168,128,0.2)' } },
+              /*#__PURE__*/React.createElement("div", { style: { display: 'flex', justifyContent: 'space-between', marginBottom: '12px' } },       
+                /*#__PURE__*/React.createElement("div", null, 
+                  /*#__PURE__*/React.createElement("div", { style: { fontSize: '12px', color: '#5E5B59', textTransform: 'uppercase', letterSpacing: '0.05em' } }, "Order #" + String(order.id).slice(-5).toUpperCase()),
+                  /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: 500 } }, new Date(order.created_at).toLocaleDateString())
+                ),
+                /*#__PURE__*/React.createElement("div", { style: { textAlign: 'right' } },
+                  /*#__PURE__*/React.createElement("div", { style: { fontSize: '12px', color: '#5E5B59' } }, "Total"),
+                  /*#__PURE__*/React.createElement("div", { style: { fontSize: '16px', fontWeight: 600, color: '#1A1A1A' } }, "₹" + order.total_amount)
+                )
+              ),
+              /*#__PURE__*/React.createElement("div", { style: { display: 'flex', gap: '12px', overflowX: 'auto', paddingBottom: '8px' } },        
+                (order.order_items || []).map(function(item, idx) {
+                  return /*#__PURE__*/React.createElement("img", { key: idx, src: item.product_image, alt: item.product_name, style: { width: '60px', height: '60px', objectFit: 'cover', borderRadius: '8px' } });
+                })
+              ),
+              /*#__PURE__*/React.createElement("div", { style: { marginTop: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' } },
+                 /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', padding: '4px 12px', borderRadius: '99px', background: order.status === 'delivered' ? '#E8F5E9' : '#FFF3E0', color: order.status === 'delivered' ? '#2E7D32' : '#E65100' } }, order.status.charAt(0).toUpperCase() + order.status.slice(1)),
+                 /*#__PURE__*/React.createElement("button", { onClick: function() { onTrack(order.id); }, className: "btn btn-ghost", style: { padding: '6px 12px', fontSize: '12px' } }, "Track Order")
+              )
+            );
+          })
+        )
+      );
+    }
+    if (activeTab === 'addresses') {
+      return /*#__PURE__*/React.createElement("div", null, 
+        /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', marginBottom: '20px' } }, "Saved Addresses"),
+        /*#__PURE__*/React.createElement("div", { style: { background: '#fff', borderRadius: '16px', padding: '48px 24px', textAlign: 'center', border: '1px solid rgba(26,26,26,0.06)' } },
+          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '48px', color: '#C5A880', marginBottom: '16px' } }, "location_on"),
+          /*#__PURE__*/React.createElement("div", { style: { fontSize: '17px', fontWeight: 500, marginBottom: '8px' } }, "No addresses saved"),    
+          /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '24px' } }, "Add your shipping address for a faster checkout."),
+          /*#__PURE__*/React.createElement("button", { className: "btn btn-dark" }, "Add New Address")
+        )
+      );
+    }
+    if (activeTab === 'settings') {
+      return /*#__PURE__*/React.createElement("div", null, 
+        /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', marginBottom: '20px' } }, "Account Settings"),
+        /*#__PURE__*/React.createElement("div", { style: { background: '#fff', borderRadius: '16px', padding: '32px', border: '1px solid rgba(26,26,26,0.06)' } },
+          /*#__PURE__*/React.createElement("div", { style: { marginBottom: '24px' } },
+            /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px', textTransform: 'uppercase' } }, "Email Address"),
+            /*#__PURE__*/React.createElement("input", { type: "text", disabled: true, value: user.email, style: { width: '100%', padding: '14px', border: '1px solid rgba(26,26,26,0.1)', borderRadius: '8px', background: '#F9F9F9', color: '#767270' } })
+          ),
+          /*#__PURE__*/React.createElement("div", { style: { marginBottom: '32px' } },
+            /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px', textTransform: 'uppercase' } }, "Full Name"),
+            /*#__PURE__*/React.createElement("input", { type: "text", defaultValue: displayName, style: { width: '100%', padding: '14px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: '8px' } })
+          ),
+          /*#__PURE__*/React.createElement("button", { className: "btn btn-dark", style: { padding: '12px 24px' } }, "Update Profile")
+        )
+      );
+    }
+  };
+
   return /*#__PURE__*/React.createElement("div", {
     className: "section container account-page"
   },
@@ -147,31 +356,21 @@ function AccountDashboardPage(_ref3) {
     /*#__PURE__*/React.createElement("button", { onClick: onLogout, className: "btn btn-ghost", style: { padding: '10px 20px', flexShrink: 0 } }, "Log Out")
   ),
   /*#__PURE__*/React.createElement("div", { className: "account-grid" },
-    /*#__PURE__*/React.createElement("nav", { className: "account-nav" },
-      /*#__PURE__*/React.createElement("div", { className: "account-nav-item active" },
-        /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "receipt_long"),
-        "Order History"
+      /*#__PURE__*/React.createElement("nav", { className: "account-nav" },
+        /*#__PURE__*/React.createElement("div", { className: "account-nav-item " + (activeTab === 'orders' ? 'active' : ''), onClick: function() { setActiveTab('orders'); } },
+          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "receipt_long"),
+          /*#__PURE__*/React.createElement("span", null, "Order History")
+        ),
+        /*#__PURE__*/React.createElement("div", { className: "account-nav-item " + (activeTab === 'addresses' ? 'active' : ''), onClick: function() { setActiveTab('addresses'); } },
+          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "location_on"),
+          /*#__PURE__*/React.createElement("span", null, "Saved Addresses")
+        ),
+        /*#__PURE__*/React.createElement("div", { className: "account-nav-item " + (activeTab === 'settings' ? 'active' : ''), onClick: function() { setActiveTab('settings'); } },
+          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "manage_accounts"),
+          /*#__PURE__*/React.createElement("span", null, "Account Settings")
+        )
       ),
-      /*#__PURE__*/React.createElement("div", { className: "account-nav-item" },
-        /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "location_on"),
-        "Saved Addresses"
-      ),
-      /*#__PURE__*/React.createElement("div", { className: "account-nav-item" },
-        /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "manage_accounts"),
-        "Account Settings"
-      )
-    ),
-    /*#__PURE__*/React.createElement("div", { className: "account-main" },
-      /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', marginBottom: '20px' } }, "Recent Orders"),
-      /*#__PURE__*/React.createElement("div", {
-        style: { background: '#fff', borderRadius: '16px', padding: '40px 24px', textAlign: 'center', border: '1px dashed rgba(26,26,26,0.15)' }
-      },
-        /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '48px', color: '#C5A880', display: 'block', marginBottom: '16px' } }, "inventory_2"),
-        /*#__PURE__*/React.createElement("div", { style: { fontSize: '17px', fontWeight: 500, marginBottom: '8px' } }, "No orders yet"),
-        /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '24px' } }, "When you place an order, it will appear here."),
-        /*#__PURE__*/React.createElement("button", { onClick: onShop, className: "btn btn-dark" }, "Start Shopping")
-      )
-    )
+    /*#__PURE__*/React.createElement("div", { className: "account-main" }, renderContent())
   ));
 }
 function LegalPage(_ref4) {
@@ -5750,13 +5949,27 @@ function App() {
       setRoute('login');
       body = /*#__PURE__*/React.createElement("div", { style: { minHeight: '60vh' } });
     } else {
-      window.location.replace('account.html');
-      body = /*#__PURE__*/React.createElement("div", { style: { minHeight: '60vh' } });
+      body = /*#__PURE__*/React.createElement(AccountDashboardPage, {
+        onLogout: handleLogout,
+        onShop: function() { setRoute("shop"); },
+        onTrack: function(id) { window._kgsTrackingId = id; setRoute("order-tracking"); },
+        user: currentUser
+      });
     }
+  } else if (route === 'order-tracking') {
+    body = /*#__PURE__*/React.createElement(OrderTrackingPage, {
+      orderId: window._kgsTrackingId,
+      onBack: function() { setRoute('account'); }
+    });
+  } else if (route === 'forgot-password') {
+    body = /*#__PURE__*/React.createElement(ForgotPasswordPage, {
+      onBack: function() { setRoute('login'); }
+    });
   } else if (route === 'login') {
     body = /*#__PURE__*/React.createElement(AccountLoginPage, {
       onRegister: function onRegister() { return setRoute('register'); },
-      onLogin: handleLogin
+      onLogin: handleLogin,
+      onForgot: function() { setRoute('forgot-password'); }
     });
   } else if (route === 'register') {
     body = /*#__PURE__*/React.createElement(AccountRegisterPage, {
@@ -5814,3 +6027,7 @@ function App() {
   }));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
+
+
+
+
