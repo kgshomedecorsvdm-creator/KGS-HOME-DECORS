@@ -675,10 +675,42 @@ function ShippingPolicyPage() {
 window.AccountLoginPage = AccountLoginPage;
 window.AccountRegisterPage = AccountRegisterPage;
 window.AccountDashboardPage = AccountDashboardPage;
+function PaymentOptionsPage() {
+  return /*#__PURE__*/React.createElement(LegalPage, {
+    title: "Payment Options"
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginBottom: '24px'
+    }
+  }, "We offer secure and convenient payment methods for all your purchases at KGS Home Décors."), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontFamily: '"Crimson Pro", serif',
+      fontSize: '24px',
+      color: '#1A1A1A',
+      marginTop: '32px',
+      marginBottom: '16px'
+    }
+  }, "Accepted Payment Methods"), /*#__PURE__*/React.createElement("ul", {
+    style: {
+      paddingLeft: '24px',
+      marginBottom: '24px'
+    }
+  }, /*#__PURE__*/React.createElement("li", {
+    style: { marginBottom: '8px' }
+  }, /*#__PURE__*/React.createElement("strong", null, "UPI (Google Pay, PhonePe, Paytm, etc.)"), " - Fast and secure direct bank transfers."), /*#__PURE__*/React.createElement("li", {
+    style: { marginBottom: '8px' }
+  }, /*#__PURE__*/React.createElement("strong", null, "Credit & Debit Cards"), " - Visa, Mastercard, and Rupay cards are accepted via our secure gateway."), /*#__PURE__*/React.createElement("li", {
+    style: { marginBottom: '8px' }
+  }, /*#__PURE__*/React.createElement("strong", null, "Net Banking"), " - Direct transfers from all major Indian banks."), /*#__PURE__*/React.createElement("li", {
+    style: { marginBottom: '8px' }
+  }, /*#__PURE__*/React.createElement("strong", null, "Cash on Delivery (COD)"), " - Available for orders within Virudhachalam. Pay when your order arrives at your door.")));
+}
+
 window.PrivacyPolicyPage = PrivacyPolicyPage;
 window.TermsPage = TermsPage;
 window.ReturnPolicyPage = ReturnPolicyPage;
 window.ShippingPolicyPage = ShippingPolicyPage;
+window.PaymentOptionsPage = PaymentOptionsPage;
 
 // ===== NEXT SCRIPT BLOCK =====
 
@@ -6185,6 +6217,8 @@ function App() {
   }));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
+
+
 
 
 
