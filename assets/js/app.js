@@ -373,6 +373,123 @@ function AccountDashboardPage(_ref3) {
     /*#__PURE__*/React.createElement("div", { className: "account-main" }, renderContent())
   ));
 }
+function AboutPage() {
+  return /*#__PURE__*/React.createElement("div", { className: "about-page" },
+    /*#__PURE__*/React.createElement("section", { className: "about-hero", style: { background: '#F2E8D6', padding: '80px 0', textAlign: 'center' } },
+      /*#__PURE__*/React.createElement("div", { className: "container", style: { maxWidth: '720px', margin: '0 auto' } },
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '10.5px', fontWeight: 600, letterSpacing: '.26em', textTransform: 'uppercase', color: '#7A5C1E', marginBottom: '16px' } }, "Virudhachalam · Junction Road"),
+        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: '"Crimson Pro", serif', fontWeight: 500, fontSize: '3.2rem', lineHeight: 1.06, letterSpacing: '-0.018em', margin: '0 0 18px' } }, "Premium home décor", /*#__PURE__*/React.createElement("br", null), "for every Indian home."),
+        /*#__PURE__*/React.createElement("p", { style: { fontSize: '14.5px', color: '#5E5B59' } }, "KGS Home Décors was built on a simple belief — every home deserves beauty, without compromise. We curate, deliver, and stand behind every piece we sell.")
+      )
+    ),
+    /*#__PURE__*/React.createElement("section", { style: { background: '#FAF8F4', padding: '72px 0 96px' } },
+      /*#__PURE__*/React.createElement("div", { className: "container about-story-grid", style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '56px', alignItems: 'center' } },
+        /*#__PURE__*/React.createElement("div", { style: { aspectRatio: '4/5', overflow: 'hidden', borderRadius: '12px' } },
+          /*#__PURE__*/React.createElement("img", { src: "assets/lifestyle/showroom_interior.webp", alt: "KGS Showroom", style: { width: '100%', height: '100%', objectFit: 'cover' } })
+        ),
+        /*#__PURE__*/React.createElement("div", null,
+          /*#__PURE__*/React.createElement("div", { className: "label-tag", style: { marginBottom: '14px' } }, "Our Story"),
+          /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontWeight: 500, fontSize: '2.3rem', lineHeight: 1.1, marginBottom: '22px' } }, "Built for the homes of Virudhachalam."),
+          /*#__PURE__*/React.createElement("p", { style: { margin: '0 0 16px', fontSize: '14px', color: '#5E5B59' } }, "From our showroom on Junction Road, we stock over 500 carefully curated pieces — fountains, sofas, clocks, statues, and gifts for every occasion."),
+          /*#__PURE__*/React.createElement("p", { style: { margin: '0 0 28px', fontSize: '14px', color: '#5E5B59' } }, "Every product is personally selected. Every piece meets our standard for quality, finish, and beauty. Whether you are furnishing a new apartment or looking for the perfect centerpiece, we bring the best of Indian craft and modern design right to your door.")
+        )
+      )
+    )
+  );
+}
+
+function ContactPage() {
+  var _st_s = React.useState(false), success = _st_s[0], setSuccess = _st_s[1];
+  var handleSubmit = function(e) {
+    e.preventDefault();
+    var name = document.getElementById('ctc-name').value;
+    var phone = document.getElementById('ctc-phone').value;
+    var msg = document.getElementById('ctc-msg').value;
+    var waUrl = "https://wa.me/919789182921?text=" + encodeURIComponent("Name: " + name + "\nPhone: " + phone + "\nMessage: " + msg);
+    window.open(waUrl, '_blank');
+    setSuccess(true);
+  };
+
+  return /*#__PURE__*/React.createElement("div", null,
+    /*#__PURE__*/React.createElement("section", { style: { background: '#F2E8D6', padding: '72px 0', textAlign: 'center' } },
+      /*#__PURE__*/React.createElement("div", { className: "container", style: { maxWidth: '720px', margin: '0 auto' } },
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '10.5px', fontWeight: 600, letterSpacing: '.26em', textTransform: 'uppercase', color: '#7A5C1E', marginBottom: '14px' } }, "Get in Touch"),
+        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: '"Crimson Pro", serif', fontWeight: 500, fontSize: '2.8rem', letterSpacing: '-0.015em', margin: '0 0 12px' } }, "Visit · Call · WhatsApp"),
+        /*#__PURE__*/React.createElement("p", { style: { fontSize: '14px', color: '#5E5B59' } }, "We're here every day, 10 AM to 10 PM. Come visit the showroom or reach us instantly on WhatsApp.")
+      )
+    ),
+    /*#__PURE__*/React.createElement("section", { style: { background: '#FAF8F4', padding: '56px 0 96px' } },
+      /*#__PURE__*/React.createElement("div", { className: "container contact-grid", style: { display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '56px' } },
+        /*#__PURE__*/React.createElement("div", null,
+          /*#__PURE__*/React.createElement("h3", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '26px', fontWeight: 500, marginBottom: '24px' } }, "Send Us a Message"),
+          success ? /*#__PURE__*/React.createElement("div", { style: { background: 'rgba(37,211,102,0.08)', border: '1px solid rgba(37,211,102,0.25)', borderRadius: '6px', padding: '20px 24px', textAlign: 'center' } },
+            /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { color: '#25D366', fontSize: '36px', display: 'block', marginBottom: '10px' } }, "check_circle"),
+            /*#__PURE__*/React.createElement("div", { style: { fontSize: '15px', fontWeight: 600, color: '#1A1A1A', marginBottom: '6px' } }, "Message received!"),
+            /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', color: '#5E5B59' } }, "We'll reply on WhatsApp within 10 minutes.")
+          ) : /*#__PURE__*/React.createElement("form", { onSubmit: handleSubmit, style: { display: 'flex', flexDirection: 'column', gap: '20px' } },
+            /*#__PURE__*/React.createElement("div", { className: "contact-label" }, 
+              /*#__PURE__*/React.createElement("span", { style: { fontSize: '10px', fontWeight: 700, letterSpacing: '.22em', textTransform: 'uppercase', color: '#1A1A1A', display: 'block', marginBottom: '6px' } }, "Your name"),
+              /*#__PURE__*/React.createElement("input", { type: "text", id: "ctc-name", required: true, style: { padding: '12px 16px', border: '1px solid rgba(197,168,128,0.40)', borderRadius: '3px', width: '100%', boxSizing: 'border-box' } })
+            ),
+            /*#__PURE__*/React.createElement("div", { className: "contact-label" }, 
+              /*#__PURE__*/React.createElement("span", { style: { fontSize: '10px', fontWeight: 700, letterSpacing: '.22em', textTransform: 'uppercase', color: '#1A1A1A', display: 'block', marginBottom: '6px' } }, "Phone (WhatsApp)"),
+              /*#__PURE__*/React.createElement("input", { type: "tel", id: "ctc-phone", required: true, style: { padding: '12px 16px', border: '1px solid rgba(197,168,128,0.40)', borderRadius: '3px', width: '100%', boxSizing: 'border-box' } })
+            ),
+            /*#__PURE__*/React.createElement("div", { className: "contact-label" }, 
+              /*#__PURE__*/React.createElement("span", { style: { fontSize: '10px', fontWeight: 700, letterSpacing: '.22em', textTransform: 'uppercase', color: '#1A1A1A', display: 'block', marginBottom: '6px' } }, "Message"),
+              /*#__PURE__*/React.createElement("textarea", { id: "ctc-msg", rows: "5", required: true, style: { padding: '12px 16px', border: '1px solid rgba(197,168,128,0.40)', borderRadius: '3px', width: '100%', boxSizing: 'border-box' } })
+            ),
+            /*#__PURE__*/React.createElement("button", { type: "submit", className: "btn btn-dark", style: { alignSelf: 'flex-start' } }, "Send via WhatsApp")
+          )
+        ),
+        /*#__PURE__*/React.createElement("div", { style: { display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '54px' } },
+          /*#__PURE__*/React.createElement("div", { className: "contact-card", style: { display: 'flex', gap: '14px', padding: '20px', background: '#fff', border: '1px solid rgba(197,168,128,0.25)', borderRadius: '6px' } },
+            /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { color: '#C5A880', fontSize: '24px' } }, "location_on"),
+            /*#__PURE__*/React.createElement("div", null, 
+              /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: 600, color: '#1A1A1A', marginBottom: '4px' } }, "Showroom"),
+              /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', color: '#5E5B59', lineHeight: 1.5 } }, "185/G Junction Rd,", /*#__PURE__*/React.createElement("br", null), "Virudhachalam – 606001", /*#__PURE__*/React.createElement("br", null), "Tamil Nadu, India")
+            )
+          ),
+          /*#__PURE__*/React.createElement("div", { className: "contact-card", style: { display: 'flex', gap: '14px', padding: '20px', background: '#fff', border: '1px solid rgba(197,168,128,0.25)', borderRadius: '6px' } },
+            /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { color: '#C5A880', fontSize: '24px' } }, "schedule"),
+            /*#__PURE__*/React.createElement("div", null, 
+              /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: 600, color: '#1A1A1A', marginBottom: '4px' } }, "Hours"),
+              /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', color: '#5E5B59' } }, "Mon – Sun · 10:00 AM – 10:00 PM")
+            )
+          )
+        )
+      )
+    )
+  );
+}
+
+function FAQPage() {
+  var faqItem = function(q, a) {
+    return /*#__PURE__*/React.createElement("details", { className: "faq-item", style: { borderBottom: '1px solid rgba(197,168,128,0.18)' } },
+      /*#__PURE__*/React.createElement("summary", { style: { cursor: 'pointer', padding: '18px 0', fontWeight: 500, fontSize: '14.5px', color: '#1A1A1A', listStyle: 'none' } }, q),
+      /*#__PURE__*/React.createElement("div", { style: { paddingBottom: '20px', fontSize: '14px', color: '#5E5B59', lineHeight: 1.75 } }, a)
+    );
+  };
+  return /*#__PURE__*/React.createElement("div", null,
+    /*#__PURE__*/React.createElement("section", { style: { background: '#F2E8D6', padding: '64px 0', textAlign: 'center' } },
+      /*#__PURE__*/React.createElement("div", { className: "container" },
+        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '36px', fontWeight: 500, margin: '0 0 8px' } }, "Frequently Asked Questions"),
+        /*#__PURE__*/React.createElement("p", { style: { fontSize: '14px', color: '#5E5B59' } }, "Everything you need to know about shopping with KGS Home Décors.")
+      )
+    ),
+    /*#__PURE__*/React.createElement("section", { style: { padding: '64px 0 80px' } },
+      /*#__PURE__*/React.createElement("div", { className: "container", style: { maxWidth: '760px', margin: '0 auto' } },
+        /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', borderBottom: '1px solid rgba(197,168,128,0.3)', paddingBottom: '12px', marginBottom: '16px' } }, "Orders & Delivery"),
+        faqItem("How long does delivery take?", "We deliver within Virudhachalam free of charge — same day or next day for most in-stock items."),
+        faqItem("Do you offer free delivery?", "Yes! We offer free delivery for every order within Virudhachalam — no minimum order value required."),
+        /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', borderBottom: '1px solid rgba(197,168,128,0.3)', paddingBottom: '12px', marginTop: '48px', marginBottom: '16px' } }, "Returns & Refunds"),
+        faqItem("What is your return policy?", "We accept returns within 7 days of delivery for items that are damaged, defective, or significantly different."),
+        faqItem("How do I initiate a return?", "To start a return, contact us on WhatsApp or email us within 7 days of receiving your order.")
+      )
+    )
+  );
+}
+
 function LegalPage(_ref4) {
   var title = _ref4.title,
     children = _ref4.children;
@@ -6030,6 +6147,8 @@ function App() {
   }));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
+
+
 
 
 
