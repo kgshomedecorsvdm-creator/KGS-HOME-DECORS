@@ -52,6 +52,7 @@ function showPage(page){
   if(page==='products')loadProducts();
   if(page==='orders')loadOrders();
   if(page==='dashboard')loadDashboard();
+  if(page==='customers')loadCustomers();
 }
 
 // ─── PRODUCTS ─────────────────────────────────────────────
@@ -229,6 +230,7 @@ function autoHandle(){
 // ─── ORDERS ───────────────────────────────────────────────
 let currentOrderPage=0;
 const ordersPerPage=50;
+let currentCustomerPage=0; const customersPerPage=50;
 
 async function loadOrders(){
   const tbody=document.getElementById('orders-tbody');
@@ -270,6 +272,43 @@ async function loadOrders(){
 function changeOrderPage(delta){
   currentOrderPage+=delta;
   loadOrders();
+}
+
+async function loadCustomers(){
+  const tbody=document.getElementById('customers-tbody');
+  if(!tbody)return;
+  tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--muted)">Loading…</td></tr>';
+  const q=(document.getElementById('customer-search')||{}).value||'';
+  const from=currentCustomerPage*customersPerPage;
+  const to=from+customersPerPage-1;
+  let query=sb.from('customers').select('id,full_name,email,phone,created_at',{count:'exact'}).order('created_at',{ascending:false}).range(from,to);
+  if(q.trim())query=query.or('full_name.ilike.%'+q+'%,email.ilike.%'+q+'%');
+  const{data,error,count}=await query;
+  if(error){toast('Error: '+error.message);return;}
+  document.getElementById('cust-page-start').textContent=count>0?from+1:0;
+  document.getElementById('cust-page-end').textContent=Math.min(to+1,count||0);
+  document.getElementById('cust-page-total').textContent=count||0;
+  document.getElementById('btn-cust-prev').disabled=currentCustomerPage===0;
+  document.getElementById('btn-cust-next').disabled=(to+1)>=(count||0);
+  if(!data||!data.length){
+    tbody.innerHTML='<tr><td colspan="5"><div style="padding:48px;text-align:center;color:var(--muted)">No customers yet.</div></td></tr>';
+    return;
+  }
+  const{data:ords}=await sb.from('orders').select('customer_id').in('customer_id',data.map(c=>c.id));
+  const countMap={};
+  (ords||[]).forEach(o=>{countMap[o.customer_id]=(countMap[o.customer_id]||0)+1;});
+  tbody.innerHTML=data.map(c=>`
+    <tr>
+      <td>${c.full_name||'—'}</td>
+      <td>${c.email||'—'}</td>
+      <td>${c.phone||'—'}</td>
+      <td><span class="badge badge-gold">${countMap[c.id]||0} orders</span></td>
+      <td style="color:var(--muted);font-size:12px">${new Date(c.created_at).toLocaleDateString('en-IN')}</td>
+    </tr>`).join('');
+}
+function changeCustomerPage(delta){
+  currentCustomerPage=Math.max(0,currentCustomerPage+delta);
+  loadCustomers();
 }
 
 async function updateOrderStatus(id,status){
