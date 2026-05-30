@@ -322,7 +322,7 @@ function AccountRegisterPage(_ref2) {
     /*#__PURE__*/React.createElement("div", { style: { marginBottom: '24px' } },
       /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Password"),
       /*#__PURE__*/React.createElement("div", { style: { position: 'relative' } },
-        /*#__PURE__*/React.createElement("input", { type: showPwd ? "text" : "password", placeholder: "Min. 6 characters", value: password, onChange: function(e) { setPassword(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: Object.assign({}, inputStyle, { paddingRight: '46px' }) }),
+        /*#__PURE__*/React.createElement("input", { type: showPwd ? "text" : "password", placeholder: "Min. 8 characters", value: password, onChange: function(e) { setPassword(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: Object.assign({}, inputStyle, { paddingRight: '46px' }) }),
         /*#__PURE__*/React.createElement("button", { type: "button", onClick: function() { setShowPwd(!showPwd); }, style: { position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#9E9B98', padding: '4px', display: 'flex', alignItems: 'center' } },
           /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '18px' } }, showPwd ? "visibility_off" : "visibility")
         )
@@ -3145,7 +3145,7 @@ function Testimonials(_ref_t) {
       flexDirection: 'column',
       gap: 16
     }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+  }, /*#__PURE__*/React.createElement("input", { type: "text", name: "_hp", style: { display: 'none' }, tabIndex: -1, autoComplete: 'off', "aria-hidden": "true" }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     style: {
       display: 'block',
       fontSize: 12,
