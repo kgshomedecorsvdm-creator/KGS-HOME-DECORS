@@ -10,7 +10,7 @@ const KGS_CONFIG = {
     keyId: '', // Add once Razorpay account is set up
   },
   resend: {
-    apiKey: '', // Set this directly in kgsadmin.html after deployment — do NOT commit
+    apiKey: 're_NQw4wWT1_Q5D3BtBr2McsFawpYqVoYETb',
     fromEmail: 'KGS Home Décors <orders@kgshomedecors.in>', // Must verify domain in Resend dashboard
   },
   store: {
