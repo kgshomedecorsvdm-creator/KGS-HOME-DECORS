@@ -171,6 +171,27 @@ function ResetPasswordPage(_ref_rp) {
   );
 }
 
+function ConfirmEmailPage(_ref_ce) {
+  var email = _ref_ce.email, onBack = _ref_ce.onBack;
+  return /*#__PURE__*/React.createElement("div", { className: "section", style: { minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+    /*#__PURE__*/React.createElement("div", { style: { background: '#fff', padding: '48px', borderRadius: '24px', width: '100%', maxWidth: '440px', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.05)', textAlign: 'center' } },
+      /*#__PURE__*/React.createElement("div", { style: { width: 64, height: 64, background: 'rgba(184,150,87,0.10)', borderRadius: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' } },
+        /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '32px', color: '#B89657', fontVariationSettings: '"FILL" 1' } }, "mark_email_unread")
+      ),
+      /*#__PURE__*/React.createElement("h1", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '28px', marginBottom: '12px', color: '#1A1A1A' } }, "Check your inbox"),
+      /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', lineHeight: 1.7, marginBottom: '8px' } },
+        "We sent a confirmation link to"
+      ),
+      /*#__PURE__*/React.createElement("p", { style: { color: '#1A1A1A', fontSize: '14px', fontWeight: 600, marginBottom: '24px' } }, email),
+      /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '13px', lineHeight: 1.7, marginBottom: '28px' } },
+        "Click the link in the email to activate your account. Check your spam folder if you don't see it."
+      ),
+      /*#__PURE__*/React.createElement("button", { onClick: onBack, className: "btn btn-dark", style: { width: '100%', marginBottom: '12px' } }, "Back to Sign In"),
+      /*#__PURE__*/React.createElement("p", { style: { color: '#9E9B98', fontSize: '12px' } }, "Wrong email? ", /*#__PURE__*/React.createElement("a", { href: "#", onClick: function(e) { e.preventDefault(); onBack(); }, style: { color: '#B89657', fontWeight: 600 } }, "Register again"))
+    )
+  );
+}
+
 function ForgotPasswordPage(_ref_fp) {
   var onBack = _ref_fp.onBack;
   var _state_e = React.useState(''), email = _state_e[0], setEmail = _state_e[1];
@@ -6495,8 +6516,13 @@ function App() {
     var sb = getSB();
     return sb.auth.signUp({ email: email, password: password, options: { data: { full_name: fullName } } }).then(function(res) {
       if (res.error) throw res.error;
-      setCurrentUser(res.data.user);
-      setRoute('account');
+      if (res.data.session) {
+        setCurrentUser(res.data.user);
+        setRoute('account');
+      } else {
+        window._kgsConfirmEmail = email;
+        setRoute('confirm-email');
+      }
     });
   };
   var handleLogout = function handleLogout() {
@@ -6746,6 +6772,11 @@ function App() {
     body = /*#__PURE__*/React.createElement(ResetPasswordPage, {
       onDone: function() { setRoute('account'); }
     });
+  } else if (route === 'confirm-email') {
+    body = /*#__PURE__*/React.createElement(ConfirmEmailPage, {
+      email: window._kgsConfirmEmail || '',
+      onBack: function() { setRoute('login'); }
+    });
   } else if (route === 'forgot-password') {
     body = /*#__PURE__*/React.createElement(ForgotPasswordPage, {
       onBack: function() { setRoute('login'); }
@@ -6790,7 +6821,7 @@ function App() {
     }
   }), /*#__PURE__*/React.createElement("main", {
     className: "page-body"
-  }, body), ['cart', 'checkout', 'order-confirmation', 'account', 'login', 'register', 'order-tracking', 'forgot-password', 'reset-password'].indexOf(route) === -1 && /*#__PURE__*/React.createElement(Footer, {
+  }, body), ['cart', 'checkout', 'order-confirmation', 'account', 'login', 'register', 'order-tracking', 'forgot-password', 'reset-password', 'confirm-email'].indexOf(route) === -1 && /*#__PURE__*/React.createElement(Footer, {
     setRoute: setRoute,
     setFilter: setFilter
   }), /*#__PURE__*/React.createElement(WAFloat, null), /*#__PURE__*/React.createElement(CookieConsentBanner, null), /*#__PURE__*/React.createElement(Toast, {
