@@ -4150,9 +4150,8 @@ body.search-open { position: fixed; overflow: hidden; width: 100%; left: 0; righ
         el.classList.add('kgs-loader--out');
         setTimeout(function () { el.style.display = 'none'; }, 750);
       }
-      // Dismiss at 700ms or when React signals it's ready (whichever comes first)
-      window._kgsDismissLoader = dismissLoader;
-      setTimeout(dismissLoader, 700);
+      // Dismiss after 2s — covers React render + GSAP init
+      setTimeout(dismissLoader, 2000);
       // Also dismiss early if user interacts (tap/scroll)
       ['click', 'touchstart', 'keydown'].forEach(function (ev) {
         window.addEventListener(ev, function () { setTimeout(dismissLoader, 400); }, { once: true });

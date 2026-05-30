@@ -6036,14 +6036,6 @@ function App() {
     });
   }, []);
 
-  // ─── Dismiss loader as soon as React mounts ──────────────────────────
-  React.useEffect(function() {
-    if (typeof window._kgsDismissLoader === 'function') {
-      window._kgsDismissLoader();
-      window._kgsDismissLoader = null;
-    }
-  }, []);
-
   // ─── Auth session check ──────────────────────────────────────────────
   React.useEffect(function() {
     if (typeof window.supabase === 'undefined') { setAuthLoading(false); return; }
