@@ -1172,7 +1172,7 @@ function DisclaimerPage() {
     /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro",serif', fontSize: '24px', color: '#1A1A1A', marginTop: '32px', marginBottom: '16px' } }, "Limitation of Liability"),
     /*#__PURE__*/React.createElement("p", { style: { marginBottom: '24px' } }, "KGS Home D\xe9cors shall not be liable for any indirect, incidental, or consequential damages arising from the use of our products or services. Our maximum liability is limited to the value of the specific order in question."),
     /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro",serif', fontSize: '24px', color: '#1A1A1A', marginTop: '32px', marginBottom: '16px' } }, "Contact"),
-    /*#__PURE__*/React.createElement("p", { style: { marginBottom: '24px' } }, "For any concerns, contact us at hello@kgshomedecors.in or via WhatsApp before initiating any proceedings.")
+    /*#__PURE__*/React.createElement("p", { style: { marginBottom: '24px' } }, "For any concerns, contact us at kgshomedecorsvdm@gmail.com or via WhatsApp before initiating any proceedings.")
   );
 }
 
@@ -2373,8 +2373,8 @@ function Footer(_ref6) {
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
   }, "mail"), /*#__PURE__*/React.createElement("a", {
-    href: "mailto:hello@kgshomedecors.in"
-  }, "hello@kgshomedecors.in")), /*#__PURE__*/React.createElement("li", {
+    href: "mailto:kgshomedecorsvdm@gmail.com"
+  }, "kgshomedecorsvdm@gmail.com")), /*#__PURE__*/React.createElement("li", {
     className: "info-line"
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"

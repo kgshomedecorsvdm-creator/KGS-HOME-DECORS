@@ -342,7 +342,7 @@ async function sendOrderStatusEmail(orderId, newStatus) {
     const res=await fetch('https://api.resend.com/emails',{
       method:'POST',
       headers:{'Authorization':'Bearer '+resendKey,'Content-Type':'application/json'},
-      body:JSON.stringify({from:fromEmail,to:[customerEmail],subject:tmpl.subject,html:tmpl.html})
+      body:JSON.stringify({from:fromEmail,to:[customerEmail],reply_to:'kgshomedecorsvdm@gmail.com',subject:tmpl.subject,html:tmpl.html})
     });
     if(res.ok)toast('Customer notified by email ✓');
     else console.warn('[KGS] Resend error:',await res.text());

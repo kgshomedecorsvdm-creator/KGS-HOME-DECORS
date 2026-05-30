@@ -684,7 +684,7 @@
                 <ul>
                   <li className="info-line">
                     <span className="material-symbols-outlined">mail</span>
-                    <a href="mailto:hello@kgshomedecors.in">hello@kgshomedecors.in</a>
+                    <a href="mailto:kgshomedecorsvdm@gmail.com">kgshomedecorsvdm@gmail.com</a>
                   </li>
                   <li className="info-line">
                     <span className="material-symbols-outlined">call</span>

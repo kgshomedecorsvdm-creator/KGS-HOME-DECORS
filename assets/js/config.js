@@ -17,7 +17,7 @@ const KGS_CONFIG = {
     name: 'KGS Home Décors',
     phone: '+919789182921',
     whatsapp: '919789182921',
-    email: 'hello@kgshomedecors.in',
+    email: 'kgshomedecorsvdm@gmail.com',
     address: '185/G, Junction Road, near EB Office, Virudhachalam, Tamil Nadu – 606 001',
     currency: 'INR',
     freeDeliveryCity: 'Tamil Nadu',
