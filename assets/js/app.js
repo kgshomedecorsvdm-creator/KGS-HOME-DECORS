@@ -93,6 +93,64 @@ function OrderTrackingPage(_ref_ot) {
   );
 }
 
+function ResetPasswordPage(_ref_rp) {
+  var onDone = _ref_rp.onDone;
+  var _np = React.useState(''), newPwd = _np[0], setNewPwd = _np[1];
+  var _cp = React.useState(''), confirmPwd = _cp[0], setConfirmPwd = _cp[1];
+  var _ls = React.useState(false), loading = _ls[0], setLoading = _ls[1];
+  var _err = React.useState(''), error = _err[0], setError = _err[1];
+  var _ok = React.useState(false), done = _ok[0], setDone = _ok[1];
+  var _sp = React.useState(false), showPwd = _sp[0], setShowPwd = _sp[1];
+
+  var handleSubmit = function() {
+    if (!newPwd || !confirmPwd) { setError('Please fill in both fields.'); return; }
+    if (newPwd.length < 8) { setError('Password must be at least 8 characters.'); return; }
+    if (newPwd !== confirmPwd) { setError('Passwords do not match.'); return; }
+    setLoading(true); setError('');
+    var sb = getSB();
+    sb.auth.updateUser({ password: newPwd }).then(function(res) {
+      if (res.error) { setError(res.error.message || 'Failed to update password.'); setLoading(false); return; }
+      setDone(true); setLoading(false);
+      setTimeout(function() { onDone(); }, 2200);
+    })['catch'](function(e) { setError(e.message || 'Something went wrong.'); setLoading(false); });
+  };
+
+  var inp = { width: '100%', padding: '14px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: '8px', fontSize: '14px', fontFamily: '"Jost", sans-serif', boxSizing: 'border-box' };
+
+  return /*#__PURE__*/React.createElement("div", { className: "section", style: { minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+    /*#__PURE__*/React.createElement("div", { style: { background: '#fff', padding: '48px', borderRadius: '24px', width: '100%', maxWidth: '440px', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.05)', textAlign: 'center' } },
+      !done ? /*#__PURE__*/React.createElement(React.Fragment, null,
+        /*#__PURE__*/React.createElement("div", { style: { width: 52, height: 52, background: 'rgba(184,150,87,0.10)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' } },
+          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '24px', color: '#B89657' } }, "lock_reset")
+        ),
+        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '30px', marginBottom: '8px', color: '#1A1A1A' } }, "Set New Password"),
+        /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '32px' } }, "Choose a strong password for your account."),
+        error && /*#__PURE__*/React.createElement("div", { style: { background: 'rgba(201,120,64,0.08)', color: '#C97840', fontSize: '13px', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px', textAlign: 'left' } }, error),
+        /*#__PURE__*/React.createElement("div", { style: { marginBottom: '16px', textAlign: 'left' } },
+          /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "New Password"),
+          /*#__PURE__*/React.createElement("div", { style: { position: 'relative' } },
+            /*#__PURE__*/React.createElement("input", { type: showPwd ? "text" : "password", placeholder: "Min. 8 characters", value: newPwd, onChange: function(e) { setNewPwd(e.target.value); }, style: Object.assign({}, inp, { paddingRight: '46px' }) }),
+            /*#__PURE__*/React.createElement("button", { type: "button", onClick: function() { setShowPwd(!showPwd); }, style: { position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#9E9B98', padding: '4px', display: 'flex', alignItems: 'center' } },
+              /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '18px' } }, showPwd ? "visibility_off" : "visibility")
+            )
+          )
+        ),
+        /*#__PURE__*/React.createElement("div", { style: { marginBottom: '24px', textAlign: 'left' } },
+          /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Confirm Password"),
+          /*#__PURE__*/React.createElement("input", { type: "password", placeholder: "Repeat password", value: confirmPwd, onChange: function(e) { setConfirmPwd(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: inp })
+        ),
+        /*#__PURE__*/React.createElement("button", { onClick: handleSubmit, disabled: loading, className: "btn btn-dark", style: { width: '100%', padding: '16px', fontSize: '14px', opacity: loading ? 0.7 : 1 } }, loading ? "Updating..." : "Update Password")
+      ) : /*#__PURE__*/React.createElement(React.Fragment, null,
+        /*#__PURE__*/React.createElement("div", { style: { width: 64, height: 64, background: 'rgba(37,211,102,0.10)', borderRadius: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' } },
+          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '32px', color: '#25D366', fontVariationSettings: '"FILL" 1' } }, "check_circle")
+        ),
+        /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '26px', marginBottom: '12px', color: '#1A1A1A' } }, "Password Updated!"),
+        /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px' } }, "Your password has been changed. Redirecting to your account...")
+      )
+    )
+  );
+}
+
 function ForgotPasswordPage(_ref_fp) {
   var onBack = _ref_fp.onBack;
   var _state_e = React.useState(''), email = _state_e[0], setEmail = _state_e[1];
@@ -5942,6 +6000,9 @@ function App() {
     var listener = sb.auth.onAuthStateChange(function(_event, session) {
       var u = session ? session.user : null;
       setCurrentUser(u);
+      if (_event === 'PASSWORD_RECOVERY') {
+        setRoute('reset-password');
+      }
       if (u && u.user_metadata && u.user_metadata.wishlist) {
         var serverWish = u.user_metadata.wishlist.map(String);
         setWish(function(prev) {
@@ -6619,6 +6680,10 @@ function App() {
       orderId: window._kgsTrackingId || sessionStorage.getItem('kgs_tracking_id'),
       onBack: function() { setRoute('account'); }
     });
+  } else if (route === 'reset-password') {
+    body = /*#__PURE__*/React.createElement(ResetPasswordPage, {
+      onDone: function() { setRoute('account'); }
+    });
   } else if (route === 'forgot-password') {
     body = /*#__PURE__*/React.createElement(ForgotPasswordPage, {
       onBack: function() { setRoute('login'); }
@@ -6659,7 +6724,7 @@ function App() {
     }
   }), /*#__PURE__*/React.createElement("main", {
     className: "page-body"
-  }, body), ['cart', 'checkout', 'order-confirmation', 'account', 'login', 'register', 'order-tracking', 'forgot-password'].indexOf(route) === -1 && /*#__PURE__*/React.createElement(Footer, {
+  }, body), ['cart', 'checkout', 'order-confirmation', 'account', 'login', 'register', 'order-tracking', 'forgot-password', 'reset-password'].indexOf(route) === -1 && /*#__PURE__*/React.createElement(Footer, {
     setRoute: setRoute,
     setFilter: setFilter
   }), /*#__PURE__*/React.createElement(WAFloat, null), /*#__PURE__*/React.createElement(Toast, {
