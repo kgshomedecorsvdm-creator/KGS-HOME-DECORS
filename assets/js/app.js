@@ -390,13 +390,13 @@ function AddressForm(_ref_af) {
         return /*#__PURE__*/React.createElement("button", { key: lbl, type: "button", onClick: function() { setLabel(lbl); }, style: { padding: '6px 16px', borderRadius: '99px', border: '1px solid ' + (label === lbl ? '#B89657' : 'rgba(26,26,26,0.2)'), background: label === lbl ? '#B89657' : 'transparent', color: label === lbl ? '#fff' : '#5E5B59', fontSize: '12px', fontWeight: 600, cursor: 'pointer', fontFamily: '"Jost", sans-serif' } }, lbl);
       })
     ),
-    /*#__PURE__*/React.createElement("div", { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '14px' } },
+    /*#__PURE__*/React.createElement("div", { className: "addr-grid-2", style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '14px' } },
       /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", { style: lb }, "Full Name *"), /*#__PURE__*/React.createElement("input", { type: "text", value: fname, onChange: function(e) { setFname(e.target.value); }, placeholder: "Full name", style: fs })),
       /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", { style: lb }, "Phone *"), /*#__PURE__*/React.createElement("input", { type: "tel", value: phone, onChange: function(e) { setPhone(e.target.value); }, placeholder: "10-digit mobile", style: fs }))
     ),
     /*#__PURE__*/React.createElement("div", { style: { marginBottom: '14px' } }, /*#__PURE__*/React.createElement("label", { style: lb }, "Address Line 1 *"), /*#__PURE__*/React.createElement("input", { type: "text", value: line1, onChange: function(e) { setLine1(e.target.value); }, placeholder: "House no., Building, Street", style: fs })),
     /*#__PURE__*/React.createElement("div", { style: { marginBottom: '14px' } }, /*#__PURE__*/React.createElement("label", { style: lb }, "Address Line 2"), /*#__PURE__*/React.createElement("input", { type: "text", value: line2, onChange: function(e) { setLine2(e.target.value); }, placeholder: "Area, Landmark (optional)", style: fs })),
-    /*#__PURE__*/React.createElement("div", { style: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px', marginBottom: '16px' } },
+    /*#__PURE__*/React.createElement("div", { className: "addr-grid-3", style: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px', marginBottom: '16px' } },
       /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", { style: lb }, "City *"), /*#__PURE__*/React.createElement("input", { type: "text", value: city, onChange: function(e) { setCity(e.target.value); }, placeholder: "City", style: fs })),
       /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", { style: lb }, "State *"), /*#__PURE__*/React.createElement("input", { type: "text", value: stateVal, onChange: function(e) { setStateVal(e.target.value); }, placeholder: "State", style: fs })),
       /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", { style: lb }, "Pincode *"), /*#__PURE__*/React.createElement("input", { type: "text", value: pincode, onChange: function(e) { setPincode(e.target.value); }, placeholder: "6-digit", style: fs, maxLength: 6 }))
@@ -820,6 +820,7 @@ function AccountDashboardPage(_ref3) {
     if (activeTab === 'addresses') return /*#__PURE__*/React.createElement(AddressesTab, { user: user, onToast: toast, onShop: onShop, onUpdateUser: onUpdateUser });
     if (activeTab === 'profile') return /*#__PURE__*/React.createElement(AccountSettingsTab, { user: user, displayName: displayName, onToast: toast, onUpdateUser: onUpdateUser });
     if (activeTab === 'password') return /*#__PURE__*/React.createElement(ChangePasswordTab, { onToast: toast });
+    if (activeTab === 'wishlist') return /*#__PURE__*/React.createElement(AccountWishlistTab, { wishlist: wishlist, onAdd: onAdd, onView: onView, onWishToggle: onWishToggle, onShop: onShop });
     return null;
   };
 
@@ -828,7 +829,8 @@ function AccountDashboardPage(_ref3) {
     { id: 'orders', icon: 'receipt_long', label: 'My Orders' },
     { id: 'addresses', icon: 'location_on', label: 'Addresses' },
     { id: 'profile', icon: 'manage_accounts', label: 'My Profile' },
-    { id: 'password', icon: 'lock', label: 'Password' }
+    { id: 'password', icon: 'lock', label: 'Password' },
+    { id: 'wishlist', icon: 'favorite', label: 'Wishlist' }
   ];
 
   return /*#__PURE__*/React.createElement("div", { className: "section container account-page" },
@@ -5926,11 +5928,27 @@ function App() {
     var sb = getSB();
     sb.auth.getSession().then(function(res) {
       var session = res.data && res.data.session;
-      setCurrentUser(session ? session.user : null);
+      var u = session ? session.user : null;
+      setCurrentUser(u);
+      if (u && u.user_metadata && u.user_metadata.wishlist) {
+        var serverWish = u.user_metadata.wishlist.map(String);
+        setWish(function(prev) {
+          var merged = Array.from(new Set([].concat(_toConsumableArray(prev.map(String)), _toConsumableArray(serverWish))));
+          return merged;
+        });
+      }
       setAuthLoading(false);
     });
     var listener = sb.auth.onAuthStateChange(function(_event, session) {
-      setCurrentUser(session ? session.user : null);
+      var u = session ? session.user : null;
+      setCurrentUser(u);
+      if (u && u.user_metadata && u.user_metadata.wishlist) {
+        var serverWish = u.user_metadata.wishlist.map(String);
+        setWish(function(prev) {
+          var merged = Array.from(new Set([].concat(_toConsumableArray(prev.map(String)), _toConsumableArray(serverWish))));
+          return merged;
+        });
+      }
     });
     return function() {
       if (listener && listener.data && listener.data.subscription) {
@@ -6334,12 +6352,15 @@ function App() {
       var alreadyIn = prevS.includes(sId);
       var adding = !alreadyIn;
       var newList = adding ? [].concat(_toConsumableArray(prevS), [sId]) : prevS.filter(function (x) { return x !== sId; });
-      
-      // Fire toast after state update to ensure UI is fresh
+
+      if (currentUser && typeof window.supabase !== 'undefined') {
+        getSB().auth.updateUser({ data: { wishlist: newList } })['catch'](function() {});
+      }
+
       setTimeout(function() {
         showToast(adding ? 'Added to wishlist' : 'Removed from wishlist', 'favorite', adding ? '#E8434A' : '#9E9E9E', adding ? 1 : 0);
       }, 0);
-      
+
       return newList;
     });
   };
