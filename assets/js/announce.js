@@ -2,7 +2,7 @@
   'use strict';
 
   var MSGS = [
-    { icon: 'local_shipping', html: '<b>Free delivery</b> in Virudhachalam — every order, no minimum.' },
+    { icon: 'local_shipping', html: '<b>Free delivery</b> across Tamil Nadu — every order, no minimum.' },
     { icon: 'star',           html: '<b>★ 5.0 on Google.</b> 240 families trust us. Come see why.' },
     { icon: 'storefront',     html: 'Showroom on <b>Junction Road</b> open daily · 10 AM–​10 PM' },
     { icon: 'verified',       html: '<b>Every piece hand-checked</b> at our showroom before it ships.' },

@@ -15,7 +15,7 @@ const KGS_CONFIG = {
     whatsapp: '919789182921',
     address: '185/G, Junction Road, near EB Office, Virudhachalam, Tamil Nadu – 606 001',
     currency: 'INR',
-    freeDeliveryCity: 'Virudhachalam',
+    freeDeliveryCity: 'Tamil Nadu',
     codMinOrder: 0,
     onlinePaymentMinOrder: 0,
   }

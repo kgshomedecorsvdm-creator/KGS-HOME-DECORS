@@ -158,9 +158,8 @@
           <ul style={{ paddingLeft: '24px', marginBottom: '24px' }}>
             <li style={{ marginBottom: '8px' }}><b>Virudhachalam:</b> Same day or next day delivery.</li>
             <li style={{ marginBottom: '8px' }}><b>Tamil Nadu:</b> 2-4 business days.</li>
-            <li style={{ marginBottom: '8px' }}><b>Rest of India:</b> 5-7 business days.</li>
           </ul>
-          <p style={{ marginBottom: '24px' }}>Shipping is free for all orders within Virudhachalam.</p>
+          <p style={{ marginBottom: '24px' }}>Shipping is free for all orders across Tamil Nadu.</p>
         </LegalPage>
       );
     }
@@ -343,7 +342,7 @@
     // ===== Announcement bar =====================================================
     function Announcement() {
       const MSGS = [
-        { icon: 'local_shipping',  text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Free delivery'), ' in Virudhachalam â€” every order, no minimum.') },
+        { icon: 'local_shipping',  text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Free delivery'), ' across Tamil Nadu — every order, no minimum.') },
         { icon: 'star',            text: React.createElement(React.Fragment, null, React.createElement('b', null, '\u2605 5.0 on Google.'), ' 240 families trust us. Come see why.') },
         { icon: 'storefront',      text: React.createElement(React.Fragment, null, 'Showroom on ', React.createElement('b', null, 'Junction Road'), ' open daily \u00b7 10\u00a0AM\u2013\u200910\u00a0PM') },
         { icon: 'verified',        text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Every piece hand-checked'), ' at our showroom before it ships.') },
@@ -573,7 +572,7 @@
         <section className="trust-strip">
           <div className="container">
             <div className="trust-row">
-              {item('local_shipping', 'Free Delivery', 'In Virudhachalam only.')}
+              {item('local_shipping', 'Free Delivery', 'Across Tamil Nadu.')}
 
               {item('verified', 'Hand-Checked', 'We look at every piece before it ships.')}
               {item('payments', 'Pay How You Like', 'UPI, card, net banking, or COD.')}
@@ -741,7 +740,7 @@
           img: 'assets/lifestyle/showroom_interior.webp',
           eyebrow: 'Curated Spaces',
           headline: (<>Elevate your home.<br />Discover our <em>exclusive</em><br />collections.</>),
-          sub: 'Premium interior designs. Free delivery in Virudhachalam only.',
+          sub: 'Premium interior designs. Free delivery across Tamil Nadu.',
         },
         {
           img: 'assets/lifestyle/premium_decor_bright.webp',
@@ -812,7 +811,7 @@
               <div className="hero-stats__divider" />
               <div>
                 <b>Free</b>
-                <span>Delivery in Virudhachalam</span>
+                <span>Delivery across Tamil Nadu</span>
               </div>
             </div>
 
@@ -842,8 +841,8 @@
             <div className="hero-delivery-chip">
               <span className="material-symbols-outlined">local_shipping</span>
               <div>
-                <b>Free in Virudhachalam</b>
-                <span>Same-day local delivery</span>
+                <b>Free across Tamil Nadu</b>
+                <span>Fast local delivery</span>
               </div>
             </div>
           </div>
@@ -1342,7 +1341,7 @@
                 Our complete collection.<br /><em style={{ fontStyle: 'italic', color: '#B89657', fontWeight: 400 }}>Find the one that's yours.</em>
               </h1>
               <p style={{ maxWidth: 560, fontSize: 14, color: '#5E5B59', lineHeight: 1.8 }}>
-                Everything you see here is in our showroom on Junction Road. Free delivery in Virudhachalam only.
+                Everything you see here is in our showroom on Junction Road. Free delivery across Tamil Nadu.
               </p>
             </div>
           </section>
@@ -1563,7 +1562,7 @@
                   )}
                 </div>
                 <div style={{ fontSize: 12, color: '#5E5B59', marginBottom: 22 }}>
-                  All taxes included Â· Free delivery in Virudhachalam only
+                  All taxes included · Free delivery across Tamil Nadu
                 </div>
 
                 {p.stock && p.stock <= 6 && (
@@ -1587,7 +1586,7 @@
                     <span className="material-symbols-outlined">local_shipping</span>
                     <div>
                       <b>Free delivery</b>
-                      <span>In Virudhachalam only</span>
+                      <span>Across Tamil Nadu</span>
                     </div>
                   </div>
 
@@ -1697,10 +1696,9 @@
         .map(ci => ({ ...ci, product: PRODUCTS.find(p => p.id === ci.id) }))
         .filter(ci => ci.product);
       const subtotal = items.reduce((s, ci) => s + ci.product.price * ci.qty, 0);
-      const FREE_OVER = 5000;
-      const delivery = subtotal >= FREE_OVER ? 0 : 250;
-      const toFree = Math.max(0, FREE_OVER - subtotal);
-      const progress = Math.min(100, Math.round((subtotal / FREE_OVER) * 100));
+      const delivery = 0;
+      const toFree = 0;
+      const progress = 100;
       const total = subtotal + delivery;
 
       return (
@@ -1734,7 +1732,7 @@
                       <div className="cart-progress__head">
                         <>
                           <span className="material-symbols-outlined" style={{ color: '#B89657' }}>local_shipping</span>
-                          <b>Free delivery</b> Â· in Virudhachalam only
+                          <b>Free delivery</b> · across Tamil Nadu
                         </>
                       </div>
                     </div>
@@ -1795,11 +1793,11 @@
                     <Sumline
                       label="Delivery"
                       value={delivery === 0 ? 'FREE' : fmtPrice(delivery)}
-                      note={delivery === 0 ? 'Ships complimentary' : 'Free over â‚¹5,000'}
+                      note="Ships free"
                     />
                     <div style={{ background: '#F3EBDC', borderRadius: 10, padding: 12, marginTop: 12, fontSize: 12, color: '#5E5B59', display: 'flex', alignItems: 'flex-start', gap: 10 }}>
                       <span className="material-symbols-outlined" style={{ color: '#B89657', fontSize: 18 }}>schedule</span>
-                      <span><b style={{ color: '#1A1A1A' }}>3â€“7 days</b> across India. Same-day or next-day in Virudhachalam.</span>
+                      <span><b style={{ color: '#1A1A1A' }}>2–4 days</b> across Tamil Nadu. Same-day delivery in Virudhachalam.</span>
                     </div>
                     <div style={{ borderTop: '1px solid rgba(197,168,128,0.30)', marginTop: 14, paddingTop: 14 }}>
                       <Sumline label="Total" value={fmtPrice(total)} bold />
@@ -1843,8 +1841,7 @@
         .map(ci => ({ ...ci, product: PRODUCTS.find(p => p.id === ci.id) }))
         .filter(ci => ci.product);
       const subtotal = items.reduce((s, ci) => s + ci.product.price * ci.qty, 0);
-      const FREE_OVER = 5000;
-      const delivery = subtotal >= FREE_OVER ? 0 : 250;
+      const delivery = 0;
       const total = subtotal + delivery;
 
       const [form, setForm] = React.useState({
@@ -2072,7 +2069,7 @@
                       <Sumline
                         label="Delivery"
                         value={delivery === 0 ? 'FREE' : fmtPrice(delivery)}
-                        note={delivery === 0 ? 'Ships free' : 'Free over â‚¹5,000'}
+                        note="Ships free"
                       />
                       <div style={{ borderTop: '1px solid rgba(197,168,128,0.25)', marginTop: 10, paddingTop: 10 }}>
                         <Sumline label="Total" value={fmtPrice(total)} bold />
@@ -2262,7 +2259,7 @@
                   When we started, we had a small space and a few hundred pieces. We'd travel to pick things ourselves â€” Rajasthan for brass, Pune for ceramics, local artisans for handmade pieces. If we wouldn't put it in our own home, we didn't stock it.
                 </p>
                 <p style={{ marginBottom: 16, fontSize: 14.5, lineHeight: 1.85, color: '#5E5B59' }}>
-                  We have 500+ pieces on the floor at any time, a team that genuinely loves what we sell, and customers who keep coming back. We ship pan-India now, but we still answer the WhatsApp ourselves.
+                  We have 500+ pieces on the floor at any time, a team that genuinely loves what we sell, and customers who keep coming back. We deliver across Tamil Nadu, and we still answer the WhatsApp ourselves.
                 </p>
                 <p style={{ marginBottom: 28, fontSize: 14.5, lineHeight: 1.85, color: '#5E5B59' }}>
                   If you're ever in Virudhachalam, come in. We're open every day from 10 to 10. No appointment needed.
@@ -2282,7 +2279,7 @@
                   { num: '500+', label: 'Pieces in stock', sub: 'Every single one checked before it goes on the floor.' },
                   { num: '5.0â˜…', label: 'On Google', sub: '240 families have left a review. We reply to every one.' },
                   { num: '100%', label: 'Hand-Checked Quality', sub: 'Every piece inspected at our showroom before it reaches you.' },
-                  { num: 'Free', label: 'Delivery in Virudhachalam', sub: 'Every order, no minimum.' },
+                  { num: 'Free', label: 'Delivery across Tamil Nadu', sub: 'Every order, no minimum.' },
                 ].map(card => (
                   <div key={card.num} style={{ background: 'rgba(255,255,255,0.75)', borderRadius: 18, padding: '32px 28px', border: '1px solid rgba(197,168,128,0.30)' }}>
                     <div style={{ fontFamily: '"Crimson Pro",serif', fontWeight: 500, fontSize: '2.4rem', color: '#1A1A1A', marginBottom: 6 }}>

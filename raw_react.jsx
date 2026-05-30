@@ -158,9 +158,8 @@
           <ul style={{ paddingLeft: '24px', marginBottom: '24px' }}>
             <li style={{ marginBottom: '8px' }}><b>Virudhachalam:</b> Same day or next day delivery.</li>
             <li style={{ marginBottom: '8px' }}><b>Tamil Nadu:</b> 2-4 business days.</li>
-            <li style={{ marginBottom: '8px' }}><b>Rest of India:</b> 5-7 business days.</li>
           </ul>
-          <p style={{ marginBottom: '24px' }}>Shipping is free for all orders within Virudhachalam.</p>
+          <p style={{ marginBottom: '24px' }}>Shipping is free for all orders across Tamil Nadu.</p>
         </LegalPage>
       );
     }
@@ -343,7 +342,7 @@
     // ===== Announcement bar =====================================================
     function Announcement() {
       const MSGS = [
-        { icon: 'local_shipping',  text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Free delivery'), ' in Virudhachalam â€” every order, no minimum.') },
+        { icon: 'local_shipping',  text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Free delivery'), ' across Tamil Nadu — every order, no minimum.') },
         { icon: 'star',            text: React.createElement(React.Fragment, null, React.createElement('b', null, '\u2605 5.0 on Google.'), ' 240 families trust us. Come see why.') },
         { icon: 'storefront',      text: React.createElement(React.Fragment, null, 'Showroom on ', React.createElement('b', null, 'Junction Road'), ' open daily \u00b7 10\u00a0AM\u2013\u200910\u00a0PM') },
         { icon: 'verified',        text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Every piece hand-checked'), ' at our showroom before it ships.') },
@@ -573,7 +572,7 @@
         <section className="trust-strip">
           <div className="container">
             <div className="trust-row">
-              {item('local_shipping', 'Free Delivery', 'In Virudhachalam only.')}
+              {item('local_shipping', 'Free Delivery', 'Across Tamil Nadu.')}
 
               {item('verified', 'Hand-Checked', 'We look at every piece before it ships.')}
               {item('payments', 'Pay How You Like', 'UPI, card, net banking, or COD.')}
@@ -603,14 +602,19 @@
     }
 
     // ===== Footer ================================================================
-    function Footer({ setRoute }) {
+    function Footer({ setRoute, setFilter }) {
       const col = (title, items) => (
         <div className="footer-col">
           <h4>{title}</h4>
           <ul>
-            {items.map(([label, route]) => (
+            {items.map(([label, route, slug]) => (
               <li key={label}>
-                <a href="#" onClick={(e) => { e.preventDefault(); if (route && setRoute) setRoute(route); }}>{label}</a>
+                <a href="#" onClick={(e) => {
+                  e.preventDefault();
+                  if (slug && setFilter) setFilter(slug);
+                  if (route && setRoute) setRoute(route);
+                  window.scrollTo(0, 0);
+                }}>{label}</a>
               </li>
             ))}
           </ul>
@@ -651,12 +655,16 @@
                 </div>
               </div>
               {col('Shop', [
-                ['Vases & DÃ©cor', 'shop'],
-                ['Fountains & Pooja', 'shop'],
-                ['Chairs & Sofas', 'shop'],
-                ['Lighting', 'shop'],
-                ['Gifts & Hampers', 'shop'],
-                ['Statues & Idols', 'shop'],
+                ['Artificial Plants',  'shop', 'artificial-plants'],
+                ['Artificial Flowers', 'shop', 'artificial-flowers'],
+                ['Vases & Décor',      'shop', 'vases-decor'],
+                ['Fountains & Pooja',  'shop', 'fountains-pooja'],
+                ['Chairs & Sofas',     'shop', 'chairs-sofas'],
+                ['Lighting',           'shop', 'lighting'],
+                ['Gifts & Hampers',    'shop', 'gifts-hampers'],
+                ['Statues & Idols',    'shop', 'statues-idols'],
+                ['Wall Frames',        'shop', 'wall-frames'],
+                ['Wall Statues',       'shop', 'wall-statues'],
               ])}
               {col('Help', [
                 ['Shipping & Delivery', 'shipping'],
@@ -741,7 +749,7 @@
           img: 'assets/lifestyle/showroom_interior.webp',
           eyebrow: 'Curated Spaces',
           headline: (<>Elevate your home.<br />Discover our <em>exclusive</em><br />collections.</>),
-          sub: 'Premium interior designs. Free delivery in Virudhachalam only.',
+          sub: 'Premium interior designs. Free delivery across Tamil Nadu.',
         },
         {
           img: 'assets/lifestyle/premium_decor_bright.webp',
@@ -812,7 +820,7 @@
               <div className="hero-stats__divider" />
               <div>
                 <b>Free</b>
-                <span>Delivery in Virudhachalam</span>
+                <span>Delivery across Tamil Nadu</span>
               </div>
             </div>
 
@@ -842,8 +850,8 @@
             <div className="hero-delivery-chip">
               <span className="material-symbols-outlined">local_shipping</span>
               <div>
-                <b>Free in Virudhachalam</b>
-                <span>Same-day local delivery</span>
+                <b>Free across Tamil Nadu</b>
+                <span>Fast local delivery</span>
               </div>
             </div>
           </div>
@@ -1132,11 +1140,35 @@
     // ====== TESTIMONIALS ========================================================
     function Testimonials() {
       const [showReviewModal, setShowReviewModal] = React.useState(false);
+      const [reviewForm, setReviewForm] = React.useState({ name: '', rating: 5, text: '' });
+      const [submitState, setSubmitState] = React.useState('idle');
 
       const handleSubmitReview = (e) => {
         e.preventDefault();
-        setShowReviewModal(false);
-        alert("Thank you! Your review has been successfully submitted to the admin portal for approval.");
+        if (!reviewForm.name.trim() || !reviewForm.text.trim()) return;
+        setSubmitState('loading');
+        const sb = getSB ? getSB() : (window.supabase && window.supabase.createClient
+          ? window.supabase.createClient(
+              'https://rgpkomngygapwjhnbgaf.supabase.co',
+              'sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P'
+            )
+          : null);
+        if (!sb) { setSubmitState('idle'); setShowReviewModal(false); return; }
+        sb.from('store_reviews').insert({
+          reviewer_name: reviewForm.name.trim(),
+          rating: reviewForm.rating,
+          review_text: reviewForm.text.trim(),
+          is_approved: false
+        }).then(res => {
+          setSubmitState('idle');
+          if (res.error) {
+            alert('Could not submit your review. Please try again.');
+          } else {
+            setShowReviewModal(false);
+            setReviewForm({ name: '', rating: 5, text: '' });
+            alert('Thank you! Your review has been submitted and is awaiting approval.');
+          }
+        });
       };
 
       return (
@@ -1191,11 +1223,11 @@
                 <form onSubmit={handleSubmitReview} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                   <div>
                     <label style={{ display: 'block', fontSize: 12, fontWeight: 600, marginBottom: 8, color: '#1A1A1A' }}>Your Name</label>
-                    <input type="text" required style={{ width: '100%', padding: '12px 16px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: 8, fontFamily: '"Jost", sans-serif', fontSize: 14 }} placeholder="John Doe" />
+                    <input type="text" required value={reviewForm.name} onChange={e => setReviewForm(f => ({ ...f, name: e.target.value }))} style={{ width: '100%', padding: '12px 16px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: 8, fontFamily: '"Jost", sans-serif', fontSize: 14 }} placeholder="John Doe" />
                   </div>
                   <div>
                     <label style={{ display: 'block', fontSize: 12, fontWeight: 600, marginBottom: 8, color: '#1A1A1A' }}>Rating</label>
-                    <select required style={{ width: '100%', padding: '12px 16px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: 8, fontFamily: '"Jost", sans-serif', fontSize: 14 }}>
+                    <select required value={reviewForm.rating} onChange={e => setReviewForm(f => ({ ...f, rating: parseInt(e.target.value) }))} style={{ width: '100%', padding: '12px 16px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: 8, fontFamily: '"Jost", sans-serif', fontSize: 14 }}>
                       <option value="5">â˜…â˜…â˜…â˜…â˜… (5 Stars)</option>
                       <option value="4">â˜…â˜…â˜…â˜…â˜† (4 Stars)</option>
                       <option value="3">â˜…â˜…â˜…â˜†â˜† (3 Stars)</option>
@@ -1205,9 +1237,9 @@
                   </div>
                   <div>
                     <label style={{ display: 'block', fontSize: 12, fontWeight: 600, marginBottom: 8, color: '#1A1A1A' }}>Review</label>
-                    <textarea required rows="4" style={{ width: '100%', padding: '12px 16px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: 8, fontFamily: '"Jost", sans-serif', fontSize: 14, resize: 'vertical' }} placeholder="Tell us about your experience..."></textarea>
+                    <textarea required rows="4" value={reviewForm.text} onChange={e => setReviewForm(f => ({ ...f, text: e.target.value }))} style={{ width: '100%', padding: '12px 16px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: 8, fontFamily: '"Jost", sans-serif', fontSize: 14, resize: 'vertical' }} placeholder="Tell us about your experience..."></textarea>
                   </div>
-                  <button type="submit" className="btn btn-dark" style={{ marginTop: 12, width: '100%' }}>Submit Review</button>
+                  <button type="submit" className="btn btn-dark" style={{ marginTop: 12, width: '100%' }} disabled={submitState === 'loading'}>{submitState === 'loading' ? 'Submitting…' : 'Submit Review'}</button>
                   <p style={{ fontSize: 11, color: '#5E5B59', textAlign: 'center', marginTop: 12 }}>Reviews are submitted to the admin portal for approval before appearing publicly.</p>
                 </form>
               </div>
@@ -1340,7 +1372,7 @@
                 Our complete collection.<br /><em style={{ fontStyle: 'italic', color: '#B89657', fontWeight: 400 }}>Find the one that's yours.</em>
               </h1>
               <p style={{ maxWidth: 560, fontSize: 14, color: '#5E5B59', lineHeight: 1.8 }}>
-                Everything you see here is in our showroom on Junction Road. Free delivery in Virudhachalam only.
+                Everything you see here is in our showroom on Junction Road. Free delivery across Tamil Nadu.
               </p>
             </div>
           </section>
@@ -1373,7 +1405,8 @@
                         p.category.toLowerCase().replace(/[^a-z]/g,'').includes(c.toLowerCase().replace(/[^a-z]/g,''))
                       ).length;
                       const catLabel = CATEGORIES.find(cat => cat.id === c);
-                      return (catLabel ? catLabel.label : c) + (count ? ' (' + count + ')' : '');
+                      const displayLabel = catLabel ? catLabel.label : c.replace(/-/g, ' ').replace(/\b\w/g, ch => ch.toUpperCase());
+                      return displayLabel + (count ? ' (' + count + ')' : '');
                     })()}
                   </button>
                 ))}
@@ -1561,7 +1594,7 @@
                   )}
                 </div>
                 <div style={{ fontSize: 12, color: '#5E5B59', marginBottom: 22 }}>
-                  All taxes included Â· Free delivery in Virudhachalam only
+                  All taxes included · Free delivery across Tamil Nadu
                 </div>
 
                 {p.stock && p.stock <= 6 && (
@@ -1585,7 +1618,7 @@
                     <span className="material-symbols-outlined">local_shipping</span>
                     <div>
                       <b>Free delivery</b>
-                      <span>In Virudhachalam only</span>
+                      <span>Across Tamil Nadu</span>
                     </div>
                   </div>
 
@@ -1605,24 +1638,27 @@
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: 12, marginBottom: 14, marginTop: 26 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', border: '1px solid rgba(26,26,26,0.16)', borderRadius: 9999 }}>
-                    <button onClick={() => setQty(Math.max(1, qty - 1))} style={{ width: 44, height: 50, background: 'none', border: 'none', fontSize: 17, cursor: 'pointer' }}>âˆ’</button>
-                    <span style={{ width: 36, textAlign: 'center', fontWeight: 500 }}>{qty}</span>
-                    <button onClick={() => setQty(qty + 1)} style={{ width: 44, height: 50, background: 'none', border: 'none', fontSize: 17, cursor: 'pointer' }}>+</button>
+                <div style={{ marginTop: 28 }}>
+                  <div style={{ display: ‘flex’, gap: 10, marginBottom: 10 }}>
+                    <div style={{ display: ‘flex’, alignItems: ‘center’, background: ‘#F3EBDC’, border: ‘1px solid rgba(197,168,128,0.40)’, borderRadius: 12, flexShrink: 0 }}>
+                      <button onClick={() => setQty(Math.max(1, qty - 1))} style={{ width: 46, height: 54, background: ‘none’, border: ‘none’, fontSize: 20, cursor: ‘pointer’, color: ‘#5E5B59’, fontWeight: 300 }}>−</button>
+                      <span style={{ width: 32, textAlign: ‘center’, fontWeight: 600, fontSize: 15, color: ‘#1A1A1A’ }}>{qty}</span>
+                      <button onClick={() => setQty(qty + 1)} style={{ width: 46, height: 54, background: ‘none’, border: ‘none’, fontSize: 20, cursor: ‘pointer’, color: ‘#5E5B59’, fontWeight: 300 }}>+</button>
+                    </div>
+                    <button
+                      style={{ flex: 1, display: ‘flex’, alignItems: ‘center’, justifyContent: ‘center’, gap: 9, background: ‘#B89657’, color: ‘#fff’, border: ‘none’, borderRadius: 12, fontSize: 14, fontWeight: 600, fontFamily: "’Jost’,sans-serif", letterSpacing: ‘.04em’, cursor: ‘pointer’, boxShadow: ‘0 6px 20px -6px rgba(184,150,87,0.50)’, transition: ‘all 240ms cubic-bezier(0.25,1,0.5,1)’, padding: ‘0 20px’ }}
+                      onClick={() => onAdd(p, qty)}>
+                      <span className="material-symbols-outlined" style={{ fontSize: 18 }}>shopping_bag</span>
+                      Add to Cart · {fmtPrice(lineTotal)}
+                    </button>
                   </div>
-                  <button className="btn btn-dark" style={{ flex: 1 }} onClick={() => onAdd(p, qty)}>
-                    <span className="material-symbols-outlined">shopping_bag</span>
-                    Add to Cart Â· {fmtPrice(lineTotal)}
+                  <button
+                    style={{ width: ‘100%’, display: ‘flex’, alignItems: ‘center’, justifyContent: ‘center’, gap: 9, background: ‘#0d6e5f’, color: ‘#fff’, border: ‘none’, borderRadius: 12, fontSize: 14, fontWeight: 500, fontFamily: "’Jost’,sans-serif", letterSpacing: ‘.03em’, cursor: ‘pointer’, padding: ‘15px 24px’, boxShadow: ‘0 4px 16px -6px rgba(13,110,95,0.40)’, transition: ‘all 240ms cubic-bezier(0.25,1,0.5,1)’ }}
+                    onClick={() => window.open(‘https://wa.me/919789182921?text=Hi, I want to ask about: ‘ + p.name, ‘_blank’)}>
+                    <span className="material-symbols-outlined" style={{ fontSize: 18 }}>chat</span>
+                    Ask on WhatsApp · We reply fast
                   </button>
                 </div>
-                <button
-                  className="btn btn-gold"
-                  style={{ width: '100%', background: '#25D366', borderColor: '#25D366' }}
-                  onClick={() => window.open('https://wa.me/919789182921?text=Hi, I want to ask about: ' + p.name, '_blank')}>
-                  <span className="material-symbols-outlined">chat</span>
-                  Ask on WhatsApp Â· We reply fast
-                </button>
               </div>
             </div>
           </section>
@@ -1695,10 +1731,9 @@
         .map(ci => ({ ...ci, product: PRODUCTS.find(p => p.id === ci.id) }))
         .filter(ci => ci.product);
       const subtotal = items.reduce((s, ci) => s + ci.product.price * ci.qty, 0);
-      const FREE_OVER = 5000;
-      const delivery = subtotal >= FREE_OVER ? 0 : 250;
-      const toFree = Math.max(0, FREE_OVER - subtotal);
-      const progress = Math.min(100, Math.round((subtotal / FREE_OVER) * 100));
+      const delivery = 0;
+      const toFree = 0;
+      const progress = 100;
       const total = subtotal + delivery;
 
       return (
@@ -1732,7 +1767,7 @@
                       <div className="cart-progress__head">
                         <>
                           <span className="material-symbols-outlined" style={{ color: '#B89657' }}>local_shipping</span>
-                          <b>Free delivery</b> Â· in Virudhachalam only
+                          <b>Free delivery</b> · across Tamil Nadu
                         </>
                       </div>
                     </div>
@@ -1793,11 +1828,11 @@
                     <Sumline
                       label="Delivery"
                       value={delivery === 0 ? 'FREE' : fmtPrice(delivery)}
-                      note={delivery === 0 ? 'Ships complimentary' : 'Free over â‚¹5,000'}
+                      note="Ships free"
                     />
                     <div style={{ background: '#F3EBDC', borderRadius: 10, padding: 12, marginTop: 12, fontSize: 12, color: '#5E5B59', display: 'flex', alignItems: 'flex-start', gap: 10 }}>
                       <span className="material-symbols-outlined" style={{ color: '#B89657', fontSize: 18 }}>schedule</span>
-                      <span><b style={{ color: '#1A1A1A' }}>3â€“7 days</b> across India. Same-day or next-day in Virudhachalam.</span>
+                      <span><b style={{ color: '#1A1A1A' }}>2–4 days</b> across Tamil Nadu. Same-day delivery in Virudhachalam.</span>
                     </div>
                     <div style={{ borderTop: '1px solid rgba(197,168,128,0.30)', marginTop: 14, paddingTop: 14 }}>
                       <Sumline label="Total" value={fmtPrice(total)} bold />
@@ -1841,8 +1876,7 @@
         .map(ci => ({ ...ci, product: PRODUCTS.find(p => p.id === ci.id) }))
         .filter(ci => ci.product);
       const subtotal = items.reduce((s, ci) => s + ci.product.price * ci.qty, 0);
-      const FREE_OVER = 5000;
-      const delivery = subtotal >= FREE_OVER ? 0 : 250;
+      const delivery = 0;
       const total = subtotal + delivery;
 
       const [form, setForm] = React.useState({
@@ -2070,7 +2104,7 @@
                       <Sumline
                         label="Delivery"
                         value={delivery === 0 ? 'FREE' : fmtPrice(delivery)}
-                        note={delivery === 0 ? 'Ships free' : 'Free over â‚¹5,000'}
+                        note="Ships free"
                       />
                       <div style={{ borderTop: '1px solid rgba(197,168,128,0.25)', marginTop: 10, paddingTop: 10 }}>
                         <Sumline label="Total" value={fmtPrice(total)} bold />
@@ -2210,7 +2244,7 @@
                           p={p}
                           onAdd={onAdd}
                           onView={onView}
-                          wishlisted={true}
+                          wishlisted={wishlist.includes(p.id)}
                           onWishToggle={onWishToggle}
                         />
                       </div>
@@ -2260,7 +2294,7 @@
                   When we started, we had a small space and a few hundred pieces. We'd travel to pick things ourselves â€” Rajasthan for brass, Pune for ceramics, local artisans for handmade pieces. If we wouldn't put it in our own home, we didn't stock it.
                 </p>
                 <p style={{ marginBottom: 16, fontSize: 14.5, lineHeight: 1.85, color: '#5E5B59' }}>
-                  We have 500+ pieces on the floor at any time, a team that genuinely loves what we sell, and customers who keep coming back. We ship pan-India now, but we still answer the WhatsApp ourselves.
+                  We have 500+ pieces on the floor at any time, a team that genuinely loves what we sell, and customers who keep coming back. We deliver across Tamil Nadu, and we still answer the WhatsApp ourselves.
                 </p>
                 <p style={{ marginBottom: 28, fontSize: 14.5, lineHeight: 1.85, color: '#5E5B59' }}>
                   If you're ever in Virudhachalam, come in. We're open every day from 10 to 10. No appointment needed.
@@ -2280,7 +2314,7 @@
                   { num: '500+', label: 'Pieces in stock', sub: 'Every single one checked before it goes on the floor.' },
                   { num: '5.0â˜…', label: 'On Google', sub: '240 families have left a review. We reply to every one.' },
                   { num: '100%', label: 'Hand-Checked Quality', sub: 'Every piece inspected at our showroom before it reaches you.' },
-                  { num: 'Free', label: 'Delivery in Virudhachalam', sub: 'Every order, no minimum.' },
+                  { num: 'Free', label: 'Delivery across Tamil Nadu', sub: 'Every order, no minimum.' },
                 ].map(card => (
                   <div key={card.num} style={{ background: 'rgba(255,255,255,0.75)', borderRadius: 18, padding: '32px 28px', border: '1px solid rgba(197,168,128,0.30)' }}>
                     <div style={{ fontFamily: '"Crimson Pro",serif', fontWeight: 500, fontSize: '2.4rem', color: '#1A1A1A', marginBottom: 6 }}>
@@ -2822,9 +2856,11 @@
       };
 
       const handleWishToggle = (id) => {
-        setWish(prev =>
-          prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
-        );
+        setWish(prev => {
+          const isIn = prev.includes(id);
+          showToast(isIn ? 'Removed from wishlist' : 'Added to wishlist');
+          return isIn ? prev.filter(x => x !== id) : [...prev, id];
+        });
       };
 
       const handleCheckout = () => {
@@ -2959,7 +2995,7 @@
             onSearch={() => setSearchOpen(true)}
           />
           <main className="page-body">{body}</main>
-          <Footer setRoute={setRoute} />
+          <Footer setRoute={setRoute} setFilter={setFilter} />
           <WAFloat />
           <Toast msg={toast.msg} show={toast.show} />
           {/* Search drawer â€” Phase 5 */}

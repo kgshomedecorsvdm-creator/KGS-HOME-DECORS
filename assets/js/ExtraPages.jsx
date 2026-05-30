@@ -150,9 +150,8 @@ function ShippingPolicyPage() {
       <ul style={{ paddingLeft: '24px', marginBottom: '24px' }}>
         <li style={{ marginBottom: '8px' }}><b>Virudhachalam:</b> Same day or next day delivery.</li>
         <li style={{ marginBottom: '8px' }}><b>Tamil Nadu:</b> 2-4 business days.</li>
-        <li style={{ marginBottom: '8px' }}><b>Rest of India:</b> 5-7 business days.</li>
       </ul>
-      <p style={{ marginBottom: '24px' }}>Shipping is free for all orders within Virudhachalam.</p>
+      <p style={{ marginBottom: '24px' }}>Shipping is free for all orders across Tamil Nadu.</p>
     </LegalPage>
   );
 }

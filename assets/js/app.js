@@ -50,14 +50,16 @@ function OrderTrackingPage(_ref_ot) {
     /*#__PURE__*/React.createElement("button", { onClick: onBack, className: "btn btn-dark", style: { marginTop: '20px' } }, "Back to Account")    
   );
 
-  var status = (order.status || 'processing').toLowerCase();
+  var status = (order.status || 'pending').toLowerCase();
+  var isCancelledOT = status === 'cancelled';
   var STATUS_STEPS = [
-    { key: 'processing', icon: 'receipt_long', label: 'Order Placed', desc: "We've received your order." },
-    { key: 'confirmed', icon: 'inventory_2', label: 'Processing', desc: "Your items are being prepared." },
-    { key: 'shipped', icon: 'local_shipping', label: 'Shipped', desc: "Your order is on the way." },
-    { key: 'delivered', icon: 'home', label: 'Delivered', desc: "Order has been delivered." }
+    { key: 'pending',           icon: 'receipt_long',    label: 'Order Placed',     desc: "We've received your order." },
+    { key: 'confirmed',         icon: 'inventory_2',     label: 'Confirmed',         desc: "Your order has been confirmed." },
+    { key: 'shipped',           icon: 'local_shipping',  label: 'Shipped',           desc: "Your order is on the way." },
+    { key: 'out_for_delivery',  icon: 'delivery_dining', label: 'Out for Delivery',  desc: "Your order is out for delivery." },
+    { key: 'delivered',         icon: 'home',            label: 'Delivered',         desc: "Order has been delivered." }
   ];
-  var statusIndex = { processing: 0, confirmed: 1, shipped: 2, delivered: 3 }[status] || 0;
+  var statusIndex = { pending: 0, confirmed: 1, shipped: 2, out_for_delivery: 3, out: 3, delivered: 4 }[status] !== undefined ? { pending: 0, confirmed: 1, shipped: 2, out_for_delivery: 3, out: 3, delivered: 4 }[status] : 0;
 
   return /*#__PURE__*/React.createElement("div", { className: "section container", style: { minHeight: '60vh', padding: '48px 20px' } },
     /*#__PURE__*/React.createElement("div", { style: { maxWidth: '800px', margin: '0 auto' } },
@@ -69,21 +71,23 @@ function OrderTrackingPage(_ref_ot) {
         /*#__PURE__*/React.createElement("button", { onClick: onBack, className: "btn btn-ghost" }, "Back to Account")
       ),
       /*#__PURE__*/React.createElement("div", { style: { background: '#fff', borderRadius: '16px', padding: '32px', border: '1px solid rgba(26,26,26,0.06)', marginBottom: '32px' } },
-        /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', fontWeight: 600, color: '#B89657', textTransform: 'uppercase', letterSpacing: '.05em', marginBottom: '24px' } }, "Status: " + status.toUpperCase()),
-        /*#__PURE__*/React.createElement("div", { className: "tracking-timeline" },
-          STATUS_STEPS.map(function(step, i) {
-            var done = i <= statusIndex;
-            var active = i === statusIndex;
-            return /*#__PURE__*/React.createElement("div", { key: step.key, className: "tracking-step " + (done ? 'done' : (active ? 'active' : '')) },
-              /*#__PURE__*/React.createElement("div", { className: "tracking-icon" }, /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, done ? "check" : step.icon)),
-              /*#__PURE__*/React.createElement("div", { className: "tracking-info" },
-                /*#__PURE__*/React.createElement("h4", null, step.label),
-                /*#__PURE__*/React.createElement("p", null, step.desc),
-                /*#__PURE__*/React.createElement("div", { className: "tracking-time" }, done ? (i === 0 ? new Date(order.created_at).toLocaleDateString() : 'Completed') : 'Pending')
-              )
-            );
-          })
-        )
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', fontWeight: 600, color: isCancelledOT ? '#B71C1C' : '#B89657', textTransform: 'uppercase', letterSpacing: '.05em', marginBottom: '24px' } }, "Status: " + status.toUpperCase()),
+        isCancelledOT
+          ? /*#__PURE__*/React.createElement("div", { style: { display: 'inline-block', padding: '8px 20px', borderRadius: '99px', background: '#FFEBEE', color: '#B71C1C', fontWeight: 700, fontSize: '14px', letterSpacing: '.04em' } }, "Order Cancelled")
+          : /*#__PURE__*/React.createElement("div", { className: "tracking-timeline" },
+            STATUS_STEPS.map(function(step, i) {
+              var done = i <= statusIndex;
+              var active = i === statusIndex;
+              return /*#__PURE__*/React.createElement("div", { key: step.key, className: "tracking-step " + (done ? 'done' : (active ? 'active' : '')) },
+                /*#__PURE__*/React.createElement("div", { className: "tracking-icon" }, /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, done ? "check" : step.icon)),
+                /*#__PURE__*/React.createElement("div", { className: "tracking-info" },
+                  /*#__PURE__*/React.createElement("h4", null, step.label),
+                  /*#__PURE__*/React.createElement("p", null, step.desc),
+                  /*#__PURE__*/React.createElement("div", { className: "tracking-time" }, done ? (i === 0 ? new Date(order.created_at).toLocaleDateString() : 'Completed') : 'Pending')
+                )
+              );
+            })
+          )
       )
     )
   );
@@ -206,6 +210,7 @@ function AccountRegisterPage(_ref2) {
   var _ps = React.useState(''), password = _ps[0], setPassword = _ps[1];
   var _ls = React.useState(false), loading = _ls[0], setLoading = _ls[1];
   var _err = React.useState(''), error = _err[0], setError = _err[1];
+  var _sp = React.useState(false), showPwd = _sp[0], setShowPwd = _sp[1];
 
   var handleSubmit = function() {
     if (!fullName || !email || !password) { setError('Please fill in all fields.'); return; }
@@ -238,7 +243,12 @@ function AccountRegisterPage(_ref2) {
     ),
     /*#__PURE__*/React.createElement("div", { style: { marginBottom: '24px' } },
       /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Password"),
-      /*#__PURE__*/React.createElement("input", { type: "password", placeholder: "Min. 6 characters", value: password, onChange: function(e) { setPassword(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: inputStyle })
+      /*#__PURE__*/React.createElement("div", { style: { position: 'relative' } },
+        /*#__PURE__*/React.createElement("input", { type: showPwd ? "text" : "password", placeholder: "Min. 6 characters", value: password, onChange: function(e) { setPassword(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: Object.assign({}, inputStyle, { paddingRight: '46px' }) }),
+        /*#__PURE__*/React.createElement("button", { type: "button", onClick: function() { setShowPwd(!showPwd); }, style: { position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#9E9B98', padding: '4px', display: 'flex', alignItems: 'center' } },
+          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '18px' } }, showPwd ? "visibility_off" : "visibility")
+        )
+      )
     ),
     /*#__PURE__*/React.createElement("button", { onClick: handleSubmit, disabled: loading, className: "btn btn-dark", style: { width: '100%', padding: '16px', fontSize: '14px', marginBottom: '24px', opacity: loading ? 0.7 : 1 } }, loading ? "Creating account..." : "Create Account"),
     /*#__PURE__*/React.createElement("div", { style: { textAlign: 'center', fontSize: '13px', color: '#5E5B59' } },
@@ -248,242 +258,607 @@ function AccountRegisterPage(_ref2) {
   ));
 }
 
-function AccountDashboardPage(_ref3) {
-  var onLogout = _ref3.onLogout,
-    onShop = _ref3.onShop,
-    onTrack = _ref3.onTrack,
-    user = _ref3.user;
+function AccountSettingsTab(_ref_st) {
+  var user = _ref_st.user, displayName = _ref_st.displayName, onToast = _ref_st.onToast, onUpdateUser = _ref_st.onUpdateUser;
+  var _sn = React.useState((user && user.user_metadata && user.user_metadata.full_name) || displayName || ''), settingsName = _sn[0], setSettingsName = _sn[1];
+  var _sp2 = React.useState((user && user.user_metadata && user.user_metadata.phone) || ''), settingsPhone = _sp2[0], setSettingsPhone = _sp2[1];
+  var _sl = React.useState(false), settingsSaving = _sl[0], setSettingsSaving = _sl[1];
+  var _serr = React.useState(''), settingsErr = _serr[0], setSettingsErr = _serr[1];
 
-  var _state_t = React.useState('orders'), activeTab = _state_t[0], setActiveTab = _state_t[1];
-  var _state_o = React.useState([]), orders = _state_o[0], setOrders = _state_o[1];
-  var _state_l = React.useState(true), loading = _state_l[0], setLoading = _state_l[1];
-
-  React.useEffect(function() {
-    if (typeof getMyOrders === 'function') {
-      getMyOrders().then(function(data) {
-        setOrders(data || []);
-        setLoading(false);
-      })["catch"](function() {
-        setLoading(false);
+  var handleUpdateProfile = function() {
+    if (!settingsName.trim()) { setSettingsErr('Full name cannot be empty.'); return; }
+    setSettingsSaving(true); setSettingsErr('');
+    var sb = getSB();
+    var updates = { data: { full_name: settingsName.trim() } };
+    if (settingsPhone.trim()) updates.data.phone = settingsPhone.trim();
+    sb.auth.updateUser(updates).then(function(res) {
+      if (res.error) { setSettingsSaving(false); setSettingsErr(res.error.message || 'Update failed.'); return; }
+      return sb.auth.getUser().then(function(fresh) {
+        setSettingsSaving(false);
+        if (fresh.data && fresh.data.user && typeof onUpdateUser === 'function') onUpdateUser(fresh.data.user);
+        if (typeof onToast === 'function') onToast('Profile updated successfully', 'check_circle', '#25D366');
       });
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
-  var displayName = (user && (user.user_metadata && user.user_metadata.full_name || user.email)) || 'there';
-  var initials = displayName.split(' ').map(function(w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
-
-  var renderContent = function() {
-    if (activeTab === 'orders') {
-      return /*#__PURE__*/React.createElement(React.Fragment, null,
-        /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', marginBottom: '20px' } }, "Recent Orders"),
-        loading ? /*#__PURE__*/React.createElement("div", { style: { padding: '40px', textAlign: 'center', color: '#5E5B59' } }, "Loading orders...") : 
-        orders.length === 0 ? /*#__PURE__*/React.createElement("div", { style: { background: '#fff', borderRadius: '16px', padding: '40px 24px', textAlign: 'center', border: '1px dashed rgba(26,26,26,0.15)' } },
-          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '48px', color: '#C5A880', display: 'block', marginBottom: '16px' } }, "inventory_2"),
-          /*#__PURE__*/React.createElement("div", { style: { fontSize: '17px', fontWeight: 500, marginBottom: '8px' } }, "No orders yet"),
-          /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '24px' } }, "When you place an order, it will appear here."),
-          /*#__PURE__*/React.createElement("button", { onClick: onShop, className: "btn btn-dark" }, "Start Shopping")
-        ) : /*#__PURE__*/React.createElement("div", { className: "orders-list" }, 
-          orders.map(function(order) {
-            return /*#__PURE__*/React.createElement("div", { key: order.id, className: "order-card", style: { background: '#fff', borderRadius: '12px', padding: '20px', marginBottom: '16px', border: '1px solid rgba(197,168,128,0.2)' } },
-              /*#__PURE__*/React.createElement("div", { style: { display: 'flex', justifyContent: 'space-between', marginBottom: '12px' } },       
-                /*#__PURE__*/React.createElement("div", null, 
-                  /*#__PURE__*/React.createElement("div", { style: { fontSize: '12px', color: '#5E5B59', textTransform: 'uppercase', letterSpacing: '0.05em' } }, "Order #" + String(order.id).slice(-5).toUpperCase()),
-                  /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: 500 } }, new Date(order.created_at).toLocaleDateString())
-                ),
-                /*#__PURE__*/React.createElement("div", { style: { textAlign: 'right' } },
-                  /*#__PURE__*/React.createElement("div", { style: { fontSize: '12px', color: '#5E5B59' } }, "Total"),
-                  /*#__PURE__*/React.createElement("div", { style: { fontSize: '16px', fontWeight: 600, color: '#1A1A1A' } }, "₹" + order.total_amount)
-                )
-              ),
-              /*#__PURE__*/React.createElement("div", { style: { display: 'flex', gap: '12px', overflowX: 'auto', paddingBottom: '8px' } },        
-                (order.order_items || []).map(function(item, idx) {
-                  return /*#__PURE__*/React.createElement("img", { key: idx, src: item.product_image, alt: item.product_name, style: { width: '60px', height: '60px', objectFit: 'cover', borderRadius: '8px' } });
-                })
-              ),
-              /*#__PURE__*/React.createElement("div", { style: { marginTop: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' } },
-                 /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', padding: '4px 12px', borderRadius: '99px', background: order.status === 'delivered' ? '#E8F5E9' : '#FFF3E0', color: order.status === 'delivered' ? '#2E7D32' : '#E65100' } }, order.status.charAt(0).toUpperCase() + order.status.slice(1)),
-                 /*#__PURE__*/React.createElement("button", { onClick: function() { onTrack(order.id); }, className: "btn btn-ghost", style: { padding: '6px 12px', fontSize: '12px' } }, "Track Order")
-              )
-            );
-          })
-        )
-      );
-    }
-    if (activeTab === 'addresses') {
-      return /*#__PURE__*/React.createElement("div", null, 
-        /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', marginBottom: '20px' } }, "Saved Addresses"),
-        /*#__PURE__*/React.createElement("div", { style: { background: '#fff', borderRadius: '16px', padding: '48px 24px', textAlign: 'center', border: '1px solid rgba(26,26,26,0.06)' } },
-          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '48px', color: '#C5A880', marginBottom: '16px' } }, "location_on"),
-          /*#__PURE__*/React.createElement("div", { style: { fontSize: '17px', fontWeight: 500, marginBottom: '8px' } }, "No addresses saved"),    
-          /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '24px' } }, "Add your shipping address for a faster checkout."),
-          /*#__PURE__*/React.createElement("button", { className: "btn btn-dark" }, "Add New Address")
-        )
-      );
-    }
-    if (activeTab === 'settings') {
-      return /*#__PURE__*/React.createElement("div", null, 
-        /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', marginBottom: '20px' } }, "Account Settings"),
-        /*#__PURE__*/React.createElement("div", { style: { background: '#fff', borderRadius: '16px', padding: '32px', border: '1px solid rgba(26,26,26,0.06)' } },
-          /*#__PURE__*/React.createElement("div", { style: { marginBottom: '24px' } },
-            /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px', textTransform: 'uppercase' } }, "Email Address"),
-            /*#__PURE__*/React.createElement("input", { type: "text", disabled: true, value: user.email, style: { width: '100%', padding: '14px', border: '1px solid rgba(26,26,26,0.1)', borderRadius: '8px', background: '#F9F9F9', color: '#767270' } })
-          ),
-          /*#__PURE__*/React.createElement("div", { style: { marginBottom: '32px' } },
-            /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px', textTransform: 'uppercase' } }, "Full Name"),
-            /*#__PURE__*/React.createElement("input", { type: "text", defaultValue: displayName, style: { width: '100%', padding: '14px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: '8px' } })
-          ),
-          /*#__PURE__*/React.createElement("button", { className: "btn btn-dark", style: { padding: '12px 24px' } }, "Update Profile")
-        )
-      );
-    }
+    })["catch"](function(e) {
+      setSettingsSaving(false);
+      setSettingsErr(e.message || 'Update failed.');
+    });
   };
 
-  return /*#__PURE__*/React.createElement("div", {
-    className: "section container account-page"
-  },
-  /*#__PURE__*/React.createElement("div", { className: "account-header" },
-    /*#__PURE__*/React.createElement("div", { style: { display: 'flex', alignItems: 'center', gap: 16 } },
-      /*#__PURE__*/React.createElement("div", {
-        style: { width: 52, height: 52, borderRadius: '50%', background: 'linear-gradient(135deg,#C5A880,#B89657)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 18, flexShrink: 0 }
-      }, initials),
-      /*#__PURE__*/React.createElement("div", null,
-        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '28px', color: '#1A1A1A', marginBottom: '2px' } }, "My Account"),
-        /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px' } }, "Welcome back, " + displayName + ".")
-      )
-    ),
-    /*#__PURE__*/React.createElement("button", { onClick: onLogout, className: "btn btn-ghost", style: { padding: '10px 20px', flexShrink: 0 } }, "Log Out")
-  ),
-  /*#__PURE__*/React.createElement("div", { className: "account-grid" },
-      /*#__PURE__*/React.createElement("nav", { className: "account-nav" },
-        /*#__PURE__*/React.createElement("div", { className: "account-nav-item " + (activeTab === 'orders' ? 'active' : ''), onClick: function() { setActiveTab('orders'); } },
-          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "receipt_long"),
-          /*#__PURE__*/React.createElement("span", null, "Order History")
-        ),
-        /*#__PURE__*/React.createElement("div", { className: "account-nav-item " + (activeTab === 'addresses' ? 'active' : ''), onClick: function() { setActiveTab('addresses'); } },
-          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "location_on"),
-          /*#__PURE__*/React.createElement("span", null, "Saved Addresses")
-        ),
-        /*#__PURE__*/React.createElement("div", { className: "account-nav-item " + (activeTab === 'settings' ? 'active' : ''), onClick: function() { setActiveTab('settings'); } },
-          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "manage_accounts"),
-          /*#__PURE__*/React.createElement("span", null, "Account Settings")
-        )
+  var fieldStyle = { width: '100%', padding: '14px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: '8px', fontSize: '14px', fontFamily: '"Jost", sans-serif', boxSizing: 'border-box' };
+  return /*#__PURE__*/React.createElement("div", null,
+    /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', marginBottom: '20px' } }, "My Profile"),
+    /*#__PURE__*/React.createElement("div", { style: { background: '#fff', borderRadius: '16px', padding: '32px', border: '1px solid rgba(26,26,26,0.06)', maxWidth: '520px' } },
+      settingsErr && /*#__PURE__*/React.createElement("div", { style: { background: 'rgba(201,120,64,0.08)', color: '#C97840', fontSize: '13px', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px' } }, settingsErr),
+      /*#__PURE__*/React.createElement("div", { style: { marginBottom: '20px' } },
+        /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '.04em' } }, "Email Address"),
+        /*#__PURE__*/React.createElement("input", { type: "text", disabled: true, value: user.email, style: Object.assign({}, fieldStyle, { background: '#F9F9F9', color: '#767270', border: '1px solid rgba(26,26,26,0.1)' }) }),
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '11px', color: '#9E9B98', marginTop: '6px' } }, "Email cannot be changed")
       ),
-    /*#__PURE__*/React.createElement("div", { className: "account-main" }, renderContent())
-  ));
-}
-function AboutPage(_ref_about) {
-  var onShop = _ref_about.onShop;
-  return /*#__PURE__*/React.createElement("main", null,
-    /*#__PURE__*/React.createElement("section", { className: "about-hero", style: { background: '#F2E8D6', padding: '80px 0', textAlign: 'center' } },
-      /*#__PURE__*/React.createElement("div", { className: "container", style: { maxWidth: '720px', margin: '0 auto' } },
-        /*#__PURE__*/React.createElement("div", { className: "label-tag", style: { color: 'var(--label)', marginBottom: '16px' } }, "Virudhachalam · Junction Road"),
-        /*#__PURE__*/React.createElement("h1", { className: "t-h1", style: { margin: '0 0 18px' } }, "Premium home décor", /*#__PURE__*/React.createElement("br", null), "for every Indian home."),
-        /*#__PURE__*/React.createElement("p", { style: { fontSize: '14.5px', color: 'var(--muted)' } }, "KGS Home Décors was built on a simple belief — every home deserves beauty, without compromise. We curate, deliver, and stand behind every piece we sell.")
-      )
-    ),
-    /*#__PURE__*/React.createElement("section", { className: "about-story-section", style: { background: 'var(--base)', padding: '72px 0 96px' } },
-      /*#__PURE__*/React.createElement("div", { className: "container about-story-grid", style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '56px', alignItems: 'center' } },
-        /*#__PURE__*/React.createElement("div", { className: "about-story-img", style: { aspectRatio: '4/5', overflow: 'hidden', borderRadius: '12px' } },
-          /*#__PURE__*/React.createElement("img", { src: "assets/lifestyle/showroom_interior.webp", alt: "KGS Showroom", style: { width: '100%', height: '100%', objectFit: 'cover' } })
-        ),
-        /*#__PURE__*/React.createElement("div", null,
-          /*#__PURE__*/React.createElement("div", { className: "label-tag", style: { marginBottom: '14px' } }, "Our Story"),
-          /*#__PURE__*/React.createElement("h2", { className: "t-h2", style: { marginBottom: '22px' } }, "Built for the homes of Virudhachalam."),
-          /*#__PURE__*/React.createElement("p", { style: { margin: '0 0 16px', fontSize: '14px', color: 'var(--muted)' } }, "From our showroom on Junction Road, we stock over 500 carefully curated pieces — fountains, sofas, clocks, statues, and gifts for every occasion."),
-          /*#__PURE__*/React.createElement("p", { style: { margin: '0 0 28px', fontSize: '14px', color: 'var(--muted)' } }, "Every product is personally selected. Every piece meets our standard for quality, finish, and beauty. Whether you are furnishing a new apartment or looking for the perfect centerpiece, we bring the best of Indian craft and modern design right to your door."),
-          /*#__PURE__*/React.createElement("button", { onClick: onShop, className: "btn btn-dark" }, "Shop the Collection")
-        )
-      )
-    ),
-    /*#__PURE__*/React.createElement("section", { className: "section why-section", style: { borderTop: '1px solid rgba(197,168,128,0.20)' } },
-      /*#__PURE__*/React.createElement("div", { className: "container" },
-        /*#__PURE__*/React.createElement("div", { className: "why-head", style: { textAlign: 'center', marginBottom: '48px' } },
-          /*#__PURE__*/React.createElement("div", { className: "label-tag" }, "Why KGS"),
-          /*#__PURE__*/React.createElement("h2", { className: "t-h2" }, "Four quiet promises", /*#__PURE__*/React.createElement("br", null), "we keep on every order.")
-        ),
-        /*#__PURE__*/React.createElement("div", { className: "why-grid", style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '32px' } },
-          [
-            { num: '01', icon: 'verified', h: 'Hand-checked, every piece', s: 'Each item passes a personal quality check at our showroom before it ships.' },
-            { num: '02', icon: 'local_shipping', h: 'Free delivery, white-glove', s: 'Same-day local delivery available in Virudhachalam. No hidden charges.' },
-            { num: '03', icon: 'replay', h: '7-day no-fuss returns', s: "Don't love it? Return within 7 days for a full refund. No questions asked." },
-            { num: '04', icon: 'chat', h: 'Reach a human in 10 minutes', s: 'WhatsApp the showroom directly. Real owners, real answers, real fast.' }
-          ].map(function(item) {
-            return /*#__PURE__*/React.createElement("div", { key: item.num, className: "why-card" },
-              /*#__PURE__*/React.createElement("div", { className: "why-num" }, item.num),
-              /*#__PURE__*/React.createElement("div", { className: "why-icon" }, /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, item.icon)),
-              /*#__PURE__*/React.createElement("div", { className: "why-h", style: { fontWeight: 600, fontSize: '15px', margin: '12px 0 8px' } }, item.h),
-              /*#__PURE__*/React.createElement("div", { className: "why-s", style: { fontSize: '13px', color: 'var(--muted)', lineHeight: 1.6 } }, item.s)
-            );
-          })
-        )
-      )
+      /*#__PURE__*/React.createElement("div", { style: { marginBottom: '20px' } },
+        /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '.04em' } }, "Full Name"),
+        /*#__PURE__*/React.createElement("input", { type: "text", value: settingsName, onChange: function(e) { setSettingsName(e.target.value); }, style: fieldStyle })
+      ),
+      /*#__PURE__*/React.createElement("div", { style: { marginBottom: '32px' } },
+        /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '.04em' } }, "Phone Number"),
+        /*#__PURE__*/React.createElement("input", { type: "tel", placeholder: "Enter your phone number", value: settingsPhone, onChange: function(e) { setSettingsPhone(e.target.value); }, style: fieldStyle })
+      ),
+      /*#__PURE__*/React.createElement("button", { onClick: handleUpdateProfile, disabled: settingsSaving, className: "btn btn-dark", style: { padding: '12px 28px', opacity: settingsSaving ? 0.7 : 1 } }, settingsSaving ? "Saving..." : "Save Changes")
     )
   );
 }
 
-function ContactPage() {
-  var _st_s = React.useState(false), success = _st_s[0], setSuccess = _st_s[1];
-  var handleSubmit = function(e) {
-    e.preventDefault();
-    var name = document.getElementById('ctc-name').value;
-    var phone = document.getElementById('ctc-phone').value;
-    var msg = document.getElementById('ctc-msg').value;
-    var waUrl = "https://wa.me/919789182921?text=" + encodeURIComponent("Name: " + name + "\nPhone: " + phone + "\nMessage: " + msg);
-    window.open(waUrl, '_blank');
-    setSuccess(true);
+// ─── Helpers used across account tabs ───────────────────────────────────────
+var STATUS_BADGE = {
+  pending:     { bg: '#FFF8E1', color: '#F57F17', label: 'Pending' },
+  confirmed:   { bg: '#E3F2FD', color: '#1565C0', label: 'Confirmed' },
+  processing:  { bg: '#E3F2FD', color: '#1565C0', label: 'Processing' },
+  shipped:     { bg: '#F3E5F5', color: '#6A1B9A', label: 'Shipped' },
+  'out for delivery': { bg: '#FFF3E0', color: '#E65100', label: 'Out for Delivery' },
+  out_for_delivery:   { bg: '#FFF3E0', color: '#E65100', label: 'Out for Delivery' },
+  delivered:   { bg: '#E8F5E9', color: '#2E7D32', label: 'Delivered' },
+  cancelled:   { bg: '#FFEBEE', color: '#B71C1C', label: 'Cancelled' }
+};
+function getStatusBadge(status) {
+  var s = (status || 'pending').toLowerCase();
+  return STATUS_BADGE[s] || { bg: '#F5F5F5', color: '#5E5B59', label: s.charAt(0).toUpperCase() + s.slice(1) };
+}
+var ORDER_STEPS = [
+  { key: 'pending',   icon: 'receipt_long',    label: 'Order Placed' },
+  { key: 'confirmed', icon: 'inventory_2',      label: 'Confirmed' },
+  { key: 'shipped',   icon: 'local_shipping',   label: 'Shipped' },
+  { key: 'out for delivery', icon: 'delivery_dining', label: 'Out for Delivery' },
+  { key: 'delivered', icon: 'home',             label: 'Delivered' }
+];
+var STATUS_STEP_INDEX = { pending: 0, processing: 1, confirmed: 1, shipped: 2, 'out for delivery': 3, delivered: 4 };
+
+// ─── Order Timeline stepper ──────────────────────────────────────────────────
+function OrderTimeline(_ref_ot2) {
+  var status = _ref_ot2.status;
+  var s = (status || 'pending').toLowerCase();
+  var currentIdx = STATUS_STEP_INDEX[s] !== undefined ? STATUS_STEP_INDEX[s] : (s === 'cancelled' ? -1 : 0);
+  var isCancelled = s === 'cancelled';
+  return /*#__PURE__*/React.createElement("div", { style: { display: 'flex', alignItems: 'flex-start', gap: '0', margin: '20px 0 4px', overflowX: 'auto', paddingBottom: '4px' } },
+    ORDER_STEPS.map(function(step, i) {
+      var done = !isCancelled && i <= currentIdx;
+      var active = !isCancelled && i === currentIdx;
+      var isLast = i === ORDER_STEPS.length - 1;
+      return /*#__PURE__*/React.createElement("div", { key: step.key, style: { display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, minWidth: '60px' } },
+        /*#__PURE__*/React.createElement("div", { style: { display: 'flex', alignItems: 'center', width: '100%' } },
+          i > 0 && /*#__PURE__*/React.createElement("div", { style: { flex: 1, height: '2px', background: done ? '#B89657' : 'rgba(26,26,26,0.1)', transition: 'background 0.3s' } }),
+          /*#__PURE__*/React.createElement("div", { style: { width: 32, height: 32, borderRadius: '50%', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: isCancelled ? '#FFEBEE' : (done ? '#B89657' : 'rgba(26,26,26,0.07)'), border: active ? '2px solid #B89657' : '2px solid transparent', transition: 'all 0.3s' } },
+            /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '15px', color: isCancelled ? '#B71C1C' : (done ? '#fff' : '#9E9B98'), fontVariationSettings: '"FILL" 1' } }, done ? 'check' : step.icon)
+          ),
+          !isLast && /*#__PURE__*/React.createElement("div", { style: { flex: 1, height: '2px', background: (!isCancelled && i < currentIdx) ? '#B89657' : 'rgba(26,26,26,0.1)' } })
+        ),
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '10px', fontWeight: 600, color: done ? '#B89657' : '#9E9B98', textAlign: 'center', marginTop: '6px', lineHeight: 1.3, letterSpacing: '.02em' } }, step.label)
+      );
+    })
+  );
+}
+
+// ─── Address Form ────────────────────────────────────────────────────────────
+function AddressForm(_ref_af) {
+  var initial = _ref_af.initial, onSave = _ref_af.onSave, onCancel = _ref_af.onCancel, saving = _ref_af.saving;
+  var blank = { label: 'Home', full_name: '', phone: '', line1: '', line2: '', city: '', state: '', pincode: '', is_default: false };
+  var init = initial || blank;
+  var _fn = React.useState(init.full_name || ''), fname = _fn[0], setFname = _fn[1];
+  var _ph = React.useState(init.phone || ''), phone = _ph[0], setPhone = _ph[1];
+  var _l1 = React.useState(init.line1 || ''), line1 = _l1[0], setLine1 = _l1[1];
+  var _l2 = React.useState(init.line2 || ''), line2 = _l2[0], setLine2 = _l2[1];
+  var _ci = React.useState(init.city || ''), city = _ci[0], setCity = _ci[1];
+  var _st = React.useState(init.state || ''), stateVal = _st[0], setStateVal = _st[1];
+  var _pi = React.useState(init.pincode || ''), pincode = _pi[0], setPincode = _pi[1];
+  var _lb = React.useState(init.label || 'Home'), label = _lb[0], setLabel = _lb[1];
+  var _def = React.useState(init.is_default || false), isDef = _def[0], setIsDef = _def[1];
+  var _err = React.useState(''), err = _err[0], setErr = _err[1];
+
+  var fs = { width: '100%', padding: '12px 14px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: '8px', fontSize: '14px', fontFamily: '"Jost", sans-serif', boxSizing: 'border-box', background: '#fff' };
+  var lb = { display: 'block', fontSize: '11px', fontWeight: 600, color: '#5E5B59', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '.04em' };
+
+  var handleSave = function() {
+    if (!fname.trim() || !phone.trim() || !line1.trim() || !city.trim() || !stateVal.trim() || !pincode.trim()) {
+      setErr('Please fill all required fields.'); return;
+    }
+    setErr('');
+    onSave({ label: label, full_name: fname.trim(), phone: phone.trim(), line1: line1.trim(), line2: line2.trim(), city: city.trim(), state: stateVal.trim(), pincode: pincode.trim(), is_default: isDef });
   };
 
-  return /*#__PURE__*/React.createElement("main", null,
-    /*#__PURE__*/React.createElement("section", { style: { background: '#F2E8D6', padding: '72px 0', textAlign: 'center' } },
-      /*#__PURE__*/React.createElement("div", { className: "container", style: { maxWidth: '720px', margin: '0 auto' } },
-        /*#__PURE__*/React.createElement("div", { className: "label-tag", style: { color: 'var(--label)', marginBottom: '14px' } }, "Get in Touch"),
-        /*#__PURE__*/React.createElement("h1", { className: "t-h1", style: { margin: '0 0 12px' } }, "Visit · Call · WhatsApp"),
-        /*#__PURE__*/React.createElement("p", { style: { fontSize: '14px', color: 'var(--muted)' } }, "We're here every day, 10 AM to 10 PM. Come visit the showroom or reach us instantly on WhatsApp.")
+  return /*#__PURE__*/React.createElement("div", { style: { background: '#FDFCFA', border: '1px solid rgba(197,168,128,0.3)', borderRadius: '12px', padding: '24px', marginBottom: '20px' } },
+    err && /*#__PURE__*/React.createElement("div", { style: { background: 'rgba(201,120,64,0.08)', color: '#C97840', fontSize: '13px', padding: '10px 14px', borderRadius: '8px', marginBottom: '16px' } }, err),
+    /*#__PURE__*/React.createElement("div", { style: { display: 'flex', gap: '10px', marginBottom: '16px' } },
+      ['Home','Work','Other'].map(function(lbl) {
+        return /*#__PURE__*/React.createElement("button", { key: lbl, type: "button", onClick: function() { setLabel(lbl); }, style: { padding: '6px 16px', borderRadius: '99px', border: '1px solid ' + (label === lbl ? '#B89657' : 'rgba(26,26,26,0.2)'), background: label === lbl ? '#B89657' : 'transparent', color: label === lbl ? '#fff' : '#5E5B59', fontSize: '12px', fontWeight: 600, cursor: 'pointer', fontFamily: '"Jost", sans-serif' } }, lbl);
+      })
+    ),
+    /*#__PURE__*/React.createElement("div", { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '14px' } },
+      /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", { style: lb }, "Full Name *"), /*#__PURE__*/React.createElement("input", { type: "text", value: fname, onChange: function(e) { setFname(e.target.value); }, placeholder: "Full name", style: fs })),
+      /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", { style: lb }, "Phone *"), /*#__PURE__*/React.createElement("input", { type: "tel", value: phone, onChange: function(e) { setPhone(e.target.value); }, placeholder: "10-digit mobile", style: fs }))
+    ),
+    /*#__PURE__*/React.createElement("div", { style: { marginBottom: '14px' } }, /*#__PURE__*/React.createElement("label", { style: lb }, "Address Line 1 *"), /*#__PURE__*/React.createElement("input", { type: "text", value: line1, onChange: function(e) { setLine1(e.target.value); }, placeholder: "House no., Building, Street", style: fs })),
+    /*#__PURE__*/React.createElement("div", { style: { marginBottom: '14px' } }, /*#__PURE__*/React.createElement("label", { style: lb }, "Address Line 2"), /*#__PURE__*/React.createElement("input", { type: "text", value: line2, onChange: function(e) { setLine2(e.target.value); }, placeholder: "Area, Landmark (optional)", style: fs })),
+    /*#__PURE__*/React.createElement("div", { style: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '14px', marginBottom: '16px' } },
+      /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", { style: lb }, "City *"), /*#__PURE__*/React.createElement("input", { type: "text", value: city, onChange: function(e) { setCity(e.target.value); }, placeholder: "City", style: fs })),
+      /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", { style: lb }, "State *"), /*#__PURE__*/React.createElement("input", { type: "text", value: stateVal, onChange: function(e) { setStateVal(e.target.value); }, placeholder: "State", style: fs })),
+      /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", { style: lb }, "Pincode *"), /*#__PURE__*/React.createElement("input", { type: "text", value: pincode, onChange: function(e) { setPincode(e.target.value); }, placeholder: "6-digit", style: fs, maxLength: 6 }))
+    ),
+    /*#__PURE__*/React.createElement("div", { style: { display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' } },
+      /*#__PURE__*/React.createElement("input", { type: "checkbox", id: "addr-def", checked: isDef, onChange: function(e) { setIsDef(e.target.checked); }, style: { width: '16px', height: '16px', accentColor: '#B89657', cursor: 'pointer' } }),
+      /*#__PURE__*/React.createElement("label", { htmlFor: "addr-def", style: { fontSize: '13px', color: '#5E5B59', cursor: 'pointer', fontFamily: '"Jost", sans-serif' } }, "Set as default address")
+    ),
+    /*#__PURE__*/React.createElement("div", { style: { display: 'flex', gap: '12px' } },
+      /*#__PURE__*/React.createElement("button", { onClick: handleSave, disabled: saving, className: "btn btn-dark", style: { padding: '10px 24px', fontSize: '13px', opacity: saving ? 0.7 : 1 } }, saving ? "Saving..." : "Save Address"),
+      /*#__PURE__*/React.createElement("button", { onClick: onCancel, className: "btn btn-ghost", style: { padding: '10px 20px', fontSize: '13px' } }, "Cancel")
+    )
+  );
+}
+
+// ─── Addresses Tab ───────────────────────────────────────────────────────────
+function AddressesTab(_ref_addr) {
+  var user = _ref_addr.user, onToast = _ref_addr.onToast, onShop = _ref_addr.onShop, onUpdateUser = _ref_addr.onUpdateUser;
+  var _addrs = React.useState(null), addresses = _addrs[0], setAddresses = _addrs[1];
+  var _show = React.useState(false), showForm = _show[0], setShowForm = _show[1];
+  var _edit = React.useState(null), editAddr = _edit[0], setEditAddr = _edit[1];
+  var _sav = React.useState(false), saving = _sav[0], setSaving = _sav[1];
+
+  // Load addresses from user_metadata on mount and when user changes
+  React.useEffect(function() {
+    setAddresses((user && user.user_metadata && user.user_metadata.addresses) || []);
+  }, [user]);
+
+  // Helper: persist updated array to user_metadata and refresh local state
+  var persistAddresses = function(updatedArray, successMsg, successIcon, successColor) {
+    var sb = getSB();
+    if (!sb) { onToast('Not connected', 'error', '#C97840'); setSaving(false); return; }
+    sb.auth.updateUser({ data: { addresses: updatedArray } }).then(function(res) {
+      setSaving(false);
+      if (res.error) { onToast('Failed to save address', 'error', '#C97840'); return; }
+      setAddresses(updatedArray);
+      if (typeof onUpdateUser === 'function') {
+        sb.auth.getUser().then(function(fresh) {
+          if (fresh.data && fresh.data.user) onUpdateUser(fresh.data.user);
+        });
+      }
+      onToast(successMsg, successIcon, successColor);
+    })["catch"](function() { setSaving(false); onToast('Something went wrong', 'error', '#C97840'); });
+  };
+
+  var handleSave = function(formData) {
+    setSaving(true);
+    var existing = (user && user.user_metadata && user.user_metadata.addresses) || [];
+    var savedId = editAddr ? editAddr.id : null;
+    var newAddr = Object.assign({ id: savedId || Date.now().toString() }, formData);
+    var updatedArray;
+    if (savedId) {
+      updatedArray = existing.map(function(a) { return a.id === savedId ? newAddr : a; });
+    } else {
+      updatedArray = existing.concat([newAddr]);
+    }
+    // If new address is_default, clear default on all others
+    if (formData.is_default) {
+      updatedArray = updatedArray.map(function(a) {
+        return Object.assign({}, a, { is_default: a.id === newAddr.id });
+      });
+    }
+    // Sort: default first
+    updatedArray.sort(function(a, b) { return (b.is_default ? 1 : 0) - (a.is_default ? 1 : 0); });
+    setShowForm(false); setEditAddr(null);
+    persistAddresses(updatedArray, editAddr ? 'Address updated' : 'Address saved', 'check_circle', '#25D366');
+  };
+
+  var handleDelete = function(id) {
+    if (!window.confirm('Delete this address?')) return;
+    var existing = (user && user.user_metadata && user.user_metadata.addresses) || [];
+    var updatedArray = existing.filter(function(a) { return a.id !== id; });
+    persistAddresses(updatedArray, 'Address deleted', 'delete', '#9E9B98');
+  };
+
+  var handleSetDefault = function(id) {
+    var existing = (user && user.user_metadata && user.user_metadata.addresses) || [];
+    var updatedArray = existing.map(function(a) {
+      return Object.assign({}, a, { is_default: a.id === id });
+    });
+    // Sort: default first
+    updatedArray.sort(function(a, b) { return (b.is_default ? 1 : 0) - (a.is_default ? 1 : 0); });
+    persistAddresses(updatedArray, 'Default address updated', 'check_circle', '#B89657');
+  };
+
+  if (addresses === null) return /*#__PURE__*/React.createElement("div", { style: { padding: '40px', textAlign: 'center', color: '#5E5B59' } }, "Loading addresses...");
+
+  return /*#__PURE__*/React.createElement("div", null,
+    /*#__PURE__*/React.createElement("div", { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' } },
+      /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', margin: 0 } }, "Saved Addresses"),
+      !showForm && /*#__PURE__*/React.createElement("button", { onClick: function() { setEditAddr(null); setShowForm(true); }, className: "btn btn-dark", style: { padding: '8px 18px', fontSize: '13px' } },
+        /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '16px', marginRight: '6px', verticalAlign: 'middle' } }, "add"),
+        "Add Address"
       )
     ),
-    /*#__PURE__*/React.createElement("section", { style: { background: 'var(--base)', padding: '56px 0 96px' } },
-      /*#__PURE__*/React.createElement("div", { className: "container contact-grid", style: { display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '56px' } },
-        /*#__PURE__*/React.createElement("div", null,
-          /*#__PURE__*/React.createElement("h3", { className: "t-h3", style: { marginBottom: '24px' } }, "Send Us a Message"),
-          success ? /*#__PURE__*/React.createElement("div", { style: { background: 'rgba(37,211,102,0.08)', border: '1px solid rgba(37,211,102,0.25)', borderRadius: '6px', padding: '20px 24px', textAlign: 'center' } },
-            /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { color: '#25D366', fontSize: '36px', display: 'block', marginBottom: '10px' } }, "check_circle"),
-            /*#__PURE__*/React.createElement("div", { style: { fontSize: '15px', fontWeight: 600, color: 'var(--ink)', marginBottom: '6px' } }, "Message received!"),
-            /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', color: 'var(--muted)' } }, "We'll reply on WhatsApp within 10 minutes.")
-          ) : /*#__PURE__*/React.createElement("form", { onSubmit: handleSubmit, style: { display: 'flex', flexDirection: 'column', gap: '20px' } },
-            /*#__PURE__*/React.createElement("div", null, 
-              /*#__PURE__*/React.createElement("label", { style: { fontSize: '10px', fontWeight: 700, letterSpacing: '.22em', textTransform: 'uppercase', color: 'var(--ink)', display: 'block', marginBottom: '6px' } }, "Your name"),
-              /*#__PURE__*/React.createElement("input", { type: "text", id: "ctc-name", required: true, style: { padding: '12px 16px', border: '1px solid rgba(197,168,128,0.40)', borderRadius: '3px', width: '100%', boxSizing: 'border-box', background: 'transparent', color: 'var(--ink)' } })
+    showForm && /*#__PURE__*/React.createElement(AddressForm, { initial: editAddr, onSave: handleSave, onCancel: function() { setShowForm(false); setEditAddr(null); }, saving: saving }),
+    addresses.length === 0 && !showForm ? /*#__PURE__*/React.createElement("div", { style: { background: '#fff', borderRadius: '16px', padding: '48px 24px', textAlign: 'center', border: '1px dashed rgba(26,26,26,0.15)' } },
+      /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '48px', color: '#C5A880', display: 'block', marginBottom: '16px' } }, "location_on"),
+      /*#__PURE__*/React.createElement("div", { style: { fontSize: '17px', fontWeight: 500, marginBottom: '8px' } }, "No saved addresses"),
+      /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '24px' } }, "Save your delivery address for faster checkout."),
+      /*#__PURE__*/React.createElement("button", { onClick: function() { setShowForm(true); }, className: "btn btn-dark" }, "Add Your First Address")
+    ) : /*#__PURE__*/React.createElement("div", null,
+      addresses.map(function(addr) {
+        return /*#__PURE__*/React.createElement("div", { key: addr.id, style: { background: '#fff', borderRadius: '12px', padding: '20px', marginBottom: '14px', border: '1px solid ' + (addr.is_default ? 'rgba(184,150,87,0.5)' : 'rgba(26,26,26,0.08)'), position: 'relative' } },
+          addr.is_default && /*#__PURE__*/React.createElement("div", { style: { position: 'absolute', top: '14px', right: '14px', fontSize: '10px', fontWeight: 700, background: '#B89657', color: '#fff', padding: '3px 10px', borderRadius: '99px', letterSpacing: '.06em', textTransform: 'uppercase' } }, "Default"),
+          /*#__PURE__*/React.createElement("div", { style: { display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: '12px' } },
+            /*#__PURE__*/React.createElement("div", { style: { width: 32, height: 32, borderRadius: '8px', background: 'rgba(184,150,87,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 } },
+              /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '17px', color: '#B89657' } }, addr.label === 'Work' ? 'business' : (addr.label === 'Other' ? 'place' : 'home'))
             ),
-            /*#__PURE__*/React.createElement("div", null, 
-              /*#__PURE__*/React.createElement("label", { style: { fontSize: '10px', fontWeight: 700, letterSpacing: '.22em', textTransform: 'uppercase', color: 'var(--ink)', display: 'block', marginBottom: '6px' } }, "Phone (WhatsApp)"),
-              /*#__PURE__*/React.createElement("input", { type: "tel", id: "ctc-phone", required: true, style: { padding: '12px 16px', border: '1px solid rgba(197,168,128,0.40)', borderRadius: '3px', width: '100%', boxSizing: 'border-box', background: 'transparent', color: 'var(--ink)' } })
-            ),
-            /*#__PURE__*/React.createElement("div", null, 
-              /*#__PURE__*/React.createElement("label", { style: { fontSize: '10px', fontWeight: 700, letterSpacing: '.22em', textTransform: 'uppercase', color: 'var(--ink)', display: 'block', marginBottom: '6px' } }, "Message"),
-              /*#__PURE__*/React.createElement("textarea", { id: "ctc-msg", rows: "5", required: true, style: { padding: '12px 16px', border: '1px solid rgba(197,168,128,0.40)', borderRadius: '3px', width: '100%', boxSizing: 'border-box', background: 'transparent', color: 'var(--ink)' } })
-            ),
-            /*#__PURE__*/React.createElement("button", { type: "submit", className: "btn btn-dark", style: { alignSelf: 'flex-start' } }, "Send via WhatsApp")
-          )
-        ),
-        /*#__PURE__*/React.createElement("div", { style: { display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '54px' } },
-          /*#__PURE__*/React.createElement("div", { className: "contact-card", style: { display: 'flex', gap: '14px', padding: '20px', background: 'var(--surface)', border: '1px solid rgba(197,168,128,0.25)', borderRadius: '6px' } },
-            /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { color: 'var(--gold)', fontSize: '24px' } }, "location_on"),
-            /*#__PURE__*/React.createElement("div", null, 
-              /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: 600, color: 'var(--ink)', marginBottom: '4px' } }, "Showroom"),
-              /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', color: 'var(--muted)', lineHeight: 1.5 } }, "185/G Junction Rd,", /*#__PURE__*/React.createElement("br", null), "Virudhachalam – 606001", /*#__PURE__*/React.createElement("br", null), "Tamil Nadu, India")
+            /*#__PURE__*/React.createElement("div", null,
+              /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', fontWeight: 700, color: '#1A1A1A', marginBottom: '2px' } }, addr.label + " — " + addr.full_name),
+              /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', color: '#5E5B59', lineHeight: 1.6 } },
+                addr.line1, addr.line2 ? ', ' + addr.line2 : '', /*#__PURE__*/React.createElement("br", null),
+                addr.city + ", " + addr.state + " — " + addr.pincode, /*#__PURE__*/React.createElement("br", null),
+                /*#__PURE__*/React.createElement("span", { style: { color: '#9E9B98' } }, addr.phone)
+              )
             )
           ),
-          /*#__PURE__*/React.createElement("div", { className: "contact-card", style: { display: 'flex', gap: '14px', padding: '20px', background: 'var(--surface)', border: '1px solid rgba(197,168,128,0.25)', borderRadius: '6px' } },
-            /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { color: 'var(--gold)', fontSize: '24px' } }, "schedule"),
-            /*#__PURE__*/React.createElement("div", null, 
-              /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: 600, color: 'var(--ink)', marginBottom: '4px' } }, "Hours"),
-              /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', color: 'var(--muted)' } }, "Mon – Sun · 10:00 AM – 10:00 PM")
-            )
+          /*#__PURE__*/React.createElement("div", { style: { display: 'flex', gap: '10px', flexWrap: 'wrap' } },
+            !addr.is_default && /*#__PURE__*/React.createElement("button", { onClick: function() { handleSetDefault(addr.id); }, style: { fontSize: '12px', padding: '5px 14px', borderRadius: '99px', border: '1px solid rgba(184,150,87,0.5)', background: 'transparent', color: '#B89657', cursor: 'pointer', fontFamily: '"Jost", sans-serif', fontWeight: 600 } }, "Set Default"),
+            /*#__PURE__*/React.createElement("button", { onClick: function() { setEditAddr(addr); setShowForm(true); }, style: { fontSize: '12px', padding: '5px 14px', borderRadius: '99px', border: '1px solid rgba(26,26,26,0.15)', background: 'transparent', color: '#1A1A1A', cursor: 'pointer', fontFamily: '"Jost", sans-serif', fontWeight: 600 } }, "Edit"),
+            /*#__PURE__*/React.createElement("button", { onClick: function() { handleDelete(addr.id); }, style: { fontSize: '12px', padding: '5px 14px', borderRadius: '99px', border: '1px solid rgba(183,28,28,0.2)', background: 'transparent', color: '#B71C1C', cursor: 'pointer', fontFamily: '"Jost", sans-serif', fontWeight: 600 } }, "Delete")
+          )
+        );
+      })
+    )
+  );
+}
+
+// ─── Change Password Tab ─────────────────────────────────────────────────────
+function ChangePasswordTab(_ref_cp) {
+  var onToast = _ref_cp.onToast;
+  var _np = React.useState(''), newPwd = _np[0], setNewPwd = _np[1];
+  var _cp2 = React.useState(''), confPwd = _cp2[0], setConfPwd = _cp2[1];
+  var _sn = React.useState(false), showNew = _sn[0], setShowNew = _sn[1];
+  var _sc = React.useState(false), showConf = _sc[0], setShowConf = _sc[1];
+  var _sav = React.useState(false), saving = _sav[0], setSaving = _sav[1];
+  var _err = React.useState(''), err = _err[0], setErr = _err[1];
+
+  var fs = { width: '100%', padding: '14px', paddingRight: '46px', border: '1px solid rgba(26,26,26,0.15)', borderRadius: '8px', fontSize: '14px', fontFamily: '"Jost", sans-serif', boxSizing: 'border-box' };
+  var lb = { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '.04em' };
+
+  var handleSave = function() {
+    setErr('');
+    if (newPwd.length < 8) { setErr('Password must be at least 8 characters.'); return; }
+    if (newPwd !== confPwd) { setErr('Passwords do not match.'); return; }
+    setSaving(true);
+    var sb = getSB();
+    sb.auth.updateUser({ password: newPwd }).then(function(res) {
+      setSaving(false);
+      if (res.error) { setErr(res.error.message || 'Update failed.'); return; }
+      setNewPwd(''); setConfPwd('');
+      onToast('Password changed successfully', 'lock', '#B89657');
+    })["catch"](function(e) { setSaving(false); setErr(e.message || 'Update failed.'); });
+  };
+
+  return /*#__PURE__*/React.createElement("div", null,
+    /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', marginBottom: '20px' } }, "Change Password"),
+    /*#__PURE__*/React.createElement("div", { style: { background: '#fff', borderRadius: '16px', padding: '32px', border: '1px solid rgba(26,26,26,0.06)', maxWidth: '460px' } },
+      err && /*#__PURE__*/React.createElement("div", { style: { background: 'rgba(201,120,64,0.08)', color: '#C97840', fontSize: '13px', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px' } }, err),
+      /*#__PURE__*/React.createElement("div", { style: { marginBottom: '20px' } },
+        /*#__PURE__*/React.createElement("label", { style: lb }, "New Password"),
+        /*#__PURE__*/React.createElement("div", { style: { position: 'relative' } },
+          /*#__PURE__*/React.createElement("input", { type: showNew ? "text" : "password", value: newPwd, onChange: function(e) { setNewPwd(e.target.value); }, placeholder: "Min. 8 characters", style: fs }),
+          /*#__PURE__*/React.createElement("button", { type: "button", onClick: function() { setShowNew(!showNew); }, style: { position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#9E9B98', display: 'flex', alignItems: 'center' } },
+            /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '18px' } }, showNew ? "visibility_off" : "visibility")
           )
         )
+      ),
+      /*#__PURE__*/React.createElement("div", { style: { marginBottom: '28px' } },
+        /*#__PURE__*/React.createElement("label", { style: lb }, "Confirm Password"),
+        /*#__PURE__*/React.createElement("div", { style: { position: 'relative' } },
+          /*#__PURE__*/React.createElement("input", { type: showConf ? "text" : "password", value: confPwd, onChange: function(e) { setConfPwd(e.target.value); }, placeholder: "Re-enter password", style: fs }),
+          /*#__PURE__*/React.createElement("button", { type: "button", onClick: function() { setShowConf(!showConf); }, style: { position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#9E9B98', display: 'flex', alignItems: 'center' } },
+            /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '18px' } }, showConf ? "visibility_off" : "visibility")
+          )
+        )
+      ),
+      confPwd && newPwd !== confPwd && /*#__PURE__*/React.createElement("div", { style: { fontSize: '12px', color: '#C97840', marginTop: '-18px', marginBottom: '18px' } }, "Passwords don't match"),
+      /*#__PURE__*/React.createElement("button", { onClick: handleSave, disabled: saving, className: "btn btn-dark", style: { padding: '12px 28px', opacity: saving ? 0.7 : 1 } }, saving ? "Saving..." : "Update Password")
+    )
+  );
+}
+
+// ─── Account Wishlist Tab ─────────────────────────────────────────────────────
+function AccountWishlistTab(_ref_wl) {
+  var wishlist = _ref_wl.wishlist, onAdd = _ref_wl.onAdd, onView = _ref_wl.onView, onWishToggle = _ref_wl.onWishToggle, onShop = _ref_wl.onShop;
+  var items = PRODUCTS.filter(function(p) { return wishlist.map(String).includes(String(p.id)); });
+  if (items.length === 0) return /*#__PURE__*/React.createElement("div", null,
+    /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', marginBottom: '20px' } }, "Wishlist"),
+    /*#__PURE__*/React.createElement("div", { style: { background: '#fff', borderRadius: '16px', padding: '48px 24px', textAlign: 'center', border: '1px dashed rgba(26,26,26,0.15)' } },
+      /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '48px', color: '#E8434A', display: 'block', marginBottom: '16px', fontVariationSettings: '"FILL" 1' } }, "favorite"),
+      /*#__PURE__*/React.createElement("div", { style: { fontSize: '17px', fontWeight: 500, marginBottom: '8px' } }, "Your wishlist is empty"),
+      /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '24px' } }, "Tap the heart on any product to save it here."),
+      /*#__PURE__*/React.createElement("button", { onClick: onShop, className: "btn btn-dark" }, "Browse Products")
+    )
+  );
+  return /*#__PURE__*/React.createElement("div", null,
+    /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', marginBottom: '20px' } }, "Wishlist (" + items.length + ")"),
+    /*#__PURE__*/React.createElement("div", { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '16px' } },
+      items.map(function(p) {
+        return /*#__PURE__*/React.createElement("div", { key: p.id, style: { background: '#fff', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(26,26,26,0.08)' } },
+          /*#__PURE__*/React.createElement("div", { style: { position: 'relative', aspectRatio: '1/1', overflow: 'hidden', cursor: 'pointer' }, onClick: function() { onView(p); } },
+            /*#__PURE__*/React.createElement("img", { src: p.image, alt: p.name, style: { width: '100%', height: '100%', objectFit: 'cover' } }),
+            /*#__PURE__*/React.createElement("button", { onClick: function(e) { e.stopPropagation(); e.currentTarget.blur(); onWishToggle(p.id); }, style: { position: 'absolute', top: '10px', right: '10px', width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.9)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+              /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '17px', color: '#E8434A', fontVariationSettings: '"FILL" 1' } }, "favorite")
+            )
+          ),
+          /*#__PURE__*/React.createElement("div", { style: { padding: '12px' } },
+            /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', fontWeight: 600, color: '#1A1A1A', marginBottom: '4px', lineHeight: 1.3 } }, p.name),
+            /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: 700, color: '#B89657', marginBottom: '10px' } }, "₹" + p.price),
+            /*#__PURE__*/React.createElement("button", { onClick: function() { onAdd(p); }, className: "btn btn-dark", style: { width: '100%', padding: '8px', fontSize: '12px' } }, "Add to Cart")
+          )
+        );
+      })
+    )
+  );
+}
+
+// ─── Main Account Dashboard ───────────────────────────────────────────────────
+function AccountDashboardPage(_ref3) {
+  var onLogout = _ref3.onLogout,
+    onShop = _ref3.onShop,
+    onTrack = _ref3.onTrack,
+    onToast = _ref3.onToast,
+    onAdd = _ref3.onAdd,
+    onView = _ref3.onView,
+    onWishToggle = _ref3.onWishToggle,
+    wishlist = _ref3.wishlist,
+    user = _ref3.user,
+    onUpdateUser = _ref3.onUpdateUser;
+
+  var _state_t = React.useState('dashboard'), activeTab = _state_t[0], setActiveTab = _state_t[1];
+  var _state_o = React.useState([]), orders = _state_o[0], setOrders = _state_o[1];
+  var _state_l = React.useState(true), loading = _state_l[0], setLoading = _state_l[1];
+  var _state_addrCount = React.useState(0), addrCount = _state_addrCount[0], setAddrCount = _state_addrCount[1];
+  var _state_exp = React.useState(null), expandedOrder = _state_exp[0], setExpandedOrder = _state_exp[1];
+  var _state_cancel = React.useState(null), cancellingId = _state_cancel[0], setCancellingId = _state_cancel[1];
+
+  var toast = (typeof onToast === 'function') ? onToast : (window._kgsShowToast || function() {});
+  var track = (typeof onTrack === 'function') ? onTrack : function(id) { window._kgsTrackingId = id; sessionStorage.setItem('kgs_tracking_id', id); if (window._kgsSetRoute) window._kgsSetRoute('order-tracking'); };
+
+  var loadOrders = function() {
+    if (typeof getMyOrders === 'function') {
+      getMyOrders().then(function(data) {
+        setOrders(data || []);
+        setLoading(false);
+      })["catch"](function() { setLoading(false); });
+    } else { setLoading(false); }
+  };
+
+  React.useEffect(function() {
+    loadOrders();
+    // If a tab was requested globally (e.g. from announcement bar), consume it
+    if (window._kgsAccountTab) {
+      setActiveTab(window._kgsAccountTab);
+      window._kgsAccountTab = null;
+    }
+    // fetch address count from user_metadata (no Supabase table query needed)
+    var addrCount = ((user && user.user_metadata && user.user_metadata.addresses) || []).length;
+    setAddrCount(addrCount);
+  }, []);
+
+  var displayName = (user && (user.user_metadata && user.user_metadata.full_name || user.email)) || 'there';
+  var firstName = displayName.split(' ')[0];
+  var initials = displayName.split(' ').map(function(w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
+
+  var handleCancelOrder = function(orderId) {
+    if (!window.confirm('Cancel this order?')) return;
+    setCancellingId(orderId);
+    var sb = getSB();
+    sb.from('orders').select('status').eq('id', orderId).single().then(function(r) {
+      if (r.error || !r.data) { setCancellingId(null); toast('Could not verify order', 'error', '#C97840'); return; }
+      var currentStatus = (r.data.status || '').toLowerCase();
+      var cancellable = ['pending', 'confirmed'].indexOf(currentStatus) !== -1;
+      if (!cancellable) {
+        setCancellingId(null);
+        toast('Order cannot be cancelled — it has already been shipped', 'error', '#C97840');
+        return;
+      }
+      sb.from('orders').update({ status: 'cancelled' }).eq('id', orderId).then(function(res) {
+        setCancellingId(null);
+        if (res.error) { toast('Could not cancel order', 'error', '#C97840'); return; }
+        toast('Order cancelled', 'cancel', '#9E9B98');
+        setLoading(true); loadOrders();
+      })["catch"](function() { setCancellingId(null); toast('Something went wrong', 'error', '#C97840'); });
+    });
+  };
+
+  var renderDashboard = function() {
+    var deliveredCount = orders.filter(function(o) { return o.status === 'delivered'; }).length;
+    var activeCount = orders.filter(function(o) { return ['pending','confirmed','processing','shipped','out for delivery'].indexOf(o.status) !== -1; }).length;
+    var stats = [
+      { icon: 'receipt_long', label: 'Total Orders', value: loading ? '—' : orders.length, color: '#B89657' },
+      { icon: 'check_circle', label: 'Delivered', value: loading ? '—' : deliveredCount, color: '#2E7D32' },
+      { icon: 'local_shipping', label: 'Active', value: loading ? '—' : activeCount, color: '#1565C0' },
+      { icon: 'location_on', label: 'Addresses', value: addrCount, color: '#6A1B9A' }
+    ];
+    return /*#__PURE__*/React.createElement("div", null,
+      /*#__PURE__*/React.createElement("div", { style: { background: 'linear-gradient(135deg,#F9F4EC,#F2E8D6)', borderRadius: '16px', padding: '28px', marginBottom: '24px', border: '1px solid rgba(197,168,128,0.25)' } },
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', color: '#B89657', fontWeight: 600, letterSpacing: '.04em', textTransform: 'uppercase', marginBottom: '6px' } }, "Welcome back"),
+        /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '28px', color: '#1A1A1A', marginBottom: '6px' } }, "Hello, " + firstName + "!"),
+        /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px' } }, user.email)
+      ),
+      /*#__PURE__*/React.createElement("div", { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px,1fr))', gap: '12px', marginBottom: '28px' } },
+        stats.map(function(stat) {
+          return /*#__PURE__*/React.createElement("div", { key: stat.label, style: { background: '#fff', borderRadius: '12px', padding: '16px 14px', border: '1px solid rgba(26,26,26,0.07)', textAlign: 'center' } },
+            /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '22px', color: stat.color, fontVariationSettings: '"FILL" 1', display: 'block', marginBottom: '8px' } }, stat.icon),
+            /*#__PURE__*/React.createElement("div", { style: { fontSize: '22px', fontWeight: 700, color: '#1A1A1A', fontFamily: '"Crimson Pro", serif', lineHeight: 1 } }, stat.value),
+            /*#__PURE__*/React.createElement("div", { style: { fontSize: '11px', color: '#9E9B98', marginTop: '4px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.04em' } }, stat.label)
+          );
+        })
+      ),
+      /*#__PURE__*/React.createElement("h3", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '18px', marginBottom: '14px', color: '#1A1A1A' } }, "Quick Actions"),
+      /*#__PURE__*/React.createElement("div", { style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px,1fr))', gap: '12px' } },
+        [
+          { icon: 'receipt_long', label: 'My Orders', tab: 'orders' },
+          { icon: 'location_on', label: 'Addresses', tab: 'addresses' },
+          { icon: 'manage_accounts', label: 'My Profile', tab: 'profile' },
+          { icon: 'lock', label: 'Change Password', tab: 'password' }
+        ].map(function(qa) {
+          return /*#__PURE__*/React.createElement("button", { key: qa.tab, onClick: function() { setActiveTab(qa.tab); }, style: { display: 'flex', alignItems: 'center', gap: '10px', padding: '14px 16px', background: '#fff', border: '1px solid rgba(26,26,26,0.08)', borderRadius: '10px', cursor: 'pointer', fontFamily: '"Jost", sans-serif', fontSize: '13px', fontWeight: 600, color: '#1A1A1A', textAlign: 'left', transition: 'border-color 0.2s, box-shadow 0.2s' } },
+            /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '18px', color: '#B89657' } }, qa.icon),
+            qa.label
+          );
+        })
       )
+    );
+  };
+
+  var renderOrders = function() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null,
+      /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '22px', marginBottom: '20px' } }, "My Orders"),
+      loading ? /*#__PURE__*/React.createElement("div", { style: { padding: '40px', textAlign: 'center', color: '#5E5B59' } }, "Loading orders...") :
+      orders.length === 0 ? /*#__PURE__*/React.createElement("div", { style: { background: '#fff', borderRadius: '16px', padding: '48px 24px', textAlign: 'center', border: '1px dashed rgba(26,26,26,0.15)' } },
+        /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '52px', color: '#C5A880', display: 'block', marginBottom: '16px' } }, "inventory_2"),
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '17px', fontWeight: 500, marginBottom: '8px' } }, "You haven't placed any orders yet"),
+        /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '24px' } }, "Explore our curated collection of home décor."),
+        /*#__PURE__*/React.createElement("button", { onClick: onShop, className: "btn btn-dark" }, "Start Shopping")
+      ) : /*#__PURE__*/React.createElement("div", null,
+        orders.map(function(order) {
+          var badge = getStatusBadge(order.status);
+          var isExpanded = expandedOrder === order.id;
+          var isPending = (order.status || '').toLowerCase() === 'pending' || (order.status || '').toLowerCase() === 'confirmed';
+          var isCancelled = (order.status || '').toLowerCase() === 'cancelled';
+          return /*#__PURE__*/React.createElement("div", { key: order.id, style: { background: '#fff', borderRadius: '14px', marginBottom: '16px', border: '1px solid rgba(197,168,128,0.2)', overflow: 'hidden' } },
+            // Order card header
+            /*#__PURE__*/React.createElement("div", { style: { padding: '20px' } },
+              /*#__PURE__*/React.createElement("div", { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' } },
+                /*#__PURE__*/React.createElement("div", null,
+                  /*#__PURE__*/React.createElement("div", { style: { fontSize: '11px', fontWeight: 700, color: '#9E9B98', textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: '4px' } }, "Order #" + String(order.id).slice(-8).toUpperCase()),
+                  /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', color: '#5E5B59' } }, new Date(order.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }))
+                ),
+                /*#__PURE__*/React.createElement("div", { style: { display: 'flex', alignItems: 'center', gap: '10px' } },
+                  /*#__PURE__*/React.createElement("div", { style: { fontSize: '20px', fontWeight: 700, color: '#1A1A1A', fontFamily: '"Crimson Pro", serif' } }, "₹" + (order.total || order.total_amount || 0)),
+                  /*#__PURE__*/React.createElement("div", { style: { fontSize: '12px', fontWeight: 700, padding: '4px 12px', borderRadius: '99px', background: badge.bg, color: badge.color, letterSpacing: '.02em' } }, badge.label)
+                )
+              ),
+              // Items thumbnails + names
+              (order.order_items || []).length > 0 && /*#__PURE__*/React.createElement("div", { style: { display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '4px', marginBottom: '14px' } },
+                (order.order_items || []).map(function(item, idx) {
+                  return /*#__PURE__*/React.createElement("div", { key: idx, style: { flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', width: '72px' } },
+                    /*#__PURE__*/React.createElement("img", { src: item.product_image || '', alt: item.product_name, style: { width: '64px', height: '64px', objectFit: 'cover', borderRadius: '8px', border: '1px solid rgba(26,26,26,0.07)' } }),
+                    /*#__PURE__*/React.createElement("div", { style: { fontSize: '10px', color: '#5E5B59', textAlign: 'center', lineHeight: 1.2, maxWidth: '70px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } }, item.product_name)
+                  );
+                })
+              ),
+              // Delivery address (if available)
+              order.shipping_address && /*#__PURE__*/React.createElement("div", { style: { fontSize: '12px', color: '#9E9B98', display: 'flex', gap: '6px', alignItems: 'flex-start', marginBottom: '14px' } },
+                /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '14px', marginTop: '1px' } }, "location_on"),
+                /*#__PURE__*/React.createElement("span", null, order.shipping_address)
+              ),
+              // Action buttons
+              /*#__PURE__*/React.createElement("div", { style: { display: 'flex', gap: '10px', flexWrap: 'wrap' } },
+                !isCancelled && /*#__PURE__*/React.createElement("button", { onClick: function() { track(order.id); }, className: "btn btn-ghost", style: { padding: '7px 16px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '5px' } },
+                  /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '14px' } }, "local_shipping"),
+                  "Track Order"
+                ),
+                /*#__PURE__*/React.createElement("button", { onClick: function() { setExpandedOrder(isExpanded ? null : order.id); }, style: { padding: '7px 16px', fontSize: '12px', borderRadius: '8px', border: '1px solid rgba(26,26,26,0.15)', background: 'transparent', cursor: 'pointer', fontFamily: '"Jost", sans-serif', fontWeight: 600, color: '#1A1A1A', display: 'flex', alignItems: 'center', gap: '5px' } },
+                  /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '14px' } }, isExpanded ? "expand_less" : "expand_more"),
+                  isExpanded ? "Hide Details" : "View Details"
+                ),
+                isPending && /*#__PURE__*/React.createElement("button", { onClick: function() { handleCancelOrder(order.id); }, disabled: cancellingId === order.id, style: { padding: '7px 16px', fontSize: '12px', borderRadius: '8px', border: '1px solid rgba(183,28,28,0.3)', background: 'transparent', cursor: 'pointer', fontFamily: '"Jost", sans-serif', fontWeight: 600, color: '#B71C1C', opacity: cancellingId === order.id ? 0.6 : 1 } },
+                  cancellingId === order.id ? "Cancelling..." : "Cancel Order"
+                ),
+                (!isPending && !isCancelled && ['shipped','out_for_delivery','out for delivery','delivered'].indexOf((order.status || '').toLowerCase()) !== -1)
+                  ? React.createElement('p', { style: { fontSize: '11px', color: '#9E9B98', margin: '4px 0 0', fontFamily: 'Jost, sans-serif' } }, 'Cancellation not available after shipment')
+                  : null
+              )
+            ),
+            // Expanded detail panel
+            isExpanded && /*#__PURE__*/React.createElement("div", { style: { borderTop: '1px solid rgba(26,26,26,0.07)', padding: '20px', background: '#FDFCFA' } },
+              !isCancelled && /*#__PURE__*/React.createElement(OrderTimeline, { status: order.status }),
+              /*#__PURE__*/React.createElement("div", { style: { marginTop: '20px' } },
+                /*#__PURE__*/React.createElement("div", { style: { fontSize: '12px', fontWeight: 700, color: '#9E9B98', textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: '12px' } }, "Order Items"),
+                (order.order_items || []).map(function(item, idx) {
+                  return /*#__PURE__*/React.createElement("div", { key: idx, style: { display: 'flex', gap: '12px', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid rgba(26,26,26,0.06)' } },
+                    /*#__PURE__*/React.createElement("img", { src: item.product_image || '', alt: item.product_name, style: { width: '52px', height: '52px', objectFit: 'cover', borderRadius: '8px', flexShrink: 0 } }),
+                    /*#__PURE__*/React.createElement("div", { style: { flex: 1 } },
+                      /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: 600, color: '#1A1A1A', marginBottom: '2px' } }, item.product_name),
+                      /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', color: '#9E9B98' } }, "Qty: " + (item.quantity || 1))
+                    ),
+                    /*#__PURE__*/React.createElement("div", { style: { fontSize: '15px', fontWeight: 700, color: '#B89657' } }, "₹" + (item.total_price || item.unit_price * (item.quantity || 1) || 0))
+                  );
+                }),
+                /*#__PURE__*/React.createElement("div", { style: { display: 'flex', justifyContent: 'flex-end', paddingTop: '12px', gap: '24px' } },
+                  order.delivery_fee > 0 && /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', color: '#5E5B59' } }, "Delivery: ₹" + order.delivery_fee),
+                  /*#__PURE__*/React.createElement("div", { style: { fontSize: '15px', fontWeight: 700, color: '#1A1A1A' } }, "Total: ₹" + (order.total || order.total_amount || 0))
+                )
+              )
+            )
+          );
+        })
+      )
+    );
+  };
+
+  var renderContent = function() {
+    if (activeTab === 'dashboard') return renderDashboard();
+    if (activeTab === 'orders') return renderOrders();
+    if (activeTab === 'addresses') return /*#__PURE__*/React.createElement(AddressesTab, { user: user, onToast: toast, onShop: onShop, onUpdateUser: onUpdateUser });
+    if (activeTab === 'profile') return /*#__PURE__*/React.createElement(AccountSettingsTab, { user: user, displayName: displayName, onToast: toast, onUpdateUser: onUpdateUser });
+    if (activeTab === 'password') return /*#__PURE__*/React.createElement(ChangePasswordTab, { onToast: toast });
+    return null;
+  };
+
+  var NAV_ITEMS = [
+    { id: 'dashboard', icon: 'dashboard', label: 'Dashboard' },
+    { id: 'orders', icon: 'receipt_long', label: 'My Orders' },
+    { id: 'addresses', icon: 'location_on', label: 'Addresses' },
+    { id: 'profile', icon: 'manage_accounts', label: 'My Profile' },
+    { id: 'password', icon: 'lock', label: 'Password' }
+  ];
+
+  return /*#__PURE__*/React.createElement("div", { className: "section container account-page" },
+    /*#__PURE__*/React.createElement("div", { className: "account-header" },
+      /*#__PURE__*/React.createElement("div", { style: { display: 'flex', alignItems: 'center', gap: 16 } },
+        /*#__PURE__*/React.createElement("div", { style: { width: 52, height: 52, borderRadius: '50%', background: 'linear-gradient(135deg,#C5A880,#B89657)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 18, flexShrink: 0 } }, initials),
+        /*#__PURE__*/React.createElement("div", null,
+          /*#__PURE__*/React.createElement("h1", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '28px', color: '#1A1A1A', marginBottom: '2px' } }, "My Account"),
+          /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px' } }, "Welcome back, " + displayName + ".")
+        )
+      ),
+      /*#__PURE__*/React.createElement("button", { onClick: onLogout, className: "btn btn-ghost", style: { padding: '10px 20px', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '6px' } },
+        /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '16px' } }, "logout"),
+        "Sign Out"
+      )
+    ),
+    /*#__PURE__*/React.createElement("div", { className: "account-grid" },
+      /*#__PURE__*/React.createElement("nav", { className: "account-nav" },
+        NAV_ITEMS.map(function(item) {
+          return /*#__PURE__*/React.createElement("div", { key: item.id, className: "account-nav-item " + (activeTab === item.id ? 'active' : ''), onClick: function() { setActiveTab(item.id); } },
+            /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, item.icon),
+            /*#__PURE__*/React.createElement("span", null, item.label)
+          );
+        }),
+        /*#__PURE__*/React.createElement("div", { className: "account-nav-item", onClick: onLogout, style: { marginTop: '8px', color: '#B71C1C', opacity: 0.75 } },
+          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "logout"),
+          /*#__PURE__*/React.createElement("span", null, "Sign Out")
+        )
+      ),
+      /*#__PURE__*/React.createElement("div", { className: "account-main" }, renderContent())
     )
   );
 }
@@ -660,15 +1035,11 @@ function ShippingPolicyPage() {
     style: {
       marginBottom: '8px'
     }
-  }, /*#__PURE__*/React.createElement("b", null, "Tamil Nadu:"), " 2-4 business days."), /*#__PURE__*/React.createElement("li", {
-    style: {
-      marginBottom: '8px'
-    }
-  }, /*#__PURE__*/React.createElement("b", null, "Rest of India:"), " 5-7 business days.")), /*#__PURE__*/React.createElement("p", {
+  }, /*#__PURE__*/React.createElement("b", null, "Tamil Nadu:"), " 2-4 business days.")), /*#__PURE__*/React.createElement("p", {
     style: {
       marginBottom: '24px'
     }
-  }, "Shipping is free for all orders within Virudhachalam."));
+  }, "Shipping is free for all orders across Tamil Nadu."));
 }
 
 // Attach to window so Babel standalone finds it
@@ -1077,7 +1448,11 @@ var SB_ANON = 'sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P';
 var _sbClient = null;
 function getSB() {
   if (!_sbClient && typeof window.supabase !== 'undefined') {
-    _sbClient = window.supabase.createClient(SB_URL, SB_ANON);
+    try {
+      _sbClient = window.supabase.createClient(SB_URL, SB_ANON);
+    } catch (e) {
+      console.error('[KGS] Failed to create Supabase client:', e);
+    }
   }
   return _sbClient;
 }
@@ -1195,6 +1570,45 @@ function normalizeProduct(p) {
   };
 }
 
+function resetPasswordForEmail(email) {
+  var sb = getSB();
+  var redirectUrl = window.location.origin + window.location.pathname + '?reset=1';
+  return sb.auth.resetPasswordForEmail(email, { redirectTo: redirectUrl }).then(function(res) {
+    if (res.error) throw res.error;
+    return res;
+  });
+}
+
+function getMyOrders() {
+  var sb = getSB();
+  if (!sb) return Promise.resolve([]);
+  return sb.auth.getUser().then(function(res) {
+    var user = res.data && res.data.user;
+    if (!user) return [];
+    return sb.from('orders')
+      .select('*, order_items(*)')
+      .eq('customer_id', user.id)
+      .order('created_at', { ascending: false })
+      .then(function(r) {
+        if (r.error) throw r.error;
+        return r.data || [];
+      });
+  });
+}
+
+function getOrderById(orderId) {
+  var sb = getSB();
+  if (!sb) return Promise.resolve(null);
+  return sb.from('orders')
+    .select('*, order_items(*)')
+    .eq('id', orderId)
+    .single()
+    .then(function(r) {
+      if (r.error) throw r.error;
+      return r.data;
+    });
+}
+
     function fetchAllProductsFromSupabase() {
   return _fetchAllProductsFromSupabase.apply(this, arguments);
 } // ===== Announcement bar =====================================================
@@ -1205,6 +1619,7 @@ function _fetchAllProductsFromSupabase() {
       while (1) switch (_context.n) {
         case 0:
           sb = getSB();
+          if (!sb) throw new Error('Supabase client not initialised — window.supabase unavailable');
           all = [], offset = 0, batchSize = 500;
         case 1:
           if (!true) {
@@ -1247,7 +1662,7 @@ function _fetchAllProductsFromSupabase() {
 function Announcement() {
   var MSGS = [{
     icon: 'local_shipping',
-    text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Free delivery'), ' in Virudhachalam — every order, no minimum.')
+    text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Free delivery'), ' across Tamil Nadu — every order, no minimum.')
   }, {
     icon: 'star',
     text: React.createElement(React.Fragment, null, React.createElement('b', null, "\u2605 5.0 on Google."), ' 240 families trust us. Come see why.')
@@ -1383,6 +1798,7 @@ function Announcement() {
     href: '#',
     onClick: function onClick(e) {
       e.preventDefault();
+      window._kgsAccountTab = 'orders';
       if (window._kgsSetRoute) window._kgsSetRoute('account');
     }
   }, 'Track Order'), React.createElement('span', {
@@ -1484,7 +1900,7 @@ function Nav(_ref5) {
     className: "sub"
   }, "Home D\xE9cors")), /*#__PURE__*/React.createElement("div", {
     className: "nav-links"
-  }, link('home', 'Home'), link('shop', 'Shop'), link('about', 'Our Story'), link('contact', 'Contact')), /*#__PURE__*/React.createElement("div", {
+  }, link('home', 'Home'), link('shop', 'Shop'), link('about', 'About Us'), link('contact', 'Contact')), /*#__PURE__*/React.createElement("div", {
     className: "nav-actions"
   }, /*#__PURE__*/React.createElement("button", {
     className: "icon-btn",
@@ -1553,7 +1969,7 @@ function Nav(_ref5) {
       color: '#1A1A1A',
       marginBottom: 8
     }
-  }, "KGS Home D\xE9cors"), mobileLink('about', 'Our Story'), mobileLink('contact', 'Contact'), /*#__PURE__*/React.createElement("div", {
+  }, "KGS Home D\xE9cors"), mobileLink('about', 'About Us'), mobileLink('contact', 'Contact'), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 'auto',
       paddingTop: 24
@@ -1601,7 +2017,7 @@ function TrustStrip() {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
     className: "trust-row"
-  }, item('local_shipping', 'Free Delivery', 'In Virudhachalam only.'), item('verified', 'Hand-Checked', 'We look at every piece before it ships.'), item('payments', 'Pay How You Like', 'UPI, card, or net banking.'), item('chat', 'Text Us Anytime', 'WhatsApp — we reply fast.'))));
+  }, item('local_shipping', 'Free Delivery', 'Across Tamil Nadu.'), item('verified', 'Hand-Checked', 'We look at every piece before it ships.'), item('payments', 'Pay How You Like', 'UPI, card, or net banking.'), item('chat', 'Text Us Anytime', 'WhatsApp — we reply fast.'))));
 }
 
 // ===== Newsletter ============================================================
@@ -1672,14 +2088,16 @@ function Newsletter() {
 
 // ===== Footer ================================================================
 function Footer(_ref6) {
-  var setRoute = _ref6.setRoute;
+  var setRoute = _ref6.setRoute,
+    setFilter = _ref6.setFilter;
   var col = function col(title, items) {
     return /*#__PURE__*/React.createElement("div", {
       className: "footer-col"
     }, /*#__PURE__*/React.createElement("h4", null, title), /*#__PURE__*/React.createElement("ul", null, items.map(function (_ref7) {
-      var _ref8 = _slicedToArray(_ref7, 2),
+      var _ref8 = _slicedToArray(_ref7, 3),
         label = _ref8[0],
-        target = _ref8[1];
+        target = _ref8[1],
+        slug = _ref8[2];
       var isHtml = target && target.endsWith('.html');
       return /*#__PURE__*/React.createElement("li", {
         key: label
@@ -1688,7 +2106,9 @@ function Footer(_ref6) {
         onClick: function onClick(e) {
           if (isHtml) return;
           e.preventDefault();
+          if (slug && setFilter) setFilter(slug);
           if (target && setRoute) setRoute(target);
+          window.scrollTo(0, 0);
         }
       }, label));
     })));
@@ -1802,17 +2222,17 @@ function Footer(_ref6) {
       cursor: 'pointer'
     }
   }, "Join")))), col('Shop', [
-                ['Artificial Plants', 'shop'],
-                ['Artificial Flowers', 'shop'],
-                ['Vases & Décor', 'shop'],
-                ['Fountains & Pooja', 'shop'],
-                ['Chairs & Sofas', 'shop'],
-                ['Lighting', 'shop'],
-                ['Gifts & Hampers', 'shop'],
-                ['Statues & Idols', 'shop'],
-                ['Wall Frames', 'shop'],
-                ['Wall Statues', 'shop'],
-              ]), col('Help', [['Shipping & Delivery', 'shipping'], ['Returns & Refunds', 'returns'], ['FAQ', 'faq'], ['Track Order', 'account'], ['Payment Options', 'payment-options']]), col('Company', [['About Us', 'about'], ['Our Story', 'about'], ['Contact', 'contact']]), 
+                ['Artificial Plants',  'shop', 'artificial-plants'],
+                ['Artificial Flowers', 'shop', 'artificial-flowers'],
+                ['Vases & Décor',      'shop', 'vases-decor'],
+                ['Fountains & Pooja',  'shop', 'fountains-pooja'],
+                ['Chairs & Sofas',     'shop', 'chairs-sofas'],
+                ['Lighting',           'shop', 'lighting'],
+                ['Gifts & Hampers',    'shop', 'gifts-hampers'],
+                ['Statues & Idols',    'shop', 'statues-idols'],
+                ['Wall Frames',        'shop', 'wall-frames'],
+                ['Wall Statues',       'shop', 'wall-statues'],
+              ]), col('Help', [['Shipping & Delivery', 'shipping'], ['Returns & Refunds', 'returns'], ['FAQ', 'faq'], ['Track Order', 'account-orders'], ['Payment Options', 'payment-options']]), col('Company', [['About Us', 'about'], ['Contact', 'contact']]), 
  /*#__PURE__*/React.createElement("div", {
     className: "footer-col"
   }, /*#__PURE__*/React.createElement("h4", null, "Talk to Us"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", {
@@ -1896,7 +2316,7 @@ function Hero(_ref9) {
     img: 'assets/lifestyle/showroom_interior.png',
     eyebrow: 'Curated Spaces',
     headline: /*#__PURE__*/React.createElement(React.Fragment, null, "Elevate your home.", /*#__PURE__*/React.createElement("br", null), "Discover our ", /*#__PURE__*/React.createElement("em", null, "exclusive"), /*#__PURE__*/React.createElement("br", null), "collections."),
-    sub: 'Premium interior designs. Free delivery in Virudhachalam only.'
+    sub: 'Premium interior designs. Free delivery across Tamil Nadu.'
   }, {
     img: 'assets/lifestyle/premium_decor_bright.webp',
     eyebrow: 'Modern Elegance',
@@ -1967,7 +2387,7 @@ function Hero(_ref9) {
     className: "hero-stats__star"
   }, "\u2605")), /*#__PURE__*/React.createElement("span", null, "240+ on Google")), /*#__PURE__*/React.createElement("div", {
     className: "hero-stats__divider"
-  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Free"), /*#__PURE__*/React.createElement("span", null, "Delivery in Virudhachalam"))), /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Free"), /*#__PURE__*/React.createElement("span", null, "Delivery across Tamil Nadu"))), /*#__PURE__*/React.createElement("div", {
     className: "hero-arrows",
     style: {
       marginTop: 20
@@ -2017,7 +2437,7 @@ function Hero(_ref9) {
     className: "hero-delivery-chip"
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
-  }, "local_shipping"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Free in Virudhachalam"), /*#__PURE__*/React.createElement("span", null, "Same-day local delivery")))));
+  }, "local_shipping"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Free across Tamil Nadu"), /*#__PURE__*/React.createElement("span", null, "Same-day local delivery")))));
 }
 
 // ====== CATEGORY GRID =======================================================
@@ -2090,19 +2510,21 @@ function ProductCard(_ref1) {
       zIndex: 3,
       alignItems: 'flex-start'
     }
-  }, p.badge && /*#__PURE__*/React.createElement("span", {
-    className: 'prod-badge' + (p.badgeKind === 'gold' ? ' prod-badge--gold' : p.badgeKind === 'ink' ? ' prod-badge--ink' : p.badgeKind === 'warm' ? ' prod-badge--warm' : '')
-  }, p.badge), p.off && /*#__PURE__*/React.createElement("span", {
+  }, p.off && /*#__PURE__*/React.createElement("span", {
     className: "prod-off"
   }, p.off)), /*#__PURE__*/React.createElement("button", {
     className: 'heart-btn' + (wishlisted ? ' active' : ''),
     onClick: function onClick(e) {
-      e.stopPropagation();
+      e.stopPropagation(); e.currentTarget.blur();
       onWishToggle(p.id);
     },
     "aria-label": "Save to wishlist"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
+    className: "material-symbols-outlined",
+    style: {
+      fontVariationSettings: wishlisted ? "'FILL' 1, 'wght' 300" : "'FILL' 0, 'wght' 300",
+      color: wishlisted ? '#C97840' : undefined
+    }
   }, "favorite")), /*#__PURE__*/React.createElement("img", {
     src: p.image,
     alt: p.name,
@@ -2110,7 +2532,7 @@ function ProductCard(_ref1) {
   }), /*#__PURE__*/React.createElement("div", {
     className: "prod-quick",
     onClick: function onClick(e) {
-      e.stopPropagation();
+      e.stopPropagation(); e.currentTarget.blur();
       onView(p);
     }
   }, /*#__PURE__*/React.createElement("span", {
@@ -2220,7 +2642,7 @@ function BestSellers(_ref10) {
       p: p,
       onAdd: onAdd,
       onView: onView,
-      wishlisted: wishlist.includes(p.id),
+      wishlisted: wishlist.map(String).includes(String(p.id)),
       onWishToggle: onWishToggle
     });
   })))));
@@ -2427,9 +2849,31 @@ function Testimonials(_ref_t) {
     _React$useState18 = _slicedToArray(_React$useState17, 2),
     showReviewModal = _React$useState18[0],
     setShowReviewModal = _React$useState18[1];
-  // Use hardcoded testimonials — live fetch skipped until Supabase RLS
-  // policy "Public can read approved reviews" is added for anon role
-  var displayReviews = TESTIMONIALS;
+  var _revState = React.useState(TESTIMONIALS),
+      displayReviews = _revState[0],
+      setDisplayReviews = _revState[1];
+  React.useEffect(function() {
+    var sb = getSB();
+    if (!sb) return;
+    sb.from('store_reviews')
+      .select('*')
+      .eq('is_approved', true)
+      .order('created_at', { ascending: false })
+      .limit(6)
+      .then(function(res) {
+        if (!res.error && res.data && res.data.length > 0) {
+          setDisplayReviews(res.data.map(function(r) {
+            return {
+              name: r.guest_name || 'Customer',
+              initial: (r.guest_name || 'C')[0].toUpperCase(),
+              stars: r.rating,
+              quote: r.review_text,
+              thumb: null
+            };
+          }));
+        }
+      });
+  }, []);
   var openReviewModal = function openReviewModal() {
     setShowReviewModal(true);
     document.body.style.overflow = 'hidden';
@@ -2458,12 +2902,12 @@ function Testimonials(_ref_t) {
     e.preventDefault();
     var form = e.target;
     var reviewData = {
-      reviewer_name: form[0].value.trim(),
+      guest_name: form[0].value.trim(),
       rating: parseInt(form[1].value),
       review_text: form[2].value.trim(),
       is_approved: false
     };
-    if (!reviewData.reviewer_name || !reviewData.review_text) return;
+    if (!reviewData.guest_name || !reviewData.review_text) return;
     setSubmitState('loading');
     var sb = getSB();
     if (!sb) { setSubmitState('idle'); closeReviewModal(); return; }
@@ -2554,7 +2998,7 @@ function Testimonials(_ref_t) {
       boxShadow: '0 24px 48px -12px rgba(0,0,0,0.2)',
       touchAction: 'pan-y'
     },
-    onTouchMove: function(e) { e.stopPropagation(); }
+    onTouchMove: function(e) { e.stopPropagation(); e.currentTarget.blur(); }
   }, /*#__PURE__*/React.createElement("button", {
     onClick: function onClick() { return closeReviewModal(); },
     style: {
@@ -2917,7 +3361,7 @@ function ShopPage(_ref14) {
       color: '#5E5B59',
       lineHeight: 1.8
     }
-  }, "Everything you see here is in our showroom on Junction Road. Free delivery in Virudhachalam only."))), /*#__PURE__*/React.createElement("section", {
+  }, "Everything you see here is in our showroom on Junction Road. Free delivery across Tamil Nadu."))), /*#__PURE__*/React.createElement("section", {
     style: {
       background: '#fff',
       padding: '18px 0',
@@ -2966,7 +3410,8 @@ function ShopPage(_ref14) {
       var catLabel = CATEGORIES.find(function (cat) {
         return cat.id === c;
       });
-      return (catLabel ? catLabel.label : c) + (count ? ' (' + count + ')' : '');
+      var displayLabel = catLabel ? catLabel.label : c.replace(/-/g, ' ').replace(/\b\w/g, function(ch) { return ch.toUpperCase(); });
+      return displayLabel + (count ? ' (' + count + ')' : '');
     }());
   })))), /*#__PURE__*/React.createElement("section", {
     style: {
@@ -3048,7 +3493,7 @@ function ShopPage(_ref14) {
       p: p,
       onAdd: onAdd,
       onView: onView,
-      wishlisted: wishlist.includes(p.id),
+      wishlisted: wishlist.map(String).includes(String(p.id)),
       onWishToggle: onWishToggle
     });
   })), totalPages > 1 && /*#__PURE__*/React.createElement("div", {
@@ -3374,7 +3819,7 @@ function ProductDetail(_ref15) {
       color: '#5E5B59',
       marginBottom: 22
     }
-  }, "All taxes included \xB7 Free delivery in Virudhachalam only"), p.stock && p.stock <= 6 && /*#__PURE__*/React.createElement("div", {
+  }, "All taxes included \xB7 Free delivery"), p.stock && p.stock <= 6 && /*#__PURE__*/React.createElement("div", {
     className: "pdp-stock"
   }, /*#__PURE__*/React.createElement("div", {
     className: "pdp-stock__bar"
@@ -3399,7 +3844,7 @@ function ProductDetail(_ref15) {
     className: "pdp-trust__item"
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
-  }, "local_shipping"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Free delivery"), /*#__PURE__*/React.createElement("span", null, "In Virudhachalam only"))), /*#__PURE__*/React.createElement("div", {
+  }, "local_shipping"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Free delivery"), /*#__PURE__*/React.createElement("span", null, "Across Tamil Nadu"))), /*#__PURE__*/React.createElement("div", {
     className: "pdp-trust__item"
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
@@ -3408,72 +3853,54 @@ function ProductDetail(_ref15) {
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
   }, "lock"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Secure checkout"), /*#__PURE__*/React.createElement("span", null, "UPI \xB7 Cards")))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      gap: 12,
-      marginBottom: 14,
-      marginTop: 26
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      alignItems: 'center',
-      border: '1px solid rgba(26,26,26,0.16)',
-      borderRadius: 9999
-    }
-  }, /*#__PURE__*/React.createElement("button", {
-    onClick: function onClick() {
-      return setQty(Math.max(1, qty - 1));
-    },
-    style: {
-      width: 44,
-      height: 50,
-      background: 'none',
-      border: 'none',
-      fontSize: 17,
-      cursor: 'pointer'
-    }
-  }, "\u2212"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      width: 36,
-      textAlign: 'center',
-      fontWeight: 500
-    }
-  }, qty), /*#__PURE__*/React.createElement("button", {
-    onClick: function onClick() {
-      return setQty(qty + 1);
-    },
-    style: {
-      width: 44,
-      height: 50,
-      background: 'none',
-      border: 'none',
-      fontSize: 17,
-      cursor: 'pointer'
-    }
-  }, "+")), /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-dark",
-    style: {
-      flex: 1
-    },
-    onClick: function onClick() {
-      return _onAdd(p, qty);
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
-  }, "shopping_bag"), "Add to Cart \xB7 ", fmtPrice(lineTotal))), /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-gold",
-    style: {
-      width: '100%',
-      background: '#25D366',
-      borderColor: '#25D366'
-    },
-    onClick: function onClick() {
-      return window.open('https://wa.me/919789182921?text=Hi, I want to ask about: ' + p.name, '_blank');
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
-  }, "chat"), "Ask on WhatsApp \xB7 We reply fast")))), /*#__PURE__*/React.createElement("section", {
+  style: { marginTop: 28 }
+},
+/*#__PURE__*/React.createElement("div", {
+  style: { display: 'flex', gap: 12, marginBottom: 14 }
+},
+/*#__PURE__*/React.createElement("div", {
+  style: { display: 'flex', alignItems: 'center', background: '#FAF6EF', border: '1.5px solid rgba(197,168,128,0.35)', borderRadius: 14, flexShrink: 0 }
+},
+/*#__PURE__*/React.createElement("button", {
+  onClick: function onClick() { return setQty(Math.max(1, qty - 1)); },
+  style: { width: 48, height: 56, background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#7A6340', fontWeight: 300, lineHeight: 1 }
+}, "\u2212"),
+/*#__PURE__*/React.createElement("span", {
+  style: { width: 34, textAlign: 'center', fontWeight: 700, fontSize: 16, color: '#1A1A1A', fontFamily: "'Jost',sans-serif" }
+}, qty),
+/*#__PURE__*/React.createElement("button", {
+  onClick: function onClick() { return setQty(qty + 1); },
+  style: { width: 48, height: 56, background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#7A6340', fontWeight: 300, lineHeight: 1 }
+}, "+")),
+/*#__PURE__*/React.createElement("button", {
+  style: { flex: 1, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, background: 'linear-gradient(135deg, #C9A96E 0%, #B89657 55%, #9A7A3E 100%)', color: '#fff', border: 'none', borderRadius: 14, fontSize: 14, fontWeight: 700, fontFamily: "'Jost',sans-serif", letterSpacing: '.03em', cursor: 'pointer', boxShadow: '0 8px 28px -8px rgba(184,150,87,0.75)', transition: 'all 240ms cubic-bezier(0.25,1,0.5,1)' },
+  onClick: function onClick() { return _onAdd(p, qty); }
+},
+/*#__PURE__*/React.createElement("span", {
+  className: "material-symbols-outlined",
+  style: { fontSize: 18 }
+}, "shopping_bag"), "Add to Cart \xB7 ", fmtPrice(lineTotal))),
+/*#__PURE__*/React.createElement("button", {
+  onClick: function onClick() { _onAdd(p, qty); window._kgsSetRoute('checkout'); },
+  style: { width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, background: '#14110C', color: '#EDE3D4', border: 'none', borderRadius: 14, fontSize: 13.5, fontWeight: 600, fontFamily: "'Jost',sans-serif", letterSpacing: '.10em', textTransform: 'uppercase', cursor: 'pointer', padding: '16px 24px', marginBottom: 12, boxShadow: '0 6px 24px -8px rgba(20,17,12,0.55)', transition: 'all 240ms cubic-bezier(0.25,1,0.5,1)' }
+},
+/*#__PURE__*/React.createElement("span", {
+  className: "material-symbols-outlined",
+  style: { fontSize: 18 }
+}, "north_east"), "Buy Now"),
+/*#__PURE__*/React.createElement("button", {
+  style: { width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, background: '#25D366', color: '#fff', border: 'none', borderRadius: 14, cursor: 'pointer', padding: '14px 24px', boxShadow: '0 6px 24px -6px rgba(37,211,102,0.55)', transition: 'all 240ms cubic-bezier(0.25,1,0.5,1)' },
+  onClick: function onClick() { return window.open('https://wa.me/919789182921?text=' + encodeURIComponent('Hi! I want more details about: ' + p.name), '_blank'); }
+},
+/*#__PURE__*/React.createElement("svg", {
+  xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", width: "22", height: "22", fill: "#fff", style: { flexShrink: 0 }
+}, /*#__PURE__*/React.createElement("path", {
+  d: "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
+})),
+/*#__PURE__*/React.createElement("div", { style: { textAlign: 'left' } },
+/*#__PURE__*/React.createElement("div", { style: { fontSize: 15, fontWeight: 700, fontFamily: "'Jost',sans-serif", letterSpacing: '.02em', lineHeight: 1.2 } }, "WhatsApp Us for More Details"),
+/*#__PURE__*/React.createElement("div", { style: { fontSize: 11.5, fontWeight: 400, fontFamily: "'Jost',sans-serif", opacity: 0.7, marginTop: 2 } }, "We reply within 10 minutes")))))))
+, /*#__PURE__*/React.createElement("section", {
     style: {
       background: '#FAF8F4',
       padding: '64px 0 80px',
@@ -3495,7 +3922,7 @@ function ProductDetail(_ref15) {
         return _onAdd(prod, 1);
       },
       onView: onView || function() {},
-      wishlisted: wishlist && wishlist.includes(rp.id),
+      wishlisted: wishlist && wishlist.map(String).includes(String(rp.id)),
       onWishToggle: onWishToggle
     });
   })))), /*#__PURE__*/React.createElement("div", {
@@ -3843,7 +4270,7 @@ function CartPage(_ref16) {
   }), /*#__PURE__*/React.createElement(Sumline, {
     label: "Delivery",
     value: 'At checkout',
-    note: 'Free in Virudhachalam · calculated on address'
+    note: 'Ships free'
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       background: '#F3EBDC',
@@ -3866,7 +4293,7 @@ function CartPage(_ref16) {
     style: {
       color: '#1A1A1A'
     }
-  }, "3\u20137 days"), " across India. Same-day or next-day in Virudhachalam.")), /*#__PURE__*/React.createElement("div", {
+  }, "2\u20134 days"), " across Tamil Nadu. Same-day delivery in Virudhachalam.")), /*#__PURE__*/React.createElement("div", {
     style: {
       borderTop: '1px solid rgba(197,168,128,0.30)',
       marginTop: 14,
@@ -3927,7 +4354,8 @@ function CartPage(_ref16) {
 function CheckoutPage(_ref17) {
   var cart = _ref17.cart,
     onPlaceOrder = _ref17.onPlaceOrder,
-    onBack = _ref17.onBack;
+    onBack = _ref17.onBack,
+    user = _ref17.user;
   var items = cart.map(function (ci) {
     return _objectSpread(_objectSpread({}, ci), {}, {
       product: PRODUCTS.find(function (p) {
@@ -3940,13 +4368,15 @@ function CheckoutPage(_ref17) {
   var subtotal = items.reduce(function (s, ci) {
     return s + ci.product.price * ci.qty;
   }, 0);
+  // Pre-fill from saved default address in user_metadata
+  var _defaultAddr = (user && user.user_metadata && user.user_metadata.addresses && user.user_metadata.addresses.find(function(a) { return a.is_default; })) || (user && user.user_metadata && user.user_metadata.addresses && user.user_metadata.addresses[0]) || null;
   var _React$useState27 = React.useState({
-      name: '',
-      phone: '',
-      address: '',
-      city: '',
-      state: 'Tamil Nadu',
-      pincode: ''
+      name: (_defaultAddr && _defaultAddr.full_name) || '',
+      phone: (_defaultAddr && _defaultAddr.phone) || '',
+      address: _defaultAddr ? (_defaultAddr.line1 + (_defaultAddr.line2 ? ', ' + _defaultAddr.line2 : '')) : '',
+      city: (_defaultAddr && _defaultAddr.city) || '',
+      state: (_defaultAddr && _defaultAddr.state) || 'Tamil Nadu',
+      pincode: (_defaultAddr && _defaultAddr.pincode) || ''
     }),
     _React$useState28 = _slicedToArray(_React$useState27, 2),
     form = _React$useState28[0],
@@ -3960,9 +4390,7 @@ function CheckoutPage(_ref17) {
     errors = _React$useState32[0],
     setErrors = _React$useState32[1];
 
-  // Dynamic delivery: free in Virudhachalam, ₹250 elsewhere
-  var isVirudhachalam = form.city.trim().toLowerCase().replace(/\s+/g, '') === 'virudhachalam';
-  var delivery = form.city.trim() === '' ? null : (isVirudhachalam ? 0 : 250);
+  var delivery = 0;
   var total = subtotal + (delivery || 0);
 
   var update = function update(k, v) {
@@ -4361,8 +4789,8 @@ function CheckoutPage(_ref17) {
     value: fmtPrice(subtotal)
   }), /*#__PURE__*/React.createElement(Sumline, {
     label: "Delivery",
-    value: delivery === null ? 'Enter city' : delivery === 0 ? 'FREE' : fmtPrice(delivery),
-    note: delivery === null ? 'Free in Virudhachalam · ₹250 elsewhere' : delivery === 0 ? 'Free — Virudhachalam delivery' : 'Outside Virudhachalam'
+    value: 'FREE',
+    note: 'Free delivery on all orders'
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       borderTop: '1px solid rgba(197,168,128,0.25)',
@@ -4574,7 +5002,7 @@ function WishlistPage(_ref19) {
     onWishToggle = _ref19.onWishToggle,
     onShop = _ref19.onShop;
   var items = PRODUCTS.filter(function (p) {
-    return wishlist.includes(p.id);
+    return wishlist.map(String).includes(String(p.id));
   });
   return /*#__PURE__*/React.createElement("div", {
     "data-screen-label": "Wishlist"
@@ -4638,7 +5066,7 @@ function WishlistPage(_ref19) {
       p: p,
       onAdd: onAdd,
       onView: onView,
-      wishlisted: true,
+      wishlisted: wishlist.map(String).includes(String(p.id)),
       onWishToggle: onWishToggle
     }));
   }))))));
@@ -4688,9 +5116,9 @@ function AllReviewsPage(_ref_ar) {
                 /*#__PURE__*/React.createElement("div", { style: { fontFamily: '"Crimson Pro",serif', fontSize: 48, lineHeight: 1, color: '#C5A880', opacity: 0.5, marginBottom: 8 } }, "“"),
                 /*#__PURE__*/React.createElement("div", { style: { fontFamily: '"Crimson Pro",serif', fontStyle: 'italic', fontSize: 17, lineHeight: 1.65, color: '#1A1A1A', marginBottom: 16 } }, r.review_text),
                 /*#__PURE__*/React.createElement("div", { style: { display: 'flex', alignItems: 'center', gap: 10, paddingTop: 14, borderTop: '1px solid rgba(197,168,128,0.25)' } },
-                  /*#__PURE__*/React.createElement("div", { style: { width: 34, height: 34, borderRadius: '50%', background: '#E8D9BE', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '"Crimson Pro",serif', fontWeight: 500, color: '#6B4F1F', fontSize: 15 } }, (r.reviewer_name || 'C')[0].toUpperCase()),
+                  /*#__PURE__*/React.createElement("div", { style: { width: 34, height: 34, borderRadius: '50%', background: '#E8D9BE', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '"Crimson Pro",serif', fontWeight: 500, color: '#6B4F1F', fontSize: 15 } }, (r.guest_name || 'C')[0].toUpperCase()),
                   /*#__PURE__*/React.createElement("div", null,
-                    /*#__PURE__*/React.createElement("div", { style: { fontWeight: 600, fontSize: 12.5, color: '#1A1A1A' } }, r.reviewer_name || 'Customer'),
+                    /*#__PURE__*/React.createElement("div", { style: { fontWeight: 600, fontSize: 12.5, color: '#1A1A1A' } }, r.guest_name || 'Customer'),
                     /*#__PURE__*/React.createElement("div", { style: { color: '#B89657', fontSize: 10, letterSpacing: '.16em', marginTop: 2 } }, '★'.repeat(r.rating || 5))
                   )
                 )
@@ -4813,7 +5241,7 @@ function AboutPage(_ref20) {
       lineHeight: 1.85,
       color: '#5E5B59'
     }
-  }, "We have 500+ pieces on the floor at any time, a team that genuinely loves what we sell, and customers who keep coming back. We ship pan-India now, but we still answer the WhatsApp ourselves."), /*#__PURE__*/React.createElement("p", {
+  }, "We have 500+ pieces on the floor at any time, a team that genuinely loves what we sell, and customers who keep coming back. We deliver across Tamil Nadu, and we still answer the WhatsApp ourselves."), /*#__PURE__*/React.createElement("p", {
     style: {
       marginBottom: 28,
       fontSize: 14.5,
@@ -4853,7 +5281,7 @@ function AboutPage(_ref20) {
     sub: 'Every piece inspected at our showroom before it reaches you.'
   }, {
     num: 'Free',
-    label: 'Delivery in Virudhachalam',
+    label: 'Delivery across Tamil Nadu',
     sub: 'Every order, no minimum.'
   }].map(function (card) {
     return /*#__PURE__*/React.createElement("div", {
@@ -5269,19 +5697,7 @@ function SearchDrawer(_ref21) {
     style: {
       fontSize: 18
     }
-  }, "close")), /*#__PURE__*/React.createElement("button", {
-    className: "search-clear",
-    onClick: onClose,
-    style: {
-      marginLeft: 4
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 12,
-      fontWeight: 600,
-      color: '#5E5B59'
-    }
-  }, "Cancel"))), query.trim() === '' ? /*#__PURE__*/React.createElement("div", {
+  }, "close")), /*#__PURE__*/React.createElement("button", { className: "search-clear", onClick: onClose, style: { marginLeft: "4px" } }, /*#__PURE__*/React.createElement("span", { style: { fontSize: "12px", fontWeight: 600, color: "#5E5B59" } }, "Cancel"))), query.trim() === '' ? /*#__PURE__*/React.createElement("div", {
     className: "search-popular"
   }, /*#__PURE__*/React.createElement("div", {
     className: "search-popular__label"
@@ -5312,7 +5728,7 @@ function SearchDrawer(_ref21) {
       color: '#8E7449'
     }
   }, "Try a different keyword or browse categories")) : /*#__PURE__*/React.createElement("div", {
-    className: "search-results", "data-lenis-prevent": "true", onWheel: function(e){ e.stopPropagation(); }, onTouchStart: function(e){ e.stopPropagation(); }, onTouchMove: function(e){ e.stopPropagation(); }
+    className: "search-results", "data-lenis-prevent": "true", onWheel: function(e){ e.stopPropagation(); e.currentTarget.blur(); }, onTouchStart: function(e){ e.stopPropagation(); e.currentTarget.blur(); }, onTouchMove: function(e){ e.stopPropagation(); e.currentTarget.blur(); }
   }, results.map(function (p) {
     return /*#__PURE__*/React.createElement("div", {
       key: p.id,
@@ -5393,14 +5809,15 @@ function Toast(_ref23) {
   var msg = _ref23.msg,
     show = _ref23.show,
     icon = _ref23.icon,
-    iconColor = _ref23.iconColor;
+    iconColor = _ref23.iconColor,
+    iconFill = _ref23.iconFill;
   return /*#__PURE__*/React.createElement("div", {
     className: 'toast ' + (show ? 'toast--in' : 'toast--out')
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined",
     style: {
       color: iconColor || '#25D366',
-      fontVariationSettings: '"FILL" 1'
+      fontVariationSettings: '"FILL" ' + (iconFill !== undefined ? iconFill : 1)
     }
   }, icon || "check_circle"), /*#__PURE__*/React.createElement("span", null, msg));
 }
@@ -5483,6 +5900,8 @@ function App() {
     fetchAllProductsFromSupabase().then(function (live) {
       if (live && live.length > 0) {
         PRODUCTS = live;
+      } else {
+        console.warn('[KGS] Supabase returned 0 products — check RLS or is_active filter.');
       }
       // Clean up cart items whose IDs no longer exist
       setCart(function (prev) {
@@ -5495,7 +5914,7 @@ function App() {
       setProductsReady(true);
       _forceUpdate();
     })["catch"](function (err) {
-      console.warn('[KGS] Supabase fetch failed, using local data:', err.message);
+      console.error('[KGS] Supabase product fetch failed — falling back to local data.', err);
       setProductsReady(true);
       setProductsError(true);
     });
@@ -5871,14 +6290,16 @@ function App() {
       localStorage.setItem('kgs_wish', JSON.stringify(wishlist));
     } catch (_unused4) {}
   }, [wishlist]);
-  var showToast = function showToast(msg, icon, iconColor) {
-    setToast({ msg: msg, show: true, icon: icon || null, iconColor: iconColor || null });
+  var showToast = function showToast(msg, icon, iconColor, iconFill) {
+    setToast({ msg: msg, show: true, icon: icon || null, iconColor: iconColor || null, iconFill: iconFill !== undefined ? iconFill : 1 });
     setTimeout(function () {
       return setToast(function (t) {
         return _objectSpread(_objectSpread({}, t), {}, { show: false });
       });
     }, 2200);
   };
+  // Expose globally so any deeply nested component can fire a toast
+  window._kgsShowToast = showToast;
   var handleAdd = function handleAdd(p) {
     var qty = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
     setCart(function (prev) {
@@ -5901,12 +6322,25 @@ function App() {
     setView(p);
     setRoute('product');
     window.scrollTo(0, 0);
+    setTimeout(function() {
+      if (window._lenis) { window._lenis.scrollTo(0, { immediate: true }); }
+      else { window.scrollTo(0, 0); }
+    }, 0);
   };
   var handleWishToggle = function handleWishToggle(id) {
+    var sId = String(id);
     setWish(function (prev) {
-      var adding = !prev.includes(id);
-      if (adding) showToast('Added to Wishlist', 'favorite', '#E8434A');
-      return adding ? [].concat(_toConsumableArray(prev), [id]) : prev.filter(function (x) { return x !== id; });
+      var prevS = prev.map(String);
+      var alreadyIn = prevS.includes(sId);
+      var adding = !alreadyIn;
+      var newList = adding ? [].concat(_toConsumableArray(prevS), [sId]) : prevS.filter(function (x) { return x !== sId; });
+      
+      // Fire toast after state update to ensure UI is fresh
+      setTimeout(function() {
+        showToast(adding ? 'Added to wishlist' : 'Removed from wishlist', 'favorite', adding ? '#E8434A' : '#9E9E9E', adding ? 1 : 0);
+      }, 0);
+      
+      return newList;
     });
   };
   var handleLogin = function handleLogin(email, password) {
@@ -5985,10 +6419,13 @@ function App() {
     window.scrollTo(0, 0);
   };
   React.useEffect(function () {
-    window.scrollTo({
-      top: 0,
-      behavior: 'instant'
-    });
+    if (window._lenis) {
+      window._lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }, [route]);
 
   // Render current page body
@@ -6131,6 +6568,10 @@ function App() {
     body = /*#__PURE__*/React.createElement(ReturnPolicyPage, null);
   } else if (route === 'payment-options') {
     body = /*#__PURE__*/React.createElement(PaymentOptionsPage, null);
+  } else if (route === 'account-orders') {
+    window._kgsAccountTab = 'orders';
+    setRoute('account');
+    body = /*#__PURE__*/React.createElement("div", { style: { minHeight: '60vh' } });
   } else if (route === 'account') {
 
     if (authLoading) {
@@ -6142,13 +6583,19 @@ function App() {
       body = /*#__PURE__*/React.createElement(AccountDashboardPage, {
         onLogout: handleLogout,
         onShop: function() { setRoute("shop"); },
-        onTrack: function(id) { window._kgsTrackingId = id; setRoute("order-tracking"); },
-        user: currentUser
+        onTrack: function(id) { window._kgsTrackingId = id; sessionStorage.setItem('kgs_tracking_id', id); setRoute("order-tracking"); },
+        onToast: showToast,
+        onAdd: handleAdd,
+        onView: handleView,
+        onWishToggle: handleWishToggle,
+        wishlist: wishlist,
+        user: currentUser,
+        onUpdateUser: setCurrentUser
       });
     }
   } else if (route === 'order-tracking') {
     body = /*#__PURE__*/React.createElement(OrderTrackingPage, {
-      orderId: window._kgsTrackingId,
+      orderId: window._kgsTrackingId || sessionStorage.getItem('kgs_tracking_id'),
       onBack: function() { setRoute('account'); }
     });
   } else if (route === 'forgot-password') {
@@ -6191,13 +6638,15 @@ function App() {
     }
   }), /*#__PURE__*/React.createElement("main", {
     className: "page-body"
-  }, body), ['cart', 'checkout', 'order-confirmation', 'account', 'login', 'register'].indexOf(route) === -1 && /*#__PURE__*/React.createElement(Footer, {
-    setRoute: setRoute
+  }, body), ['cart', 'checkout', 'order-confirmation', 'account', 'login', 'register', 'order-tracking', 'forgot-password'].indexOf(route) === -1 && /*#__PURE__*/React.createElement(Footer, {
+    setRoute: setRoute,
+    setFilter: setFilter
   }), /*#__PURE__*/React.createElement(WAFloat, null), /*#__PURE__*/React.createElement(Toast, {
     msg: toast.msg,
     show: toast.show,
     icon: toast.icon,
-    iconColor: toast.iconColor
+    iconColor: toast.iconColor,
+    iconFill: toast.iconFill
   }), /*#__PURE__*/React.createElement(SearchDrawer, {
     open: searchOpen,
     onClose: function onClose() {
@@ -6217,6 +6666,12 @@ function App() {
   }));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
+
+
+
+
+
+
 
 
 
