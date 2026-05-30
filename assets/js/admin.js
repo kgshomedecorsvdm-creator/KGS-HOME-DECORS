@@ -94,8 +94,8 @@ async function loadProducts(search=null){
       <td><strong>${p.name}</strong><br><span style="color:var(--muted);font-size:11px">${p.handle}</span></td>
       <td>${p.category}</td>
       <td style="font-weight:600;color:var(--gold)">₹${Number(p.price).toLocaleString('en-IN')}</td>
-      <td>${p.in_stock?'<span class="badge badge-green">In Stock</span>':'<span class="badge badge-red">Out</span>'}</td>
       <td>${p.stock_quantity||0}</td>
+      <td>${p.in_stock?'<span class="badge badge-green">In Stock</span>':'<span class="badge badge-red">Out of Stock</span>'}</td>
       <td>
         <button class="btn btn-outline btn-sm" onclick="editProduct('${p.id}')">Edit</button>
         <button class="btn btn-red btn-sm" onclick="deleteProduct('${p.id}','${p.name.replace(/'/g,"\\'")}')">Delete</button>
@@ -256,11 +256,12 @@ async function loadOrders(){
   const statusBadge=s=>({placed:'badge-gold',confirmed:'badge-gold',packed:'badge-gold',shipped:'badge-green',delivered:'badge-green',cancelled:'badge-red'}[s]||'badge-gold');
   tbody.innerHTML=data.map(o=>`
     <tr>
-      <td><strong>KGS-${o.order_number}</strong></td>
+      <td><strong style="font-size:13px">KGS-${o.order_number||o.id.slice(0,8).toUpperCase()}</strong><br><span style="color:var(--muted);font-size:10.5px">${new Date(o.created_at).toLocaleDateString('en-IN')}</span></td>
       <td>${o.customer_name||o.shipping_name||'—'}<br><span style="color:var(--muted);font-size:11px">${o.customer_phone||o.shipping_phone||''}</span></td>
+      <td style="color:var(--muted);font-size:13px">${(o.order_items||[]).length} item${(o.order_items||[]).length===1?'':'s'}</td>
       <td style="font-weight:600;color:var(--gold)">₹${Number(o.total).toLocaleString('en-IN')}</td>
+      <td style="font-size:12.5px">${(o.payment_method||'cod').toUpperCase()}</td>
       <td><span class="badge ${statusBadge(o.status)}">${o.status}</span></td>
-      <td>${(o.payment_method||'cod').toUpperCase()}</td>
       <td>
         <select onchange="updateOrderStatus('${o.id}',this.value)" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:4px;font-size:12px">
           ${['placed','confirmed','packed','shipped','delivered','cancelled'].map(s=>`<option value="${s}"${o.status===s?' selected':''}>${s}</option>`).join('')}
