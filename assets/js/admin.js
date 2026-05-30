@@ -53,6 +53,7 @@ function showPage(page){
   if(page==='orders')loadOrders();
   if(page==='dashboard')loadDashboard();
   if(page==='customers')loadCustomers();
+  if(page==='reviews')loadAdminReviews();
 }
 
 // ─── PRODUCTS ─────────────────────────────────────────────
@@ -324,6 +325,9 @@ async function loadDashboard(){
     // Basic Counts
     const {count:orderCount} = await sb.from('orders').select('*',{count:'exact',head:true});
     const {count:pendingCount} = await sb.from('orders').select('*',{count:'exact',head:true}).in('status', ['placed', 'confirmed']);
+    const {count:customerCount} = await sb.from('customers').select('*',{count:'exact',head:true});
+    const custEl = document.getElementById('stat-customers');
+    if(custEl) custEl.textContent = customerCount || 0;
     
     // Low Stock Products
     const {data:lowStock} = await sb.from('products').select('id, name, stock_quantity').eq('is_active', true).eq('in_stock', false).limit(4);
@@ -477,57 +481,4 @@ document.addEventListener('DOMContentLoaded',async()=>{
 });
 
 
-/* ─── REVIEWS ───────────────────────────────────────────── */
-
-async function loadAdminReviews() {
-  const tbody = document.getElementById('reviews-tbody');
-  tbody.innerHTML = '<tr><td colspan="5" style="text-align:center">Loading reviews...</td></tr>';
-  const status = document.getElementById('review-filter').value;
-  
-  try {
-    const reviews = await adminGetStoreReviews({ status });
-    if (reviews.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted)">No ' + status + ' reviews found.</td></tr>';
-      return;
-    }
-    
-    tbody.innerHTML = reviews.map(r => `
-      <tr>
-        <td style="font-size:12px;color:var(--muted)">${new Date(r.created_at).toLocaleDateString()}</td>
-        <td style="font-weight:600">${r.guest_name}</td>
-        <td style="color:var(--gold)">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</td>
-        <td style="max-width:300px;font-style:italic;font-size:13px;line-height:1.4">"${r.review_text}"</td>
-        <td>
-          <div style="display:flex;gap:8px">
-            ${status === 'pending' ? `<button class="btn btn-outline btn-sm" style="color:green;border-color:green" onclick="approveReview('${r.id}')">Approve</button>` : ''}
-            <button class="btn btn-outline btn-sm" style="color:red;border-color:red" onclick="deleteReview('${r.id}')">Delete</button>
-          </div>
-        </td>
-      </tr>
-    `).join('');
-  } catch(err) {
-    console.error(err);
-    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:red">Error loading reviews</td></tr>';
-  }
-}
-
-async function approveReview(id) {
-  try {
-    await adminApproveStoreReview(id);
-    showToast('Review approved successfully!');
-    loadAdminReviews();
-  } catch(err) {
-    showToast('Failed to approve review');
-  }
-}
-
-async function deleteReview(id) {
-  if(!confirm('Are you sure you want to delete this review?')) return;
-  try {
-    await adminDeleteStoreReview(id);
-    showToast('Review deleted');
-    loadAdminReviews();
-  } catch(err) {
-    showToast('Failed to delete review');
-  }
-}
+// Reviews (loadAdminReviews, approveReview, deleteReview) live in kgsadmin.html inline script
