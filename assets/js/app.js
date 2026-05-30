@@ -93,6 +93,26 @@ function OrderTrackingPage(_ref_ot) {
   );
 }
 
+function CookieConsentBanner() {
+  var _cs = React.useState(function() { return !!localStorage.getItem('kgs_cookie_consent'); });
+  var consented = _cs[0], setConsented = _cs[1];
+  if (consented) return null;
+  var accept = function() { localStorage.setItem('kgs_cookie_consent', 'accepted'); setConsented(true); };
+  return /*#__PURE__*/React.createElement("div", { style: { position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 9999, background: '#1A1A1A', color: '#fff', padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', boxShadow: '0 -4px 24px rgba(0,0,0,0.18)' } },
+    /*#__PURE__*/React.createElement("p", { style: { fontSize: '13px', color: 'rgba(255,255,255,0.82)', margin: 0, lineHeight: 1.6, maxWidth: '720px' } },
+      "We use cookies and local storage to keep your cart, wishlist, and session active. By continuing you agree to our ",
+      /*#__PURE__*/React.createElement("a", { href: "#", onClick: function(e) { e.preventDefault(); if (window._kgsSetRoute) window._kgsSetRoute('cookie-policy'); accept(); }, style: { color: '#C5A880', textDecoration: 'underline' } }, "Cookie Policy"),
+      " and ",
+      /*#__PURE__*/React.createElement("a", { href: "#", onClick: function(e) { e.preventDefault(); if (window._kgsSetRoute) window._kgsSetRoute('privacy'); accept(); }, style: { color: '#C5A880', textDecoration: 'underline' } }, "Privacy Policy"),
+      "."
+    ),
+    /*#__PURE__*/React.createElement("div", { style: { display: 'flex', gap: '10px', flexShrink: 0 } },
+      /*#__PURE__*/React.createElement("button", { onClick: accept, style: { background: '#B89657', color: '#fff', border: 'none', borderRadius: '8px', padding: '10px 22px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: '"Jost",sans-serif' } }, "Accept & Continue"),
+      /*#__PURE__*/React.createElement("button", { onClick: accept, style: { background: 'transparent', color: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', padding: '10px 16px', fontSize: '12px', cursor: 'pointer', fontFamily: '"Jost",sans-serif' } }, "Necessary Only")
+    )
+  );
+}
+
 function ResetPasswordPage(_ref_rp) {
   var onDone = _ref_rp.onDone;
   var _np = React.useState(''), newPwd = _np[0], setNewPwd = _np[1];
@@ -272,7 +292,7 @@ function AccountRegisterPage(_ref2) {
 
   var handleSubmit = function() {
     if (!fullName || !email || !password) { setError('Please fill in all fields.'); return; }
-    if (password.length < 6) { setError('Password must be at least 6 characters.'); return; }
+    if (password.length < 8) { setError('Password must be at least 8 characters.'); return; }
     setLoading(true); setError('');
     onRegister(email, password, fullName).catch(function(e) {
       setError(e.message || 'Registration failed. Please try again.');
@@ -1100,6 +1120,39 @@ function ShippingPolicyPage() {
       marginBottom: '24px'
     }
   }, "Shipping is free for all orders across Tamil Nadu."));
+}
+
+function CookiePolicyPage() {
+  return /*#__PURE__*/React.createElement(LegalPage, { title: "Cookie Policy" },
+    /*#__PURE__*/React.createElement("p", { style: { marginBottom: '24px' } }, "This website uses browser storage (cookies and localStorage) to give you the best shopping experience. Here is exactly what we store and why."),
+    /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro",serif', fontSize: '24px', color: '#1A1A1A', marginTop: '32px', marginBottom: '16px' } }, "What We Store"),
+    /*#__PURE__*/React.createElement("ul", { style: { paddingLeft: '24px', marginBottom: '24px' } },
+      /*#__PURE__*/React.createElement("li", { style: { marginBottom: '10px' } }, /*#__PURE__*/React.createElement("b", null, "kgs_cart:"), " Items in your shopping cart. Cleared automatically after checkout."),
+      /*#__PURE__*/React.createElement("li", { style: { marginBottom: '10px' } }, /*#__PURE__*/React.createElement("b", null, "kgs_wish:"), " Your saved wishlist. Synced to your account when logged in."),
+      /*#__PURE__*/React.createElement("li", { style: { marginBottom: '10px' } }, /*#__PURE__*/React.createElement("b", null, "kgs_tracking_id:"), " Your last order ID, used for the order tracking page. Stored in sessionStorage and cleared when you close the browser tab."),
+      /*#__PURE__*/React.createElement("li", { style: { marginBottom: '10px' } }, /*#__PURE__*/React.createElement("b", null, "kgs_cookie_consent:"), " Stores whether you have accepted this cookie notice.")
+    ),
+    /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro",serif', fontSize: '24px', color: '#1A1A1A', marginTop: '32px', marginBottom: '16px' } }, "No Third-Party Tracking"),
+    /*#__PURE__*/React.createElement("p", { style: { marginBottom: '24px' } }, "We do not use Google Analytics, Facebook Pixel, or any advertising cookies. Your browsing behaviour on this site is not tracked or sold to any third party."),
+    /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro",serif', fontSize: '24px', color: '#1A1A1A', marginTop: '32px', marginBottom: '16px' } }, "How to Clear"),
+    /*#__PURE__*/React.createElement("p", { style: { marginBottom: '24px' } }, "You can clear all stored data at any time via your browser settings (Clear Site Data). Note: this will empty your cart and wishlist.")
+  );
+}
+
+function DisclaimerPage() {
+  return /*#__PURE__*/React.createElement(LegalPage, { title: "Disclaimer" },
+    /*#__PURE__*/React.createElement("p", { style: { marginBottom: '24px' } }, "Please read this disclaimer carefully before purchasing from KGS Home D\xe9cors."),
+    /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro",serif', fontSize: '24px', color: '#1A1A1A', marginTop: '32px', marginBottom: '16px' } }, "Product Colours & Appearance"),
+    /*#__PURE__*/React.createElement("p", { style: { marginBottom: '24px' } }, "Product images are photographed as accurately as possible, but actual colours may vary slightly due to screen calibration and lighting. We are not liable for minor colour or texture differences between product images and the delivered item."),
+    /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro",serif', fontSize: '24px', color: '#1A1A1A', marginTop: '32px', marginBottom: '16px' } }, "Pricing"),
+    /*#__PURE__*/React.createElement("p", { style: { marginBottom: '24px' } }, "All prices are in Indian Rupees (INR). We reserve the right to correct pricing errors before an order is confirmed. If an error is discovered after placement, we will contact you before processing."),
+    /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro",serif', fontSize: '24px', color: '#1A1A1A', marginTop: '32px', marginBottom: '16px' } }, "Delivery"),
+    /*#__PURE__*/React.createElement("p", { style: { marginBottom: '24px' } }, "Delivery timelines are estimates and may vary due to location, weather, or unforeseen circumstances. We are not liable for delays caused by third-party logistics providers or force majeure events."),
+    /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro",serif', fontSize: '24px', color: '#1A1A1A', marginTop: '32px', marginBottom: '16px' } }, "Limitation of Liability"),
+    /*#__PURE__*/React.createElement("p", { style: { marginBottom: '24px' } }, "KGS Home D\xe9cors shall not be liable for any indirect, incidental, or consequential damages arising from the use of our products or services. Our maximum liability is limited to the value of the specific order in question."),
+    /*#__PURE__*/React.createElement("h2", { style: { fontFamily: '"Crimson Pro",serif', fontSize: '24px', color: '#1A1A1A', marginTop: '32px', marginBottom: '16px' } }, "Contact"),
+    /*#__PURE__*/React.createElement("p", { style: { marginBottom: '24px' } }, "For any concerns, contact us at hello@kgshomedecors.in or via WhatsApp before initiating any proceedings.")
+  );
 }
 
 // Attach to window so Babel standalone finds it
@@ -2292,7 +2345,7 @@ function Footer(_ref6) {
                 ['Statues & Idols',    'shop', 'statues-idols'],
                 ['Wall Frames',        'shop', 'wall-frames'],
                 ['Wall Statues',       'shop', 'wall-statues'],
-              ]), col('Help', [['Shipping & Delivery', 'shipping'], ['Returns & Refunds', 'returns'], ['FAQ', 'faq'], ['Track Order', 'account-orders'], ['Payment Options', 'payment-options']]), col('Company', [['About Us', 'about'], ['Contact', 'contact']]), 
+              ]), col('Help', [['Shipping & Delivery', 'shipping'], ['Returns & Refunds', 'returns'], ['FAQ', 'faq'], ['Track Order', 'account-orders'], ['Payment Options', 'payment-options']]), col('Company', [['About Us', 'about'], ['Contact', 'contact']]), col('Legal', [['Privacy Policy', 'privacy'], ['Terms & Conditions', 'terms'], ['Cookie Policy', 'cookie-policy'], ['Disclaimer', 'disclaimer']]), 
  /*#__PURE__*/React.createElement("div", {
     className: "footer-col"
   }, /*#__PURE__*/React.createElement("h4", null, "Talk to Us"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", {
@@ -2961,6 +3014,7 @@ function Testimonials(_ref_t) {
   var handleSubmitReview = function handleSubmitReview(e) {
     e.preventDefault();
     var form = e.target;
+    if (form.elements['_hp'] && form.elements['_hp'].value) return;
     var reviewData = {
       guest_name: form[0].value.trim(),
       rating: parseInt(form[1].value),
@@ -5387,7 +5441,8 @@ function ContactPage() {
   var _React$useState35 = React.useState({
       name: '',
       phone: '',
-      message: ''
+      message: '',
+      _hp: ''
     }),
     _React$useState36 = _slicedToArray(_React$useState35, 2),
     form = _React$useState36[0],
@@ -5399,6 +5454,7 @@ function ContactPage() {
   };
   var handleSend = function handleSend(e) {
     e.preventDefault();
+    if (form._hp) return;
     if (form.name && form.phone && form.message) setSent(true);
   };
   return /*#__PURE__*/React.createElement("div", {
@@ -6648,6 +6704,10 @@ function App() {
     body = /*#__PURE__*/React.createElement(ShippingPolicyPage, null);
   } else if (route === 'returns') {
     body = /*#__PURE__*/React.createElement(ReturnPolicyPage, null);
+  } else if (route === 'cookie-policy') {
+    body = /*#__PURE__*/React.createElement(CookiePolicyPage, null);
+  } else if (route === 'disclaimer') {
+    body = /*#__PURE__*/React.createElement(DisclaimerPage, null);
   } else if (route === 'payment-options') {
     body = /*#__PURE__*/React.createElement(PaymentOptionsPage, null);
   } else if (route === 'account-orders') {
@@ -6707,6 +6767,10 @@ function App() {
     body = /*#__PURE__*/React.createElement(ReturnPolicyPage, null);
   } else if (route === 'shipping') {
     body = /*#__PURE__*/React.createElement(ShippingPolicyPage, null);
+  } else if (route === 'cookie-policy') {
+    body = /*#__PURE__*/React.createElement(CookiePolicyPage, null);
+  } else if (route === 'disclaimer') {
+    body = /*#__PURE__*/React.createElement(DisclaimerPage, null);
   } else {
     body = /*#__PURE__*/React.createElement("div", {
       style: {
@@ -6727,7 +6791,7 @@ function App() {
   }, body), ['cart', 'checkout', 'order-confirmation', 'account', 'login', 'register', 'order-tracking', 'forgot-password', 'reset-password'].indexOf(route) === -1 && /*#__PURE__*/React.createElement(Footer, {
     setRoute: setRoute,
     setFilter: setFilter
-  }), /*#__PURE__*/React.createElement(WAFloat, null), /*#__PURE__*/React.createElement(Toast, {
+  }), /*#__PURE__*/React.createElement(WAFloat, null), /*#__PURE__*/React.createElement(CookieConsentBanner, null), /*#__PURE__*/React.createElement(Toast, {
     msg: toast.msg,
     show: toast.show,
     icon: toast.icon,
