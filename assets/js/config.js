@@ -7,12 +7,17 @@ const KGS_CONFIG = {
     anonKey: 'sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P'
   },
   razorpay: {
-    keyId: '', // Will be added once Razorpay account is set up
+    keyId: '', // Add once Razorpay account is set up
+  },
+  resend: {
+    apiKey: '', // ADD YOUR KEY: resend.com → API Keys → Create Key
+    fromEmail: 'KGS Home Décors <orders@kgshomedecors.in>', // Must verify domain in Resend dashboard
   },
   store: {
     name: 'KGS Home Décors',
     phone: '+919789182921',
     whatsapp: '919789182921',
+    email: 'hello@kgshomedecors.in',
     address: '185/G, Junction Road, near EB Office, Virudhachalam, Tamil Nadu – 606 001',
     currency: 'INR',
     freeDeliveryCity: 'Tamil Nadu',
