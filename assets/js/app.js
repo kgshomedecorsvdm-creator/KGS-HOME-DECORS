@@ -1699,6 +1699,9 @@ function normalizeProduct(p) {
     sold: sold,
     stock: typeof p.stock_quantity === 'number' ? p.stock_quantity : (p.in_stock ? 10 : 0),
     image: p.image_url,
+    images: Array.isArray(p.images) && p.images.length ? p.images : (p.image_url ? [p.image_url] : []),
+    description: p.description || null,
+    material: p.material || null,
     badge: badge,
     badgeKind: badgeKind
   };
@@ -1761,7 +1764,7 @@ function _fetchAllProductsFromSupabase() {
             break;
           }
           _context.n = 2;
-          return sb.from('products').select('id,name,category,price,compare_at_price,image_url,in_stock,stock_quantity,tags').eq('is_active', true).order('sort_order', {
+          return sb.from('products').select('id,name,category,price,compare_at_price,image_url,images,in_stock,stock_quantity,tags,description,material').eq('is_active', true).order('sort_order', {
             ascending: true
           }).order('created_at', {
             ascending: false
@@ -3977,7 +3980,7 @@ function ProductDetail(_ref15) {
     className: "pdp-trust__item"
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
-  }, "lock"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Secure checkout"), /*#__PURE__*/React.createElement("span", null, "UPI \xB7 Cards")))), , (p.material || (p.tags && p.tags.some(function(t){return t.includes(':');}))) && /*#__PURE__*/React.createElement("div", {
+  }, "lock"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Secure checkout"), /*#__PURE__*/React.createElement("span", null, "UPI \xB7 Cards")))), (p.material || (p.tags && p.tags.some(function(t){return t.includes(':');}))) && /*#__PURE__*/React.createElement("div", {
   style: { marginTop: 28, marginBottom: 4 }
 },
   /*#__PURE__*/React.createElement("div", {
