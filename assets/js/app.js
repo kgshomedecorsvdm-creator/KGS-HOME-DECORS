@@ -3956,7 +3956,7 @@ function ProductDetail(_ref15) {
       color: '#5E5B59',
       marginBottom: 22
     }
-  }, "All taxes included \xB7 Free delivery"), p.stock && p.stock <= 6 && /*#__PURE__*/React.createElement("div", {
+  }, "All taxes included \xB7 Free delivery"), p.stock > 0 && p.stock <= 6 && /*#__PURE__*/React.createElement("div", {
     className: "pdp-stock"
   }, /*#__PURE__*/React.createElement("div", {
     className: "pdp-stock__bar"
@@ -3975,7 +3975,7 @@ function ProductDetail(_ref15) {
       lineHeight: 1.8,
       color: '#5E5B59'
     }
-  }, "Made to last \u2014 not just to look good in photos. We checked this one ourselves before listing it. If there's a defect when it arrives, we'll replace it, no argument."), /*#__PURE__*/React.createElement("div", {
+  }, p.description || "Made to last \u2014 not just to look good in photos. We checked this one ourselves before listing it. If there\u2019s a defect when it arrives, we\u2019ll replace it, no argument."), /*#__PURE__*/React.createElement("div", {
     className: "pdp-trust"
   }, /*#__PURE__*/React.createElement("div", {
     className: "pdp-trust__item"
@@ -3989,7 +3989,34 @@ function ProductDetail(_ref15) {
     className: "pdp-trust__item"
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
-  }, "lock"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Secure checkout"), /*#__PURE__*/React.createElement("span", null, "UPI \xB7 Cards")))), /*#__PURE__*/React.createElement("div", {
+  }, "lock"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Secure checkout"), /*#__PURE__*/React.createElement("span", null, "UPI \xB7 Cards")))), , (p.material || (p.tags && p.tags.some(function(t){return t.includes(':');}))) && /*#__PURE__*/React.createElement("div", {
+  style: { marginTop: 28, marginBottom: 4 }
+},
+  /*#__PURE__*/React.createElement("div", {
+    style: { fontSize: 10.5, fontWeight: 700, letterSpacing: '.16em', textTransform: 'uppercase', color: '#B89657', marginBottom: 12 }
+  }, "Details"),
+  /*#__PURE__*/React.createElement("div", {
+    style: { background: '#FAF6EF', border: '1px solid rgba(197,168,128,0.22)', borderRadius: 12, overflow: 'hidden' }
+  },
+    p.material && /*#__PURE__*/React.createElement("div", {
+      style: { display: 'flex', justifyContent: 'space-between', padding: '11px 16px', borderBottom: '1px solid rgba(197,168,128,0.15)' }
+    },
+      /*#__PURE__*/React.createElement("span", { style: { fontSize: 13, color: '#5E5B59', fontWeight: 500 } }, "Material"),
+      /*#__PURE__*/React.createElement("span", { style: { fontSize: 13, color: '#1A1A1A', fontWeight: 500, textAlign: 'right', maxWidth: '60%' } }, p.material)
+    ),
+    (p.tags || []).filter(function(t){ return t.includes(':'); }).map(function(spec, i, arr) {
+      var parts = spec.split(':');
+      return /*#__PURE__*/React.createElement("div", {
+        key: i,
+        style: { display: 'flex', justifyContent: 'space-between', padding: '11px 16px', borderBottom: i < arr.length - 1 ? '1px solid rgba(197,168,128,0.15)' : 'none' }
+      },
+        /*#__PURE__*/React.createElement("span", { style: { fontSize: 13, color: '#5E5B59', fontWeight: 500 } }, parts[0].trim()),
+        /*#__PURE__*/React.createElement("span", { style: { fontSize: 13, color: '#1A1A1A', fontWeight: 500, textAlign: 'right', maxWidth: '60%' } }, parts.slice(1).join(':').trim())
+      );
+    })
+  )
+),
+/*#__PURE__*/React.createElement("div", {
   style: { marginTop: 28 }
 },
 /*#__PURE__*/React.createElement("div", {
