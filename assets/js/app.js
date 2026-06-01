@@ -3956,19 +3956,29 @@ function ProductDetail(_ref15) {
       color: '#5E5B59',
       marginBottom: 22
     }
-  }, "All taxes included \xB7 Free delivery"), p.stock > 0 && p.stock <= 6 && /*#__PURE__*/React.createElement("div", {
-    className: "pdp-stock"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "pdp-stock__bar"
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      width: Math.max(8, p.stock / 20 * 100) + '%'
-    }
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "pdp-stock__text"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
-  }, "local_fire_department"), /*#__PURE__*/React.createElement("b", null, "Only ", p.stock, " left"), " \xB7 restocking takes around 3 weeks")), /*#__PURE__*/React.createElement("p", {
+  }, "All taxes included \xB7 Free delivery"),
+  p.stock === 0
+    ? /*#__PURE__*/React.createElement("div", { style: { display: 'inline-flex', alignItems: 'center', gap: 7, background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 8, padding: '8px 14px', marginBottom: 8 } },
+        /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: 15, color: '#ef4444', fontVariationSettings: '"FILL" 1' } }, "cancel"),
+        /*#__PURE__*/React.createElement("span", { style: { fontSize: 13, fontWeight: 600, color: '#ef4444' } }, "Out of Stock"),
+        /*#__PURE__*/React.createElement("span", { style: { fontSize: 12, color: '#5E5B59' } }, "\xB7 Restocking soon")
+      )
+    : p.stock <= 6
+      ? /*#__PURE__*/React.createElement("div", { className: "pdp-stock" },
+          /*#__PURE__*/React.createElement("div", { className: "pdp-stock__bar" },
+            /*#__PURE__*/React.createElement("span", { style: { width: Math.max(8, p.stock / 20 * 100) + '%' } })
+          ),
+          /*#__PURE__*/React.createElement("div", { className: "pdp-stock__text" },
+            /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "local_fire_department"),
+            /*#__PURE__*/React.createElement("b", null, "Only ", p.stock, " left"),
+            " \xB7 restocking takes around 3 weeks"
+          )
+        )
+      : /*#__PURE__*/React.createElement("div", { style: { display: 'inline-flex', alignItems: 'center', gap: 7, background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)', borderRadius: 8, padding: '8px 14px', marginBottom: 8 } },
+          /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: 15, color: '#16a34a', fontVariationSettings: '"FILL" 1' } }, "check_circle"),
+          /*#__PURE__*/React.createElement("span", { style: { fontSize: 13, fontWeight: 600, color: '#16a34a' } }, "In Stock"),
+          /*#__PURE__*/React.createElement("span", { style: { fontSize: 12, color: '#5E5B59' } }, "\xB7 Ready to ship")
+        ), /*#__PURE__*/React.createElement("p", {
     style: {
       marginBottom: 28,
       fontSize: 14.5,
@@ -4037,16 +4047,18 @@ function ProductDetail(_ref15) {
   style: { width: 48, height: 56, background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#7A6340', fontWeight: 300, lineHeight: 1 }
 }, "+")),
 /*#__PURE__*/React.createElement("button", {
-  style: { flex: 1, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, background: 'linear-gradient(135deg, #C9A96E 0%, #B89657 55%, #9A7A3E 100%)', color: '#fff', border: 'none', borderRadius: 14, fontSize: 14, fontWeight: 700, fontFamily: "'Jost',sans-serif", letterSpacing: '.03em', cursor: 'pointer', boxShadow: '0 8px 28px -8px rgba(184,150,87,0.75)', transition: 'all 240ms cubic-bezier(0.25,1,0.5,1)' },
-  onClick: function onClick() { return _onAdd(p, qty); }
+  style: { flex: 1, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, background: p.stock === 0 ? 'rgba(26,26,26,0.12)' : 'linear-gradient(135deg, #C9A96E 0%, #B89657 55%, #9A7A3E 100%)', color: p.stock === 0 ? '#9E9B98' : '#fff', border: 'none', borderRadius: 14, fontSize: 14, fontWeight: 700, fontFamily: "'Jost',sans-serif", letterSpacing: '.03em', cursor: p.stock === 0 ? 'not-allowed' : 'pointer', boxShadow: p.stock === 0 ? 'none' : '0 8px 28px -8px rgba(184,150,87,0.75)', transition: 'all 240ms cubic-bezier(0.25,1,0.5,1)' },
+  onClick: function onClick() { if(p.stock !== 0) _onAdd(p, qty); },
+  disabled: p.stock === 0
 },
 /*#__PURE__*/React.createElement("span", {
   className: "material-symbols-outlined",
   style: { fontSize: 18 }
-}, "shopping_bag"), "Add to Cart \xB7 ", fmtPrice(lineTotal))),
+}, p.stock === 0 ? "remove_shopping_cart" : "shopping_bag"), p.stock === 0 ? "Out of Stock" : "Add to Cart \xB7 " + fmtPrice(lineTotal))),
 /*#__PURE__*/React.createElement("button", {
-  onClick: function onClick() { _onAdd(p, qty); window._kgsSetRoute('checkout'); },
-  style: { width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, background: '#14110C', color: '#EDE3D4', border: 'none', borderRadius: 14, fontSize: 13.5, fontWeight: 600, fontFamily: "'Jost',sans-serif", letterSpacing: '.10em', textTransform: 'uppercase', cursor: 'pointer', padding: '16px 24px', marginBottom: 12, boxShadow: '0 6px 24px -8px rgba(20,17,12,0.55)', transition: 'all 240ms cubic-bezier(0.25,1,0.5,1)' }
+  onClick: function onClick() { if(p.stock !== 0){ _onAdd(p, qty); window._kgsSetRoute('checkout'); } },
+  disabled: p.stock === 0,
+  style: { width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, background: p.stock === 0 ? 'rgba(26,26,26,0.06)' : '#14110C', color: p.stock === 0 ? '#9E9B98' : '#EDE3D4', border: 'none', borderRadius: 14, fontSize: 13.5, fontWeight: 600, fontFamily: "'Jost',sans-serif", letterSpacing: '.10em', textTransform: 'uppercase', cursor: p.stock === 0 ? 'not-allowed' : 'pointer', padding: '16px 24px', marginBottom: 12, boxShadow: p.stock === 0 ? 'none' : '0 6px 24px -8px rgba(20,17,12,0.55)', transition: 'all 240ms cubic-bezier(0.25,1,0.5,1)' }
 },
 /*#__PURE__*/React.createElement("span", {
   className: "material-symbols-outlined",
