@@ -129,15 +129,8 @@ async function editProduct(id){
   document.getElementById('f-price').value=p.price;
   document.getElementById('f-compare').value=p.compare_at_price||'';
   document.getElementById('f-stock').value=p.stock_quantity||0;
-  document.getElementById('f-material').value=p.material||'';
-  document.getElementById('f-desc').value=p.description||'';
   document.querySelectorAll('.f-tag').forEach(cb=>{cb.checked=(p.tags||[]).includes(cb.value);});
   
-  // Extract custom specifications (tags with colons)
-  const specs = (p.tags||[]).filter(t => t.includes(':'));
-  const specsInput = document.getElementById('f-specs');
-  if (specsInput) specsInput.value = specs.join('\n');
-
   document.getElementById('f-instock').checked=p.in_stock;
   const prev=document.getElementById('img-preview');
   prev.innerHTML='';
@@ -170,10 +163,6 @@ async function saveProduct(e){
   }
   const name=document.getElementById('f-name').value.trim();
   
-  // Parse specifications
-  const specLines = document.getElementById('f-specs').value.split('\n')
-                      .filter(l => l.trim().includes(':'))
-                      .map(l => l.trim());
   const checkboxTags = [...document.querySelectorAll('.f-tag:checked')].map(cb=>cb.value);
 
   const product={
@@ -183,9 +172,7 @@ async function saveProduct(e){
     price:parseFloat(document.getElementById('f-price').value),
     compare_at_price:parseFloat(document.getElementById('f-compare').value)||null,
     stock_quantity:parseInt(document.getElementById('f-stock').value)||0,
-    material:document.getElementById('f-material').value.trim()||null,
-    description:document.getElementById('f-desc').value.trim(),
-    tags: [...checkboxTags, ...specLines],
+    tags: [...checkboxTags],
     in_stock:document.getElementById('f-instock').checked,
     is_active:true,
   };
