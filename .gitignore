@@ -20,6 +20,10 @@ supabase_tracking.sql
 # config.js is safe to commit — no secrets in it
 # Resend key is stored in admin localStorage via Settings page
 
+# Claude Code internal files — not for client repo
+.claude/settings.json
+.claude/skills/
+
 # ═══ LARGE BINARY / GENERATED FILES ═══
 *.zip
 *.tar.gz
