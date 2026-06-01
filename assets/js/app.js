@@ -730,6 +730,12 @@ function AccountDashboardPage(_ref3) {
 
   var _state_t = React.useState('dashboard'), activeTab = _state_t[0], setActiveTab = _state_t[1];
   var _state_o = React.useState([]), orders = _state_o[0], setOrders = _state_o[1];
+  React.useEffect(function() {
+    setTimeout(function() {
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+      if (window._lenis) window._lenis.resize();
+    }, 120);
+  }, [activeTab]);
   var _state_l = React.useState(true), loading = _state_l[0], setLoading = _state_l[1];
   var _state_addrCount = React.useState(0), addrCount = _state_addrCount[0], setAddrCount = _state_addrCount[1];
   var _state_exp = React.useState(null), expandedOrder = _state_exp[0], setExpandedOrder = _state_exp[1];
