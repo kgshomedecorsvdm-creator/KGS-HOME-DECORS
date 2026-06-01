@@ -2710,7 +2710,9 @@ function BestSellers(_ref10) {
     onView = _ref10.onView,
     wishlist = _ref10.wishlist,
     onWishToggle = _ref10.onWishToggle,
-    onShop = _ref10.onShop;
+    onShop = _ref10.onShop,
+    productsReady = _ref10.productsReady,
+    productsError = _ref10.productsError;
   var _React$useState15 = React.useState(0),
     _React$useState16 = _slicedToArray(_React$useState15, 2),
     start = _React$useState16[0],
@@ -2731,6 +2733,21 @@ function BestSellers(_ref10) {
     }
     return arr;
   }, []); // empty deps: component remounts via key when Supabase loads, so shuffle is stable between renders
+  if (!productsReady) return /*#__PURE__*/React.createElement("section", { className: "section", style: { background: '#fff' } },
+    /*#__PURE__*/React.createElement("div", { className: "container" },
+      /*#__PURE__*/React.createElement("div", { style: { display: 'flex', gap: 20 } },
+        [1,2,3,4].map(function(i) {
+          return /*#__PURE__*/React.createElement("div", { key: i, style: { flex: 1, borderRadius: 16, overflow: 'hidden', background: 'linear-gradient(90deg,#F3EBDC 25%,#FAF6EF 50%,#F3EBDC 75%)', backgroundSize: '200% 100%', animation: 'shimmer 1.4s infinite', height: 320 } });
+        })
+      )
+    )
+  );
+  if (productsError) return /*#__PURE__*/React.createElement("section", { className: "section", style: { background: '#fff' } },
+    /*#__PURE__*/React.createElement("div", { className: "container", style: { textAlign: 'center', padding: '40px 0', color: '#5E5B59' } },
+      /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: 40, color: '#C5A880', display: 'block', marginBottom: 12 } }, "wifi_off"),
+      /*#__PURE__*/React.createElement("p", { style: { fontSize: 15 } }, "Products are loading. Please check your connection and refresh.")
+    )
+  );
   var total = pool.length;
   var view = Array.from({
     length: 4
@@ -3424,7 +3441,9 @@ function ShopPage(_ref14) {
     onAdd = _ref14.onAdd,
     onView = _ref14.onView,
     wishlist = _ref14.wishlist,
-    onWishToggle = _ref14.onWishToggle;
+    onWishToggle = _ref14.onWishToggle,
+    productsReady = _ref14.productsReady,
+    productsError = _ref14.productsError;
   var _React$useState19 = React.useState(1),
     _React$useState20 = _slicedToArray(_React$useState19, 2),
     page = _React$useState20[0],
@@ -3436,6 +3455,16 @@ function ShopPage(_ref14) {
   React.useEffect(function () {
     setPage(1);
   }, [filter, sort]);
+  if (!productsReady) return /*#__PURE__*/React.createElement("div", { style: { minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16, color: '#5E5B59' } },
+    /*#__PURE__*/React.createElement("div", { style: { width: 40, height: 40, border: '3px solid rgba(184,150,87,0.2)', borderTopColor: '#B89657', borderRadius: '50%', animation: 'spin 0.8s linear infinite' } }),
+    /*#__PURE__*/React.createElement("p", { style: { fontSize: 14, letterSpacing: '.04em' } }, "Loading products…")
+  );
+  if (productsError) return /*#__PURE__*/React.createElement("div", { style: { minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16, color: '#5E5B59', textAlign: 'center', padding: '0 24px' } },
+    /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: 48, color: '#C5A880' } }, "wifi_off"),
+    /*#__PURE__*/React.createElement("div", { style: { fontSize: 18, fontFamily: '"Crimson Pro",serif', color: '#1A1A1A' } }, "Products temporarily unavailable"),
+    /*#__PURE__*/React.createElement("p", { style: { fontSize: 14, maxWidth: 320 } }, "We're having trouble connecting. Please check your internet and refresh the page."),
+    /*#__PURE__*/React.createElement("button", { onClick: function() { window.location.reload(); }, className: "btn btn-dark", style: { marginTop: 8 } }, "Refresh")
+  );
   var filtered = React.useMemo(function () {
     var list = filter === 'all' ? _toConsumableArray(PRODUCTS) : PRODUCTS.filter(function (p) {
       return (
@@ -6057,27 +6086,30 @@ function App() {
     _forceUpdate = _React$useReducer2[1];
   React.useEffect(function () {
     if (typeof window.supabase === 'undefined') {
-      setProductsReady(true); // use fallback silently
+      PRODUCTS = [];
+      setProductsReady(true);
+      setProductsError(true);
       return;
     }
     fetchAllProductsFromSupabase().then(function (live) {
       if (live && live.length > 0) {
         PRODUCTS = live;
-      } else {
-        console.warn('[KGS] Supabase returned 0 products — check RLS or is_active filter.');
-      }
-      // Clean up cart items whose IDs no longer exist
-      setCart(function (prev) {
-        return prev.filter(function (ci) {
-          return PRODUCTS.some(function (p) {
-            return p.id === ci.id;
+        setCart(function (prev) {
+          return prev.filter(function (ci) {
+            return PRODUCTS.some(function (p) { return p.id === ci.id; });
           });
         });
-      });
-      setProductsReady(true);
-      _forceUpdate();
+        setProductsReady(true);
+        _forceUpdate();
+      } else {
+        console.warn('[KGS] Supabase returned 0 products — check RLS or is_active filter.');
+        PRODUCTS = [];
+        setProductsReady(true);
+        setProductsError(true);
+      }
     })["catch"](function (err) {
-      console.error('[KGS] Supabase product fetch failed — falling back to local data.', err);
+      console.error('[KGS] Supabase product fetch failed.', err);
+      PRODUCTS = [];
       setProductsReady(true);
       setProductsError(true);
     });
@@ -6649,6 +6681,8 @@ function App() {
       onView: handleView,
       wishlist: wishlist,
       onWishToggle: handleWishToggle,
+      productsReady: productsReady,
+      productsError: productsError,
       onShop: function onShop() {
         return setRoute('shop');
       }
@@ -6667,7 +6701,9 @@ function App() {
       onAdd: handleAdd,
       onView: handleView,
       wishlist: wishlist,
-      onWishToggle: handleWishToggle
+      onWishToggle: handleWishToggle,
+      productsReady: productsReady,
+      productsError: productsError
     });
   } else if (route === 'product') {
     body = /*#__PURE__*/React.createElement(ProductDetail, {
