@@ -4803,11 +4803,6 @@ function CheckoutPage(_ref17) {
     icon: 'credit_card',
     label: 'Card',
     sub: 'Debit or credit card — Visa, Mastercard, Amex'
-  }, {
-    id: 'cod',
-    icon: 'local_shipping',
-    label: 'Cash on Delivery',
-    sub: 'Pay when it arrives at your door'
   }].map(function (opt) {
     return /*#__PURE__*/React.createElement("div", {
       key: opt.id,
@@ -4834,45 +4829,7 @@ function CheckoutPage(_ref17) {
     }, opt.label), /*#__PURE__*/React.createElement("div", {
       className: "payment-option-sub"
     }, opt.sub)));
-  }), payment === 'upi' && /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: 18,
-      padding: '20px',
-      background: '#FAF8F4',
-      border: '1px solid rgba(197,168,128,0.25)',
-      borderRadius: 12,
-      textAlign: 'center'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 140,
-      height: 140,
-      background: '#E4DDD4',
-      borderRadius: 8,
-      margin: '0 auto 12px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined",
-    style: {
-      fontSize: 56,
-      color: '#C5A880'
-    }
-  }, "qr_code_2")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 12.5,
-      color: '#5E5B59'
-    }
-  }, "Scan with any UPI app"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 11,
-      color: '#8E7449',
-      marginTop: 4,
-      fontWeight: 600
-    }
-  }, "kgs@upi")))), /*#__PURE__*/React.createElement("div", {
+  })), /*#__PURE__*/React.createElement("div", {
     className: "checkout-summary"
   }, /*#__PURE__*/React.createElement("h3", null, "Your order"), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -6573,44 +6530,75 @@ function App() {
     }, 0);
     var orderTotal = subtotal + (deliveryFee || 0);
 
-    // Save to Supabase
-    var sb = getSB();
-    if (sb && currentUser) {
-      var orderData = {
-        customer_id: currentUser.id,
-        customer_name: formData.name,
-        customer_phone: formData.phone,
-        shipping_address: formData.address + ', ' + formData.city + ', ' + formData.state + ' - ' + formData.pincode,
-        city: formData.city,
-        payment_method: paymentMethod,
-        delivery_fee: deliveryFee || 0,
-        subtotal: subtotal,
-        total: orderTotal,
-        status: 'confirmed'
+    var saveOrder = function saveOrder(rzpPaymentId) {
+      var sb = getSB();
+      if (sb && currentUser) {
+        var orderData = {
+          customer_id: currentUser.id,
+          customer_name: formData.name,
+          customer_phone: formData.phone,
+          shipping_address: formData.address + ', ' + formData.city + ', ' + formData.state + ' - ' + formData.pincode,
+          city: formData.city,
+          payment_method: paymentMethod,
+          delivery_fee: deliveryFee || 0,
+          subtotal: subtotal,
+          total: orderTotal,
+          status: 'confirmed'
+        };
+        sb.from('orders').insert(orderData).select().single().then(function(res) {
+          if (!res.error && res.data) {
+            var orderItems = cartSnapshot.map(function(ci) {
+              var prod = PRODUCTS.find(function(p) { return p.id === ci.id; });
+              return {
+                order_id: res.data.id,
+                product_id: ci.id,
+                product_name: prod ? prod.name : ci.id,
+                product_image: prod ? prod.image : '',
+                quantity: ci.qty,
+                unit_price: prod ? prod.price : 0,
+                total_price: prod ? prod.price * ci.qty : 0
+              };
+            });
+            sb.from('order_items').insert(orderItems).then(function() {});
+          }
+        }).catch(function(err) { console.warn('[KGS] Order save failed:', err); });
+      }
+      setLastCart(cartSnapshot);
+      setCart([]);
+      setRoute('order-confirmation');
+      window.scrollTo(0, 0);
+    };
+
+    // Razorpay for UPI and Card
+    if (paymentMethod === 'upi' || paymentMethod === 'card') {
+      var rzpKey = (typeof KGS_CONFIG !== 'undefined' && KGS_CONFIG.razorpay && KGS_CONFIG.razorpay.keyId) ? KGS_CONFIG.razorpay.keyId : '';
+      if (!rzpKey) {
+        showToast('Payment gateway is being set up. Please try again in 24–48 hours.', 'error', '#C97840');
+        return;
+      }
+      if (typeof Razorpay === 'undefined') {
+        showToast('Payment gateway failed to load. Please refresh and try again.', 'error', '#C97840');
+        return;
+      }
+      var rzpOptions = {
+        key: rzpKey,
+        amount: Math.round(orderTotal * 100),
+        currency: 'INR',
+        name: 'KGS Home D\xe9cors',
+        description: 'Order Payment',
+        image: '/assets/logo/favicon.svg',
+        prefill: { name: formData.name, contact: formData.phone },
+        theme: { color: '#B89657' },
+        handler: function(response) { saveOrder(response.razorpay_payment_id); },
+        modal: { ondismiss: function() { showToast('Payment cancelled', 'info', '#9E9B98'); } }
       };
-      sb.from('orders').insert(orderData).select().single().then(function(res) {
-        if (!res.error && res.data) {
-          var orderItems = cartSnapshot.map(function(ci) {
-            var prod = PRODUCTS.find(function(p) { return p.id === ci.id; });
-            return {
-              order_id: res.data.id,
-              product_id: ci.id,
-              product_name: prod ? prod.name : ci.id,
-              product_image: prod ? prod.image : '',
-              quantity: ci.qty,
-              unit_price: prod ? prod.price : 0,
-              total_price: prod ? prod.price * ci.qty : 0
-            };
-          });
-          sb.from('order_items').insert(orderItems).then(function() {});
-        }
-      }).catch(function(err) { console.warn('[KGS] Order save failed:', err); });
+      var rzp = new Razorpay(rzpOptions);
+      rzp.open();
+      return;
     }
 
-    setLastCart(cartSnapshot);
-    setCart([]);
-    setRoute('order-confirmation');
-    window.scrollTo(0, 0);
+    // Fallback (should not reach here since COD removed)
+    saveOrder(null);
   };
   React.useEffect(function () {
     if (window._lenis) {
