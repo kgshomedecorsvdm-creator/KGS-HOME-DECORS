@@ -4829,7 +4829,7 @@ function CheckoutPage(_ref17) {
     }, opt.label), /*#__PURE__*/React.createElement("div", {
       className: "payment-option-sub"
     }, opt.sub)));
-  })), /*#__PURE__*/React.createElement("div", {
+  }))), /*#__PURE__*/React.createElement("div", {
     className: "checkout-summary"
   }, /*#__PURE__*/React.createElement("h3", null, "Your order"), /*#__PURE__*/React.createElement("div", {
     style: {
