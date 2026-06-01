@@ -54,6 +54,7 @@ function showPage(page){
   if(page==='dashboard')loadDashboard();
   if(page==='customers')loadCustomers();
   if(page==='reviews')loadAdminReviews();
+  if(page==='settings' && typeof loadSettingsPage==='function')loadSettingsPage();
 }
 
 // ─── PRODUCTS ─────────────────────────────────────────────
@@ -324,7 +325,7 @@ async function updateOrderStatus(id,status){
 async function sendOrderStatusEmail(orderId, newStatus) {
   const STATUSES_TO_NOTIFY = ['confirmed','packed','shipped','out for delivery','delivered','cancelled'];
   if(!STATUSES_TO_NOTIFY.includes(newStatus)) return;
-  const resendKey = (typeof KGS_CONFIG !== 'undefined' && KGS_CONFIG.resend && KGS_CONFIG.resend.apiKey) ? KGS_CONFIG.resend.apiKey : '';
+  const resendKey = localStorage.getItem('kgs_admin_resend_key') || '';
   if(!resendKey) return;
 
   try {

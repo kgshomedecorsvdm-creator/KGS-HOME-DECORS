@@ -17,8 +17,8 @@ supabase_admin.sql
 supabase_orders.sql
 supabase_tracking.sql
 
-# ═══ CONFIG WITH API KEYS — local only, never commit ═══
-assets/js/config.js
+# config.js is safe to commit — no secrets in it
+# Resend key is stored in admin localStorage via Settings page
 
 # ═══ LARGE BINARY / GENERATED FILES ═══
 *.zip

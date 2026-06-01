@@ -4406,8 +4406,8 @@ function CartPage(_ref16) {
     value: fmtPrice(subtotal)
   }), /*#__PURE__*/React.createElement(Sumline, {
     label: "Delivery",
-    value: 'At checkout',
-    note: 'Ships free'
+    value: 'Free',
+    note: 'Across Tamil Nadu'
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       background: '#F3EBDC',

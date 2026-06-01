@@ -96,6 +96,10 @@
         <span class="material-symbols-outlined">rate_review</span>
         Reviews
       </a>
+      <a href="#" data-page="settings" onclick="showPage('settings')">
+        <span class="material-symbols-outlined">settings</span>
+        Settings
+      </a>
       <div class="nav-divider"></div>
       <a href="index.html" target="_blank" rel="noopener noreferrer">
         <span class="material-symbols-outlined">storefront</span>
@@ -345,6 +349,61 @@
       </div>
     </section>
 
+    <!-- ═══ SETTINGS ════════════════════════════════════════ -->
+    <section id="page-settings" class="page-section" style="display:none">
+      <div class="page-header">
+        <div>
+          <div class="page-eyebrow">Configuration</div>
+          <h1>Settings</h1>
+        </div>
+      </div>
+
+      <div style="max-width:540px;display:flex;flex-direction:column;gap:20px;">
+
+        <!-- Resend API Key -->
+        <div class="bento-card">
+          <div class="label" style="margin-bottom:14px">
+            <span class="material-symbols-outlined" style="font-size:15px">mail</span>
+            Email Notifications (Resend)
+          </div>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">
+            Enter your Resend API key to automatically email customers when their order status changes.
+            The key is saved only in this browser — never uploaded to any server.
+          </p>
+          <div style="display:flex;gap:10px;align-items:flex-end">
+            <div style="flex:1">
+              <label style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px">Resend API Key</label>
+              <input type="password" id="resend-key-input" placeholder="re_xxxxxxxxxxxxxxxxxxxx"
+                style="width:100%;padding:11px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text);font-family:'Jost',sans-serif;font-size:14px;outline:none;">
+            </div>
+            <button onclick="saveResendKey()" class="btn btn-gold" style="flex-shrink:0">Save</button>
+          </div>
+          <div id="resend-key-status" style="margin-top:10px;font-size:12px;color:var(--muted)"></div>
+        </div>
+
+        <!-- Razorpay Key (placeholder for when ready) -->
+        <div class="bento-card">
+          <div class="label" style="margin-bottom:14px">
+            <span class="material-symbols-outlined" style="font-size:15px">credit_card</span>
+            Razorpay (Online Payments)
+          </div>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">
+            Add your Razorpay Key ID to enable UPI, card, and netbanking payments at checkout.
+          </p>
+          <div style="display:flex;gap:10px;align-items:flex-end">
+            <div style="flex:1">
+              <label style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px">Razorpay Key ID</label>
+              <input type="text" id="razorpay-key-input" placeholder="rzp_live_xxxxxxxxxxxx"
+                style="width:100%;padding:11px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text);font-family:'Jost',sans-serif;font-size:14px;outline:none;">
+            </div>
+            <button onclick="saveRazorpayKey()" class="btn btn-gold" style="flex-shrink:0">Save</button>
+          </div>
+          <div id="razorpay-key-status" style="margin-top:10px;font-size:12px;color:var(--muted)"></div>
+        </div>
+
+      </div>
+    </section>
+
   </div><!-- /.main -->
 </div><!-- /#admin-app -->
 
@@ -553,6 +612,41 @@ function updateCustomSelect(sel){
   const cs=sel.nextElementSibling;
   if(cs&&cs.classList.contains('custom-select'))
     cs.querySelector('.cs-value').textContent=sel.options[sel.selectedIndex].text;
+}
+
+// ── Settings ────────────────────────────────────────────
+function loadSettingsPage(){
+  const stored = localStorage.getItem('kgs_admin_resend_key') || '';
+  const inp = document.getElementById('resend-key-input');
+  const rzpInp = document.getElementById('razorpay-key-input');
+  if(inp) inp.value = stored ? '••••••••••••••••••••' : '';
+  const status = document.getElementById('resend-key-status');
+  if(status) status.textContent = stored ? '✓ API key saved in this browser' : 'No key saved yet';
+  if(status) status.style.color = stored ? 'var(--green)' : 'var(--muted)';
+  const rzpStored = localStorage.getItem('kgs_admin_razorpay_key') || '';
+  if(rzpInp) rzpInp.value = rzpStored || '';
+  const rzpStatus = document.getElementById('razorpay-key-status');
+  if(rzpStatus) rzpStatus.textContent = rzpStored ? '✓ Razorpay key saved' : 'No key saved yet';
+  if(rzpStatus) rzpStatus.style.color = rzpStored ? 'var(--green)' : 'var(--muted)';
+}
+function saveResendKey(){
+  const val = document.getElementById('resend-key-input').value.trim();
+  if(!val || val.startsWith('•')){ toast('Enter a valid Resend API key'); return; }
+  localStorage.setItem('kgs_admin_resend_key', val);
+  document.getElementById('resend-key-input').value = '••••••••••••••••••••';
+  const s = document.getElementById('resend-key-status');
+  s.textContent = '✓ Saved — email notifications are now active';
+  s.style.color = 'var(--green)';
+  toast('Resend API key saved ✓');
+}
+function saveRazorpayKey(){
+  const val = document.getElementById('razorpay-key-input').value.trim();
+  if(!val){ toast('Enter a Razorpay Key ID'); return; }
+  localStorage.setItem('kgs_admin_razorpay_key', val);
+  const s = document.getElementById('razorpay-key-status');
+  s.textContent = '✓ Razorpay key saved';
+  s.style.color = 'var(--green)';
+  toast('Razorpay key saved ✓');
 }
 
 // ── Reviews ─────────────────────────────────────────────
