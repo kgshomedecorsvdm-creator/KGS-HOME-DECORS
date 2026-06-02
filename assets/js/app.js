@@ -6014,15 +6014,19 @@ function App() {
     _React$useReducer2 = _slicedToArray(_React$useReducer, 2),
     _forceUpdate = _React$useReducer2[1];
   React.useEffect(function () {
-    if (typeof window.supabase === 'undefined') {
-      PRODUCTS = [];
-      setProductsReady(true);
-      setProductsError(true);
-      return;
-    }
-    var MAX_RETRIES = 3;
-    var RETRY_DELAY_MS = 1000;
+    var MAX_RETRIES = 10;
+    var RETRY_DELAY_MS = 500;
     var attemptFetch = function(attemptsLeft) {
+      if (!getSB()) {
+        if (attemptsLeft > 1) {
+          setTimeout(function() { attemptFetch(attemptsLeft - 1); }, RETRY_DELAY_MS);
+        } else {
+          PRODUCTS = [];
+          setProductsReady(true);
+          setProductsError(true);
+        }
+        return;
+      }
       fetchAllProductsFromSupabase().then(function (live) {
         if (live && live.length > 0) {
           PRODUCTS = live;
@@ -6034,7 +6038,6 @@ function App() {
           setProductsReady(true);
           _forceUpdate();
         } else {
-          console.warn('[KGS] Supabase returned 0 products — check RLS or is_active filter.');
           if (attemptsLeft > 1) {
             setTimeout(function() { attemptFetch(attemptsLeft - 1); }, RETRY_DELAY_MS);
           } else {
@@ -6043,8 +6046,7 @@ function App() {
             setProductsError(true);
           }
         }
-      })["catch"](function (err) {
-        console.error('[KGS] Supabase product fetch failed.', err);
+      })["catch"](function () {
         if (attemptsLeft > 1) {
           setTimeout(function() { attemptFetch(attemptsLeft - 1); }, RETRY_DELAY_MS);
         } else {
