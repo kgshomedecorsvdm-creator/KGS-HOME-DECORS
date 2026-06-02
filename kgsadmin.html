@@ -385,26 +385,6 @@
           <div id="resend-key-status" style="margin-top:10px;font-size:12px;color:var(--muted)"></div>
         </div>
 
-        <!-- Razorpay Key (placeholder for when ready) -->
-        <div class="bento-card">
-          <div class="label" style="margin-bottom:14px">
-            <span class="material-symbols-outlined" style="font-size:15px">credit_card</span>
-            Razorpay (Online Payments)
-          </div>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">
-            Add your Razorpay Key ID to enable UPI, card, and netbanking payments at checkout.
-          </p>
-          <div style="display:flex;gap:10px;align-items:flex-end">
-            <div style="flex:1">
-              <label style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px">Razorpay Key ID</label>
-              <input type="text" id="razorpay-key-input" placeholder="rzp_live_xxxxxxxxxxxx"
-                style="width:100%;padding:11px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text);font-family:'Jost',sans-serif;font-size:14px;outline:none;">
-            </div>
-            <button onclick="saveRazorpayKey()" class="btn btn-gold" style="flex-shrink:0">Save</button>
-          </div>
-          <div id="razorpay-key-status" style="margin-top:10px;font-size:12px;color:var(--muted)"></div>
-        </div>
-
       </div>
     </section>
 
@@ -614,16 +594,10 @@ function updateCustomSelect(sel){
 function loadSettingsPage(){
   const stored = localStorage.getItem('kgs_admin_resend_key') || '';
   const inp = document.getElementById('resend-key-input');
-  const rzpInp = document.getElementById('razorpay-key-input');
   if(inp) inp.value = stored ? '••••••••••••••••••••' : '';
   const status = document.getElementById('resend-key-status');
   if(status) status.textContent = stored ? '✓ API key saved in this browser' : 'No key saved yet';
   if(status) status.style.color = stored ? 'var(--green)' : 'var(--muted)';
-  const rzpStored = localStorage.getItem('kgs_admin_razorpay_key') || '';
-  if(rzpInp) rzpInp.value = rzpStored || '';
-  const rzpStatus = document.getElementById('razorpay-key-status');
-  if(rzpStatus) rzpStatus.textContent = rzpStored ? '✓ Razorpay key saved' : 'No key saved yet';
-  if(rzpStatus) rzpStatus.style.color = rzpStored ? 'var(--green)' : 'var(--muted)';
 }
 function saveResendKey(){
   const val = document.getElementById('resend-key-input').value.trim();
@@ -634,15 +608,6 @@ function saveResendKey(){
   s.textContent = '✓ Saved — email notifications are now active';
   s.style.color = 'var(--green)';
   toast('Resend API key saved ✓');
-}
-function saveRazorpayKey(){
-  const val = document.getElementById('razorpay-key-input').value.trim();
-  if(!val){ toast('Enter a Razorpay Key ID'); return; }
-  localStorage.setItem('kgs_admin_razorpay_key', val);
-  const s = document.getElementById('razorpay-key-status');
-  s.textContent = '✓ Razorpay key saved';
-  s.style.color = 'var(--green)';
-  toast('Razorpay key saved ✓');
 }
 
 // ── Reviews ─────────────────────────────────────────────
