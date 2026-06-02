@@ -12,6 +12,7 @@ package-lock.json
 # ═══ SECURITY: Never push these ═══
 .env.local.js
 migrate_products.js
+screenshot_search.js
 supabase_schema.sql
 supabase_admin.sql
 supabase_orders.sql
