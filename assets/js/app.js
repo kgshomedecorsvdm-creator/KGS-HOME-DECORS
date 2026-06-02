@@ -2743,7 +2743,7 @@ function BestSellers(_ref10) {
   if (productsError) return /*#__PURE__*/React.createElement("section", { className: "section", style: { background: '#fff' } },
     /*#__PURE__*/React.createElement("div", { className: "container", style: { textAlign: 'center', padding: '40px 0', color: '#5E5B59' } },
       /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: 40, color: '#C5A880', display: 'block', marginBottom: 12 } }, "wifi_off"),
-      /*#__PURE__*/React.createElement("p", { style: { fontSize: 15 } }, "Products are loading. Please check your connection and refresh.")
+      /*#__PURE__*/React.createElement("p", { style: { fontSize: 15 } }, "Unable to load products. Please refresh the page.")
     )
   );
   var total = pool.length;
@@ -3460,7 +3460,7 @@ function ShopPage(_ref14) {
   if (productsError) return /*#__PURE__*/React.createElement("div", { style: { minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16, color: '#5E5B59', textAlign: 'center', padding: '0 24px' } },
     /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: 48, color: '#C5A880' } }, "wifi_off"),
     /*#__PURE__*/React.createElement("div", { style: { fontSize: 18, fontFamily: '"Crimson Pro",serif', color: '#1A1A1A' } }, "Products temporarily unavailable"),
-    /*#__PURE__*/React.createElement("p", { style: { fontSize: 14, maxWidth: 320 } }, "We're having trouble connecting. Please check your internet and refresh the page."),
+    /*#__PURE__*/React.createElement("p", { style: { fontSize: 14, maxWidth: 320 } }, "Unable to load products. Please check your connection and try again."),
     /*#__PURE__*/React.createElement("button", { onClick: function() { window.location.reload(); }, className: "btn btn-dark", style: { marginTop: 8 } }, "Refresh")
   );
   var filtered = React.useMemo(function () {
@@ -6020,28 +6020,41 @@ function App() {
       setProductsError(true);
       return;
     }
-    fetchAllProductsFromSupabase().then(function (live) {
-      if (live && live.length > 0) {
-        PRODUCTS = live;
-        setCart(function (prev) {
-          return prev.filter(function (ci) {
-            return PRODUCTS.some(function (p) { return p.id === ci.id; });
+    var MAX_RETRIES = 3;
+    var RETRY_DELAY_MS = 1000;
+    var attemptFetch = function(attemptsLeft) {
+      fetchAllProductsFromSupabase().then(function (live) {
+        if (live && live.length > 0) {
+          PRODUCTS = live;
+          setCart(function (prev) {
+            return prev.filter(function (ci) {
+              return PRODUCTS.some(function (p) { return p.id === ci.id; });
+            });
           });
-        });
-        setProductsReady(true);
-        _forceUpdate();
-      } else {
-        console.warn('[KGS] Supabase returned 0 products — check RLS or is_active filter.');
-        PRODUCTS = [];
-        setProductsReady(true);
-        setProductsError(true);
-      }
-    })["catch"](function (err) {
-      console.error('[KGS] Supabase product fetch failed.', err);
-      PRODUCTS = [];
-      setProductsReady(true);
-      setProductsError(true);
-    });
+          setProductsReady(true);
+          _forceUpdate();
+        } else {
+          console.warn('[KGS] Supabase returned 0 products — check RLS or is_active filter.');
+          if (attemptsLeft > 1) {
+            setTimeout(function() { attemptFetch(attemptsLeft - 1); }, RETRY_DELAY_MS);
+          } else {
+            PRODUCTS = [];
+            setProductsReady(true);
+            setProductsError(true);
+          }
+        }
+      })["catch"](function (err) {
+        console.error('[KGS] Supabase product fetch failed.', err);
+        if (attemptsLeft > 1) {
+          setTimeout(function() { attemptFetch(attemptsLeft - 1); }, RETRY_DELAY_MS);
+        } else {
+          PRODUCTS = [];
+          setProductsReady(true);
+          setProductsError(true);
+        }
+      });
+    };
+    attemptFetch(MAX_RETRIES);
   }, []);
 
   // ─── Auth session check ──────────────────────────────────────────────
