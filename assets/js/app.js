@@ -6014,16 +6014,21 @@ function App() {
     _React$useReducer2 = _slicedToArray(_React$useReducer, 2),
     _forceUpdate = _React$useReducer2[1];
   React.useEffect(function () {
-    var MAX_RETRIES = 10;
+    var MAX_RETRIES = 20;
     var RETRY_DELAY_MS = 500;
-    var attemptFetch = function(attemptsLeft) {
+    var CDN_WAIT_MS = 1000;
+    var attemptFetch = function(attemptsLeft, isAutoRecovery) {
       if (!getSB()) {
         if (attemptsLeft > 1) {
-          setTimeout(function() { attemptFetch(attemptsLeft - 1); }, RETRY_DELAY_MS);
+          setTimeout(function() { attemptFetch(attemptsLeft - 1, isAutoRecovery); }, CDN_WAIT_MS);
         } else {
-          PRODUCTS = [];
-          setProductsReady(true);
-          setProductsError(true);
+          if (!isAutoRecovery) {
+            setTimeout(function() { attemptFetch(MAX_RETRIES, true); }, 5000);
+          } else {
+            PRODUCTS = [];
+            setProductsReady(true);
+            setProductsError(true);
+          }
         }
         return;
       }
@@ -6039,24 +6044,32 @@ function App() {
           _forceUpdate();
         } else {
           if (attemptsLeft > 1) {
-            setTimeout(function() { attemptFetch(attemptsLeft - 1); }, RETRY_DELAY_MS);
+            setTimeout(function() { attemptFetch(attemptsLeft - 1, isAutoRecovery); }, RETRY_DELAY_MS);
+          } else {
+            if (!isAutoRecovery) {
+              setTimeout(function() { attemptFetch(MAX_RETRIES, true); }, 5000);
+            } else {
+              PRODUCTS = [];
+              setProductsReady(true);
+              setProductsError(true);
+            }
+          }
+        }
+      })["catch"](function () {
+        if (attemptsLeft > 1) {
+          setTimeout(function() { attemptFetch(attemptsLeft - 1, isAutoRecovery); }, RETRY_DELAY_MS);
+        } else {
+          if (!isAutoRecovery) {
+            setTimeout(function() { attemptFetch(MAX_RETRIES, true); }, 5000);
           } else {
             PRODUCTS = [];
             setProductsReady(true);
             setProductsError(true);
           }
         }
-      })["catch"](function () {
-        if (attemptsLeft > 1) {
-          setTimeout(function() { attemptFetch(attemptsLeft - 1); }, RETRY_DELAY_MS);
-        } else {
-          PRODUCTS = [];
-          setProductsReady(true);
-          setProductsError(true);
-        }
       });
     };
-    attemptFetch(MAX_RETRIES);
+    attemptFetch(MAX_RETRIES, false);
   }, []);
 
   // ─── Auth session check ──────────────────────────────────────────────

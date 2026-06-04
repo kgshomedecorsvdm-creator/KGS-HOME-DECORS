@@ -4,8 +4,21 @@
 -- Schema facts:
 --   customers.id = auth.uid() (direct FK to auth.users)
 --   admin_users has only: id, email, created_at
---   admin check = auth.jwt() ->> 'email' IN (SELECT email FROM admin_users)
+--   admin check = is_admin()
 -- ================================================================
+
+-- ── 0. is_admin() — SECURITY DEFINER, bypasses RLS on admin_users ─
+-- All admin policies reference this function instead of inline subqueries,
+-- so that enabling RLS on admin_users does not lock out real admins.
+CREATE OR REPLACE FUNCTION is_admin()
+RETURNS BOOLEAN AS $$
+BEGIN
+  RETURN EXISTS (
+    SELECT 1 FROM admin_users
+    WHERE email = auth.jwt() ->> 'email'
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = '';
 
 -- ── 1. PRODUCTS ──────────────────────────────────────────────────
 ALTER TABLE products ENABLE ROW LEVEL SECURITY;
@@ -24,19 +37,19 @@ CREATE POLICY "Public can view active products"
 
 CREATE POLICY "Admins can insert products"
   ON products FOR INSERT
-  WITH CHECK (auth.jwt() ->> 'email' IN (SELECT email FROM admin_users));
+  WITH CHECK (is_admin());
 
 CREATE POLICY "Admins can update products"
   ON products FOR UPDATE
-  USING (auth.jwt() ->> 'email' IN (SELECT email FROM admin_users));
+  USING (is_admin());
 
 CREATE POLICY "Admins can delete products"
   ON products FOR DELETE
-  USING (auth.jwt() ->> 'email' IN (SELECT email FROM admin_users));
+  USING (is_admin());
 
 CREATE POLICY "Admins can see all products"
   ON products FOR SELECT
-  USING (auth.jwt() ->> 'email' IN (SELECT email FROM admin_users));
+  USING (is_admin());
 
 -- ── 2. CUSTOMERS ─────────────────────────────────────────────────
 -- customers.id IS the auth.uid() — no separate user_id column
@@ -64,7 +77,7 @@ CREATE POLICY "Users can insert own profile"
 
 CREATE POLICY "Admins can view all customers"
   ON customers FOR SELECT
-  USING (auth.jwt() ->> 'email' IN (SELECT email FROM admin_users));
+  USING (is_admin());
 
 -- ── 3. ORDERS ────────────────────────────────────────────────────
 ALTER TABLE orders ENABLE ROW LEVEL SECURITY;
@@ -97,11 +110,11 @@ CREATE POLICY "Public can read orders by order_number"
 -- Admins
 CREATE POLICY "Admins can view all orders"
   ON orders FOR SELECT
-  USING (auth.jwt() ->> 'email' IN (SELECT email FROM admin_users));
+  USING (is_admin());
 
 CREATE POLICY "Admins can update orders"
   ON orders FOR UPDATE
-  USING (auth.jwt() ->> 'email' IN (SELECT email FROM admin_users));
+  USING (is_admin());
 
 -- ── 4. ORDER_ITEMS ───────────────────────────────────────────────
 ALTER TABLE order_items ENABLE ROW LEVEL SECURITY;
@@ -133,7 +146,7 @@ CREATE POLICY "Users can create order items"
 
 CREATE POLICY "Admins can view all order items"
   ON order_items FOR SELECT
-  USING (auth.jwt() ->> 'email' IN (SELECT email FROM admin_users));
+  USING (is_admin());
 
 -- ── 5. ADDRESSES ─────────────────────────────────────────────────
 ALTER TABLE addresses ENABLE ROW LEVEL SECURITY;
@@ -180,8 +193,24 @@ CREATE POLICY "Anyone can submit a review"
   ON store_reviews FOR INSERT
   WITH CHECK (true);
 
--- ── 9. ADMIN_USERS — RLS intentionally OFF ───────────────────────
-ALTER TABLE admin_users DISABLE ROW LEVEL SECURITY;
+-- ── 9. ADMIN_USERS — RLS enabled, default-deny for app users ────
+-- Service role (Supabase dashboard) bypasses RLS automatically.
+-- is_admin() SECURITY DEFINER function reads admin_users safely.
+ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
+
+-- ── 10. NEWSLETTER_SUBSCRIBERS ───────────────────────────────────
+ALTER TABLE newsletter_subscribers ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Anyone can subscribe" ON newsletter_subscribers;
+DROP POLICY IF EXISTS "Admins can view subscribers" ON newsletter_subscribers;
+
+CREATE POLICY "Anyone can subscribe"
+  ON newsletter_subscribers FOR INSERT
+  WITH CHECK (true);
+
+CREATE POLICY "Admins can view subscribers"
+  ON newsletter_subscribers FOR SELECT
+  USING (is_admin());
 
 -- ── VERIFY ───────────────────────────────────────────────────────
 SELECT
@@ -192,6 +221,6 @@ WHERE schemaname = 'public'
   AND tablename IN (
     'products','customers','orders','order_items',
     'addresses','wishlist_items','cart_items',
-    'store_reviews','admin_users'
+    'store_reviews','admin_users','newsletter_subscribers'
   )
 ORDER BY tablename;
