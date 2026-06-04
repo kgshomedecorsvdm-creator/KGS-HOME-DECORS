@@ -3043,7 +3043,7 @@ function Testimonials(_ref_t) {
   }, []);
   var openReviewModal = function openReviewModal() {
     setShowReviewModal(true);
-    document.body.style.overflow = 'hidden';
+    var _ry = window.scrollY; document.body.style.cssText = 'position:fixed;top:-' + _ry + 'px;left:0;right:0;overflow:hidden;width:100%;'; document.body.dataset.reviewScrollY = _ry;
     if (window._lenis) window._lenis.stop();
     // Intercept touchmove at capture phase so Lenis never prevents default inside modal
     window._reviewTouchStop = function(e) {
@@ -3056,7 +3056,7 @@ function Testimonials(_ref_t) {
   };
   var closeReviewModal = function closeReviewModal() {
     setShowReviewModal(false);
-    document.body.style.overflow = '';
+    var _ry = parseFloat(document.body.dataset.reviewScrollY || '0'); document.body.style.cssText = ''; window.scrollTo(0, _ry);
     if (window._lenis) window._lenis.start();
     if (window._reviewTouchStop) {
       window.removeEventListener('touchmove', window._reviewTouchStop, { capture: true });
@@ -3156,7 +3156,7 @@ function Testimonials(_ref_t) {
     className: "review-modal-dialog",
     style: {
       background: '#fff',
-      padding: 40,
+      padding: '28px 20px',
       borderRadius: 24,
       width: '100%',
       maxWidth: 480,
@@ -5770,15 +5770,18 @@ function SearchDrawer(_ref21) {
       var scrollY = window.scrollY;
       document.body.style.top = '-' + scrollY + 'px';
       document.body.classList.add('search-open');
+      if (window._lenis) window._lenis.stop();
     } else {
       var scrollY = parseFloat(document.body.style.top || '0') * -1;
       document.body.classList.remove('search-open');
       document.body.style.top = '';
+      if (window._lenis) window._lenis.start();
       if (scrollY) window.scrollTo(0, scrollY);
     }
     return function () {
       document.body.classList.remove('search-open');
       document.body.style.top = '';
+      if (window._lenis) window._lenis.start();
     };
   }, [open]);
   var results = React.useMemo(function () {
