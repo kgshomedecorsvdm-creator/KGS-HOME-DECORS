@@ -3016,7 +3016,7 @@ function Testimonials(_ref_t) {
     _React$useState18 = _slicedToArray(_React$useState17, 2),
     showReviewModal = _React$useState18[0],
     setShowReviewModal = _React$useState18[1];
-  var _revState = React.useState(TESTIMONIALS),
+  var _revState = React.useState([]),
       displayReviews = _revState[0],
       setDisplayReviews = _revState[1];
   React.useEffect(function() {
@@ -3070,9 +3070,9 @@ function Testimonials(_ref_t) {
     var form = e.target;
     if (form.elements['_hp'] && form.elements['_hp'].value) return;
     var reviewData = {
-      guest_name: form[0].value.trim(),
-      rating: parseInt(form[1].value),
-      review_text: form[2].value.trim(),
+      guest_name: form[1].value.trim(),
+      rating: parseInt(form[2].value),
+      review_text: form[3].value.trim(),
       is_approved: false
     };
     if (!reviewData.guest_name || !reviewData.review_text) return;
@@ -3119,24 +3119,26 @@ function Testimonials(_ref_t) {
     style: { fontSize: 13 }
   }, "All Reviews ", /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined", style: { fontSize: 14 }
-  }, "arrow_forward")))), /*#__PURE__*/React.createElement("div", {
-    className: "testimonials-grid"
-  }, displayReviews.map(function (t) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: t.id || t.name,
-      className: "testimonial"
-    },
-      /*#__PURE__*/React.createElement("div", { className: "quote-mark" }, "“"),
-      /*#__PURE__*/React.createElement("div", { className: "quote" }, t.quote),
-      /*#__PURE__*/React.createElement("div", { className: "head-row" },
-        /*#__PURE__*/React.createElement("div", { className: "avatar" }, t.initial),
-        /*#__PURE__*/React.createElement("div", null,
-          /*#__PURE__*/React.createElement("div", { className: "name" }, t.name),
-          /*#__PURE__*/React.createElement("div", { className: "stars" }, '★'.repeat(t.stars))
-        )
-      )
-    );
-  }))), showReviewModal && /*#__PURE__*/React.createElement("div", {
+  }, "arrow_forward")))), displayReviews.length === 0
+    ? /*#__PURE__*/React.createElement("p", { style: { color: '#9E9B98', fontSize: '15px', textAlign: 'center', padding: '40px 0' } }, "Customer reviews are on their way. Check back soon.")
+    : /*#__PURE__*/React.createElement("div", {
+        className: "testimonials-grid"
+      }, displayReviews.map(function (t) {
+        return /*#__PURE__*/React.createElement("div", {
+          key: t.id || t.name,
+          className: "testimonial"
+        },
+          /*#__PURE__*/React.createElement("div", { className: "quote-mark" }, "“"),
+          /*#__PURE__*/React.createElement("div", { className: "quote" }, t.quote),
+          /*#__PURE__*/React.createElement("div", { className: "head-row" },
+            /*#__PURE__*/React.createElement("div", { className: "avatar" }, t.initial),
+            /*#__PURE__*/React.createElement("div", null,
+              /*#__PURE__*/React.createElement("div", { className: "name" }, t.name),
+              /*#__PURE__*/React.createElement("div", { className: "stars" }, '★'.repeat(t.stars))
+            )
+          )
+        );
+      }))), showReviewModal && /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'fixed',
       inset: 0,
