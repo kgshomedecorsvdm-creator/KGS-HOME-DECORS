@@ -3298,6 +3298,7 @@ function Testimonials(_ref_t) {
       marginTop: 4
     }
   }, "Reviews are submitted to the admin portal for approval before appearing publicly.")))))));
+}
 
 // ====== INSTAGRAM ============================================================
 function Instagram() {
