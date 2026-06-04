@@ -3165,6 +3165,9 @@ function Testimonials(_ref_t) {
       borderRadius: 24,
       width: '100%',
       maxWidth: 520,
+      maxHeight: 'calc(100vh - 48px)',
+      overflowY: 'auto',
+      WebkitOverflowScrolling: 'touch',
       position: 'relative',
       boxShadow: '0 24px 48px -12px rgba(0,0,0,0.2)',
       boxSizing: 'border-box'
