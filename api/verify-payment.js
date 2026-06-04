@@ -9,7 +9,7 @@ module.exports = async function handler(req, res) {
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
-    var KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
+    var KEY_SECRET = process.env.RAZORPAY2 || process.env.RAZORPAY_KEY_SECRET;
     if (!KEY_SECRET) return res.status(500).json({ error: 'Payment gateway not configured' });
     var generated_signature = crypto
       .createHmac('sha256', KEY_SECRET)

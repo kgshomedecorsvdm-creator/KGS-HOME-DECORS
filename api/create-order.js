@@ -6,8 +6,8 @@ module.exports = async function handler(req, res) {
     var currency = body.currency || 'INR';
     var receipt = body.receipt || ('kgs_' + Date.now());
     if (!amount || amount < 100) return res.status(400).json({ error: 'Amount must be at least 100 paise' });
-    var KEY_ID = process.env.RAZORPAY_KEY_ID;
-    var KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
+    var KEY_ID = process.env.RAZORPAY1 || process.env.RAZORPAY_KEY_ID;
+    var KEY_SECRET = process.env.RAZORPAY2 || process.env.RAZORPAY_KEY_SECRET;
     if (!KEY_ID || !KEY_SECRET) return res.status(500).json({ error: 'Payment gateway not configured' });
     var auth = Buffer.from(KEY_ID + ':' + KEY_SECRET).toString('base64');
     var response = await fetch('https://api.razorpay.com/v1/orders', {
