@@ -3065,6 +3065,7 @@ function Testimonials(_ref_t) {
   };
   var _submitState = React.useState('idle'), submitState = _submitState[0], setSubmitState = _submitState[1];
 
+  var _errMsg = React.useState(''), submitErr = _errMsg[0], setSubmitErr = _errMsg[1];
   var handleSubmitReview = function handleSubmitReview(e) {
     e.preventDefault();
     var form = e.target;
@@ -3077,17 +3078,17 @@ function Testimonials(_ref_t) {
     };
     if (!reviewData.guest_name || !reviewData.review_text) return;
     setSubmitState('loading');
+    setSubmitErr('');
     var sb = getSB();
-    if (!sb) { setSubmitState('idle'); closeReviewModal(); return; }
+    if (!sb) { setSubmitState('idle'); return; }
     sb.from('store_reviews').insert(reviewData).then(function(res) {
       if (res.error) {
         console.error('[KGS] Review submit error:', res.error.message);
+        setSubmitErr('Could not submit your review. Please try again.');
         setSubmitState('idle');
-        alert('Could not submit your review. Please try again.');
       } else {
-        setSubmitState('idle');
-        closeReviewModal();
-        alert('Thank you! Your review has been submitted and is awaiting approval.');
+        setSubmitState('success');
+        setTimeout(function() { closeReviewModal(); setSubmitState('idle'); }, 2500);
       }
     });
   };
@@ -3194,7 +3195,11 @@ function Testimonials(_ref_t) {
       color: '#5E5B59',
       marginBottom: 24
     }
-  }, "Your feedback helps us improve and guides other customers."), /*#__PURE__*/React.createElement("form", {
+  }, "Your feedback helps us improve and guides other customers."), submitState === 'success' ? /*#__PURE__*/React.createElement("div", { style: { textAlign: 'center', padding: '40px 20px' } },
+    /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: 56, color: '#4CAF50', display: 'block', marginBottom: 16, fontVariationSettings: "'FILL' 1" } }, "check_circle"),
+    /*#__PURE__*/React.createElement("h3", { style: { fontFamily: '"Crimson Pro",serif', fontSize: 24, marginBottom: 8 } }, "Review Submitted!"),
+    /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: 14 } }, "Thank you! Your review is pending approval and will appear shortly.")
+  ) : /*#__PURE__*/React.createElement("form", {
     onSubmit: handleSubmitReview,
     style: {
       display: 'flex',
@@ -3277,12 +3282,12 @@ function Testimonials(_ref_t) {
       marginTop: 12,
       width: '100%'
     }
-  }, "Submit Review"), /*#__PURE__*/React.createElement("p", {
+  }, submitState === 'loading' ? 'Submitting…' : 'Submit Review'), submitErr ? /*#__PURE__*/React.createElement("p", { style: { color: '#C97840', fontSize: 13, textAlign: 'center', margin: 0 } }, submitErr) : null, /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 11,
       color: '#5E5B59',
       textAlign: 'center',
-      marginTop: 12
+      marginTop: 4
     }
   }, "Reviews are submitted to the admin portal for approval before appearing publicly.")))));
 }
