@@ -3145,12 +3145,9 @@ function Testimonials(_ref_t) {
       background: 'rgba(26,26,26,0.6)',
       backdropFilter: 'blur(4px)',
       zIndex: 9999,
-      display: 'flex',
-      alignItems: 'flex-start',
-      justifyContent: 'center',
-      padding: '24px 16px',
       overflowY: 'auto',
       WebkitOverflowScrolling: 'touch',
+      padding: '24px 16px',
       boxSizing: 'border-box'
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -3161,14 +3158,11 @@ function Testimonials(_ref_t) {
       borderRadius: 24,
       width: '100%',
       maxWidth: 480,
-      maxHeight: '88vh',
-      overflowY: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      overscrollBehavior: 'contain',
+      margin: '0 auto',
+      display: 'block',
       position: 'relative',
       boxShadow: '0 24px 48px -12px rgba(0,0,0,0.2)',
-      boxSizing: 'border-box',
-      flexShrink: 0
+      boxSizing: 'border-box'
     }
   }, /*#__PURE__*/React.createElement("button", {
     onClick: function onClick() { return closeReviewModal(); },
