@@ -3043,25 +3043,13 @@ function Testimonials(_ref_t) {
   }, []);
   var openReviewModal = function openReviewModal() {
     setShowReviewModal(true);
-    var _ry = window.scrollY; document.body.style.cssText = 'position:fixed;top:-' + _ry + 'px;left:0;right:0;overflow:hidden;width:100%;'; document.body.dataset.reviewScrollY = _ry;
+    document.documentElement.style.overflow = 'hidden';
     if (window._lenis) window._lenis.stop();
-    // Intercept touchmove at capture phase so Lenis never prevents default inside modal
-    window._reviewTouchStop = function(e) {
-      var modal = document.querySelector('.review-modal-dialog');
-      if (modal && modal.contains(e.target)) {
-        e.stopImmediatePropagation();
-      }
-    };
-    window.addEventListener('touchmove', window._reviewTouchStop, { capture: true, passive: false });
   };
   var closeReviewModal = function closeReviewModal() {
     setShowReviewModal(false);
-    var _ry = parseFloat(document.body.dataset.reviewScrollY || '0'); document.body.style.cssText = ''; window.scrollTo(0, _ry);
+    document.documentElement.style.overflow = '';
     if (window._lenis) window._lenis.start();
-    if (window._reviewTouchStop) {
-      window.removeEventListener('touchmove', window._reviewTouchStop, { capture: true });
-      window._reviewTouchStop = null;
-    }
   };
   var _submitState = React.useState('idle'), submitState = _submitState[0], setSubmitState = _submitState[1];
 
@@ -3146,12 +3134,11 @@ function Testimonials(_ref_t) {
       background: 'rgba(26,26,26,0.6)',
       backdropFilter: 'blur(4px)',
       zIndex: 9999,
-      display: 'flex',
-      alignItems: 'flex-start',
-      justifyContent: 'center',
-      padding: '24px 16px',
       overflowY: 'auto',
-      WebkitOverflowScrolling: 'touch'
+      WebkitOverflowScrolling: 'touch',
+      padding: '24px 16px 48px',
+      textAlign: 'center',
+      boxSizing: 'border-box'
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "review-modal-dialog",
@@ -3161,15 +3148,13 @@ function Testimonials(_ref_t) {
       borderRadius: 24,
       width: '100%',
       maxWidth: 480,
-      maxHeight: '88vh',
-      overflowY: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      overscrollBehavior: 'contain',
+      display: 'inline-block',
+      textAlign: 'left',
+      verticalAlign: 'top',
       position: 'relative',
       boxShadow: '0 24px 48px -12px rgba(0,0,0,0.2)',
-      touchAction: 'pan-y'
-    },
-    onTouchMove: function(e) { e.stopPropagation(); e.currentTarget.blur(); }
+      boxSizing: 'border-box'
+    }
   }, /*#__PURE__*/React.createElement("button", {
     onClick: function onClick() { return closeReviewModal(); },
     style: {
