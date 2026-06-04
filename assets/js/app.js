@@ -3154,7 +3154,7 @@ function Testimonials(_ref_t) {
     className: "review-modal-dialog",
     style: {
       background: '#fff',
-      padding: '32px',
+      padding: '24px',
       borderRadius: 24,
       width: '100%',
       maxWidth: 480,
@@ -3179,15 +3179,15 @@ function Testimonials(_ref_t) {
   }, "\xD7"), /*#__PURE__*/React.createElement("h3", {
     style: {
       fontFamily: '"Crimson Pro", serif',
-      fontSize: 28,
-      marginBottom: 8,
+      fontSize: 24,
+      marginBottom: 4,
       color: '#1A1A1A'
     }
   }, "Write a Review"), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 14,
       color: '#5E5B59',
-      marginBottom: 24
+      marginBottom: 16
     }
   }, "Your feedback helps us improve and guides other customers."), submitState === 'success' ? /*#__PURE__*/React.createElement("div", { style: { textAlign: 'center', padding: '40px 20px' } },
     /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: 56, color: '#4CAF50', display: 'block', marginBottom: 16, fontVariationSettings: "'FILL' 1" } }, "check_circle"),
@@ -3198,14 +3198,14 @@ function Testimonials(_ref_t) {
     style: {
       display: 'flex',
       flexDirection: 'column',
-      gap: 16
+      gap: 12
     }
   }, /*#__PURE__*/React.createElement("input", { type: "text", name: "_hp", style: { display: 'none' }, tabIndex: -1, autoComplete: 'off', "aria-hidden": "true" }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     style: {
       display: 'block',
       fontSize: 12,
       fontWeight: 600,
-      marginBottom: 8,
+      marginBottom: 6,
       color: '#1A1A1A'
     }
   }, "Your Name"), /*#__PURE__*/React.createElement("input", {
@@ -3213,7 +3213,7 @@ function Testimonials(_ref_t) {
     required: true,
     style: {
       width: '100%',
-      padding: '12px 16px',
+      padding: '10px 14px',
       border: '1px solid rgba(26,26,26,0.15)',
       borderRadius: 8,
       fontFamily: '"Jost", sans-serif',
@@ -3228,7 +3228,7 @@ function Testimonials(_ref_t) {
       display: 'block',
       fontSize: 12,
       fontWeight: 600,
-      marginBottom: 8,
+      marginBottom: 6,
       color: '#1A1A1A'
     }
   }, "Rating"), /*#__PURE__*/React.createElement("select", {
@@ -3238,7 +3238,7 @@ function Testimonials(_ref_t) {
     onChange: function(e) { setReviewRating(e.target.value); },
     style: {
       width: '100%',
-      padding: '12px 16px',
+      padding: '10px 14px',
       border: '1px solid rgba(26,26,26,0.15)',
       borderRadius: 8,
       fontFamily: '"Jost", sans-serif',
@@ -3259,7 +3259,7 @@ function Testimonials(_ref_t) {
       display: 'block',
       fontSize: 12,
       fontWeight: 600,
-      marginBottom: 8,
+      marginBottom: 6,
       color: '#1A1A1A'
     }
   }, "Review"), /*#__PURE__*/React.createElement("textarea", {
@@ -3267,7 +3267,7 @@ function Testimonials(_ref_t) {
     rows: "3",
     style: {
       width: '100%',
-      padding: '12px 16px',
+      padding: '10px 14px',
       border: '1px solid rgba(26,26,26,0.15)',
       borderRadius: 8,
       fontFamily: '"Jost", sans-serif',
@@ -3282,7 +3282,7 @@ function Testimonials(_ref_t) {
     type: "submit",
     className: "btn btn-dark",
     style: {
-      marginTop: 12,
+      marginTop: 6,
       width: '100%'
     }
   }, submitState === 'loading' ? 'Submitting…' : 'Submit Review'), submitErr ? /*#__PURE__*/React.createElement("p", { style: { color: '#C97840', fontSize: 13, textAlign: 'center', margin: 0 } }, submitErr) : null, /*#__PURE__*/React.createElement("p", {
