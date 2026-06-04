@@ -66,7 +66,7 @@ async function getWishlist() {
   const sb = getSupabase();
   const user = await getUser();
   if (!user) return [];
-  const { data, error } = await sb.from('wishlists').select('product_id').eq('customer_id', user.id);
+  const { data, error } = await sb.from('wishlist_items').select('product_id').eq('customer_id', user.id);
   if (error) throw error;
   return (data || []).map(r => r.product_id);
 }
@@ -75,7 +75,7 @@ async function addToWishlist(productId) {
   const sb = getSupabase();
   const user = await getUser();
   if (!user) throw new Error('Not authenticated');
-  const { error } = await sb.from('wishlists').upsert({ customer_id: user.id, product_id: productId }, { onConflict: 'customer_id,product_id' });
+  const { error } = await sb.from('wishlist_items').upsert({ customer_id: user.id, product_id: productId }, { onConflict: 'customer_id,product_id' });
   if (error) throw error;
 }
 
@@ -83,7 +83,7 @@ async function removeFromWishlist(productId) {
   const sb = getSupabase();
   const user = await getUser();
   if (!user) return;
-  const { error } = await sb.from('wishlists').delete().eq('customer_id', user.id).eq('product_id', productId);
+  const { error } = await sb.from('wishlist_items').delete().eq('customer_id', user.id).eq('product_id', productId);
   if (error) throw error;
 }
 
