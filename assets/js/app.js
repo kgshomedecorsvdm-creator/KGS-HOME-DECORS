@@ -3152,16 +3152,16 @@ function Testimonials(_ref_t) {
     style: {
       minHeight: '100%',
       display: 'flex',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       justifyContent: 'center',
-      padding: '40px 16px',
+      padding: '24px 16px 40px',
       boxSizing: 'border-box'
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "review-modal-dialog",
     style: {
       background: '#fff',
-      padding: '40px',
+      padding: '28px 28px 24px',
       borderRadius: 24,
       width: '100%',
       maxWidth: 520,
@@ -3269,7 +3269,7 @@ function Testimonials(_ref_t) {
     }
   }, "Review"), /*#__PURE__*/React.createElement("textarea", {
     required: true,
-    rows: "4",
+    rows: "3",
     style: {
       width: '100%',
       padding: '12px 16px',
