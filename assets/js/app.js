@@ -6620,7 +6620,7 @@ function App() {
 
     // Razorpay for UPI and Card
     if (paymentMethod === 'upi' || paymentMethod === 'card') {
-      var rzpKey = (typeof KGS_CONFIG !== 'undefined' && KGS_CONFIG.razorpay && KGS_CONFIG.razorpay.keyId) ? KGS_CONFIG.razorpay.keyId : '';
+      var rzpKey = (typeof KGS_CONFIG !== 'undefined' && KGS_CONFIG.razorpay && KGS_CONFIG.razorpay.keyId) ? KGS_CONFIG.razorpay.keyId : 'rzp_test_SxY0SLVbhCSwjO';
       if (!rzpKey) {
         showToast('Payment gateway is being set up. Please try again in 24-48 hours.', 'error', '#C97840');
         return;
