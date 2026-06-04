@@ -3041,8 +3041,16 @@ function Testimonials(_ref_t) {
         }
       });
   }, []);
+  var _rn = React.useState(''), reviewName = _rn[0], setReviewName = _rn[1];
+  var _rr = React.useState('5'), reviewRating = _rr[0], setReviewRating = _rr[1];
+  var _rt = React.useState(''), reviewText = _rt[0], setReviewText = _rt[1];
+  var _submitState = React.useState('idle'), submitState = _submitState[0], setSubmitState = _submitState[1];
+  var _errMsg = React.useState(''), submitErr = _errMsg[0], setSubmitErr = _errMsg[1];
+
   var openReviewModal = function openReviewModal() {
     setShowReviewModal(true);
+    setReviewName(''); setReviewRating('5'); setReviewText('');
+    setSubmitState('idle'); setSubmitErr('');
     document.documentElement.style.overflow = 'hidden';
     if (window._lenis) window._lenis.stop();
   };
@@ -3051,31 +3059,25 @@ function Testimonials(_ref_t) {
     document.documentElement.style.overflow = '';
     if (window._lenis) window._lenis.start();
   };
-  var _submitState = React.useState('idle'), submitState = _submitState[0], setSubmitState = _submitState[1];
-
-  var _errMsg = React.useState(''), submitErr = _errMsg[0], setSubmitErr = _errMsg[1];
   var handleSubmitReview = function handleSubmitReview(e) {
     e.preventDefault();
-    var form = e.target;
-    if (form.elements['_hp'] && form.elements['_hp'].value) return;
-    var nameEl = form.elements['guest_name'];
-    var ratingEl = form.elements['rating'];
-    var reviewEl = form.elements['review_text'];
-    var reviewData = {
-      guest_name: nameEl ? nameEl.value.trim() : '',
-      rating: parseInt(ratingEl ? ratingEl.value : '5'),
-      review_text: reviewEl ? reviewEl.value.trim() : '',
-      is_approved: false
-    };
-    if (!reviewData.guest_name || !reviewData.review_text) return;
+    if (!reviewName.trim() || !reviewText.trim()) {
+      setSubmitErr('Please fill in your name and review.');
+      return;
+    }
     setSubmitState('loading');
     setSubmitErr('');
     var sb = getSB();
-    if (!sb) { setSubmitState('idle'); return; }
-    sb.from('store_reviews').insert(reviewData).then(function(res) {
+    if (!sb) { setSubmitState('idle'); setSubmitErr('Connection error. Please try again.'); return; }
+    sb.from('store_reviews').insert({
+      guest_name: reviewName.trim(),
+      rating: parseInt(reviewRating) || 5,
+      review_text: reviewText.trim(),
+      is_approved: false
+    }).then(function(res) {
       if (res.error) {
         console.error('[KGS] Review submit error:', res.error.message);
-        setSubmitErr('Could not submit your review. Please try again.');
+        setSubmitErr('Could not submit. Error: ' + res.error.message);
         setSubmitState('idle');
       } else {
         setSubmitState('success');
@@ -3139,24 +3141,24 @@ function Testimonials(_ref_t) {
       zIndex: 9999,
       overflowY: 'auto',
       WebkitOverflowScrolling: 'touch',
-      padding: '24px 16px 48px',
-      textAlign: 'center',
-      boxSizing: 'border-box'
+      padding: '40px 16px',
+      boxSizing: 'border-box',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'flex-start'
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "review-modal-dialog",
     style: {
       background: '#fff',
-      padding: '28px 20px',
+      padding: '40px',
       borderRadius: 24,
       width: '100%',
-      maxWidth: 480,
-      display: 'inline-block',
-      textAlign: 'left',
-      verticalAlign: 'top',
+      maxWidth: 520,
       position: 'relative',
       boxShadow: '0 24px 48px -12px rgba(0,0,0,0.2)',
-      boxSizing: 'border-box'
+      boxSizing: 'border-box',
+      flexShrink: 0
     }
   }, /*#__PURE__*/React.createElement("button", {
     onClick: function onClick() { return closeReviewModal(); },
@@ -3214,7 +3216,9 @@ function Testimonials(_ref_t) {
       fontSize: 14
     },
     placeholder: "Enter your name",
-    name: "guest_name"
+    name: "guest_name",
+    value: reviewName,
+    onChange: function(e) { setReviewName(e.target.value); }
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     style: {
       display: 'block',
@@ -3226,6 +3230,8 @@ function Testimonials(_ref_t) {
   }, "Rating"), /*#__PURE__*/React.createElement("select", {
     required: true,
     name: "rating",
+    value: reviewRating,
+    onChange: function(e) { setReviewRating(e.target.value); },
     style: {
       width: '100%',
       padding: '12px 16px',
@@ -3265,7 +3271,9 @@ function Testimonials(_ref_t) {
       resize: 'vertical'
     },
     placeholder: "Tell us about your experience...",
-    name: "review_text"
+    name: "review_text",
+    value: reviewText,
+    onChange: function(e) { setReviewText(e.target.value); }
   })), /*#__PURE__*/React.createElement("button", {
     type: "submit",
     className: "btn btn-dark",
