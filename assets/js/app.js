@@ -121,6 +121,7 @@ function ResetPasswordPage(_ref_rp) {
   var _err = React.useState(''), error = _err[0], setError = _err[1];
   var _ok = React.useState(false), done = _ok[0], setDone = _ok[1];
   var _sp = React.useState(false), showPwd = _sp[0], setShowPwd = _sp[1];
+  var _sc = React.useState(false), showConfirmPwd = _sc[0], setShowConfirmPwd = _sc[1];
 
   var handleSubmit = function() {
     if (!newPwd || !confirmPwd) { setError('Please fill in both fields.'); return; }
@@ -157,7 +158,12 @@ function ResetPasswordPage(_ref_rp) {
         ),
         /*#__PURE__*/React.createElement("div", { style: { marginBottom: '24px', textAlign: 'left' } },
           /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Confirm Password"),
-          /*#__PURE__*/React.createElement("input", { type: "password", placeholder: "Repeat password", value: confirmPwd, onChange: function(e) { setConfirmPwd(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: inp })
+          /*#__PURE__*/React.createElement("div", { style: { position: 'relative' } },
+            /*#__PURE__*/React.createElement("input", { type: showConfirmPwd ? "text" : "password", placeholder: "Repeat password", value: confirmPwd, onChange: function(e) { setConfirmPwd(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: Object.assign({}, inp, { paddingRight: '46px' }) }),
+            /*#__PURE__*/React.createElement("button", { type: "button", onClick: function() { setShowConfirmPwd(!showConfirmPwd); }, style: { position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#9E9B98', padding: '4px', display: 'flex', alignItems: 'center' } },
+              /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '18px' } }, showConfirmPwd ? "visibility_off" : "visibility")
+            )
+          )
         ),
         /*#__PURE__*/React.createElement("button", { onClick: handleSubmit, disabled: loading, className: "btn btn-dark", style: { width: '100%', padding: '16px', fontSize: '14px', opacity: loading ? 0.7 : 1 } }, loading ? "Updating..." : "Update Password")
       ) : /*#__PURE__*/React.createElement(React.Fragment, null,
