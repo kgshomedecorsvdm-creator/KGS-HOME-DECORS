@@ -3058,10 +3058,13 @@ function Testimonials(_ref_t) {
     e.preventDefault();
     var form = e.target;
     if (form.elements['_hp'] && form.elements['_hp'].value) return;
+    var nameEl = form.elements['guest_name'];
+    var ratingEl = form.elements['rating'];
+    var reviewEl = form.elements['review_text'];
     var reviewData = {
-      guest_name: form[1].value.trim(),
-      rating: parseInt(form[2].value),
-      review_text: form[3].value.trim(),
+      guest_name: nameEl ? nameEl.value.trim() : '',
+      rating: parseInt(ratingEl ? ratingEl.value : '5'),
+      review_text: reviewEl ? reviewEl.value.trim() : '',
       is_approved: false
     };
     if (!reviewData.guest_name || !reviewData.review_text) return;
@@ -3210,7 +3213,8 @@ function Testimonials(_ref_t) {
       fontFamily: '"Jost", sans-serif',
       fontSize: 14
     },
-    placeholder: "Enter your name"
+    placeholder: "Enter your name",
+    name: "guest_name"
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     style: {
       display: 'block',
@@ -3221,6 +3225,7 @@ function Testimonials(_ref_t) {
     }
   }, "Rating"), /*#__PURE__*/React.createElement("select", {
     required: true,
+    name: "rating",
     style: {
       width: '100%',
       padding: '12px 16px',
@@ -3259,7 +3264,8 @@ function Testimonials(_ref_t) {
       fontSize: 14,
       resize: 'vertical'
     },
-    placeholder: "Tell us about your experience..."
+    placeholder: "Tell us about your experience...",
+    name: "review_text"
   })), /*#__PURE__*/React.createElement("button", {
     type: "submit",
     className: "btn btn-dark",
