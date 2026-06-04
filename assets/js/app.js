@@ -279,7 +279,7 @@ function AccountLoginPage(_ref) {
     error && /*#__PURE__*/React.createElement("div", { style: { background: 'rgba(201,120,64,0.08)', color: '#C97840', fontSize: '13px', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px' } }, error),
     /*#__PURE__*/React.createElement("div", { style: { marginBottom: '20px' } },
       /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Email Address"),
-      /*#__PURE__*/React.createElement("input", { type: "email", placeholder: "Enter your email", value: email, onChange: function(e) { setEmail(e.target.value); }, style: inputStyle })
+      /*#__PURE__*/React.createElement("input", { type: "email", autoComplete: "email", placeholder: "Enter your email", value: email, onChange: function(e) { setEmail(e.target.value); }, style: inputStyle })
     ),
     /*#__PURE__*/React.createElement("div", { style: { marginBottom: '24px' } },
       /*#__PURE__*/React.createElement("div", { style: { display: 'flex', justifyContent: 'space-between', marginBottom: '8px' } },
@@ -287,7 +287,7 @@ function AccountLoginPage(_ref) {
         /*#__PURE__*/React.createElement("a", { href: "#", onClick: function(e) { e.preventDefault(); onForgot(); }, style: { fontSize: '12px', color: '#B89657', fontWeight: 500 } }, "Forgot?")
       ),
       /*#__PURE__*/React.createElement("div", { style: { position: 'relative' } },
-        /*#__PURE__*/React.createElement("input", { type: showPwd ? "text" : "password", placeholder: "Enter your password", value: password, onChange: function(e) { setPassword(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: Object.assign({}, inputStyle, { paddingRight: '46px' }) }),
+        /*#__PURE__*/React.createElement("input", { type: showPwd ? "text" : "password", autoComplete: "current-password", placeholder: "Enter your password", value: password, onChange: function(e) { setPassword(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: Object.assign({}, inputStyle, { paddingRight: '46px' }) }),
         /*#__PURE__*/React.createElement("button", { type: "button", onClick: function() { setShowPwd(!showPwd); }, style: { position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#9E9B98', padding: '4px', display: 'flex', alignItems: 'center' } },
           /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '18px' } }, showPwd ? "visibility_off" : "visibility")
         )
@@ -334,16 +334,16 @@ function AccountRegisterPage(_ref2) {
     error && /*#__PURE__*/React.createElement("div", { style: { background: 'rgba(201,120,64,0.08)', color: '#C97840', fontSize: '13px', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px' } }, error),
     /*#__PURE__*/React.createElement("div", { style: { marginBottom: '20px' } },
       /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Full Name"),
-      /*#__PURE__*/React.createElement("input", { type: "text", placeholder: "Enter your full name", value: fullName, onChange: function(e) { setFullName(e.target.value); }, style: inputStyle })
+      /*#__PURE__*/React.createElement("input", { type: "text", autoComplete: "name", placeholder: "Enter your full name", value: fullName, onChange: function(e) { setFullName(e.target.value); }, style: inputStyle })
     ),
     /*#__PURE__*/React.createElement("div", { style: { marginBottom: '20px' } },
       /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Email Address"),
-      /*#__PURE__*/React.createElement("input", { type: "email", placeholder: "Enter your email", value: email, onChange: function(e) { setEmail(e.target.value); }, style: inputStyle })
+      /*#__PURE__*/React.createElement("input", { type: "email", autoComplete: "email", placeholder: "Enter your email", value: email, onChange: function(e) { setEmail(e.target.value); }, style: inputStyle })
     ),
     /*#__PURE__*/React.createElement("div", { style: { marginBottom: '24px' } },
       /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Password"),
       /*#__PURE__*/React.createElement("div", { style: { position: 'relative' } },
-        /*#__PURE__*/React.createElement("input", { type: showPwd ? "text" : "password", placeholder: "Min. 8 characters", value: password, onChange: function(e) { setPassword(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: Object.assign({}, inputStyle, { paddingRight: '46px' }) }),
+        /*#__PURE__*/React.createElement("input", { type: showPwd ? "text" : "password", autoComplete: "new-password", placeholder: "Min. 8 characters", value: password, onChange: function(e) { setPassword(e.target.value); }, onKeyDown: function(e) { if (e.key === 'Enter') handleSubmit(); }, style: Object.assign({}, inputStyle, { paddingRight: '46px' }) }),
         /*#__PURE__*/React.createElement("button", { type: "button", onClick: function() { setShowPwd(!showPwd); }, style: { position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#9E9B98', padding: '4px', display: 'flex', alignItems: 'center' } },
           /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '18px' } }, showPwd ? "visibility_off" : "visibility")
         )
@@ -2193,6 +2193,13 @@ function Newsletter() {
         setStatus('error');
       } else {
         setStatus('done');
+        try {
+          fetch('https://rgpkomngygapwjhnbgaf.supabase.co/functions/v1/newsletter-welcome', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'apikey': SB_ANON },
+            body: JSON.stringify({ email: email.trim().toLowerCase() })
+          });
+        } catch(e) {}
       }
     });
   };
