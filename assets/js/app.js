@@ -3145,32 +3145,30 @@ function Testimonials(_ref_t) {
       background: 'rgba(26,26,26,0.6)',
       backdropFilter: 'blur(4px)',
       zIndex: 9999,
-      overflowY: 'auto',
-      WebkitOverflowScrolling: 'touch'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      minHeight: '100%',
       display: 'flex',
       alignItems: 'flex-start',
       justifyContent: 'center',
-      padding: '24px 16px 40px',
+      padding: '24px 16px',
+      overflowY: 'auto',
+      WebkitOverflowScrolling: 'touch',
       boxSizing: 'border-box'
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "review-modal-dialog",
     style: {
       background: '#fff',
-      padding: '28px 28px 24px',
+      padding: '32px',
       borderRadius: 24,
       width: '100%',
-      maxWidth: 520,
-      maxHeight: 'calc(100vh - 48px)',
+      maxWidth: 480,
+      maxHeight: '88vh',
       overflowY: 'auto',
       WebkitOverflowScrolling: 'touch',
+      overscrollBehavior: 'contain',
       position: 'relative',
       boxShadow: '0 24px 48px -12px rgba(0,0,0,0.2)',
-      boxSizing: 'border-box'
+      boxSizing: 'border-box',
+      flexShrink: 0
     }
   }, /*#__PURE__*/React.createElement("button", {
     onClick: function onClick() { return closeReviewModal(); },
@@ -3300,7 +3298,7 @@ function Testimonials(_ref_t) {
       textAlign: 'center',
       marginTop: 4
     }
-  }, "Reviews are submitted to the admin portal for approval before appearing publicly."))))))
+  }, "Reviews are submitted to the admin portal for approval before appearing publicly.")))));
 }
 
 
