@@ -9,7 +9,7 @@ const KGS_CONFIG = {
     anonKey: 'sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P'
   },
   razorpay: {
-    keyId: '', // Add once Razorpay account is set up
+    keyId: 'rzp_test_SxY0SLVbhCSwjO', // publishable key — safe to commit
   },
   resend: {
     fromEmail: 'KGS Home Décors <orders@kgshomedecors.in>',

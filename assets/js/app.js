@@ -6629,20 +6629,60 @@ function App() {
         showToast('Payment gateway failed to load. Please refresh and try again.', 'error', '#C97840');
         return;
       }
-      var rzpOptions = {
-        key: rzpKey,
-        amount: Math.round(orderTotal * 100),
-        currency: 'INR',
-        name: 'KGS Home D\xe9cors',
-        description: 'Order Payment',
-        image: '/assets/logo/favicon.svg',
-        prefill: { name: formData.name, contact: formData.phone },
-        theme: { color: '#B89657' },
-        handler: function(response) { saveOrder(response.razorpay_payment_id); },
-        modal: { ondismiss: function() { showToast('Payment cancelled', 'info', '#9E9B98'); } }
-      };
-      var rzp = new Razorpay(rzpOptions);
-      rzp.open();
+      // Step 1: Create server-side order (gets a signed order_id from Razorpay)
+      fetch('/api/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: Math.round(orderTotal * 100), currency: 'INR', receipt: 'kgs_' + Date.now() })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(orderData) {
+        if (!orderData.order_id) {
+          showToast('Could not initiate payment. Please try again.', 'error', '#C97840');
+          return;
+        }
+        // Step 2: Open Razorpay modal with server-generated order_id
+        var rzpOptions = {
+          key: rzpKey,
+          amount: orderData.amount,
+          currency: orderData.currency,
+          order_id: orderData.order_id,
+          name: 'KGS Home D\xe9cors',
+          description: 'Order Payment',
+          image: '/assets/logo/favicon.svg',
+          prefill: { name: formData.name, contact: formData.phone },
+          theme: { color: '#B89657' },
+          handler: function(response) {
+            // Step 3: Verify signature server-side before saving order
+            fetch('/api/verify-payment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature
+              })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(verifyData) {
+              if (verifyData.success) {
+                saveOrder(response.razorpay_payment_id);
+              } else {
+                showToast('Payment verification failed. Please contact support.', 'error', '#C97840');
+              }
+            })
+            .catch(function() {
+              showToast('Payment verification error. Please contact support.', 'error', '#C97840');
+            });
+          },
+          modal: { ondismiss: function() { showToast('Payment cancelled', 'info', '#9E9B98'); } }
+        };
+        var rzp = new Razorpay(rzpOptions);
+        rzp.open();
+      })
+      .catch(function() {
+        showToast('Could not initiate payment. Please try again.', 'error', '#C97840');
+      });
       return;
     }
 
