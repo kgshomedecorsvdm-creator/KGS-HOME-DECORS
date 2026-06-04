@@ -2479,7 +2479,7 @@ function Hero(_ref9) {
     headline: /*#__PURE__*/React.createElement(React.Fragment, null, "Statement pieces", /*#__PURE__*/React.createElement("br", null), "that transform ", /*#__PURE__*/React.createElement("em", null, "ordinary"), /*#__PURE__*/React.createElement("br", null), "into extraordinary."),
     sub: 'Handpicked artifacts, luxury lighting, and elegant decor.'
   }, {
-    img: 'assets/lifestyle/room_zen.png',
+    img: 'assets/lifestyle/room_zen.webp',
     eyebrow: 'Heritage Pieces',
     headline: /*#__PURE__*/React.createElement(React.Fragment, null, "Made the way", /*#__PURE__*/React.createElement("br", null), "things were ", /*#__PURE__*/React.createElement("em", null, "made"), /*#__PURE__*/React.createElement("br", null), "to last."),
     sub: 'Brass. Stone. Slow craft. Every piece hand-checked before it ships.'
@@ -3146,12 +3146,16 @@ function Testimonials(_ref_t) {
       backdropFilter: 'blur(4px)',
       zIndex: 9999,
       overflowY: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      padding: '40px 16px',
-      boxSizing: 'border-box',
+      WebkitOverflowScrolling: 'touch'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      minHeight: '100%',
       display: 'flex',
+      alignItems: 'center',
       justifyContent: 'center',
-      alignItems: 'flex-start'
+      padding: '40px 16px',
+      boxSizing: 'border-box'
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "review-modal-dialog",
@@ -3163,8 +3167,7 @@ function Testimonials(_ref_t) {
       maxWidth: 520,
       position: 'relative',
       boxShadow: '0 24px 48px -12px rgba(0,0,0,0.2)',
-      boxSizing: 'border-box',
-      flexShrink: 0
+      boxSizing: 'border-box'
     }
   }, /*#__PURE__*/React.createElement("button", {
     onClick: function onClick() { return closeReviewModal(); },
@@ -3294,7 +3297,7 @@ function Testimonials(_ref_t) {
       textAlign: 'center',
       marginTop: 4
     }
-  }, "Reviews are submitted to the admin portal for approval before appearing publicly.")))));
+  }, "Reviews are submitted to the admin portal for approval before appearing publicly.")))))));
 }
 
 // ====== INSTAGRAM ============================================================
