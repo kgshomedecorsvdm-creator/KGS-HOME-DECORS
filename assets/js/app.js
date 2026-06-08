@@ -3136,9 +3136,10 @@ function Testimonials(_ref_t) {
         );
       }))), showReviewModal && /*#__PURE__*/ReactDOM.createPortal(
     /*#__PURE__*/React.createElement(React.Fragment, null,
-      /*#__PURE__*/React.createElement("style", null, "@keyframes premiumModalIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }"),
+      /*#__PURE__*/React.createElement("style", null, "\n        @keyframes premiumModalIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }\n        .kgs-modal-container { padding: 20px; }\n        .kgs-modal-card { padding: 40px; border-radius: 24px; }\n        .kgs-modal-title { font-size: 36px; }\n        .kgs-modal-close { top: 20px; right: 20px; }\n        @media (max-width: 500px) {\n          .kgs-modal-container { padding: 12px; }\n          .kgs-modal-card { padding: 24px; border-radius: 20px; }\n          .kgs-modal-title { font-size: 28px; }\n          .kgs-modal-close { top: 12px; right: 12px; }\n        }\n      "),
       /*#__PURE__*/React.createElement("div", {
         onClick: function(e){ if(e.target === e.currentTarget) closeReviewModal(); },
+        className: "kgs-modal-container",
         style: {
           position: 'fixed',
           inset: 0,
@@ -3148,17 +3149,15 @@ function Testimonials(_ref_t) {
           zIndex: 999999,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
-          padding: '20px'
+          justifyContent: 'center'
         }
       },
         /*#__PURE__*/React.createElement("div", {
+          className: "kgs-modal-card",
           style: {
             background: '#fff',
-            borderRadius: '24px',
             width: '100%',
             maxWidth: '460px',
-            padding: '40px',
             position: 'relative',
             boxSizing: 'border-box',
             boxShadow: '0 24px 64px rgba(0,0,0,0.2)',
@@ -3169,22 +3168,23 @@ function Testimonials(_ref_t) {
         },
           /*#__PURE__*/React.createElement("button", {
             onClick:function(){ return closeReviewModal(); },
-            style:{position:'absolute',top:'20px',right:'20px',background:'#F5F5F5',border:'none',cursor:'pointer',color:'#1A1A1A',fontSize:20,width:'36px',height:'36px',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s'}
+            className: "kgs-modal-close",
+            style:{position:'absolute',background:'#F5F5F5',border:'none',cursor:'pointer',color:'#1A1A1A',fontSize:20,width:'36px',height:'36px',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s'}
           }, "\xD7"),
           submitState === 'success'
             ? /*#__PURE__*/React.createElement("div", {style:{textAlign:'center',padding:'20px 0'}},
                 /*#__PURE__*/React.createElement("span", {className:"material-symbols-outlined",style:{fontSize:64,color:'#1A1A1A',display:'block',marginBottom:24,fontVariationSettings:"'FILL' 1"}}, "check_circle"),
-                /*#__PURE__*/React.createElement("h3", {style:{fontFamily:'"Crimson Pro",serif',fontSize:32,marginBottom:12,color:'#1A1A1A'}}, "Review Submitted"),
+                /*#__PURE__*/React.createElement("h3", {className: "kgs-modal-title", style:{fontFamily:'"Crimson Pro",serif',marginBottom:12,color:'#1A1A1A'}}, "Review Submitted"),
                 /*#__PURE__*/React.createElement("p", {style:{color:'#666',fontSize:16,lineHeight:1.5}}, "Thank you for your feedback! Your review is pending approval and will appear shortly.")
               )
             : /*#__PURE__*/React.createElement(React.Fragment, null,
-                /*#__PURE__*/React.createElement("div", {style:{textAlign:'center',marginBottom:32}},
-                  /*#__PURE__*/React.createElement("h3", {style:{margin:'0 0 12px 0',fontFamily:'"Crimson Pro",serif',fontSize:36,fontWeight:500,color:'#1A1A1A'}}, "Write a Review"),
+                /*#__PURE__*/React.createElement("div", {style:{textAlign:'center',marginBottom:24}},
+                  /*#__PURE__*/React.createElement("h3", {className: "kgs-modal-title", style:{margin:'0 0 12px 0',fontFamily:'"Crimson Pro",serif',fontWeight:500,color:'#1A1A1A'}}, "Write a Review"),
                   /*#__PURE__*/React.createElement("p", {style:{margin:0,color:'#666',fontSize:15}}, "Your feedback helps us improve and guides other customers.")
                 ),
                 /*#__PURE__*/React.createElement("form", {
                   onSubmit:handleSubmitReview,
-                  style:{display:'flex',flexDirection:'column',gap:20}
+                  style:{display:'flex',flexDirection:'column',gap:16}
                 },
                   /*#__PURE__*/React.createElement("input", {type:"text",name:"_hp",style:{display:'none'},tabIndex:-1,autoComplete:'off',"aria-hidden":"true"}),
                   /*#__PURE__*/React.createElement("div", null,
@@ -3205,9 +3205,9 @@ function Testimonials(_ref_t) {
                     /*#__PURE__*/React.createElement("label", {style:{display:'block',fontSize:13,fontWeight:600,letterSpacing:'0.03em',textTransform:'uppercase',marginBottom:8,color:'#444',fontFamily:'"Jost",sans-serif'}}, "Review"),
                     /*#__PURE__*/React.createElement("textarea", {required:true,rows:"4",style:{width:'100%',padding:'14px 16px',border:'1px solid #E5E5E5',borderRadius:12,fontFamily:'"Jost",sans-serif',fontSize:15,resize:'vertical',background:'#F9F9F9',boxSizing:'border-box',outline:'none',transition:'border 0.2s'},placeholder:"Tell us about your experience...",name:"review_text",value:reviewText,onChange:function(e){setReviewText(e.target.value);}})
                   ),
-                  /*#__PURE__*/React.createElement("button", {type:"submit",style:{marginTop:8,width:'100%',padding:'16px',fontSize:15,fontWeight:600,letterSpacing:'0.02em',borderRadius:30,backgroundColor:'#1A1A1A',color:'#fff',border:'none',cursor:'pointer',fontFamily:'"Jost",sans-serif',transition:'background 0.2s'}}, submitState === 'loading' ? 'Submitting...' : 'Submit Review'),
+                  /*#__PURE__*/React.createElement("button", {type:"submit",style:{marginTop:4,width:'100%',padding:'16px',fontSize:15,fontWeight:600,letterSpacing:'0.02em',borderRadius:30,backgroundColor:'#1A1A1A',color:'#fff',border:'none',cursor:'pointer',fontFamily:'"Jost",sans-serif',transition:'background 0.2s'}}, submitState === 'loading' ? 'Submitting...' : 'Submit Review'),
                   submitErr ? /*#__PURE__*/React.createElement("p", {style:{color:'#D32F2F',fontSize:13,textAlign:'center',margin:0}}, submitErr) : null,
-                  /*#__PURE__*/React.createElement("p", {style:{fontSize:12,color:'#999',textAlign:'center',marginTop:4}}, "Reviews are submitted to the admin portal for approval.")
+                  /*#__PURE__*/React.createElement("p", {style:{fontSize:12,color:'#999',textAlign:'center',marginTop:0}}, "Reviews are submitted to the admin portal for approval.")
                 )
               )
         )
