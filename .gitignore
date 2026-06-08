@@ -33,3 +33,5 @@ drive-download-*.zip
 product-images-extracted/
 .gstack/
 .env
+
+.vercel

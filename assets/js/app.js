@@ -4890,10 +4890,9 @@ function CheckoutPage(_ref17) {
 // ===== ORDER CONFIRMATION ===================================================
 function OrderConfirmationPage(_ref18) {
   var cart = _ref18.cart,
-    onKeepShopping = _ref18.onKeepShopping;
-  var orderNum = React.useMemo(function () {
-    return 'KGS-' + Math.floor(10000 + Math.random() * 90000);
-  }, []);
+    onKeepShopping = _ref18.onKeepShopping,
+    orderNumber = _ref18.orderNumber;
+  var orderNum = orderNumber || 'KGS-' + Math.floor(10000 + Math.random() * 90000);
   var items = cart.map(function (ci) {
     return _objectSpread(_objectSpread({}, ci), {}, {
       product: PRODUCTS.find(function (p) {
@@ -5928,6 +5927,11 @@ function App() {
     _React$useState52 = _slicedToArray(_React$useState51, 2),
     lastCart = _React$useState52[0],
     setLastCart = _React$useState52[1];
+  // Preserve the real saved order_number so confirmation page shows the actual record
+  var _React$useState51b = React.useState(null),
+    _React$useState52b = _slicedToArray(_React$useState51b, 2),
+    lastOrderNumber = _React$useState52b[0],
+    setLastOrderNumber = _React$useState52b[1];
   // Search state
   var _React$useState53 = React.useState(false),
     _React$useState54 = _slicedToArray(_React$useState53, 2),
@@ -6501,15 +6505,19 @@ function App() {
 
     var saveOrder = function saveOrder(rzpPaymentId) {
       var sb = getSB();
+      var orderNumber = 'KGS-' + Math.floor(10000 + Math.random() * 90000);
       if (sb && currentUser) {
         var orderData = {
           customer_id: currentUser.id,
+          order_number: orderNumber,
           customer_name: formData.name,
           customer_phone: formData.phone,
           shipping_address: formData.address + ', ' + formData.city + ', ' + formData.state + ' - ' + formData.pincode,
-          city: formData.city,
-          payment_method: paymentMethod,
-          delivery_fee: deliveryFee || 0,
+          shipping_city: formData.city,
+          shipping_pincode: formData.pincode,
+          // DB CHECK constraint only allows 'cod'/'upi'; card payments run through the same Razorpay online flow, so store as 'upi'
+          payment_method: paymentMethod === 'card' ? 'upi' : paymentMethod,
+          shipping_cost: deliveryFee || 0,
           subtotal: subtotal,
           total: orderTotal,
           status: 'confirmed'
@@ -6529,13 +6537,26 @@ function App() {
               };
             });
             sb.from('order_items').insert(orderItems).then(function() {});
+            setLastCart(cartSnapshot);
+            setLastOrderNumber(res.data.order_number);
+            setCart([]);
+            setRoute('order-confirmation');
+            window.scrollTo(0, 0);
+          } else {
+            console.error('[KGS] Order insert failed:', res.error);
+            showToast('Could not save your order. Please contact support.', 'error', '#C97840');
           }
-        }).catch(function(err) { console.warn('[KGS] Order save failed:', err); });
+        }).catch(function(err) {
+          console.warn('[KGS] Order save failed:', err);
+          showToast('Could not save your order. Please contact support.', 'error', '#C97840');
+        });
+      } else {
+        setLastCart(cartSnapshot);
+        setLastOrderNumber(orderNumber);
+        setCart([]);
+        setRoute('order-confirmation');
+        window.scrollTo(0, 0);
       }
-      setLastCart(cartSnapshot);
-      setCart([]);
-      setRoute('order-confirmation');
-      window.scrollTo(0, 0);
     };
 
     // Razorpay for UPI and Card
@@ -6721,6 +6742,7 @@ function App() {
   } else if (route === 'order-confirmation') {
     body = /*#__PURE__*/React.createElement(OrderConfirmationPage, {
       cart: lastCart,
+      orderNumber: lastOrderNumber,
       onKeepShopping: function onKeepShopping() {
         return setRoute('shop');
       }
