@@ -906,7 +906,7 @@ function AccountDashboardPage(_ref3) {
                 (order.order_items || []).map(function(item, idx) {
                   return /*#__PURE__*/React.createElement("div", { key: idx, style: { display: 'flex', gap: '12px', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid rgba(26,26,26,0.06)' } },
                     /*#__PURE__*/React.createElement("img", { src: item.product_image || '', alt: item.product_name, style: { width: '52px', height: '52px', objectFit: 'cover', borderRadius: '8px', flexShrink: 0 } }),
-                    /*#__PURE__*/React.createElement("div", { style: { flex: 1 } },
+                    /*#__PURE__*/React.createElement("div", { style: { flex: 1, minWidth: 0 } },
                       /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: 600, color: '#1A1A1A', marginBottom: '2px' } }, item.product_name),
                       /*#__PURE__*/React.createElement("div", { style: { fontSize: '13px', color: '#9E9B98' } }, "Qty: " + (item.quantity || 1))
                     ),
@@ -4762,7 +4762,7 @@ function CheckoutPage(_ref17) {
         color: payment === opt.id ? '#1A1A1A' : '#C5A880',
         fontSize: 22
       }
-    }, opt.icon), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    }, opt.icon), /*#__PURE__*/React.createElement("div", { style: { flex: 1, minWidth: 0 } }, /*#__PURE__*/React.createElement("div", {
       className: "payment-option-label"
     }, opt.label), /*#__PURE__*/React.createElement("div", {
       className: "payment-option-sub"
