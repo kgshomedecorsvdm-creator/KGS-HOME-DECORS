@@ -3204,7 +3204,7 @@ function Testimonials(_ref_t) {
             )
       )
     )
-  )));
+  ));
 }
 
 
