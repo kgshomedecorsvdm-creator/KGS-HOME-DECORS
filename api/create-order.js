@@ -20,7 +20,7 @@ module.exports = async function handler(req, res) {
       console.error('[KGS] Razorpay create order error:', data);
       return res.status(500).json({ error: (data.error && data.error.description) || 'Failed to create order' });
     }
-    return res.json({ order_id: data.id, amount: data.amount, currency: data.currency });
+    return res.json({ order_id: data.id, amount: data.amount, currency: data.currency, key: KEY_ID });
   } catch (err) {
     console.error('[KGS] Create order exception:', err);
     return res.status(500).json({ error: 'Internal server error' });

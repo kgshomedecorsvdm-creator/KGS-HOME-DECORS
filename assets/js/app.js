@@ -6561,16 +6561,16 @@ function App() {
           showToast('Could not initiate payment. Please try again.', 'error', '#C97840');
           return;
         }
-        // Step 2: Open Razorpay modal with server-generated order_id
+        // Step 2: Open Razorpay modal with server-generated order_id and key
         var rzpOptions = {
-          key: rzpKey,
+          key: orderData.key || rzpKey,
           amount: orderData.amount,
           currency: orderData.currency,
           order_id: orderData.order_id,
-          name: 'KGS Home D\xe9cors',
+          name: 'KGS Home Decors',
           description: 'Order Payment',
-          image: '/assets/logo/favicon.svg',
-          prefill: { name: formData.name, contact: formData.phone },
+          image: window.location.origin + '/assets/logo/favicon.svg',
+          prefill: { name: formData.name, contact: formData.phone || '' },
           theme: { color: '#B89657' },
           handler: function(response) {
             // Step 3: Verify signature server-side before saving order
