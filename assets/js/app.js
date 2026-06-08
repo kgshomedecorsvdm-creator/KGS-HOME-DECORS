@@ -3135,64 +3135,74 @@ function Testimonials(_ref_t) {
           )
         );
       }))), showReviewModal && /*#__PURE__*/React.createElement(React.Fragment, null,
-    /*#__PURE__*/React.createElement("style", null, "@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }"),
+    /*#__PURE__*/React.createElement("style", null, "@keyframes modalFadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }"),
     /*#__PURE__*/React.createElement("div", {
       style: {
-        marginBottom: 40,
-        borderRadius: '12px',
-        overflow: 'hidden',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-        border: '1px solid #EAEAEA',
-        background: '#fff',
-        animation: 'fadeIn 0.3s ease-out'
+        position: 'fixed',
+        inset: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '20px'
       }
     },
       /*#__PURE__*/React.createElement("div", {
-        style: { padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #F0F0F0' }
-      },
-        /*#__PURE__*/React.createElement("h3", {style:{margin:0,fontFamily:'"Crimson Pro",serif',fontSize:20,color:'#1A1A1A'}}, "Write a Review"),
-        /*#__PURE__*/React.createElement("button", {
-          onClick:function(){ return closeReviewModal(); },
-          style:{background:'none',border:'none',cursor:'pointer',color:'#999',fontSize:24,lineHeight:1,padding:0,display:'flex',alignItems:'center',justifyContent:'center'}
-        }, "X")
-      ),
-      /*#__PURE__*/React.createElement("div", {
-        style:{
-          padding:'24px'
+        style: {
+          background: '#fff',
+          borderRadius: '24px',
+          width: '100%',
+          maxWidth: '480px',
+          padding: '40px 32px',
+          position: 'relative',
+          boxSizing: 'border-box',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+          animation: 'modalFadeIn 0.3s ease-out',
+          maxHeight: '90vh',
+          overflowY: 'auto'
         }
       },
+        /*#__PURE__*/React.createElement("button", {
+          onClick:function(){ return closeReviewModal(); },
+          style:{position:'absolute',top:'24px',right:'24px',background:'none',border:'none',cursor:'pointer',color:'#666',fontSize:28,lineHeight:1,padding:0,display:'flex',alignItems:'center',justifyContent:'center'}
+        }, "\xD7"),
         submitState === 'success'
-          ? /*#__PURE__*/React.createElement("div", {style:{textAlign:'center',padding:'40px 20px'}},
+          ? /*#__PURE__*/React.createElement("div", {style:{textAlign:'center',padding:'40px 0'}},
               /*#__PURE__*/React.createElement("span", {className:"material-symbols-outlined",style:{fontSize:56,color:'#4CAF50',display:'block',marginBottom:16,fontVariationSettings:"'FILL' 1"}}, "check_circle"),
-              /*#__PURE__*/React.createElement("h3", {style:{fontFamily:'"Crimson Pro",serif',fontSize:24,marginBottom:8}}, "Review Submitted!"),
-              /*#__PURE__*/React.createElement("p", {style:{color:'#5E5B59',fontSize:14}}, "Thank you! Your review is pending approval and will appear shortly.")
+              /*#__PURE__*/React.createElement("h3", {style:{fontFamily:'"Crimson Pro",serif',fontSize:32,marginBottom:8,color:'#1A1A1A'}}, "Review Submitted!"),
+              /*#__PURE__*/React.createElement("p", {style:{color:'#666',fontSize:15}}, "Thank you! Your review is pending approval and will appear shortly.")
             )
-          : /*#__PURE__*/React.createElement("form", {
-              onSubmit:handleSubmitReview,
-              style:{display:'flex',flexDirection:'column',gap:16}
-            },
-              /*#__PURE__*/React.createElement("input", {type:"text",name:"_hp",style:{display:'none'},tabIndex:-1,autoComplete:'off',"aria-hidden":"true"}),
-              /*#__PURE__*/React.createElement("div", null,
-                /*#__PURE__*/React.createElement("label", {style:{display:'block',fontSize:13,fontWeight:500,marginBottom:8,color:'#1A1A1A',fontFamily:'"Jost",sans-serif'}}, "Your Name"),
-                /*#__PURE__*/React.createElement("input", {type:"text",required:true,style:{width:'100%',padding:'12px 16px',border:'1px solid #E0E0E0',borderRadius:8,fontFamily:'"Jost",sans-serif',fontSize:14,background:'#fff',boxSizing:'border-box',outline:'none'},placeholder:"Enter your name",name:"guest_name",value:reviewName,onChange:function(e){setReviewName(e.target.value);}})
-              ),
-              /*#__PURE__*/React.createElement("div", null,
-                /*#__PURE__*/React.createElement("label", {style:{display:'block',fontSize:13,fontWeight:500,marginBottom:8,color:'#1A1A1A',fontFamily:'"Jost",sans-serif'}}, "Rating"),
-                /*#__PURE__*/React.createElement("select", {required:true,name:"rating",value:reviewRating,onChange:function(e){setReviewRating(e.target.value);},style:{width:'100%',padding:'12px 16px',border:'1px solid #E0E0E0',borderRadius:8,fontFamily:'"Jost",sans-serif',fontSize:14,background:'#fff',boxSizing:'border-box',outline:'none',cursor:'pointer'}},
-                  /*#__PURE__*/React.createElement("option",{value:"5"},"5 Stars"),
-                  /*#__PURE__*/React.createElement("option",{value:"4"},"4 Stars"),
-                  /*#__PURE__*/React.createElement("option",{value:"3"},"3 Stars"),
-                  /*#__PURE__*/React.createElement("option",{value:"2"},"2 Stars"),
-                  /*#__PURE__*/React.createElement("option",{value:"1"},"1 Star")
-                )
-              ),
-              /*#__PURE__*/React.createElement("div", null,
-                /*#__PURE__*/React.createElement("label", {style:{display:'block',fontSize:13,fontWeight:500,marginBottom:8,color:'#1A1A1A',fontFamily:'"Jost",sans-serif'}}, "Your Review"),
-                /*#__PURE__*/React.createElement("textarea", {required:true,rows:"4",style:{width:'100%',padding:'12px 16px',border:'1px solid #E0E0E0',borderRadius:8,fontFamily:'"Jost",sans-serif',fontSize:14,resize:'vertical',background:'#fff',boxSizing:'border-box',outline:'none'},placeholder:"Tell us about your experience...",name:"review_text",value:reviewText,onChange:function(e){setReviewText(e.target.value);}})
-              ),
-              /*#__PURE__*/React.createElement("button", {type:"submit",className:"btn btn-dark",style:{marginTop:8,width:'100%',padding:'14px',fontSize:15,fontWeight:500,borderRadius:8}}, submitState === 'loading' ? 'Submitting...' : 'Submit Review'),
-              submitErr ? /*#__PURE__*/React.createElement("p", {style:{color:'#D32F2F',fontSize:13,textAlign:'center',margin:0}}, submitErr) : null,
-              /*#__PURE__*/React.createElement("p", {style:{fontSize:12,color:'#666',textAlign:'center',marginTop:0}}, "Reviews are submitted to the admin portal for approval before appearing publicly.")
+          : /*#__PURE__*/React.createElement(React.Fragment, null,
+              /*#__PURE__*/React.createElement("h3", {style:{margin:'0 0 16px 0',fontFamily:'"Crimson Pro",serif',fontSize:32,fontWeight:500,color:'#1A1A1A'}}, "Write a Review"),
+              /*#__PURE__*/React.createElement("p", {style:{margin:'0 0 32px 0',color:'#666',fontSize:15}}, "Your feedback helps us improve and guides other customers."),
+              /*#__PURE__*/React.createElement("form", {
+                onSubmit:handleSubmitReview,
+                style:{display:'flex',flexDirection:'column',gap:24}
+              },
+                /*#__PURE__*/React.createElement("input", {type:"text",name:"_hp",style:{display:'none'},tabIndex:-1,autoComplete:'off',"aria-hidden":"true"}),
+                /*#__PURE__*/React.createElement("div", null,
+                  /*#__PURE__*/React.createElement("label", {style:{display:'block',fontSize:13,fontWeight:700,marginBottom:10,color:'#1A1A1A',fontFamily:'"Jost",sans-serif'}}, "Your Name"),
+                  /*#__PURE__*/React.createElement("input", {type:"text",required:true,style:{width:'100%',padding:'14px 16px',border:'1px solid #E0E0E0',borderRadius:10,fontFamily:'"Jost",sans-serif',fontSize:15,background:'#fff',boxSizing:'border-box',outline:'none'},name:"guest_name",value:reviewName,onChange:function(e){setReviewName(e.target.value);}})
+                ),
+                /*#__PURE__*/React.createElement("div", null,
+                  /*#__PURE__*/React.createElement("label", {style:{display:'block',fontSize:13,fontWeight:700,marginBottom:10,color:'#1A1A1A',fontFamily:'"Jost",sans-serif'}}, "Rating"),
+                  /*#__PURE__*/React.createElement("select", {required:true,name:"rating",value:reviewRating,onChange:function(e){setReviewRating(e.target.value);},style:{width:'100%',padding:'14px 16px',border:'1px solid #E0E0E0',borderRadius:10,fontFamily:'"Jost",sans-serif',fontSize:15,background:'#fff',boxSizing:'border-box',outline:'none',cursor:'pointer'}},
+                    /*#__PURE__*/React.createElement("option",{value:"5"},"\u2605\u2605\u2605\u2605\u2605 (5 Stars)"),
+                    /*#__PURE__*/React.createElement("option",{value:"4"},"\u2605\u2605\u2605\u2605\u2606 (4 Stars)"),
+                    /*#__PURE__*/React.createElement("option",{value:"3"},"\u2605\u2605\u2605\u2606\u2606 (3 Stars)"),
+                    /*#__PURE__*/React.createElement("option",{value:"2"},"\u2605\u2605\u2606\u2606\u2606 (2 Stars)"),
+                    /*#__PURE__*/React.createElement("option",{value:"1"},"\u2605\u2606\u2606\u2606\u2606 (1 Star)")
+                  )
+                ),
+                /*#__PURE__*/React.createElement("div", null,
+                  /*#__PURE__*/React.createElement("label", {style:{display:'block',fontSize:13,fontWeight:700,marginBottom:10,color:'#1A1A1A',fontFamily:'"Jost",sans-serif'}}, "Review"),
+                  /*#__PURE__*/React.createElement("textarea", {required:true,rows:"4",style:{width:'100%',padding:'14px 16px',border:'1px solid #E0E0E0',borderRadius:10,fontFamily:'"Jost",sans-serif',fontSize:15,resize:'vertical',background:'#fff',boxSizing:'border-box',outline:'none'},name:"review_text",value:reviewText,onChange:function(e){setReviewText(e.target.value);}})
+                ),
+                /*#__PURE__*/React.createElement("button", {type:"submit",style:{marginTop:16,width:'100%',padding:'16px',fontSize:15,fontWeight:700,borderRadius:30,backgroundColor:'#1C1C1C',color:'#fff',border:'none',cursor:'pointer',fontFamily:'"Jost",sans-serif'}}, submitState === 'loading' ? 'Submitting...' : 'Submit Review'),
+                submitErr ? /*#__PURE__*/React.createElement("p", {style:{color:'#D32F2F',fontSize:13,textAlign:'center',margin:0}}, submitErr) : null,
+                /*#__PURE__*/React.createElement("p", {style:{fontSize:12,color:'#888',textAlign:'center',marginTop:0}}, "Reviews are submitted to the admin portal for approval before appearing publicly.")
+              )
             )
       )
     )
