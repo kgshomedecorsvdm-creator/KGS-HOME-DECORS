@@ -1218,9 +1218,7 @@ function PaymentOptionsPage() {
     style: { marginBottom: '8px' }
   }, /*#__PURE__*/React.createElement("strong", null, "Credit & Debit Cards"), " - Visa, Mastercard, and Rupay cards are accepted via our secure gateway."), /*#__PURE__*/React.createElement("li", {
     style: { marginBottom: '8px' }
-  }, /*#__PURE__*/React.createElement("strong", null, "Net Banking"), " - Direct transfers from all major Indian banks."), /*#__PURE__*/React.createElement("li", {
-    style: { marginBottom: '8px' }
-  }, /*#__PURE__*/React.createElement("strong", null, "Cash on Delivery (COD)"), " - Available for orders within Virudhachalam. Pay when your order arrives at your door.")));
+  }, /*#__PURE__*/React.createElement("strong", null, "Net Banking"), " - Direct transfers from all major Indian banks.")));
 }
 
 window.PrivacyPolicyPage = PrivacyPolicyPage;
