@@ -1580,7 +1580,7 @@ var TESTIMONIALS = [{
   quote: 'An incredibly premium selection right here in Virudhachalam. Went to the showroom on Junction Road and ended up buying three things I hadn\'t planned to.',
   thumb: 'assets/lifestyle/room_hallway.webp'
 }];
-var IG_TILES = ['assets/lifestyle/room_living.webp', 'assets/lifestyle/room_bedroom.webp', 'assets/lifestyle/room_hallway.webp', 'assets/lifestyle/room_zen.webp', 'assets/lifestyle/showroom.webp', 'assets/lifestyle/showroom_interior.webp', 'assets/categories/cat_decor_thumb.webp', 'assets/categories/cat_lighting_thumb.webp', 'assets/categories/cat_plants_thumb.webp', 'assets/categories/cat_lifestyle_thumb.webp'];
+var IG_TILES = ['assets/lifestyle/room_living.webp', 'assets/lifestyle/room_bedroom.webp', 'assets/lifestyle/room_hallway.webp', 'assets/lifestyle/room_zen.png', 'assets/lifestyle/showroom.webp', 'assets/lifestyle/showroom_interior.webp', 'assets/categories/cat_decor_thumb.webp', 'assets/categories/cat_lighting_thumb.webp', 'assets/categories/cat_plants_thumb.webp', 'assets/categories/cat_lifestyle_thumb.webp'];
 var fmtPrice = function fmtPrice(n) {
   return '₹' + n.toLocaleString('en-IN');
 };
