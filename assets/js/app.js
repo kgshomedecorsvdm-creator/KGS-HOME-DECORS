@@ -1810,7 +1810,7 @@ function Announcement() {
     text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Free delivery'), ' across Tamil Nadu — every order, no minimum.')
   }, {
     icon: 'star',
-    text: React.createElement(React.Fragment, null, React.createElement('b', null, "\u2605 5.0 on Google."), ' 240 families trust us. Come see why.')
+    text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Handpicked home d\u00e9cor & furniture'), ' \u2014 locally crafted, carefully curated.')
   }, {
     icon: 'storefront',
     text: React.createElement(React.Fragment, null, 'Showroom on ', React.createElement('b', null, 'Junction Road'), " open daily \xB7 10\xA0AM\u2013\u200910\xA0PM")
@@ -2535,11 +2535,9 @@ function Hero(_ref9) {
     onClick: onSellers
   }, "See Best Sellers")), /*#__PURE__*/React.createElement("div", {
     className: "hero-stats"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "500+"), /*#__PURE__*/React.createElement("span", null, "Pieces in stock now")), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "14"), /*#__PURE__*/React.createElement("span", null, "Curated collections")), /*#__PURE__*/React.createElement("div", {
     className: "hero-stats__divider"
-  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "5.0", /*#__PURE__*/React.createElement("span", {
-    className: "hero-stats__star"
-  }, "\u2605")), /*#__PURE__*/React.createElement("span", null, "240+ on Google")), /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Handpicked"), /*#__PURE__*/React.createElement("span", null, "D\u00e9cor & furniture")), /*#__PURE__*/React.createElement("div", {
     className: "hero-stats__divider"
   }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Free"), /*#__PURE__*/React.createElement("span", null, "Delivery across Tamil Nadu"))), /*#__PURE__*/React.createElement("div", {
     className: "hero-arrows",
@@ -2582,12 +2580,16 @@ function Hero(_ref9) {
   }), /*#__PURE__*/React.createElement("div", {
     className: "hero-floating-chip"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "stars"
-  }, "\u2605\u2605\u2605\u2605\u2605"), /*#__PURE__*/React.createElement("b", null, "5.0"), /*#__PURE__*/React.createElement("span", {
+    className: "material-symbols-outlined",
+    style: {
+      color: '#C5A880',
+      fontSize: 20
+    }
+  }, "verified"), /*#__PURE__*/React.createElement("b", null, "Hand-checked"), /*#__PURE__*/React.createElement("span", {
     style: {
       color: '#5E5B59'
     }
-  }, "240+ on Google")), /*#__PURE__*/React.createElement("div", {
+  }, "Every piece, in-store")), /*#__PURE__*/React.createElement("div", {
     className: "hero-delivery-chip"
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
@@ -3412,15 +3414,15 @@ function ShopPage(_ref14) {
       return a.price - b.price;
     });else if (sort === 'price-desc') list = list.sort(function (a, b) {
       return b.price - a.price;
-    });else if (sort === 'rating') list = list.sort(function (a, b) {
-      return b.rating - a.rating;
     });else if (sort === 'newest') list = list.filter(function (p) {
       return p.badge === 'New';
     }).concat(list.filter(function (p) {
       return p.badge !== 'New';
-    }));else if (sort === 'popular') list = list.sort(function (a, b) {
-      return (b.sold || 0) - (a.sold || 0);
-    });
+    }));else if (sort === 'bestsellers') list = list.filter(function (p) {
+      return p.badge === 'Best Seller';
+    }).concat(list.filter(function (p) {
+      return p.badge !== 'Best Seller';
+    }));
     return list;
   }, [filter, sort]);
 
@@ -3562,10 +3564,8 @@ function ShopPage(_ref14) {
   }, /*#__PURE__*/React.createElement("option", {
     value: "default"
   }, "Sort: Featured"), /*#__PURE__*/React.createElement("option", {
-    value: "popular"
-  }, "Most Popular"), /*#__PURE__*/React.createElement("option", {
-    value: "rating"
-  }, "Top Rated"), /*#__PURE__*/React.createElement("option", {
+    value: "bestsellers"
+  }, "Best Sellers"), /*#__PURE__*/React.createElement("option", {
     value: "newest"
   }, "Newest First"), /*#__PURE__*/React.createElement("option", {
     value: "price-asc"
@@ -4481,14 +4481,14 @@ function CheckoutPage(_ref17) {
     _React$useState28 = _slicedToArray(_React$useState27, 2),
     form = _React$useState28[0],
     setForm = _React$useState28[1];
-  var _React$useState29 = React.useState('upi'),
-    _React$useState30 = _slicedToArray(_React$useState29, 2),
-    payment = _React$useState30[0],
-    setPayment = _React$useState30[1];
   var _React$useState31 = React.useState({}),
     _React$useState32 = _slicedToArray(_React$useState31, 2),
     errors = _React$useState32[0],
     setErrors = _React$useState32[1];
+  var _React$useState33 = React.useState(false),
+    _React$useState34 = _slicedToArray(_React$useState33, 2),
+    processing = _React$useState34[0],
+    setProcessing = _React$useState34[1];
 
   var delivery = 0;
   var total = subtotal + (delivery || 0);
@@ -4518,7 +4518,8 @@ function CheckoutPage(_ref17) {
   };
   var handleSubmit = function handleSubmit(ev) {
     ev.preventDefault();
-    if (validate()) onPlaceOrder(form, payment, delivery);
+    if (processing) return;
+    if (validate()) onPlaceOrder(form, delivery, setProcessing);
   };
   var inputStyle = function inputStyle(k) {
     return {
@@ -4729,45 +4730,7 @@ function CheckoutPage(_ref17) {
       fontSize: 11,
       color: '#C0392B'
     }
-  }, errors.pincode))), /*#__PURE__*/React.createElement("div", {
-    className: "checkout-form-section"
-  }, /*#__PURE__*/React.createElement("h3", null, "How do you want to pay?"), [{
-    id: 'upi',
-    icon: 'payment',
-    label: 'UPI',
-    sub: 'Google Pay, PhonePe, Paytm, or any UPI app'
-  }, {
-    id: 'card',
-    icon: 'credit_card',
-    label: 'Card',
-    sub: 'Debit or credit card — Visa, Mastercard, Amex'
-  }].map(function (opt) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: opt.id,
-      className: 'payment-option' + (payment === opt.id ? ' selected' : ''),
-      onClick: function onClick() {
-        return setPayment(opt.id);
-      }
-    }, /*#__PURE__*/React.createElement("input", {
-      type: "radio",
-      name: "payment",
-      value: opt.id,
-      checked: payment === opt.id,
-      onChange: function onChange() {
-        return setPayment(opt.id);
-      }
-    }), /*#__PURE__*/React.createElement("span", {
-      className: "material-symbols-outlined",
-      style: {
-        color: payment === opt.id ? '#1A1A1A' : '#C5A880',
-        fontSize: 22
-      }
-    }, opt.icon), /*#__PURE__*/React.createElement("div", { style: { flex: 1, minWidth: 0 } }, /*#__PURE__*/React.createElement("div", {
-      className: "payment-option-label"
-    }, opt.label), /*#__PURE__*/React.createElement("div", {
-      className: "payment-option-sub"
-    }, opt.sub)));
-  }))), /*#__PURE__*/React.createElement("div", {
+  }, errors.pincode)))), /*#__PURE__*/React.createElement("div", {
     className: "checkout-summary"
   }, /*#__PURE__*/React.createElement("h3", null, "Your order"), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -4861,14 +4824,17 @@ function CheckoutPage(_ref17) {
   }))), /*#__PURE__*/React.createElement("button", {
     type: "submit",
     className: "btn btn-dark",
+    disabled: processing,
     style: {
       width: '100%',
       marginTop: 20,
-      padding: '16px 26px'
+      padding: '16px 26px',
+      opacity: processing ? 0.7 : 1,
+      cursor: processing ? 'not-allowed' : 'pointer'
     }
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
-  }, "lock"), "Place Order"), /*#__PURE__*/React.createElement("div", {
+  }, "lock"), processing ? 'Processing...' : 'Pay ' + fmtPrice(total)), /*#__PURE__*/React.createElement("div", {
     className: "checkout-trust"
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
@@ -5376,29 +5342,6 @@ function AboutPage(_ref20) {
 
 // ===== CONTACT PAGE =========================================================
 function ContactPage() {
-  var _React$useState33 = React.useState(false),
-    _React$useState34 = _slicedToArray(_React$useState33, 2),
-    sent = _React$useState34[0],
-    setSent = _React$useState34[1];
-  var _React$useState35 = React.useState({
-      name: '',
-      phone: '',
-      message: '',
-      _hp: ''
-    }),
-    _React$useState36 = _slicedToArray(_React$useState35, 2),
-    form = _React$useState36[0],
-    setForm = _React$useState36[1];
-  var update = function update(k, v) {
-    return setForm(function (f) {
-      return _objectSpread(_objectSpread({}, f), {}, _defineProperty({}, k, v));
-    });
-  };
-  var handleSend = function handleSend(e) {
-    e.preventDefault();
-    if (form._hp) return;
-    if (form.name && form.phone && form.message) setSent(true);
-  };
   return /*#__PURE__*/React.createElement("div", {
     "data-screen-label": "Contact"
   }, /*#__PURE__*/React.createElement("section", {
@@ -5452,178 +5395,160 @@ function ContactPage() {
     style: {
       fontFamily: '"Crimson Pro",serif',
       fontSize: 24,
-      marginBottom: 20
-    }
-  }, "Send us a message"), sent ? /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: '28px 24px',
-      background: 'rgba(37,211,102,0.08)',
-      border: '1px solid rgba(37,211,102,0.25)',
-      borderRadius: 16,
-      textAlign: 'center'
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined",
-    style: {
-      fontSize: 44,
-      color: '#25D366',
-      fontVariationSettings: '"FILL" 1',
-      display: 'block',
-      marginBottom: 10
-    }
-  }, "check_circle"), /*#__PURE__*/React.createElement("h4", {
-    style: {
-      fontFamily: '"Crimson Pro",serif',
-      fontSize: 20,
       marginBottom: 8
     }
-  }, "Got it. We'll reply shortly."), /*#__PURE__*/React.createElement("p", {
+  }, "Reach us directly"), /*#__PURE__*/React.createElement("p", {
     style: {
-      fontSize: 13.5,
-      color: '#5E5B59'
-    }
-  }, "Usually within the hour during shop hours (10 AM \u2013 10 PM).")) : /*#__PURE__*/React.createElement("form", {
-    onSubmit: handleSend,
-    style: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 16
-    }
-  }, /*#__PURE__*/React.createElement("label", {
-    style: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 7
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 10.5,
-      fontWeight: 700,
-      letterSpacing: '.2em',
-      textTransform: 'uppercase',
-      color: '#5E5B59'
-    }
-  }, "Your name"), /*#__PURE__*/React.createElement("input", {
-    placeholder: "Enter your name",
-    value: form.name,
-    onChange: function onChange(e) {
-      return update('name', e.target.value);
-    },
-    required: true,
-    style: {
-      padding: '12px 18px',
-      border: '1px solid rgba(197,168,128,0.35)',
-      borderRadius: 10,
-      fontFamily: 'Jost,sans-serif',
       fontSize: 14,
-      background: '#fff',
-      outline: 'none'
+      color: '#5E5B59',
+      lineHeight: 1.7,
+      marginBottom: 24
     }
-  })), /*#__PURE__*/React.createElement("label", {
-    style: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 7
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 10.5,
-      fontWeight: 700,
-      letterSpacing: '.2em',
-      textTransform: 'uppercase',
-      color: '#5E5B59'
-    }
-  }, "Phone or WhatsApp"), /*#__PURE__*/React.createElement("input", {
-    placeholder: "Enter your phone number",
-    type: "tel",
-    value: form.phone,
-    onChange: function onChange(e) {
-      return update('phone', e.target.value);
-    },
-    required: true,
-    style: {
-      padding: '12px 18px',
-      border: '1px solid rgba(197,168,128,0.35)',
-      borderRadius: 10,
-      fontFamily: 'Jost,sans-serif',
-      fontSize: 14,
-      background: '#fff',
-      outline: 'none'
-    }
-  })), /*#__PURE__*/React.createElement("label", {
-    style: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 7
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 10.5,
-      fontWeight: 700,
-      letterSpacing: '.2em',
-      textTransform: 'uppercase',
-      color: '#5E5B59'
-    }
-  }, "What do you need?"), /*#__PURE__*/React.createElement("textarea", {
-    rows: "5",
-    placeholder: "Tell us what you need",
-    value: form.message,
-    onChange: function onChange(e) {
-      return update('message', e.target.value);
-    },
-    required: true,
-    style: {
-      padding: '12px 18px',
-      border: '1px solid rgba(197,168,128,0.35)',
-      borderRadius: 10,
-      fontFamily: 'Jost,sans-serif',
-      fontSize: 14,
-      background: '#fff',
-      outline: 'none',
-      resize: 'vertical'
-    }
-  })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: 'flex',
-      gap: 12,
-      flexWrap: 'wrap'
-    }
-  }, /*#__PURE__*/React.createElement("button", {
-    type: "submit",
-    className: "btn btn-dark"
-  }, "Send Message"), /*#__PURE__*/React.createElement("a", {
-    className: "btn btn-gold",
-    style: {
-      background: '#25D366',
-      borderColor: '#25D366',
-      color: '#fff',
-      textDecoration: 'none'
-    },
-    href: "https://wa.me/919789182921"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
-  }, "chat"), "WhatsApp Instead")))), /*#__PURE__*/React.createElement("div", {
+  }, "Call, WhatsApp, or email \u2014 whichever suits you. We answer personally, every day."),
+  /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       flexDirection: 'column',
       gap: 14
     }
   }, [{
-    icon: 'location_on',
-    title: 'Find Us',
-    body: '185/G Junction Road, Virudhachalam, Tamil Nadu 606001'
+    icon: 'call',
+    eyebrow: 'Call us',
+    primary: '+91 97891 82921',
+    href: 'tel:+919789182921'
   }, {
+    icon: 'mail',
+    eyebrow: 'Email',
+    primary: 'kgshomedecorsvdm@gmail.com',
+    href: 'mailto:kgshomedecorsvdm@gmail.com'
+  }].map(function (row) {
+    return /*#__PURE__*/React.createElement("a", {
+      key: row.eyebrow,
+      href: row.href,
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 16,
+        padding: '16px 20px',
+        background: '#fff',
+        border: '1px solid rgba(197,168,128,0.3)',
+        borderRadius: 14,
+        textDecoration: 'none',
+        color: 'inherit'
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "material-symbols-outlined",
+      style: {
+        color: '#C5A880',
+        fontSize: 24,
+        flexShrink: 0
+      }
+    }, row.icon), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: 'block',
+        fontSize: 10.5,
+        fontWeight: 700,
+        letterSpacing: '.2em',
+        textTransform: 'uppercase',
+        color: '#5E5B59',
+        marginBottom: 3
+      }
+    }, row.eyebrow), /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: 'block',
+        fontSize: 16,
+        color: '#1A1A1A',
+        fontWeight: 500
+      }
+    }, row.primary)));
+  })),
+  /*#__PURE__*/React.createElement("a", {
+    className: "btn btn-gold",
+    style: {
+      background: '#25D366',
+      borderColor: '#25D366',
+      color: '#fff',
+      textDecoration: 'none',
+      marginTop: 18,
+      width: '100%',
+      justifyContent: 'center'
+    },
+    href: "https://wa.me/919789182921"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "material-symbols-outlined"
+  }, "chat"), "Chat on WhatsApp"),
+  /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 24,
+      paddingTop: 22,
+      borderTop: '1px solid rgba(197,168,128,0.25)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 14,
+      alignItems: 'flex-start'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "material-symbols-outlined",
+    style: {
+      color: '#C5A880',
+      fontSize: 24,
+      flexShrink: 0,
+      marginTop: 2
+    }
+  }, "location_on"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 10.5,
+      fontWeight: 700,
+      letterSpacing: '.2em',
+      textTransform: 'uppercase',
+      color: '#5E5B59',
+      marginBottom: 5
+    }
+  }, "Visit the showroom"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14.5,
+      color: '#1A1A1A',
+      lineHeight: 1.7
+    }
+  }, "185/G, Junction Road, near EB Office,", /*#__PURE__*/React.createElement("br", null), "Virudhachalam, Tamil Nadu \u2013 606 001"), /*#__PURE__*/React.createElement("a", {
+    href: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent('185/G, Junction Road, near EB Office, Virudhachalam, Tamil Nadu \u2013 606 001'),
+    target: "_blank",
+    rel: "noopener",
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 6,
+      marginTop: 10,
+      fontSize: 13,
+      fontWeight: 600,
+      color: '#C97840',
+      textDecoration: 'none'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "material-symbols-outlined",
+    style: {
+      fontSize: 18
+    }
+  }, "directions"), "Get directions"))))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 14
+    }
+  }, [{
     icon: 'schedule',
-    title: 'Hours',
+    title: 'Open daily',
     body: 'Every day · 10:00 AM – 10:00 PM. Free parking out front.'
   }, {
-    icon: 'call',
-    title: 'Call',
-    body: '+91 97891 82921'
+    icon: 'local_shipping',
+    title: 'Free delivery',
+    body: 'Free local delivery across Virudhachalam & Tamil Nadu.'
   }, {
-    icon: 'chat',
-    title: 'WhatsApp',
-    body: 'Send a message and we\'ll reply — usually within the hour.'
+    icon: 'verified',
+    title: 'Hand-checked',
+    body: 'Every piece inspected at our showroom before it leaves.'
   }].map(function (card) {
     return /*#__PURE__*/React.createElement("div", {
       key: card.title,
@@ -6495,7 +6420,7 @@ function App() {
   };
   // Expose setRoute globally for components without prop access (Announcement bar)
   window._kgsSetRoute = setRoute;
-  var handlePlaceOrder = function handlePlaceOrder(formData, paymentMethod, deliveryFee) {
+  var handlePlaceOrder = function handlePlaceOrder(formData, deliveryFee, setProcessing) {
     var cartSnapshot = _toConsumableArray(cart);
     var subtotal = cartSnapshot.reduce(function(s, ci) {
       var prod = PRODUCTS.find(function(p) { return p.id === ci.id; });
@@ -6503,94 +6428,98 @@ function App() {
     }, 0);
     var orderTotal = subtotal + (deliveryFee || 0);
 
-    var saveOrder = function saveOrder(rzpPaymentId) {
-      var sb = getSB();
-      var orderNumber = 'KGS-' + Math.floor(10000 + Math.random() * 90000);
-      if (sb && currentUser) {
-        var orderData = {
-          customer_id: currentUser.id,
-          order_number: orderNumber,
-          customer_name: formData.name,
-          customer_phone: formData.phone,
-          shipping_address: formData.address + ', ' + formData.city + ', ' + formData.state + ' - ' + formData.pincode,
-          shipping_city: formData.city,
-          shipping_pincode: formData.pincode,
-          // DB CHECK constraint only allows 'cod'/'upi'; card payments run through the same Razorpay online flow, so store as 'upi'
-          payment_method: paymentMethod === 'card' ? 'upi' : paymentMethod,
-          shipping_cost: deliveryFee || 0,
-          subtotal: subtotal,
-          total: orderTotal,
-          status: 'confirmed'
-        };
-        sb.from('orders').insert(orderData).select().single().then(function(res) {
-          if (!res.error && res.data) {
-            var orderItems = cartSnapshot.map(function(ci) {
-              var prod = PRODUCTS.find(function(p) { return p.id === ci.id; });
-              return {
-                order_id: res.data.id,
-                product_id: ci.id,
-                product_name: prod ? prod.name : ci.id,
-                product_image: prod ? prod.image : '',
-                quantity: ci.qty,
-                unit_price: prod ? prod.price : 0,
-                total_price: prod ? prod.price * ci.qty : 0
-              };
-            });
-            sb.from('order_items').insert(orderItems).then(function() {});
-            setLastCart(cartSnapshot);
-            setLastOrderNumber(res.data.order_number);
-            setCart([]);
-            setRoute('order-confirmation');
-            window.scrollTo(0, 0);
-          } else {
-            console.error('[KGS] Order insert failed:', res.error);
-            showToast('Could not save your order. Please contact support.', 'error', '#C97840');
-          }
-        }).catch(function(err) {
-          console.warn('[KGS] Order save failed:', err);
+    var sb = getSB();
+
+    // Saves the order (and its line items) to Supabase after a successful,
+    // verified Razorpay payment.
+    var saveOrder = function saveOrder(rzpOrderId, rzpPaymentId) {
+      var orderData = {
+        customer_id: currentUser.id,
+        shipping_name: formData.name,
+        shipping_phone: formData.phone,
+        shipping_address: formData.address + ', ' + formData.city + ', ' + formData.state + ' - ' + formData.pincode,
+        shipping_city: formData.city,
+        shipping_state: formData.state || 'Tamil Nadu',
+        shipping_pincode: formData.pincode,
+        payment_method: 'online',
+        payment_status: 'paid',
+        razorpay_order_id: rzpOrderId,
+        razorpay_payment_id: rzpPaymentId,
+        shipping_fee: deliveryFee || 0,
+        subtotal: subtotal,
+        total: orderTotal,
+        status: 'confirmed'
+      };
+      sb.from('orders').insert(orderData).select().single().then(function(res) {
+        if (!res.error && res.data) {
+          var orderItems = cartSnapshot.map(function(ci) {
+            var prod = PRODUCTS.find(function(p) { return p.id === ci.id; });
+            return {
+              order_id: res.data.id,
+              product_id: ci.id,
+              product_name: prod ? prod.name : ci.id,
+              product_image: prod ? prod.image : '',
+              quantity: ci.qty,
+              unit_price: prod ? prod.price : 0,
+              total_price: prod ? prod.price * ci.qty : 0
+            };
+          });
+          sb.from('order_items').insert(orderItems).then(function() {});
+          setLastCart(cartSnapshot);
+          setLastOrderNumber('KGS-' + res.data.order_number);
+          setCart([]);
+          setProcessing(false);
+          setRoute('order-confirmation');
+          window.scrollTo(0, 0);
+        } else {
+          console.error('[KGS] Order insert failed:', res.error);
+          setProcessing(false);
           showToast('Could not save your order. Please contact support.', 'error', '#C97840');
-        });
-      } else {
-        setLastCart(cartSnapshot);
-        setLastOrderNumber(orderNumber);
-        setCart([]);
-        setRoute('order-confirmation');
-        window.scrollTo(0, 0);
-      }
+        }
+      }).catch(function(err) {
+        console.warn('[KGS] Order save failed:', err);
+        setProcessing(false);
+        showToast('Could not save your order. Please contact support.', 'error', '#C97840');
+      });
     };
 
-    // Razorpay for UPI and Card
-    if (paymentMethod === 'upi' || paymentMethod === 'card') {
-      var rzpKey = (typeof KGS_CONFIG !== 'undefined' && KGS_CONFIG.razorpay && KGS_CONFIG.razorpay.keyId) ? KGS_CONFIG.razorpay.keyId : null;
-      if (typeof Razorpay === 'undefined') {
-        showToast('Payment gateway failed to load. Please refresh and try again.', 'error', '#C97840');
-        return;
-      }
-      // Step 1: Create server-side order (gets a signed order_id from Razorpay)
+    if (sb && currentUser) {
+      setProcessing(true);
       fetch('/api/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: Math.round(orderTotal * 100), currency: 'INR', receipt: 'kgs_' + Date.now() })
-      })
-      .then(function(r) { return r.json(); })
-      .then(function(orderData) {
-        if (!orderData.order_id) {
-          showToast('Could not initiate payment. Please try again.', 'error', '#C97840');
+        body: JSON.stringify({
+          amount: Math.round(orderTotal * 100),
+          currency: 'INR',
+          receipt: 'kgs_' + Date.now()
+        })
+      }).then(function(r) {
+        return r.json().then(function(data) {
+          return { ok: r.ok, data: data };
+        });
+      }).then(function(_ref) {
+        var ok = _ref.ok, data = _ref.data;
+        if (!ok || data.error) {
+          console.error('[KGS] create-order failed:', data && data.error);
+          setProcessing(false);
+          showToast('Unable to start payment right now. Please try again later or contact us on WhatsApp.', 'error', '#C97840');
           return;
         }
-        // Step 2: Open Razorpay modal with server-generated order_id and key
-        var rzpOptions = {
-          key: orderData.key || rzpKey,
-          amount: orderData.amount,
-          currency: orderData.currency,
-          order_id: orderData.order_id,
-          name: 'KGS Home Decors',
-          description: 'Order Payment',
-          image: window.location.origin + '/assets/logo/favicon.svg',
-          prefill: { name: formData.name, contact: formData.phone || '' },
-          theme: { color: '#B89657' },
-          handler: function(response) {
-            // Step 3: Verify signature server-side before saving order
+        var rzp = new Razorpay({
+          key: data.key,
+          amount: data.amount,
+          currency: data.currency,
+          order_id: data.order_id,
+          name: 'KGS Home Décors',
+          description: 'Order payment',
+          image: 'https://kgshomedecors.in/assets/images/icon-512.png',
+          prefill: {
+            name: formData.name,
+            email: (currentUser && currentUser.email) || '',
+            contact: formData.phone
+          },
+          theme: { color: '#C97840' },
+          handler: function handler(response) {
             fetch('/api/verify-payment', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -6599,32 +6528,47 @@ function App() {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature
               })
-            })
-            .then(function(r) { return r.json(); })
-            .then(function(verifyData) {
-              if (verifyData.success) {
-                saveOrder(response.razorpay_payment_id);
+            }).then(function(r) {
+              return r.json().then(function(data) {
+                return { ok: r.ok, data: data };
+              });
+            }).then(function(_ref2) {
+              var data = _ref2.data;
+              if (data && data.success === true) {
+                saveOrder(response.razorpay_order_id, response.razorpay_payment_id);
               } else {
-                showToast('Payment verification failed. Please contact support.', 'error', '#C97840');
+                console.error('[KGS] Payment verification failed:', data && data.error);
+                setProcessing(false);
+                showToast('Payment could not be verified. If money was deducted, please contact us on WhatsApp with your payment ID.', 'error', '#C97840');
               }
-            })
-            .catch(function() {
-              showToast('Payment verification error. Please contact support.', 'error', '#C97840');
+            }).catch(function(err) {
+              console.error('[KGS] verify-payment request failed:', err);
+              setProcessing(false);
+              showToast('Payment could not be verified. If money was deducted, please contact us on WhatsApp with your payment ID.', 'error', '#C97840');
             });
           },
-          modal: { ondismiss: function() { showToast('Payment cancelled', 'info', '#9E9B98'); } }
-        };
-        var rzp = new Razorpay(rzpOptions);
+          modal: {
+            ondismiss: function ondismiss() {
+              setProcessing(false);
+              showToast('Payment cancelled.', 'info');
+            }
+          }
+        });
         rzp.open();
-      })
-      .catch(function() {
-        showToast('Could not initiate payment. Please try again.', 'error', '#C97840');
+      }).catch(function(err) {
+        console.error('[KGS] create-order request failed:', err);
+        setProcessing(false);
+        showToast('Unable to start payment right now. Please try again later or contact us on WhatsApp.', 'error', '#C97840');
       });
-      return;
+    } else {
+      // No signed-in user (or Supabase unavailable): do NOT fake-confirm an
+      // order or clear the cart. Ask the user to log in so the order can be
+      // paid for and saved against their account.
+      setProcessing(false);
+      showToast('Please log in to place your order.', 'info');
+      setRoute('login');
+      window.scrollTo(0, 0);
     }
-
-    // Fallback (should not reach here since COD removed)
-    saveOrder(null);
   };
   React.useEffect(function () {
     if (window._lenis) {
