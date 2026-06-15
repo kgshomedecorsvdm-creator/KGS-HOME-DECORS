@@ -43,7 +43,7 @@ async function initStore() {
     tags: p.tags || [],
     price: parseFloat(p.price),
     compare_at_price: p.compare_at_price ? parseFloat(p.compare_at_price) : null,
-    image: p.image_url || 'assets/images/placeholder.jpg',
+    image: p.image_url || 'assets/images/placeholder.svg',
     images: p.images || [],
     in_stock: p.in_stock,
     material: p.material
@@ -74,7 +74,7 @@ async function fetchCollectionProducts(category) {
     name: p.name,
     price: parseFloat(p.price),
     compare_at_price: p.compare_at_price ? parseFloat(p.compare_at_price) : null,
-    image: p.image_url || 'assets/images/placeholder.jpg'
+    image: p.image_url || 'assets/images/placeholder.svg'
   }));
 }
 

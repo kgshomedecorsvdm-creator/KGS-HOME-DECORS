@@ -21,6 +21,33 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+
+// ===== Razorpay lazy loader =================================================
+// Perf: the Razorpay checkout script is no longer loaded on every page. We
+// inject it on demand (when the Pay handler runs) and resolve once it's ready.
+var _razorpayPromise = null;
+function ensureRazorpay() {
+  if (typeof window !== 'undefined' && window.Razorpay) return Promise.resolve(window.Razorpay);
+  if (_razorpayPromise) return _razorpayPromise;
+  _razorpayPromise = new Promise(function (resolve, reject) {
+    var existing = document.querySelector('script[src*="checkout.razorpay.com"]');
+    var done = function done() { return resolve(window.Razorpay); };
+    if (existing) {
+      if (window.Razorpay) return done();
+      existing.addEventListener('load', done);
+      existing.addEventListener('error', function () { _razorpayPromise = null; reject(new Error('Razorpay failed to load')); });
+      return;
+    }
+    var s = document.createElement('script');
+    s.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    s.async = true;
+    s.onload = done;
+    s.onerror = function () { _razorpayPromise = null; reject(new Error('Razorpay failed to load')); };
+    document.head.appendChild(s);
+  });
+  return _razorpayPromise;
+}
+
 // ===== Extra Pages (Auth, Legal) ==================================
 // Extra Pages added to the KGS Home Decor React App
 
@@ -281,7 +308,7 @@ function AccountLoginPage(_ref) {
     style: { background: '#fff', padding: '48px', borderRadius: '24px', width: '100%', maxWidth: '440px', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.05)' }
   },
     /*#__PURE__*/React.createElement("h1", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '32px', marginBottom: '8px', color: '#1A1A1A' } }, "Welcome Back"),
-    /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '32px' } }, "Sign in to access your orders, saved items, and personalized recommendations."),
+    /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '32px' } }, "Sign in to see your orders and saved items."),
     error && /*#__PURE__*/React.createElement("div", { style: { background: 'rgba(201,120,64,0.08)', color: '#C97840', fontSize: '13px', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px' } }, error),
     /*#__PURE__*/React.createElement("div", { style: { marginBottom: '20px' } },
       /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Email Address"),
@@ -336,7 +363,7 @@ function AccountRegisterPage(_ref2) {
     style: { background: '#fff', padding: '48px', borderRadius: '24px', width: '100%', maxWidth: '440px', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.05)' }
   },
     /*#__PURE__*/React.createElement("h1", { style: { fontFamily: '"Crimson Pro", serif', fontSize: '32px', marginBottom: '8px', color: '#1A1A1A' } }, "Create Account"),
-    /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '32px' } }, "Join us for exclusive access to new collections and priority support."),
+    /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '32px' } }, "Create an account to track your orders and save the things you like."),
     error && /*#__PURE__*/React.createElement("div", { style: { background: 'rgba(201,120,64,0.08)', color: '#C97840', fontSize: '13px', padding: '12px 16px', borderRadius: '8px', marginBottom: '20px' } }, error),
     /*#__PURE__*/React.createElement("div", { style: { marginBottom: '20px' } },
       /*#__PURE__*/React.createElement("label", { style: { display: 'block', fontSize: '12px', fontWeight: 600, color: '#5E5B59', marginBottom: '8px' } }, "Full Name"),
@@ -845,7 +872,7 @@ function AccountDashboardPage(_ref3) {
       orders.length === 0 ? /*#__PURE__*/React.createElement("div", { style: { background: '#fff', borderRadius: '16px', padding: '48px 24px', textAlign: 'center', border: '1px dashed rgba(26,26,26,0.15)' } },
         /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: '52px', color: '#C5A880', display: 'block', marginBottom: '16px' } }, "inventory_2"),
         /*#__PURE__*/React.createElement("div", { style: { fontSize: '17px', fontWeight: 500, marginBottom: '8px' } }, "You haven't placed any orders yet"),
-        /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '24px' } }, "Explore our curated collection of home décor."),
+        /*#__PURE__*/React.createElement("p", { style: { color: '#5E5B59', fontSize: '14px', marginBottom: '24px' } }, "Have a look around — there's plenty to browse."),
         /*#__PURE__*/React.createElement("button", { onClick: onShop, className: "btn btn-dark" }, "Start Shopping")
       ) : /*#__PURE__*/React.createElement("div", null,
         orders.map(function(order) {
@@ -993,8 +1020,8 @@ function FAQPage() {
     /*#__PURE__*/React.createElement("section", { style: { padding: '64px 0 80px', background: 'var(--base)' } },
       /*#__PURE__*/React.createElement("div", { className: "container", style: { maxWidth: '760px', margin: '0 auto' } },
         /*#__PURE__*/React.createElement("h2", { className: "t-h3", style: { borderBottom: '1px solid rgba(197,168,128,0.3)', paddingBottom: '12px', marginBottom: '16px' } }, "Orders & Delivery"),
-        faqItem("How long does delivery take?", "We deliver within Virudhachalam free of charge — same day or next day for most in-stock items."),
-        faqItem("Do you offer free delivery?", "Yes! We offer free delivery for every order within Virudhachalam — no minimum order value required."),
+        faqItem("How long does delivery take?", "We deliver free across Tamil Nadu; local Virudhachalam orders often arrive same or next day for most in-stock items."),
+        faqItem("Do you offer free delivery?", "Yes! We offer free delivery on every order across Tamil Nadu — no minimum order value required."),
         /*#__PURE__*/React.createElement("h2", { className: "t-h3", style: { borderBottom: '1px solid rgba(197,168,128,0.3)', paddingBottom: '12px', marginTop: '48px', marginBottom: '16px' } }, "Returns & Refunds"),
         faqItem("What is your return policy?", "We accept returns within 7 days of delivery for items that are damaged, defective, or significantly different."),
         faqItem("How do I initiate a return?", "To start a return, contact us on WhatsApp or email us within 7 days of receiving your order.")
@@ -1673,11 +1700,6 @@ function normalizeProduct(p) {
       }
     }
   }
-  var h = parseInt((p.id || '').replace(/-/g, '').slice(0, 8), 16) || 0;
-  var rating = +(4.4 + h % 6 / 10).toFixed(1);
-  var reviews = 18 + h % 200;
-  var sold = 8 + h % 95;
-
   var dbCat = p.category || '';
   var name = p.name || '';
   var finalLabel = dbCat;
@@ -1704,9 +1726,6 @@ function normalizeProduct(p) {
     price: parseFloat(p.price),
     was: p.compare_at_price ? parseFloat(p.compare_at_price) : null,
     off: off,
-    rating: rating,
-    reviews: reviews,
-    sold: sold,
     stock: typeof p.stock_quantity === 'number' ? p.stock_quantity : (p.in_stock ? 10 : 0),
     image: p.image_url,
     images: Array.isArray(p.images) && p.images.length ? p.images : (p.image_url ? [p.image_url] : []),
@@ -1810,7 +1829,7 @@ function Announcement() {
     text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Free delivery'), ' across Tamil Nadu — every order, no minimum.')
   }, {
     icon: 'star',
-    text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Handpicked home d\u00e9cor & furniture'), ' \u2014 locally crafted, carefully curated.')
+    text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Home d\u00e9cor & furniture we pick ourselves'), ' \u2014 and stand behind.')
   }, {
     icon: 'storefront',
     text: React.createElement(React.Fragment, null, 'Showroom on ', React.createElement('b', null, 'Junction Road'), " open daily \xB7 10\xA0AM\u2013\u200910\xA0PM")
@@ -2003,6 +2022,21 @@ function Nav(_ref5) {
   React.useEffect(function () {
     setProgress(0);
   }, [route]);
+  // a11y: Escape closes mobile nav; restore focus on close
+  React.useEffect(function () {
+    if (!menuOpen) return;
+    var prevFocus = document.activeElement;
+    var onKey = function onKey(e) {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    var panel = document.querySelector('.mobile-nav-panel .mobile-nav-close');
+    if (panel && panel.focus) try { panel.focus(); } catch (_e) {}
+    return function () {
+      document.removeEventListener('keydown', onKey);
+      if (prevFocus && prevFocus.focus) try { prevFocus.focus(); } catch (_e2) {}
+    };
+  }, [menuOpen]);
   var link = function link(id, label) {
     return /*#__PURE__*/React.createElement("a", {
       className: 'nav-link' + (route === id ? ' active' : ''),
@@ -2010,7 +2044,7 @@ function Nav(_ref5) {
         e.preventDefault();
         setRoute(id);
       },
-      href: "#"
+      href: kgsBuildPath(id)
     }, label);
   };
   var mobileLink = function mobileLink(id, label) {
@@ -2049,18 +2083,23 @@ function Nav(_ref5) {
     className: "nav-actions"
   }, /*#__PURE__*/React.createElement("button", {
     className: "icon-btn",
+    'aria-label': "Search",
     onClick: onSearch
   }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
+    className: "material-symbols-outlined",
+    'aria-hidden': "true"
   }, "search")), /*#__PURE__*/React.createElement("button", {
     className: "icon-btn",
+    'aria-label': "My account",
     onClick: function onClick() {
       return setRoute('account');
     }
   }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
+    className: "material-symbols-outlined",
+    'aria-hidden': "true"
   }, "person")), /*#__PURE__*/React.createElement("button", {
     className: "icon-btn",
+    'aria-label': "Wishlist",
     onClick: function onClick() {
       return setRoute('wishlist');
     },
@@ -2068,11 +2107,13 @@ function Nav(_ref5) {
       position: 'relative'
     }
   }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
+    className: "material-symbols-outlined",
+    'aria-hidden': "true"
   }, "favorite"), wishlist > 0 && /*#__PURE__*/React.createElement("span", {
     className: "pip"
   }, wishlist)), /*#__PURE__*/React.createElement("button", {
     className: "icon-btn",
+    'aria-label': "Cart",
     onClick: function onClick() {
       return setRoute('cart');
     },
@@ -2080,18 +2121,24 @@ function Nav(_ref5) {
       position: 'relative'
     }
   }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
+    className: "material-symbols-outlined",
+    'aria-hidden': "true"
   }, "shopping_bag"), cart > 0 && /*#__PURE__*/React.createElement("span", {
     className: "pip"
   }, cart)), /*#__PURE__*/React.createElement("button", {
     className: "hamburger-btn",
+    'aria-label': "Open menu",
     onClick: function onClick() {
       return setMenuOpen(true);
     }
   }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
+    className: "material-symbols-outlined",
+    'aria-hidden': "true"
   }, "menu"))))), /*#__PURE__*/React.createElement("div", {
-    className: 'mobile-nav' + (menuOpen ? ' open' : '')
+    className: 'mobile-nav' + (menuOpen ? ' open' : ''),
+    role: "dialog",
+    'aria-modal': "true",
+    'aria-label': "Navigation menu"
   }, /*#__PURE__*/React.createElement("div", {
     className: "mobile-nav-overlay",
     onClick: function onClick() {
@@ -2101,10 +2148,12 @@ function Nav(_ref5) {
     className: "mobile-nav-panel"
   }, /*#__PURE__*/React.createElement("button", {
     className: "mobile-nav-close",
+    'aria-label': "Close menu",
     onClick: function onClick() {
       return setMenuOpen(false);
     }
   }, /*#__PURE__*/React.createElement("span", {
+    'aria-hidden': "true",
     className: "material-symbols-outlined"
   }, "close")), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2224,6 +2273,7 @@ function Newsletter() {
     className: "newsletter-form"
   }, /*#__PURE__*/React.createElement("input", {
     className: "newsletter-input",
+    'aria-label': "Enter your email",
     placeholder: "Enter your email",
     type: "email",
     value: email,
@@ -2254,7 +2304,7 @@ function Footer(_ref6) {
       return /*#__PURE__*/React.createElement("li", {
         key: label
       }, /*#__PURE__*/React.createElement("a", {
-        href: isHtml ? target : "#",
+        href: isHtml ? target : (target ? kgsBuildPath(target) : "#"),
         onClick: function onClick(e) {
           if (isHtml) return;
           e.preventDefault();
@@ -2300,7 +2350,7 @@ function Footer(_ref6) {
       maxWidth: 260,
       lineHeight: 1.75
     }
-  }, "Bringing premium, hand-curated home d\xE9cor directly to your doorstep."), /*#__PURE__*/React.createElement("div", {
+  }, "Home d\xE9cor and furniture, hand-picked on Junction Road and delivered across Tamil Nadu."), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: 12.5,
       color: 'rgba(255,255,255,0.45)',
@@ -2468,14 +2518,14 @@ function Hero(_ref9) {
     onSellers = _ref9.onSellers;
   var SLIDES = [{
     img: 'assets/lifestyle/showroom_interior.png',
-    eyebrow: 'Curated Spaces',
-    headline: /*#__PURE__*/React.createElement(React.Fragment, null, "Elevate your home.", /*#__PURE__*/React.createElement("br", null), "Discover our ", /*#__PURE__*/React.createElement("em", null, "exclusive"), /*#__PURE__*/React.createElement("br", null), "collections."),
-    sub: 'Premium interior designs. Free delivery across Tamil Nadu.'
+    eyebrow: 'On Junction Road',
+    headline: /*#__PURE__*/React.createElement(React.Fragment, null, "Real pieces for ", /*#__PURE__*/React.createElement("em", null, "real homes"), ".", /*#__PURE__*/React.createElement("br", null), "Come find yours."),
+    sub: 'Furniture, décor and gifts — picked by us, delivered free across Tamil Nadu.'
   }, {
     img: 'assets/lifestyle/premium_decor_bright.webp',
-    eyebrow: 'Modern Elegance',
-    headline: /*#__PURE__*/React.createElement(React.Fragment, null, "Statement pieces", /*#__PURE__*/React.createElement("br", null), "that transform ", /*#__PURE__*/React.createElement("em", null, "ordinary"), /*#__PURE__*/React.createElement("br", null), "into extraordinary."),
-    sub: 'Handpicked artifacts, luxury lighting, and elegant decor.'
+    eyebrow: 'New this week',
+    headline: /*#__PURE__*/React.createElement(React.Fragment, null, "The piece that", /*#__PURE__*/React.createElement("br", null), "makes the ", /*#__PURE__*/React.createElement("em", null, "room"), "."),
+    sub: 'Brass, ceramics, lamps and more — most of it we chose ourselves.'
   }, {
     img: 'assets/lifestyle/room_zen.webp',
     eyebrow: 'Heritage Pieces',
@@ -2535,7 +2585,7 @@ function Hero(_ref9) {
     onClick: onSellers
   }, "See Best Sellers")), /*#__PURE__*/React.createElement("div", {
     className: "hero-stats"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "14"), /*#__PURE__*/React.createElement("span", null, "Curated collections")), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "14"), /*#__PURE__*/React.createElement("span", null, "Categories to browse")), /*#__PURE__*/React.createElement("div", {
     className: "hero-stats__divider"
   }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Handpicked"), /*#__PURE__*/React.createElement("span", null, "D\u00e9cor & furniture")), /*#__PURE__*/React.createElement("div", {
     className: "hero-stats__divider"
@@ -2546,6 +2596,7 @@ function Hero(_ref9) {
     }
   }, /*#__PURE__*/React.createElement("button", {
     className: "carousel-arrow",
+    'aria-label': "Previous",
     style: {
       position: 'static',
       transform: 'none',
@@ -2555,9 +2606,11 @@ function Hero(_ref9) {
       return set(i - 1);
     }
   }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
+    className: "material-symbols-outlined",
+    'aria-hidden': "true"
   }, "arrow_back")), /*#__PURE__*/React.createElement("button", {
     className: "carousel-arrow",
+    'aria-label': "Next",
     style: {
       position: 'static',
       transform: 'none',
@@ -2567,13 +2620,18 @@ function Hero(_ref9) {
       return set(i + 1);
     }
   }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
+    className: "material-symbols-outlined",
+    'aria-hidden': "true"
   }, "arrow_forward")))), /*#__PURE__*/React.createElement("div", {
     className: "hero-photo"
   }, /*#__PURE__*/React.createElement("img", {
     key: s.img,
     src: s.img,
     alt: "",
+    fetchpriority: "high",
+    decoding: "async",
+    width: 720,
+    height: 900,
     style: {
       animation: 'heroFade 700ms ease'
     }
@@ -2630,7 +2688,10 @@ function CategoryGrid(_ref0) {
     }, /*#__PURE__*/React.createElement("img", {
       src: c.img,
       alt: c.label,
-      loading: "lazy"
+      loading: "lazy",
+      decoding: "async",
+      width: 400,
+      height: 500
     })), /*#__PURE__*/React.createElement("div", {
       className: "cat-name"
     }, c.label));
@@ -2684,7 +2745,10 @@ function ProductCard(_ref1) {
   }, "favorite")), /*#__PURE__*/React.createElement("img", {
     src: p.image,
     alt: p.name,
-    loading: "lazy"
+    loading: "lazy",
+    decoding: "async",
+    width: 400,
+    height: 500
   }), /*#__PURE__*/React.createElement("div", {
     className: "prod-quick",
     onClick: function onClick(e) {
@@ -2697,8 +2761,14 @@ function ProductCard(_ref1) {
     className: "prod-body"
   }, /*#__PURE__*/React.createElement("div", {
     className: "prod-cat"
-  }, p.category), /*#__PURE__*/React.createElement("div", {
-    className: "prod-name"
+  }, p.category), /*#__PURE__*/React.createElement("a", {
+    className: "prod-name",
+    href: kgsBuildPath('product', p),
+    style: { color: 'inherit', textDecoration: 'none', display: 'block' },
+    onClick: function onClick(e) {
+      e.preventDefault();
+      onView(p);
+    }
   }, p.name)), /*#__PURE__*/React.createElement("div", {
     className: "prod-price"
   }, /*#__PURE__*/React.createElement("span", {
@@ -4283,12 +4353,16 @@ function CartPage(_ref16) {
         borderRadius: 9999
       }
     }, /*#__PURE__*/React.createElement("button", {
+      'aria-label': "Decrease quantity",
       onClick: function onClick() {
         return onChangeQty(ci.id, Math.max(1, ci.qty - 1));
       },
       style: {
-        width: 32,
-        height: 34,
+        minWidth: 44,
+        height: 44,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         background: 'none',
         border: 'none',
         cursor: 'pointer'
@@ -4301,12 +4375,16 @@ function CartPage(_ref16) {
         fontWeight: 500
       }
     }, ci.qty), /*#__PURE__*/React.createElement("button", {
+      'aria-label': "Increase quantity",
       onClick: function onClick() {
         return onChangeQty(ci.id, ci.qty + 1);
       },
       style: {
-        width: 32,
-        height: 34,
+        minWidth: 44,
+        height: 44,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         background: 'none',
         border: 'none',
         cursor: 'pointer'
@@ -4316,6 +4394,8 @@ function CartPage(_ref16) {
         return onRemove(ci.id);
       },
       style: {
+        minHeight: 44,
+        padding: '0 8px',
         background: 'none',
         border: 'none',
         color: '#5E5B59',
@@ -4490,7 +4570,11 @@ function CheckoutPage(_ref17) {
     processing = _React$useState34[0],
     setProcessing = _React$useState34[1];
 
-  var delivery = 0;
+  // Free delivery across Tamil Nadu; flat ₹250 only for addresses outside the state.
+  var FREE_DELIVERY_STATE = 'tamil nadu';
+  var OUTSIDE_DELIVERY_FEE = 250;
+  var isFreeDelivery = (form.state || '').trim().toLowerCase() === FREE_DELIVERY_STATE;
+  var delivery = isFreeDelivery ? 0 : OUTSIDE_DELIVERY_FEE;
   var total = subtotal + (delivery || 0);
 
   var update = function update(k, v) {
@@ -4809,8 +4893,8 @@ function CheckoutPage(_ref17) {
     value: fmtPrice(subtotal)
   }), /*#__PURE__*/React.createElement(Sumline, {
     label: "Delivery",
-    value: 'FREE',
-    note: 'Free delivery on all orders'
+    value: isFreeDelivery ? 'FREE' : fmtPrice(delivery),
+    note: isFreeDelivery ? 'Free delivery across Tamil Nadu' : 'Free across Tamil Nadu · ' + fmtPrice(OUTSIDE_DELIVERY_FEE) + ' outside the state'
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       borderTop: '1px solid rgba(197,168,128,0.25)',
@@ -4844,7 +4928,7 @@ function CheckoutPage(_ref17) {
     }
   }, "\xB7"), /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
-  }, "local_shipping"), "Free delivery", /*#__PURE__*/React.createElement("span", {
+  }, "local_shipping"), isFreeDelivery ? "Free delivery" : "Delivers across India", /*#__PURE__*/React.createElement("span", {
     style: {
       color: 'rgba(26,26,26,0.20)'
     }
@@ -5186,19 +5270,19 @@ function AboutPage(_ref20) {
       letterSpacing: '-0.018em',
       marginBottom: 20
     }
-  }, "Curating the finest pieces,", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("em", {
+  }, "Good things for the home,", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("em", {
     style: {
       fontStyle: 'italic',
       color: '#B89657',
       fontWeight: 400
     }
-  }, "right here at home.")), /*#__PURE__*/React.createElement("p", {
+  }, "right here in town.")), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 15,
       lineHeight: 1.85,
       color: '#5E5B59'
     }
-  }, "KGS Home D\xE9cors started on Junction Road, Virudhachalam. We had a simple vision: to bring premium, high-end furniture and d\xE9cor directly to our community, offering uncompromising quality and timeless design."))), /*#__PURE__*/React.createElement("section", {
+  }, "KGS Home D\xE9cors started with one small shop on Junction Road and a simple idea — sell the kind of furniture and d\xE9cor we'd actually want in our own homes, and treat people the way we'd want to be treated."))), /*#__PURE__*/React.createElement("section", {
     style: {
       background: '#FAF8F4',
       padding: '72px 0'
@@ -5294,9 +5378,9 @@ function AboutPage(_ref20) {
     label: 'Pieces in stock',
     sub: 'Every single one checked before it goes on the floor.'
   }, {
-    num: '5.0★',
-    label: 'On Google',
-    sub: '240 families have left a review. We reply to every one.'
+    num: 'Loved',
+    label: 'By families in Virudhachalam',
+    sub: 'And we reply to every review we get.'
   }, {
     num: '100%',
     label: 'Hand-Checked Quality',
@@ -5544,7 +5628,7 @@ function ContactPage() {
   }, {
     icon: 'local_shipping',
     title: 'Free delivery',
-    body: 'Free local delivery across Virudhachalam & Tamil Nadu.'
+    body: 'Free delivery across Tamil Nadu — every order, no minimum.'
   }, {
     icon: 'verified',
     title: 'Hand-checked',
@@ -5631,10 +5715,19 @@ function SearchDrawer(_ref21) {
       if (window._lenis) window._lenis.start();
       if (scrollY) window.scrollTo(0, scrollY);
     }
+    // a11y: global Escape closes the search overlay while open
+    var onKey = null;
+    if (open) {
+      onKey = function onKey(e) {
+        if (e.key === 'Escape') onClose();
+      };
+      document.addEventListener('keydown', onKey);
+    }
     return function () {
       document.body.classList.remove('search-open');
       document.body.style.top = '';
       if (window._lenis) window._lenis.start();
+      if (onKey) document.removeEventListener('keydown', onKey);
     };
   }, [open]);
   var results = React.useMemo(function () {
@@ -5650,7 +5743,10 @@ function SearchDrawer(_ref21) {
     return cat.label;
   }) : ['Wall Décor', 'Décor', 'Vases', 'Furniture', 'Gifts', 'Lighting'];
   return /*#__PURE__*/React.createElement("div", {
-    className: 'search-overlay' + (open ? ' open' : '')
+    className: 'search-overlay' + (open ? ' open' : ''),
+    role: "dialog",
+    'aria-modal': "true",
+    'aria-label': "Search products"
   }, /*#__PURE__*/React.createElement("div", {
     className: "search-overlay__bg",
     onClick: onClose
@@ -5661,10 +5757,12 @@ function SearchDrawer(_ref21) {
   }, /*#__PURE__*/React.createElement("div", {
     className: "search-input-wrap"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "material-symbols-outlined"
+    className: "material-symbols-outlined",
+    'aria-hidden': "true"
   }, "search"), /*#__PURE__*/React.createElement("input", {
     ref: inputRef,
     className: "search-input",
+    'aria-label': "Search products, categories",
     placeholder: "Search products, categories\u2026",
     value: query,
     onChange: function onChange(e) {
@@ -5675,15 +5773,17 @@ function SearchDrawer(_ref21) {
     }
   }), query && /*#__PURE__*/React.createElement("button", {
     className: "search-clear",
+    'aria-label': "Clear search",
     onClick: function onClick() {
       return setQuery('');
     }
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined",
+    'aria-hidden': "true",
     style: {
       fontSize: 18
     }
-  }, "close")), /*#__PURE__*/React.createElement("button", { className: "search-clear", onClick: onClose, style: { marginLeft: "4px" } }, /*#__PURE__*/React.createElement("span", { style: { fontSize: "12px", fontWeight: 600, color: "#5E5B59" } }, "Cancel"))), query.trim() === '' ? /*#__PURE__*/React.createElement("div", {
+  }, "close")), /*#__PURE__*/React.createElement("button", { className: "search-clear", 'aria-label': "Close search", onClick: onClose, style: { marginLeft: "4px" } }, /*#__PURE__*/React.createElement("span", { style: { fontSize: "12px", fontWeight: 600, color: "#5E5B59" } }, "Cancel"))), query.trim() === '' ? /*#__PURE__*/React.createElement("div", {
     className: "search-popular"
   }, /*#__PURE__*/React.createElement("div", {
     className: "search-popular__label"
@@ -5807,8 +5907,223 @@ function Toast(_ref23) {
     }
   }, icon || "check_circle"), /*#__PURE__*/React.createElement("span", null, msg));
 }
+/* ============================================================================
+   SEO ROUTING + METADATA  (History API, canonical URLs, per-route meta, JSON-LD)
+   ========================================================================== */
+var KGS_BASE = 'https://kgshomedecors.in';
+var KGS_DEFAULT_IMG = KGS_BASE + '/assets/images/icon-512.png';
+
+// route -> static path (product handled separately)
+var KGS_ROUTE_PATH = {
+  home: '/',
+  shop: '/shop',
+  cart: '/cart',
+  checkout: '/checkout',
+  'order-confirmation': '/order-confirmation',
+  wishlist: '/wishlist',
+  account: '/account',
+  login: '/login',
+  register: '/register',
+  reviews: '/reviews',
+  about: '/about',
+  contact: '/contact',
+  privacy: '/privacy',
+  terms: '/terms',
+  returns: '/returns',
+  shipping: '/shipping'
+};
+// path (first segment) -> route, for parsing the URL on load / popstate
+var KGS_PATH_ROUTE = (function () {
+  var m = {};
+  Object.keys(KGS_ROUTE_PATH).forEach(function (r) {
+    m[KGS_ROUTE_PATH[r]] = r;
+  });
+  return m;
+})();
+
+var KGS_UUID_RE = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
+
+function kgsSlugify(str) {
+  return String(str || '')
+    .toLowerCase()
+    .normalize('NFKD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 70);
+}
+
+// Build the URL path for a route (+ optional product object)
+function kgsBuildPath(route, product) {
+  if (route === 'product' && product && product.id) {
+    var s = kgsSlugify(product.name);
+    return '/product/' + (s ? s + '-' + product.id : product.id);
+  }
+  if (KGS_ROUTE_PATH.hasOwnProperty(route)) return KGS_ROUTE_PATH[route];
+  return '/';
+}
+
+// Extract a product id from a /product/<slug-or-id> segment
+function kgsProductIdFromSeg(seg) {
+  if (!seg) return null;
+  var dec = '';
+  try { dec = decodeURIComponent(seg); } catch (e) { dec = seg; }
+  var m = dec.match(KGS_UUID_RE);
+  if (m) return m[0];
+  return dec; // fallback: whole segment is the id
+}
+
+// Parse location.pathname -> { route, productId }
+function kgsParsePath(pathname) {
+  var path = (pathname || '/').replace(/\/+$/, '') || '/';
+  if (path.indexOf('/product/') === 0 || path === '/product') {
+    var seg = path.slice('/product/'.length);
+    return { route: 'product', productId: kgsProductIdFromSeg(seg) };
+  }
+  if (KGS_PATH_ROUTE.hasOwnProperty(path)) {
+    return { route: KGS_PATH_ROUTE[path], productId: null };
+  }
+  // unknown path -> home (no blank screen)
+  return { route: 'home', productId: null };
+}
+
+// --- per-route metadata ----------------------------------------------------
+function kgsSetMeta(selector, attr, attrName, value, content) {
+  var el = document.head.querySelector(selector);
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute(attr, attrName);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', content);
+  return el;
+}
+function kgsSetLink(rel, href) {
+  var el = document.head.querySelector('link[rel="' + rel + '"]');
+  if (!el) {
+    el = document.createElement('link');
+    el.setAttribute('rel', rel);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('href', href);
+  return el;
+}
+
+var KGS_META = {
+  home: { title: 'KGS Home Décors — Furniture & Home Décor, Virudhachalam', desc: 'KGS Home Décors — furniture, wall art, lighting & gifting in Virudhachalam. Free delivery across Tamil Nadu. Open daily 10 AM–10 PM.' },
+  shop: { title: 'Shop — KGS Home Décors', desc: 'Browse 500+ home décor pieces — furniture, lighting, wall art, vases, clocks & gifting. Free delivery across Tamil Nadu from KGS Home Décors, Virudhachalam.' },
+  reviews: { title: 'Customer Reviews — KGS Home Décors', desc: 'Read what customers across Tamil Nadu say about KGS Home Décors furniture and home décor.' },
+  about: { title: 'About — KGS Home Décors', desc: 'KGS Home Décors in Virudhachalam — curated furniture and home décor with free delivery across Tamil Nadu.' },
+  contact: { title: 'Contact — KGS Home Décors', desc: 'Visit KGS Home Décors at 185/G Junction Road, Virudhachalam, or call +91 97891 82921. Open daily 10 AM–10 PM.' },
+  cart: { title: 'Your Cart — KGS Home Décors', desc: 'Review the items in your KGS Home Décors cart.' },
+  checkout: { title: 'Checkout — KGS Home Décors', desc: 'Securely complete your KGS Home Décors order.' },
+  'order-confirmation': { title: 'Order Confirmed — KGS Home Décors', desc: 'Thank you for shopping with KGS Home Décors.' },
+  wishlist: { title: 'Wishlist — KGS Home Décors', desc: 'Your saved KGS Home Décors favourites.' },
+  account: { title: 'My Account — KGS Home Décors', desc: 'Manage your KGS Home Décors account and orders.' },
+  login: { title: 'Sign In — KGS Home Décors', desc: 'Sign in to your KGS Home Décors account.' },
+  register: { title: 'Create Account — KGS Home Décors', desc: 'Create a KGS Home Décors account.' },
+  privacy: { title: 'Privacy Policy — KGS Home Décors', desc: 'How KGS Home Décors collects and uses your information.' },
+  terms: { title: 'Terms & Conditions — KGS Home Décors', desc: 'Terms and conditions for using KGS Home Décors.' },
+  returns: { title: 'Returns & Refunds — KGS Home Décors', desc: 'Returns and refunds policy for KGS Home Décors.' },
+  shipping: { title: 'Shipping & Delivery — KGS Home Décors', desc: 'Shipping and delivery information — free delivery across Tamil Nadu from KGS Home Décors.' }
+};
+
+function kgsInjectProductLd(product, url, image, desc) {
+  var node = document.getElementById('kgs-ld-product');
+  if (!node) {
+    node = document.createElement('script');
+    node.type = 'application/ld+json';
+    node.id = 'kgs-ld-product';
+    document.head.appendChild(node);
+  }
+  var data = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    image: image ? [image] : undefined,
+    description: desc,
+    category: product.category || undefined,
+    brand: { '@type': 'Brand', name: 'KGS Home Décors' },
+    offers: {
+      '@type': 'Offer',
+      price: (typeof product.price === 'number' && !isNaN(product.price)) ? product.price : undefined,
+      priceCurrency: 'INR',
+      availability: (product.stock && product.stock > 0) ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+      url: url
+    }
+  };
+  node.textContent = JSON.stringify(data);
+
+  var crumb = document.getElementById('kgs-ld-breadcrumb');
+  if (!crumb) {
+    crumb = document.createElement('script');
+    crumb.type = 'application/ld+json';
+    crumb.id = 'kgs-ld-breadcrumb';
+    document.head.appendChild(crumb);
+  }
+  crumb.textContent = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: KGS_BASE + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Shop', item: KGS_BASE + '/shop' },
+      { '@type': 'ListItem', position: 3, name: product.name, item: url }
+    ]
+  });
+}
+function kgsRemoveProductLd() {
+  var node = document.getElementById('kgs-ld-product');
+  if (node) node.parentNode.removeChild(node);
+  var crumb = document.getElementById('kgs-ld-breadcrumb');
+  if (crumb) crumb.parentNode.removeChild(crumb);
+}
+
+// Update document.title, description, canonical, OG/Twitter + Product JSON-LD
+function kgsUpdateHead(route, product) {
+  var path = kgsBuildPath(route, product);
+  var url = KGS_BASE + path;
+  var title, desc, image = KGS_DEFAULT_IMG, ogType = 'website';
+
+  if (route === 'product' && product && product.id) {
+    title = product.name + ' — KGS Home Décors';
+    var priceTxt = (typeof product.price === 'number' && !isNaN(product.price)) ? ('₹' + product.price.toLocaleString('en-IN')) : '';
+    desc = product.name + (product.category ? ' — ' + product.category : '') +
+      (priceTxt ? '. ' + priceTxt : '') + '. Free delivery across Tamil Nadu from KGS Home Décors.';
+    if (product.image) image = product.image;
+    ogType = 'product';
+  } else {
+    var m = KGS_META[route] || KGS_META.home;
+    title = m.title;
+    desc = m.desc;
+  }
+
+  document.title = title;
+  kgsSetMeta('meta[name="description"]', 'name', 'description', desc, desc);
+  kgsSetLink('canonical', url);
+
+  kgsSetMeta('meta[property="og:title"]', 'property', 'og:title', null, title);
+  kgsSetMeta('meta[property="og:description"]', 'property', 'og:description', null, desc);
+  kgsSetMeta('meta[property="og:type"]', 'property', 'og:type', null, ogType);
+  kgsSetMeta('meta[property="og:url"]', 'property', 'og:url', null, url);
+  kgsSetMeta('meta[property="og:image"]', 'property', 'og:image', null, image);
+  kgsSetMeta('meta[property="og:site_name"]', 'property', 'og:site_name', null, 'KGS Home Décors');
+
+  kgsSetMeta('meta[name="twitter:card"]', 'name', 'twitter:card', null, 'summary_large_image');
+  kgsSetMeta('meta[name="twitter:title"]', 'name', 'twitter:title', null, title);
+  kgsSetMeta('meta[name="twitter:description"]', 'name', 'twitter:description', null, desc);
+  kgsSetMeta('meta[name="twitter:image"]', 'name', 'twitter:image', null, image);
+
+  if (route === 'product' && product && product.id) {
+    kgsInjectProductLd(product, url, image, desc);
+  } else {
+    kgsRemoveProductLd();
+  }
+}
+
 function App() {
-  var _React$useState39 = React.useState('home'),
+  var _React$useState39 = React.useState(function () {
+      var init = kgsParsePath(window.location.pathname);
+      return init.route;
+    }),
     _React$useState40 = _slicedToArray(_React$useState39, 2),
     route = _React$useState40[0],
     setRoute = _React$useState40[1];
@@ -5883,6 +6198,23 @@ function App() {
     }, 0),
     _React$useReducer2 = _slicedToArray(_React$useReducer, 2),
     _forceUpdate = _React$useReducer2[1];
+  // ─── SEO routing refs ────────────────────────────────────────────────
+  // When true, the next [route]/[viewing] effect skips pushState (it was
+  // triggered by popstate / initial parse, not a user navigation).
+  var _kgsSkipPush = React.useRef(false);
+  // Product id parsed from a deep link / popstate, awaiting PRODUCTS load.
+  var _kgsPendingProductId = React.useRef(null);
+  // Parse the initial URL once so the first render uses the correct route.
+  var _kgsInitial = React.useRef(null);
+  if (_kgsInitial.current === null) {
+    _kgsInitial.current = kgsParsePath(window.location.pathname);
+    // The first [route] effect runs from the parsed initial URL, not a click,
+    // so it must NOT push a duplicate history entry.
+    _kgsSkipPush.current = true;
+    if (_kgsInitial.current.route === 'product') {
+      _kgsPendingProductId.current = _kgsInitial.current.productId || null;
+    }
+  }
   React.useEffect(function () {
     var MAX_RETRIES = 20;
     var RETRY_DELAY_MS = 500;
@@ -5984,8 +6316,40 @@ function App() {
   // Skills: gsap-core · gsap-timeline · gsap-scrolltrigger · gsap-react
   //         gsap-performance · gsap-plugins · gsap-utils · gsap-frameworks
   React.useEffect(function () {
-    if (typeof gsap === 'undefined') return;
+    // a11y: honour prefers-reduced-motion — skip all GSAP entrance/scroll
+    // animations and instead force every animated element to its final
+    // VISIBLE state so nothing stays hidden. Also stop Lenis smooth scroll.
+    var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      try { if (window._lenis) window._lenis.stop(); } catch (_lz) {}
+      var reveal = function reveal() {
+        document.querySelectorAll('.reveal').forEach(function (el) {
+          el.classList.add('visible');
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        });
+        // Elements GSAP would have faded in from opacity:0 (set in CSS/inline)
+        document.querySelectorAll('.hero-photo, .hero-eyebrow, .hero h1, .hero-sub, .hero-ctas .btn, .hero-stats, .hero-slides-indicator, .hero-floating-chip, .hero-delivery-chip, .trust-item, .section-head, .best-sellers-track .prod-card, .cat-card, .why-card, .testimonial, .ig-tile, .newsletter, footer').forEach(function (el) {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        });
+      };
+      reveal();
+      // Re-apply after React paints subsequent route content
+      var rt = setTimeout(reveal, 100);
+      var rt2 = setTimeout(reveal, 600);
+      return function () { clearTimeout(rt); clearTimeout(rt2); };
+    }
+    // GSAP/ScrollTrigger are loaded with `defer`, so they may not be defined
+    // yet when this effect first runs. Poll until they're ready, then run the
+    // animation setup. If they never load, content still shows (it's revealed
+    // by CSS defaults / the .reveal fallback below).
+    var ctx;
+    var timer = null;
+    var pollId = null;
+    var disposed = false;
 
+    var startGsap = function startGsap() {
     // Kill all existing ScrollTriggers when route changes (gsap-react cleanup)
     ScrollTrigger.getAll().forEach(function (t) {
       return t.kill();
@@ -5997,8 +6361,7 @@ function App() {
       return ScrollTrigger.refresh();
     }, 2000);
     if (route !== 'home') return;
-    var ctx;
-    var timer = setTimeout(function () {
+    timer = setTimeout(function () {
       ctx = gsap.context(function () {
         // ── 0. Global Reveal Trigger ──────────────────────────────────
         // Ensures all .reveal elements become visible on scroll
@@ -6312,9 +6675,30 @@ function App() {
       var loader = document.getElementById('kgs-loader');
       return loader && loader.style.display !== 'none' ? 2000 : 50;
     })()); // wait for React render / loader
+    }; // end startGsap
+
+    // Wait for the deferred GSAP libs to be available, then run.
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      startGsap();
+    } else {
+      var waited = 0;
+      pollId = setInterval(function () {
+        waited += 60;
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+          clearInterval(pollId); pollId = null;
+          if (!disposed) startGsap();
+        } else if (waited > 8000) {
+          // Give up gracefully — ensure .reveal content is visible regardless.
+          clearInterval(pollId); pollId = null;
+          document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
+        }
+      }, 60);
+    }
 
     return function () {
-      clearTimeout(timer);
+      disposed = true;
+      if (pollId) clearInterval(pollId);
+      if (timer) clearTimeout(timer);
       if (ctx) ctx.revert(); // gsap-react: full cleanup including ScrollTriggers
     };
   }, [route]);
@@ -6505,6 +6889,7 @@ function App() {
           showToast('Unable to start payment right now. Please try again later or contact us on WhatsApp.', 'error', '#C97840');
           return;
         }
+        ensureRazorpay().then(function (Razorpay) {
         var rzp = new Razorpay({
           key: data.key,
           amount: data.amount,
@@ -6555,6 +6940,11 @@ function App() {
           }
         });
         rzp.open();
+        }).catch(function(err) {
+          console.error('[KGS] Razorpay load failed:', err);
+          setProcessing(false);
+          showToast('Unable to start payment right now. Please check your connection and try again.', 'error', '#C97840');
+        });
       }).catch(function(err) {
         console.error('[KGS] create-order request failed:', err);
         setProcessing(false);
@@ -6579,6 +6969,75 @@ function App() {
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
   }, [route]);
+
+  // ─── SEO: History API + per-route metadata ───────────────────────────
+  // popstate (back/forward): update route/product WITHOUT pushing history.
+  React.useEffect(function () {
+    var onPop = function onPop(e) {
+      var parsed = (e.state && e.state.route) ? e.state : kgsParsePath(window.location.pathname);
+      _kgsSkipPush.current = true; // the [route] effect must not re-push
+      if (parsed.route === 'product') {
+        _kgsPendingProductId.current = parsed.productId || null;
+        var found = parsed.productId
+          ? PRODUCTS.find(function (p) { return String(p.id) === String(parsed.productId); })
+          : null;
+        if (found) { setView(found); _kgsPendingProductId.current = null; }
+        setRoute('product');
+      } else {
+        _kgsPendingProductId.current = null;
+        setRoute(parsed.route);
+      }
+    };
+    window.addEventListener('popstate', onPop);
+    // Seed history state for the initial entry so the first Back works.
+    try {
+      history.replaceState(
+        { route: route, productId: (viewing && viewing.id) || null },
+        '',
+        window.location.pathname + window.location.search
+      );
+    } catch (_e) {}
+    return function () { window.removeEventListener('popstate', onPop); };
+  }, []);
+
+  // On every route/product change: update <head> and sync the URL.
+  React.useEffect(function () {
+    kgsUpdateHead(route, route === 'product' ? viewing : null);
+    var path = kgsBuildPath(route, route === 'product' ? viewing : null);
+    if (_kgsSkipPush.current) {
+      _kgsSkipPush.current = false; // navigation came from popstate/initial — don't push
+      return;
+    }
+    var current = window.location.pathname.replace(/\/+$/, '') || '/';
+    var target = path.replace(/\/+$/, '') || '/';
+    if (current === target) return; // avoid duplicate history entries
+    try {
+      history.pushState(
+        { route: route, productId: (route === 'product' && viewing) ? viewing.id : null },
+        '',
+        path
+      );
+    } catch (_e) {}
+  }, [route, viewing]);
+
+  // Deep-link / popstate: once PRODUCTS load, resolve a pending product id.
+  React.useEffect(function () {
+    if (!productsReady) return;
+    if (route === 'product' && !viewing && _kgsPendingProductId.current) {
+      var id = _kgsPendingProductId.current;
+      var found = PRODUCTS.find(function (p) { return String(p.id) === String(id); });
+      _kgsPendingProductId.current = null;
+      if (found) {
+        _kgsSkipPush.current = true; // selecting it shouldn't push a new entry
+        setView(found);
+      } else {
+        setRoute('shop'); // unknown product -> shop, no crash/blank
+      }
+    } else if (route === 'product' && !viewing && !_kgsPendingProductId.current) {
+      // Landed on /product with no id resolvable -> shop.
+      setRoute('shop');
+    }
+  }, [productsReady, route, viewing]);
 
   // Render current page body
   var body = null;

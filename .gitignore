@@ -35,3 +35,17 @@ product-images-extracted/
 .env
 
 .vercel
+.env*
+
+# Audit/QA working artifacts (not for repo)
+_img_backup/
+qa-shots/
+a11y-perf-shots/
+audit-shots/
+final-test-shots/
+verify-shots/
+polish-shots/
+seo-shots/
+seo-verify-shots/
+analyze_out.json
+seo-serve.log

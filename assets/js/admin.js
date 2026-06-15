@@ -6,6 +6,11 @@ const SB_KEY='sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P';
 let sb;
 function initSB(){sb=supabase.createClient(SB_URL,SB_KEY);return sb;}
 
+// ─── SECURITY: HTML escaping for DB/user-supplied strings ──
+// Prevents stored-XSS when interpolating untrusted text into innerHTML.
+// Escapes quotes too, so it is safe inside attribute values.
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
 // ─── AUTH ─────────────────────────────────────────────────
 async function adminLogin(email,password){
   const{data,error}=await sb.auth.signInWithPassword({email,password});
@@ -92,15 +97,15 @@ async function loadProducts(search=null){
   }
   tbody.innerHTML=allProducts.map(p=>`
     <tr>
-      <td><img src="${p.image_url||''}" alt="" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2248%22 height=%2248%22><rect fill=%22%23242424%22 width=%2248%22 height=%2248%22/></svg>'"></td>
-      <td><strong>${p.name}</strong><br><span style="color:var(--muted);font-size:11px">${p.handle}</span></td>
-      <td>${p.category}</td>
+      <td><img src="${esc(p.image_url||'')}" alt="" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2248%22 height=%2248%22><rect fill=%22%23242424%22 width=%2248%22 height=%2248%22/></svg>'"></td>
+      <td><strong>${esc(p.name)}</strong><br><span style="color:var(--muted);font-size:11px">${esc(p.handle)}</span></td>
+      <td>${esc(p.category)}</td>
       <td style="font-weight:600;color:var(--gold)">₹${Number(p.price).toLocaleString('en-IN')}</td>
       <td>${p.stock_quantity||0}</td>
       <td>${p.in_stock?'<span class="badge badge-green">In Stock</span>':'<span class="badge badge-red">Out of Stock</span>'}</td>
       <td>
-        <button class="btn btn-outline btn-sm" onclick="editProduct('${p.id}')">Edit</button>
-        <button class="btn btn-red btn-sm" onclick="deleteProduct('${p.id}','${p.name.replace(/'/g,"\\'")}')">Delete</button>
+        <button class="btn btn-outline btn-sm" onclick="editProduct('${esc(p.id)}')">Edit</button>
+        <button class="btn btn-red btn-sm" onclick="deleteProduct('${esc(p.id)}','${esc(p.name.replace(/'/g,"\\'"))}')">Delete</button>
       </td>
     </tr>
   `).join('');
@@ -137,7 +142,7 @@ async function editProduct(id){
   prev.innerHTML='';
   const imgs = p.images && p.images.length ? p.images : (p.image_url ? [p.image_url] : []);
   imgs.forEach(url => {
-    prev.innerHTML += `<img src="${url}" style="width:60px;height:60px;object-fit:cover;border-radius:4px;">`;
+    prev.innerHTML += `<img src="${esc(url)}" style="width:60px;height:60px;object-fit:cover;border-radius:4px;">`;
   });
   document.getElementById('product-modal').classList.add('active');
 }
@@ -245,14 +250,14 @@ async function loadOrders(){
   const statusBadge=s=>({placed:'badge-gold',confirmed:'badge-gold',packed:'badge-gold',shipped:'badge-green',delivered:'badge-green',cancelled:'badge-red'}[s]||'badge-gold');
   tbody.innerHTML=data.map(o=>`
     <tr>
-      <td><strong style="font-size:13px">KGS-${o.order_number||o.id.slice(0,8).toUpperCase()}</strong><br><span style="color:var(--muted);font-size:10.5px">${new Date(o.created_at).toLocaleDateString('en-IN')}</span></td>
-      <td>${o.customer_name||o.shipping_name||'—'}<br><span style="color:var(--muted);font-size:11px">${o.customer_phone||o.shipping_phone||''}</span></td>
+      <td><strong style="font-size:13px">KGS-${esc(o.order_number||o.id.slice(0,8).toUpperCase())}</strong><br><span style="color:var(--muted);font-size:10.5px">${new Date(o.created_at).toLocaleDateString('en-IN')}</span></td>
+      <td>${esc(o.customer_name||o.shipping_name||'—')}<br><span style="color:var(--muted);font-size:11px">${esc(o.customer_phone||o.shipping_phone||'')}</span></td>
       <td style="color:var(--muted);font-size:13px">${(o.order_items||[]).length} item${(o.order_items||[]).length===1?'':'s'}</td>
       <td style="font-weight:600;color:var(--gold)">₹${Number(o.total).toLocaleString('en-IN')}</td>
       <td style="font-size:12.5px">${(o.payment_method||'cod').toUpperCase()}</td>
       <td><span class="badge ${statusBadge(o.status)}">${o.status}</span></td>
       <td>
-        <select onchange="updateOrderStatus('${o.id}',this.value)" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:4px;font-size:12px">
+        <select onchange="updateOrderStatus('${esc(o.id)}',this.value)" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:4px;font-size:12px">
           ${['placed','confirmed','packed','shipped','delivered','cancelled'].map(s=>`<option value="${s}"${o.status===s?' selected':''}>${s}</option>`).join('')}
         </select>
       </td>
@@ -290,9 +295,9 @@ async function loadCustomers(){
   (ords||[]).forEach(o=>{countMap[o.customer_id]=(countMap[o.customer_id]||0)+1;});
   tbody.innerHTML=data.map(c=>`
     <tr>
-      <td>${c.full_name||'—'}</td>
-      <td>${c.email||'—'}</td>
-      <td>${c.phone||'—'}</td>
+      <td>${esc(c.full_name||'—')}</td>
+      <td>${esc(c.email||'—')}</td>
+      <td>${esc(c.phone||'—')}</td>
       <td><span class="badge badge-gold">${countMap[c.id]||0} orders</span></td>
       <td style="color:var(--muted);font-size:12px">${new Date(c.created_at).toLocaleDateString('en-IN')}</td>
     </tr>`).join('');
@@ -354,7 +359,7 @@ function buildOrderEmailTemplate(order,status){
   if(!m)return null;
   const itemsHtml=(order.order_items||[]).map(i=>`
     <tr>
-      <td style="padding:10px 0;border-bottom:1px solid #F0EDE8;font-size:14px;color:#1A1A1A;">${i.product_name}</td>
+      <td style="padding:10px 0;border-bottom:1px solid #F0EDE8;font-size:14px;color:#1A1A1A;">${esc(i.product_name)}</td>
       <td style="padding:10px 0;border-bottom:1px solid #F0EDE8;font-size:13px;color:#5E5B59;text-align:center;">&times;${i.quantity}</td>
       <td style="padding:10px 0;border-bottom:1px solid #F0EDE8;font-size:14px;font-weight:600;color:#B89657;text-align:right;">&#8377;${Number(i.total_price).toLocaleString('en-IN')}</td>
     </tr>`).join('');
@@ -369,7 +374,7 @@ function buildOrderEmailTemplate(order,status){
   <div style="padding:32px 0 24px;text-align:center;">
     <div style="display:inline-block;background:${badgeColor};color:#fff;font-size:10.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:18px;">${m.badge}</div>
     <h1 style="font-family:Georgia,serif;font-size:26px;font-weight:400;color:#1A1A1A;margin:0 0 14px;letter-spacing:-0.01em;">${m.headline}</h1>
-    <p style="font-size:14.5px;color:#5E5B59;line-height:1.65;margin:0;">Hi ${firstName}, ${m.body}</p>
+    <p style="font-size:14.5px;color:#5E5B59;line-height:1.65;margin:0;">Hi ${esc(firstName)}, ${m.body}</p>
   </div>
   <div style="background:#fff;border:1px solid #E8E2D9;border-radius:14px;padding:24px;margin-bottom:24px;">
     <div style="display:flex;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid #F0EDE8;margin-bottom:16px;">
@@ -452,8 +457,8 @@ async function loadDashboard(){
       recentUl.innerHTML = recentOrders.map(o => `
         <li>
           <div>
-            <div class="title">KGS-${o.order_number}</div>
-            <div class="subtitle">${o.customer_name || o.shipping_name || 'Guest'} • ${new Date(o.created_at).toLocaleDateString()}</div>
+            <div class="title">KGS-${esc(o.order_number)}</div>
+            <div class="subtitle">${esc(o.customer_name || o.shipping_name || 'Guest')} • ${new Date(o.created_at).toLocaleDateString()}</div>
           </div>
           <div style="text-align:right">
             <div class="amount">₹${Number(o.total).toLocaleString('en-IN')}</div>
@@ -471,10 +476,10 @@ async function loadDashboard(){
       stockUl.innerHTML = lowStock.map(p => `
         <li>
           <div>
-            <div class="title">${p.name}</div>
+            <div class="title">${esc(p.name)}</div>
             <div class="subtitle" style="color:var(--red)">Out of Stock</div>
           </div>
-          <button class="btn btn-outline btn-sm" onclick="showPage('products'); setTimeout(()=>editProduct('${p.id}'), 100)">Restock</button>
+          <button class="btn btn-outline btn-sm" onclick="showPage('products'); setTimeout(()=>editProduct('${esc(p.id)}'), 100)">Restock</button>
         </li>
       `).join('');
     } else {
@@ -562,7 +567,7 @@ async function loadSubscribers(){
   }
   tbody.innerHTML=data.map(s=>`
     <tr>
-      <td>${s.email}</td>
+      <td>${esc(s.email)}</td>
       <td style="color:var(--muted);font-size:12px">${fmtDate(s.created_at)}</td>
     </tr>
   `).join('');

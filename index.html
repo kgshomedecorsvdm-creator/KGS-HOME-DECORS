@@ -1,21 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/images/icon-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1A1A1A">
   <title>KGS Home Décors — Furniture &amp; Home Décor, Virudhachalam</title>
-  <meta name="description" content="KGS Home Décors — premium furniture, wall art, lighting &amp; gifting in Virudhachalam. ★ 5.0 on Google. Free local delivery. Open daily 10 AM–10 PM.">
+  <meta name="description" content="KGS Home Décors — furniture, wall art, lighting &amp; gifting in Virudhachalam. Free delivery across Tamil Nadu. Open daily 10 AM–10 PM.">
+  <link rel="canonical" href="https://kgshomedecors.in/">
+  <!-- Open Graph defaults (per-route values are set at runtime by app.js) -->
+  <meta property="og:site_name" content="KGS Home Décors">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kgshomedecors.in/">
+  <meta property="og:title" content="KGS Home Décors — Furniture &amp; Home Décor, Virudhachalam">
+  <meta property="og:description" content="KGS Home Décors — furniture, wall art, lighting &amp; gifting in Virudhachalam. Free delivery across Tamil Nadu. Open daily 10 AM–10 PM.">
+  <meta property="og:image" content="https://kgshomedecors.in/assets/images/icon-512.png">
+  <!-- Twitter Card defaults -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KGS Home Décors — Furniture &amp; Home Décor, Virudhachalam">
+  <meta name="twitter:description" content="KGS Home Décors — furniture, wall art, lighting &amp; gifting in Virudhachalam. Free delivery across Tamil Nadu. Open daily 10 AM–10 PM.">
+  <meta name="twitter:image" content="https://kgshomedecors.in/assets/images/icon-512.png">
+  <!-- LocalBusiness structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HomeGoodsStore",
+    "@id": "https://kgshomedecors.in",
+    "name": "KGS Home Décors",
+    "url": "https://kgshomedecors.in",
+    "image": "https://kgshomedecors.in/assets/images/icon-512.png",
+    "telephone": "+91 97891 82921",
+    "priceRange": "₹₹",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "185/G Junction Road, near EB Office",
+      "addressLocality": "Virudhachalam",
+      "addressRegion": "Tamil Nadu",
+      "postalCode": "606001",
+      "addressCountry": "IN"
+    },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "10:00",
+      "closes": "22:00"
+    }],
+    "sameAs": ["https://instagram.com/kgs_home_decor"]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin="">
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
   <link rel="dns-prefetch" href="https://unpkg.com">
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=block">
-  <link rel="stylesheet" href="assets/css/icons.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&amp;family=Jost:wght@300;400;500;600;700&amp;display=swap">
+  <link rel="stylesheet" href="/assets/css/icons.css">
   <style>
     /* ============================================================================
    KGS HOME DÉCORS — DESIGN TOKENS
@@ -49,10 +90,14 @@
       /* nav links inactive */
       --label: #7A5C1E;
       /* eyebrow / overline (WCAG-AA on surface) */
+      --gold-text: #6F5618;
+      /* dark gold for SMALL TEXT — 6.56:1 on cream (WCAG-AA) */
+      --gold-btn: #8A6A28;
+      /* gold button bg — white text 5.03:1 (WCAG-AA) */
 
       /* Brand accents */
       --gold: #C5A880;
-      /* antique-gold — borders, icons, hover */
+      /* antique-gold — borders, icons, hover (decorative/large only) */
       --gold-dark: #A8916B;
       /* gold hover state */
       --warm: #C97840;
@@ -318,7 +363,7 @@
     }
 
     .t-eyebrow--gold {
-      color: var(--gold);
+      color: var(--gold-text);
     }
 
     .t-eyebrow--ink {
@@ -474,13 +519,13 @@
       border-color: #1A1A1A;
     }
 .btn-gold {
-  background: #B89657;
+  background: var(--gold-btn);
   color: #fff;
-  border: 1px solid #B89657;
+  border: 1px solid var(--gold-btn);
 }
 
 .btn-gold:hover {
-  background: #A0824B;
+  background: #6F5618;
   transform: translateY(-2px);
 }
 
@@ -501,7 +546,7 @@
   font-weight: 500;
   font-size: 15px;
 }
-.account-nav-item:hover { background: rgba(184,150,87,0.05); color: #B89657; }
+.account-nav-item:hover { background: rgba(184,150,87,0.05); color: var(--gold-text); }
 .account-nav-item.active { background: #B89657; color: #fff; }
 .account-nav-item .material-symbols-outlined { font-size: 20px; }
 .account-main { min-height: 60vh; }
@@ -533,7 +578,7 @@
 .tracking-step.active .tracking-icon span { color: #B89657; }
 .tracking-info h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; color: #1A1A1A; }
 .tracking-info p { font-size: 13px; color: #5E5B59; margin-bottom: 4px; }
-.tracking-time { font-size: 11px; font-weight: 600; color: #B89657; text-transform: uppercase; letter-spacing: .05em; }
+.tracking-time { font-size: 11px; font-weight: 600; color: var(--gold-text); text-transform: uppercase; letter-spacing: .05em; }
 
 @media (max-width: 768px) {
   .account-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
@@ -805,7 +850,7 @@
       font-weight: 600;
       letter-spacing: .32em;
       text-transform: uppercase;
-      color: #B89657;
+      color: var(--gold-text);
       margin-top: 2px;
     }
 
@@ -1024,7 +1069,7 @@
 
     .mobile-nav-link:hover,
     .mobile-nav-link.active {
-      color: #B89657;
+      color: var(--gold-text);
       padding-left: 4px;
     }
 
@@ -1090,7 +1135,7 @@
       font-weight: 600;
       letter-spacing: .18em;
       text-transform: uppercase;
-      color: #8E7449;
+      color: var(--gold-text);
       margin-bottom: 14px;
     }
 
@@ -1123,7 +1168,7 @@
       font-weight: 600;
       letter-spacing: .18em;
       text-transform: uppercase;
-      color: #8E7449;
+      color: var(--gold-text);
       margin-bottom: 14px;
     }
 
@@ -1356,7 +1401,7 @@
 
     .prod-cat {
       font-size: 11px;
-      color: #B89657;
+      color: var(--gold-text);
       font-weight: 500;
       letter-spacing: .08em;
       text-transform: uppercase;
@@ -1446,7 +1491,7 @@
 
     .prod-proof--gold {
       background: rgba(184, 150, 87, 0.12);
-      color: #8E7449;
+      color: var(--gold-text);
     }
 
     .prod-proof--gold .material-symbols-outlined {
@@ -1669,13 +1714,13 @@
     .hero h1 em {
       font-style: italic;
       font-weight: 400;
-      color: #B89657;
+      color: #8E7449;
     }
 
     .hero-sub {
       font-family: 'Jost', sans-serif;
       font-size: 15px;
-      color: rgba(26, 26, 26, 0.55);
+      color: var(--muted);
       margin-bottom: 32px;
       line-height: 1.7;
     }
@@ -1719,7 +1764,7 @@
       font-weight: 600;
       letter-spacing: .14em;
       text-transform: uppercase;
-      color: #8E7449;
+      color: var(--gold-text);
       margin-bottom: 22px;
     }
 
@@ -1894,7 +1939,7 @@
       font-weight: 500;
       letter-spacing: .22em;
       text-transform: uppercase;
-      color: #C5A880;
+      color: var(--gold-text);
       padding: 6px 14px;
       border-radius: 9999px;
       background: rgba(197, 168, 128, 0.12);
@@ -1913,7 +1958,7 @@
     .promo-headline em {
       font-style: italic;
       font-weight: 400;
-      color: #C5A880;
+      color: #8E7449;
     }
 
     .promo-photo {
@@ -2147,6 +2192,8 @@
       background: #fff;
       border: 1px solid rgba(26, 26, 26, 0.10);
       padding: 14px 22px;
+      min-height: 44px;
+      box-sizing: border-box;
       flex: 1;
       border-radius: 9999px;
       font-family: 'Jost', sans-serif;
@@ -2156,7 +2203,7 @@
     }
 
     .newsletter-input::placeholder {
-      color: rgba(26, 26, 26, 0.30);
+      color: rgba(26, 26, 26, 0.45);
     }
 
     .newsletter-input:focus {
@@ -2298,6 +2345,59 @@
        so they always show even if GSAP fails or timing is off */
     .hero-photo {
       opacity: 0;
+    }
+
+    /* ===== Accessibility: visible focus =============================== */
+    /* Many resets remove default outlines; restore a clear focus ring for
+       keyboard users without affecting mouse clicks. */
+    :focus-visible {
+      outline: 2px solid var(--gold-text);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    .btn:focus-visible,
+    .btn-dark:focus-visible,
+    .icon-btn:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    /* ===== Accessibility: prefers-reduced-motion ===================== */
+    /* Neutralise animations/transitions and force any GSAP-revealed
+       content to its visible state so nothing can stay hidden when the
+       JS animations are skipped. */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .hero-photo,
+      .hero-eyebrow,
+      .hero h1,
+      .hero-sub,
+      .hero-ctas .btn,
+      .hero-stats,
+      .hero-slides-indicator,
+      .hero-floating-chip,
+      .hero-delivery-chip,
+      .trust-item,
+      .section-head,
+      .best-sellers-track .prod-card,
+      .cat-card,
+      .why-card,
+      .testimonial,
+      .ig-tile,
+      .newsletter,
+      footer {
+        opacity: 1 !important;
+        transform: none !important;
+      }
     }
 
     /* ===== WA float =================================================== */
@@ -2628,7 +2728,7 @@
       font-weight: 600;
       letter-spacing: .22em;
       text-transform: uppercase;
-      color: #B89657;
+      color: var(--gold-text);
     }
 
     .bundle-price__save {
@@ -3511,6 +3611,10 @@
         color: rgba(255,255,255,0.65);
         font-family: 'Jost', sans-serif;
         padding: 10px 14px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background: rgba(255,255,255,0.05);
         border-radius: 10px;
         border: 1px solid rgba(255,255,255,0.08);
@@ -3542,7 +3646,10 @@
       .footer-bottom .links a {
         font-size: 13px;
         color: rgba(255,255,255,0.65);
-        padding: 4px 0;
+        padding: 12px 8px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
       }
 
       .promo {
@@ -3573,6 +3680,13 @@
 
       .carousel-wrap .carousel-arrow {
         display: none;
+      }
+
+      /* Mobile: contain the full-bleed carousel so the negative margin
+         can't create page-level horizontal overflow (fixes ~4px scroll). */
+      .carousel-wrap {
+        overflow: hidden;
+        max-width: 100%;
       }
 
       .best-sellers-track {
@@ -3881,7 +3995,7 @@ body.search-open { position: fixed; overflow: hidden; width: 100%; left: 0; righ
     }
     .search-result-img img { max-width: 80%; max-height: 80%; object-fit: contain; }
     .search-result-name { font-family: 'Crimson Pro', serif; font-weight: 500; font-size: 16px; color: #1A1A1A; }
-    .search-result-cat { font-size: 11px; color: #B89657; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+    .search-result-cat { font-size: 11px; color: var(--gold-text); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
     .search-result-price { font-weight: 600; font-size: 14px; color: #1A1A1A; margin-left: auto; flex-shrink: 0; }
     .search-empty { text-align: center; padding: 32px 0; color: #5E5B59; font-size: 14px; }
     .search-popular { width: 100%; clear: both; margin-top: 24px; position: relative; z-index: 5; display: block; clear: both; }
@@ -4040,7 +4154,7 @@ body.search-open { position: fixed; overflow: hidden; width: 100%; left: 0; righ
       font-family: 'Jost', sans-serif;
       font-size: 11px;
       font-weight: 600;
-      color: #B89657;
+      color: var(--gold-text);
       letter-spacing: 0.32em;
       text-transform: uppercase;
       margin-top: 10px;
@@ -4081,21 +4195,27 @@ body.search-open { position: fixed; overflow: hidden; width: 100%; left: 0; righ
        gsap-performance + gsap-plugins + gsap-react + gsap-utils + gsap-frameworks -->
   <!-- Supabase JS SDK -->
   <!-- Supabase JS SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer=""></script>
 
-  <!-- GSAP — local files (no CDN required) -->
-  <script src="assets/js/gsap.min.js"></script>
-  <script src="assets/js/ScrollTrigger.min.js"></script>
+  <!-- GSAP — local files (no CDN required); deferred so they don't block render.
+       defer preserves document order, so GSAP is defined before app.js runs. -->
+  <script src="/assets/js/gsap.min.js" defer=""></script>
+  <script src="/assets/js/ScrollTrigger.min.js" defer=""></script>
   <!-- Lenis smooth scroll — butter experience -->
-  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" defer></script>
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" defer=""></script>
   <script>
+   // Run after deferred libs (GSAP/ScrollTrigger/Lenis) have executed.
+   window.addEventListener('DOMContentLoaded', function () {
+    var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
       gsap.defaults({ ease: 'power3.out', duration: 0.7 });
     }
 
     // Initialise Lenis — skip on touch-only devices (iOS already buttery)
-    if (typeof Lenis !== 'undefined' && !('ontouchstart' in window && navigator.maxTouchPoints > 1)) {
+    // and skip entirely when the user prefers reduced motion (use native scroll).
+    if (!prefersReduced && typeof Lenis !== 'undefined' && !('ontouchstart' in window && navigator.maxTouchPoints > 1)) {
       var lenis = new Lenis({
         duration: 1.15,
         easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
@@ -4121,6 +4241,7 @@ body.search-open { position: fixed; overflow: hidden; width: 100%; left: 0; righ
 
       window._lenis = lenis;
     }
+   });
   </script>
 
   <!-- React 18 + ReactDOM production builds -->
@@ -4129,10 +4250,10 @@ body.search-open { position: fixed; overflow: hidden; width: 100%; left: 0; righ
   
 </head>
 
-<body>
+<body style="">
 
   <!-- KGS Splash Loader -->
-  <div id="kgs-loader" aria-hidden="true">
+  <div id="kgs-loader" aria-hidden="true" class="kgs-loader--out" style="display: none;">
     <div class="kgs-loader__mark">KGS</div>
     <div class="kgs-loader__sub">Home Décors</div>
     <div class="kgs-loader__track">
@@ -4140,14 +4261,13 @@ body.search-open { position: fixed; overflow: hidden; width: 100%; left: 0; righ
     </div>
   </div>
 
-  <div id="root"></div>
+  <div id="root"><div data-route="home"><div class="announce"><div class="container announce-bar"><span class="announce-side"><span class="material-symbols-outlined">storefront</span>Open now · 2:04&nbsp;PM</span><span class="announce-center"><span class="announce-msg out-down"><span class="material-symbols-outlined">local_shipping</span><b>Free delivery</b> across Tamil Nadu — every order, no minimum.</span><span class="announce-msg out-down"><span class="material-symbols-outlined">star</span><b>Home décor &amp; furniture we pick ourselves</b> — and stand behind.</span><span class="announce-msg out-down"><span class="material-symbols-outlined">storefront</span>Showroom on <b>Junction Road</b> open daily · 10&nbsp;AM– 10&nbsp;PM</span><span class="announce-msg in"><span class="material-symbols-outlined">verified</span><b>Every piece hand-checked</b> at our showroom before it ships.</span><span class="announce-msg out-down"><span class="material-symbols-outlined">chat</span>WhatsApp us — a real person replies within <b>10&nbsp;minutes.</b></span></span><span class="announce-side announce-side--right"><span class="announce-dots"><span class="announce-dot" style="cursor: pointer;"></span><span class="announce-dot" style="cursor: pointer;"></span><span class="announce-dot" style="cursor: pointer;"></span><span class="announce-dot active" style="cursor: pointer;"></span><span class="announce-dot" style="cursor: pointer;"></span></span><span class="announce-divider"></span><a href="#">Track Order</a><span class="announce-divider"></span><a href="https://wa.me/919789182921" target="_blank" rel="noreferrer">WhatsApp</a></span></div></div><div class="nav-wrap"><div class="container nav-bar"><div class="nav-progress" style="width: 0%;"></div><a href="#" class="logo"><span class="mark">KGS</span><span class="sub">Home Décors</span></a><div class="nav-links"><a class="nav-link active" href="/">Home</a><a class="nav-link" href="/shop">Shop</a><a class="nav-link" href="/about">About Us</a><a class="nav-link" href="/contact">Contact</a></div><div class="nav-actions"><button class="icon-btn" aria-label="Search"><span class="material-symbols-outlined" aria-hidden="true">search</span></button><button class="icon-btn" aria-label="My account"><span class="material-symbols-outlined" aria-hidden="true">person</span></button><button class="icon-btn" aria-label="Wishlist" style="position: relative;"><span class="material-symbols-outlined" aria-hidden="true">favorite</span></button><button class="icon-btn" aria-label="Cart" style="position: relative;"><span class="material-symbols-outlined" aria-hidden="true">shopping_bag</span></button><button class="hamburger-btn" aria-label="Open menu"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button></div></div></div><div class="mobile-nav" role="dialog" aria-modal="true" aria-label="Navigation menu"><div class="mobile-nav-overlay"></div><div class="mobile-nav-panel"><button class="mobile-nav-close" aria-label="Close menu"><span aria-hidden="true" class="material-symbols-outlined">close</span></button><div style="font-family: &quot;Crimson Pro&quot;, serif; font-weight: 500; font-size: 1.3rem; color: rgb(26, 26, 26); margin-bottom: 8px;">KGS Home Décors</div><div class="mobile-nav-link">About Us</div><div class="mobile-nav-link">Contact</div><div style="margin-top: auto; padding-top: 24px;"><a href="https://wa.me/919789182921" style="display: flex; align-items: center; gap: 10px; padding: 12px 0px; color: rgb(37, 211, 102); font-weight: 600;"><span class="material-symbols-outlined">chat</span>WhatsApp Us</a><div style="font-size: 11px; color: rgb(94, 91, 89); margin-top: 12px; line-height: 1.6;">185/G Junction Rd<br>Virudhachalam 606001<br>10 AM – 10 PM, every day</div></div></div></div><main class="page-body"><div data-screen-label="Home"><div class="hero"><div class="hero-copy"><div class="hero-slides-indicator" style="opacity: 1; transform: none;"><span class="">01</span><span class="rule"></span><span class="">02</span><span class="rule"></span><span class="active">03</span></div><div class="hero-eyebrow" style="opacity: 1; transform: none;"><span class="hero-eyebrow__dot"></span>Heritage Pieces</div><h1 style="opacity: 1; transform: none;">Made the way<br>things were <em>made</em><br>to last.</h1><p class="hero-sub" style="opacity: 1; transform: none;">Brass. Stone. Slow craft. Every piece hand-checked before it ships.</p><div class="hero-ctas"><button class="btn btn-dark" style="opacity: 1; transform: none;">Browse the Collection<span class="material-symbols-outlined">arrow_forward</span></button><button class="btn btn-ghost" style="opacity: 1; transform: none;">See Best Sellers</button></div><div class="hero-stats" style="opacity: 1; transform: none;"><div><b>14</b><span>Categories to browse</span></div><div class="hero-stats__divider"></div><div><b>Handpicked</b><span>Décor &amp; furniture</span></div><div class="hero-stats__divider"></div><div><b>Free</b><span>Delivery across Tamil Nadu</span></div></div><div class="hero-arrows" style="margin-top: 20px;"><button class="carousel-arrow" aria-label="Previous" style="position: static; transform: none; box-shadow: rgba(0, 0, 0, 0.18) 0px 8px 18px -8px;"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span></button><button class="carousel-arrow" aria-label="Next" style="position: static; transform: none; box-shadow: rgba(0, 0, 0, 0.18) 0px 8px 18px -8px;"><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div></div><div class="hero-photo" style="opacity: 1; transform: none;"><img src="assets/lifestyle/room_zen.webp" alt="" fetchpriority="high" decoding="async" width="720" height="900" style="animation: 700ms ease 0s 1 normal none running heroFade;"><div class="hero-floating-chip" style="opacity: 1; transform: none;"><span class="material-symbols-outlined" style="color: rgb(197, 168, 128); font-size: 20px;">verified</span><b>Hand-checked</b><span style="color: rgb(94, 91, 89);">Every piece, in-store</span></div><div class="hero-delivery-chip" style="opacity: 1; transform: none;"><span class="material-symbols-outlined">local_shipping</span><div><b>Free across Tamil Nadu</b><span>Same-day local delivery</span></div></div></div></div><div class="reveal visible" style="opacity: 1; transform: none;"><section class="trust-strip"><div class="container"><div class="trust-row"><div class="trust-item" style="opacity: 1; transform: none;"><div class="trust-icon"><span class="material-symbols-outlined">local_shipping</span></div><div><div class="trust-title">Free Delivery</div><div class="trust-sub">Across Tamil Nadu.</div></div></div><div class="trust-item" style="opacity: 1; transform: none;"><div class="trust-icon"><span class="material-symbols-outlined">verified</span></div><div><div class="trust-title">Hand-Checked</div><div class="trust-sub">We look at every piece before it ships.</div></div></div><div class="trust-item" style="opacity: 1; transform: none;"><div class="trust-icon"><span class="material-symbols-outlined">payments</span></div><div><div class="trust-title">Pay How You Like</div><div class="trust-sub">UPI, card, or net banking.</div></div></div><div class="trust-item" style="opacity: 1; transform: none;"><div class="trust-icon"><span class="material-symbols-outlined">chat</span></div><div><div class="trust-title">Text Us Anytime</div><div class="trust-sub">WhatsApp — we reply fast.</div></div></div></div></div></section></div><div class="reveal visible" style="opacity: 1; transform: none;"><section class="section"><div class="container"><div class="section-head" style="opacity: 1; transform: none;"><div><div class="label-tag">Browse</div><h2>What are you looking for?</h2></div><a href="#" class="view-all">View All <span class="material-symbols-outlined">arrow_forward</span></a></div><div class="cat-grid"><div class="cat-card" style="opacity: 1; transform: none;"><div class="cat-frame"><img src="assets/categories/cat_artificial_plants_thumb.webp" alt="Artificial Plants" loading="lazy" decoding="async" width="400" height="500"></div><div class="cat-name">Artificial Plants</div></div><div class="cat-card" style="opacity: 1; transform: none;"><div class="cat-frame"><img src="assets/categories/cat_artificial_flowers_thumb.webp" alt="Artificial Flowers" loading="lazy" decoding="async" width="400" height="500"></div><div class="cat-name">Artificial Flowers</div></div><div class="cat-card" style="opacity: 1; transform: none;"><div class="cat-frame"><img src="assets/categories/cat_bags_accessories_thumb.webp" alt="Bags &amp; Accessories" loading="lazy" decoding="async" width="400" height="500"></div><div class="cat-name">Bags &amp; Accessories</div></div><div class="cat-card" style="opacity: 1; transform: none;"><div class="cat-frame"><img src="assets/categories/cat_bottles_thumb.webp" alt="Bottles" loading="lazy" decoding="async" width="400" height="500"></div><div class="cat-name">Bottles</div></div><div class="cat-card" style="opacity: 1; transform: none;"><div class="cat-frame"><img src="assets/categories/cat_vases_decor_new_thumb.webp" alt="Vases &amp; Décor" loading="lazy" decoding="async" width="400" height="500"></div><div class="cat-name">Vases &amp; Décor</div></div><div class="cat-card" style="opacity: 1; transform: none;"><div class="cat-frame"><img src="assets/categories/cat_fountains_new_thumb.webp" alt="Fountains &amp; Pooja" loading="lazy" decoding="async" width="400" height="500"></div><div class="cat-name">Fountains &amp; Pooja</div></div><div class="cat-card" style="opacity: 1; transform: none;"><div class="cat-frame"><img src="assets/categories/cat_gifts_new_thumb.webp" alt="Gifts &amp; Hampers" loading="lazy" decoding="async" width="400" height="500"></div><div class="cat-name">Gifts &amp; Hampers</div></div><div class="cat-card" style="opacity: 1; transform: none;"><div class="cat-frame"><img src="assets/categories/cat_chairs_sofas_thumb.webp" alt="Chairs &amp; Sofas" loading="lazy" decoding="async" width="400" height="500"></div><div class="cat-name">Chairs &amp; Sofas</div></div><div class="cat-card" style="opacity: 1; transform: none;"><div class="cat-frame"><img src="assets/categories/cat_clocks_new_thumb.webp" alt="Clocks" loading="lazy" decoding="async" width="400" height="500"></div><div class="cat-name">Clocks</div></div><div class="cat-card" style="opacity: 1; transform: none;"><div class="cat-frame"><img src="assets/categories/cat_lighting_only_thumb.webp" alt="Lighting" loading="lazy" decoding="async" width="400" height="500"></div><div class="cat-name">Lighting</div></div><div class="cat-card" style="opacity: 1; transform: none;"><div class="cat-frame"><img src="assets/categories/cat_blower_fans_thumb.webp" alt="Blower Fans" loading="lazy" decoding="async" width="400" height="500"></div><div class="cat-name">Blower Fans</div></div><div class="cat-card" style="opacity: 1; transform: none;"><div class="cat-frame"><img src="assets/categories/cat_statues_new_thumb.webp" alt="Statues &amp; Idols" loading="lazy" decoding="async" width="400" height="500"></div><div class="cat-name">Statues &amp; Idols</div></div><div class="cat-card" style="opacity: 1; transform: none;"><div class="cat-frame"><img src="assets/categories/cat_wall_frames_new_thumb.webp" alt="Wall Frames" loading="lazy" decoding="async" width="400" height="500"></div><div class="cat-name">Wall Frames</div></div><div class="cat-card" style="opacity: 1; transform: none;"><div class="cat-frame"><img src="assets/categories/cat_wall_statues_thumb.webp" alt="Wall Statues" loading="lazy" decoding="async" width="400" height="500"></div><div class="cat-name">Wall Statues</div></div></div></div></section></div><div class="reveal visible" style="opacity: 1; transform: none;"><section class="section" style="background: rgb(255, 255, 255);"><div class="container"><div class="section-head"><div><div class="label-tag">This week</div><h2>What's flying off the shelves</h2></div><a href="#" class="view-all">View All <span class="material-symbols-outlined">arrow_forward</span></a></div><div class="carousel-wrap"><button class="carousel-arrow left" aria-label="Previous"><span class="material-symbols-outlined">chevron_left</span></button><button class="carousel-arrow right" aria-label="Next"><span class="material-symbols-outlined">chevron_right</span></button><div class="best-sellers-track"><div class="prod-card"><div class="prod-img" style="cursor: pointer;"><div style="position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; gap: 6px; z-index: 3; align-items: flex-start;"><span class="prod-off">22% OFF</span></div><button class="heart-btn" aria-label="Save to wishlist"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0, &quot;wght&quot; 300;">favorite</span></button><img src="https://rgpkomngygapwjhnbgaf.supabase.co/storage/v1/object/public/product-images/artificial-flowers/product-65.png" alt="Artificial Flower Bunch 65" loading="lazy" decoding="async" width="400" height="500"><div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div></div><div class="prod-body"><div class="prod-cat">Artificial Flowers</div><a class="prod-name" href="/product/artificial-flower-bunch-65-a74c8104-b30f-4bd6-baac-807c864b7ad4" style="color: inherit; text-decoration: none; display: block;">Artificial Flower Bunch 65</a></div><div class="prod-price"><span class="now">₹349</span><span class="was">₹450</span></div><button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span>Add to Cart</button></div><div class="prod-card"><div class="prod-img" style="cursor: pointer;"><div style="position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; gap: 6px; z-index: 3; align-items: flex-start;"><span class="prod-off">23% OFF</span></div><button class="heart-btn" aria-label="Save to wishlist"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0, &quot;wght&quot; 300;">favorite</span></button><img src="https://rgpkomngygapwjhnbgaf.supabase.co/storage/v1/object/public/product-images/clocks/product-265.png" alt="Premium Designer Wall Clock 265" loading="lazy" decoding="async" width="400" height="500"><div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div></div><div class="prod-body"><div class="prod-cat">Clocks</div><a class="prod-name" href="/product/premium-designer-wall-clock-265-2d4a7392-de84-4efd-98aa-3ce39d4fe76f" style="color: inherit; text-decoration: none; display: block;">Premium Designer Wall Clock 265</a></div><div class="prod-price"><span class="now">₹3,149</span><span class="was">₹4,100</span></div><button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span>Add to Cart</button></div><div class="prod-card"><div class="prod-img" style="cursor: pointer;"><div style="position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; gap: 6px; z-index: 3; align-items: flex-start;"><span class="prod-off">24% OFF</span></div><button class="heart-btn" aria-label="Save to wishlist"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0, &quot;wght&quot; 300;">favorite</span></button><img src="https://rgpkomngygapwjhnbgaf.supabase.co/storage/v1/object/public/product-images/clocks/product-260.png" alt="Premium Designer Wall Clock 260" loading="lazy" decoding="async" width="400" height="500"><div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div></div><div class="prod-body"><div class="prod-cat">Clocks</div><a class="prod-name" href="/product/premium-designer-wall-clock-260-e2328bde-a471-4c31-a93f-efa91620181b" style="color: inherit; text-decoration: none; display: block;">Premium Designer Wall Clock 260</a></div><div class="prod-price"><span class="now">₹649</span><span class="was">₹850</span></div><button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span>Add to Cart</button></div><div class="prod-card"><div class="prod-img" style="cursor: pointer;"><div style="position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; gap: 6px; z-index: 3; align-items: flex-start;"><span class="prod-off">23% OFF</span></div><button class="heart-btn" aria-label="Save to wishlist"><span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0, &quot;wght&quot; 300;">favorite</span></button><img src="https://rgpkomngygapwjhnbgaf.supabase.co/storage/v1/object/public/product-images/statues/product-315.png" alt="Beautiful Statue Showpiece 315" loading="lazy" decoding="async" width="400" height="500"><div class="prod-quick"><span class="material-symbols-outlined">visibility</span> Quick View</div></div><div class="prod-body"><div class="prod-cat">Statues &amp; Idols</div><a class="prod-name" href="/product/beautiful-statue-showpiece-315-2aa63811-af7e-4efe-81f0-86b2625fb4f2" style="color: inherit; text-decoration: none; display: block;">Beautiful Statue Showpiece 315</a></div><div class="prod-price"><span class="now">₹2,299</span><span class="was">₹3,000</span></div><button class="prod-cta"><span class="material-symbols-outlined">shopping_bag</span>Add to Cart</button></div></div></div></div></section></div><div class="reveal visible" style="opacity: 1; transform: none;"><section class="section"><div class="container"><div class="section-head" style="opacity: 1; transform: none;"><div><div class="label-tag">Customer Stories</div><h2>What people say once they've moved in.</h2></div><div style="display: flex; align-items: center; gap: 20px;"><a href="#" class="view-all" style="font-size: 13px;">Write a Review <span class="material-symbols-outlined" style="font-size: 14px;">edit</span></a><a href="#" class="view-all" style="font-size: 13px;">All Reviews <span class="material-symbols-outlined" style="font-size: 14px;">arrow_forward</span></a></div></div><p style="color: rgb(158, 155, 152); font-size: 15px; text-align: center; padding: 40px 0px;">Customer reviews are on their way. Check back soon.</p></div></section></div><div class="reveal visible" style="opacity: 1; transform: none;"><section class="section" style="padding: 24px 0px;"><div class="container"><div class="section-head" style="margin-bottom: 0px; border-bottom-width: medium; border-bottom-style: none; border-bottom-color: currentcolor; padding-bottom: 0px; align-items: center; opacity: 1; transform: none;"><div><div class="label-tag">Follow Along</div><h2>Follow us @kgs_home_decor</h2><div style="font-size: 13px; color: rgb(94, 91, 89); margin-top: 6px;">Real pieces, real rooms, real showroom.</div></div><a href="https://instagram.com/kgs_home_decor" target="_blank" rel="noopener noreferrer" class="btn btn-cream" style="text-decoration: none;">Open Instagram <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span></a></div></div></section></div><div class="reveal visible" style="opacity: 1; transform: none;"><section style="padding: 40px 0px 60px;"><div class="container"><div style="position: relative; border-radius: 8px; overflow: hidden; height: 480px; display: flex; align-items: center; justify-content: center;"><img src="assets/lifestyle/showroom.webp" alt="KGS Showroom" style="position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.65);"><div style="position: relative; z-index: 10; text-align: center; color: rgb(255, 255, 255); padding: 20px;"><div style="font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; margin-bottom: 12px; color: rgba(255, 255, 255, 0.8);">Virudhachalam</div><h2 style="font-family: &quot;Crimson Pro&quot;, serif; font-weight: 500; font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1.1; margin-bottom: 16px;">Experience it in person.</h2><p style="font-size: 15px; color: rgba(255, 255, 255, 0.85); max-width: 400px; margin: 0px auto; line-height: 1.6;">Visit our showroom on Junction Road to feel the quality, texture, and scale of our pieces firsthand.</p></div></div></div></section></div></div></main><footer class="footer" style="opacity: 1; transform: none;"><div class="container"><div class="footer-grid"><div class="footer-col"><a href="#" class="logo" style="margin-bottom: 18px;"><span class="mark" style="color: rgb(255, 255, 255);">KGS</span><span class="sub" style="color: rgb(197, 168, 128);">Home Décors</span></a><p style="font-size: 13.5px; color: rgba(255, 255, 255, 0.55); max-width: 260px; line-height: 1.75;">Home décor and furniture, hand-picked on Junction Road and delivered across Tamil Nadu.</p><div style="font-size: 12.5px; color: rgba(255, 255, 255, 0.45); margin-top: 10px; line-height: 1.7;">185/G Junction Road<br>Virudhachalam 606001<br>Tamil Nadu</div><div class="footer-socials"><a href="https://instagram.com/kgs_home_decor" target="_blank" rel="noopener noreferrer" title="Instagram"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg></a><a href="https://wa.me/919789182921" target="_blank" rel="noopener noreferrer" title="WhatsApp"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"></path></svg></a></div><div style="margin-top: 32px;"><p style="margin: 0px 0px 12px; color: rgb(255, 255, 255); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600;">Stay in the loop</p><div style="display: flex; gap: 0px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.2);"><input type="email" placeholder="Enter your email" style="flex: 1 1 0%; background: transparent; border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; padding: 10px 14px; color: rgb(255, 255, 255); font-size: 13px; outline: none;"><button style="background: rgb(197, 168, 128); color: rgb(26, 22, 20); border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; padding: 0px 16px; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer;">Join</button></div></div></div><div class="footer-col"><h4>Shop</h4><ul><li><a href="/shop">Artificial Plants</a></li><li><a href="/shop">Artificial Flowers</a></li><li><a href="/shop">Vases &amp; Décor</a></li><li><a href="/shop">Fountains &amp; Pooja</a></li><li><a href="/shop">Chairs &amp; Sofas</a></li><li><a href="/shop">Lighting</a></li><li><a href="/shop">Gifts &amp; Hampers</a></li><li><a href="/shop">Statues &amp; Idols</a></li><li><a href="/shop">Wall Frames</a></li><li><a href="/shop">Wall Statues</a></li></ul></div><div class="footer-col"><h4>Help</h4><ul><li><a href="/shipping">Shipping &amp; Delivery</a></li><li><a href="/returns">Returns &amp; Refunds</a></li><li><a href="/">FAQ</a></li><li><a href="/">Track Order</a></li><li><a href="/">Payment Options</a></li></ul></div><div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About Us</a></li><li><a href="/contact">Contact</a></li></ul></div><div class="footer-col"><h4>Talk to Us</h4><ul><li class="info-line"><span class="material-symbols-outlined">mail</span><a href="mailto:kgshomedecorsvdm@gmail.com">kgshomedecorsvdm@gmail.com</a></li><li class="info-line"><span class="material-symbols-outlined">call</span><a href="tel:+919789182921">+91 97891 82921</a></li><li class="info-line"><span class="material-symbols-outlined">schedule</span>Every day · 10 AM – 10 PM</li></ul><div class="footer-pay" style="margin-top: 18px;"><span>VISA</span><span>MC</span><span>UPI</span><span>AMEX</span></div></div></div><div class="footer-bottom"><span>© 2026 KGS Home Décors. All Rights Reserved.</span><div class="links"><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a><a href="#">Shipping Policy</a><a href="#">Return Policy</a><a href="#">Cookie Policy</a><a href="#">Disclaimer</a></div></div></div></footer><a class="wa-float" href="https://wa.me/919789182921" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" style="width: 24px; height: 24px; flex-shrink: 0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>Chat With Us</a><div style="position: fixed; bottom: 0px; left: 0px; right: 0px; z-index: 9999; background: rgb(26, 26, 26); color: rgb(255, 255, 255); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; box-shadow: rgba(0, 0, 0, 0.18) 0px -4px 24px;"><p style="font-size: 13px; color: rgba(255, 255, 255, 0.82); margin: 0px; line-height: 1.6; max-width: 720px;">We use cookies and local storage to keep your cart, wishlist, and session active. By continuing you agree to our <a href="#" style="color: rgb(197, 168, 128); text-decoration: underline;">Cookie Policy</a> and <a href="#" style="color: rgb(197, 168, 128); text-decoration: underline;">Privacy Policy</a>.</p><div style="display: flex; gap: 10px; flex-shrink: 0;"><button style="background: rgb(184, 150, 87); color: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; border-radius: 8px; padding: 10px 22px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: Jost, sans-serif;">Accept &amp; Continue</button><button style="background: transparent; color: rgba(255, 255, 255, 0.6); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; padding: 10px 16px; font-size: 12px; cursor: pointer; font-family: Jost, sans-serif;">Necessary Only</button></div></div><div class="toast toast--out"><span class="material-symbols-outlined" style="color: rgb(37, 211, 102); font-variation-settings: &quot;FILL&quot; 1;">check_circle</span><span></span></div><div class="search-overlay" role="dialog" aria-modal="true" aria-label="Search products"><div class="search-overlay__bg"></div><div class="search-panel" data-lenis-prevent="true"><div class="container"><div class="search-input-wrap"><span class="material-symbols-outlined" aria-hidden="true">search</span><input class="search-input" aria-label="Search products, categories" placeholder="Search products, categories…" value=""><button class="search-clear" aria-label="Close search" style="margin-left: 4px;"><span style="font-size: 12px; font-weight: 600; color: rgb(94, 91, 89);">Cancel</span></button></div><div class="search-popular"><div class="search-popular__label">Popular Searches</div><div class="search-popular__tags"><button class="search-tag">Artificial Plants</button><button class="search-tag">Artificial Flowers</button><button class="search-tag">Bags &amp; Accessories</button><button class="search-tag">Bottles</button><button class="search-tag">Vases &amp; Décor</button><button class="search-tag">Fountains &amp; Pooja</button><button class="search-tag">Gifts &amp; Hampers</button><button class="search-tag">Chairs &amp; Sofas</button><button class="search-tag">Clocks</button><button class="search-tag">Lighting</button><button class="search-tag">Blower Fans</button><button class="search-tag">Statues &amp; Idols</button><button class="search-tag">Wall Frames</button><button class="search-tag">Wall Statues</button></div></div></div></div></div><nav class="mobile-bottom-nav" aria-label="Main navigation"><button class="mobile-bottom-nav__item active" aria-label="Home"><span class="material-symbols-outlined">home</span><span>Home</span></button><button class="mobile-bottom-nav__item" aria-label="Search"><span class="material-symbols-outlined">search</span><span>Search</span></button><button class="mobile-bottom-nav__item" aria-label="Shop"><span class="material-symbols-outlined">storefront</span><span>Shop</span></button><button class="mobile-bottom-nav__item" aria-label="Wishlist"><span class="material-symbols-outlined">favorite</span><span>Wishlist</span></button><button class="mobile-bottom-nav__item" aria-label="Cart"><span class="material-symbols-outlined">shopping_bag</span><span>Cart</span></button><button class="mobile-bottom-nav__item" aria-label="Account"><span class="material-symbols-outlined">person</span><span>Account</span></button></nav></div></div>
 
 
 
 
-  <!-- Razorpay Payment Gateway -->
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script src="assets/js/app.js?v=20260601"></script>
+  <!-- Razorpay Payment Gateway is loaded on demand at checkout (see ensureRazorpay in app.js) -->
+  <script src="/assets/js/app.js?v=20260615"></script>
 
   <script>
     (function () {
@@ -4165,7 +4285,8 @@ body.search-open { position: fixed; overflow: hidden; width: 100%; left: 0; righ
       });
     })();
   </script>
-</body>
 
-</html>
 
+
+
+</body></html>

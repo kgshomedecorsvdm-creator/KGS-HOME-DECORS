@@ -1,7 +1,6 @@
 {
-  "redirects": [
-    { "source": "/shop",      "destination": "/product-listing.html", "permanent": false },
-    { "source": "/shop.html", "destination": "/product-listing.html", "permanent": false }
+  "rewrites": [
+    { "source": "/((?!api/|assets/|kgsadmin|sitemap|robots|manifest|sw\\.js|favicon|.*\\.[a-zA-Z0-9]+$).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
