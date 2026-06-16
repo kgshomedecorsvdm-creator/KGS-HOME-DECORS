@@ -4,7 +4,7 @@
 //   /product/<slugify(name)>-<id>   (parser resolves by the trailing UUID)
 import { writeFileSync } from 'node:fs';
 
-const BASE = 'https://kgshomedecors.in';
+const BASE = 'https://www.kgshomedecors.com';
 const SUPA = 'https://rgpkomngygapwjhnbgaf.supabase.co';
 const KEY  = 'sb_publishable_UkDE7zfukrWeuSW2pZYjTQ_YpBFcs9P';
 

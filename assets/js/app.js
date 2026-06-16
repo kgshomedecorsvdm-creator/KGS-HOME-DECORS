@@ -5910,7 +5910,7 @@ function Toast(_ref23) {
 /* ============================================================================
    SEO ROUTING + METADATA  (History API, canonical URLs, per-route meta, JSON-LD)
    ========================================================================== */
-var KGS_BASE = 'https://kgshomedecors.in';
+var KGS_BASE = 'https://www.kgshomedecors.com';
 var KGS_DEFAULT_IMG = KGS_BASE + '/assets/images/icon-512.png';
 
 // route -> static path (product handled separately)
@@ -6806,66 +6806,24 @@ function App() {
   window._kgsSetRoute = setRoute;
   var handlePlaceOrder = function handlePlaceOrder(formData, deliveryFee, setProcessing) {
     var cartSnapshot = _toConsumableArray(cart);
-    var subtotal = cartSnapshot.reduce(function(s, ci) {
-      var prod = PRODUCTS.find(function(p) { return p.id === ci.id; });
-      return s + (prod ? prod.price * ci.qty : 0);
-    }, 0);
-    var orderTotal = subtotal + (deliveryFee || 0);
+    // Cart line items sent to the server as {id, qty}. The server looks up the
+    // REAL price for each id — the client never sends prices or an amount, so a
+    // tampered cart can no longer change the charged total.
+    var orderItems = cartSnapshot.map(function(ci) {
+      return { id: ci.id, qty: ci.qty };
+    });
+    // Shipping payload the server stores against the order (address is composed
+    // the same way the old client-side insert did, for data consistency).
+    var shippingPayload = {
+      name: formData.name,
+      phone: formData.phone,
+      address: formData.address + ', ' + formData.city + ', ' + formData.state + ' - ' + formData.pincode,
+      city: formData.city,
+      state: formData.state || 'Tamil Nadu',
+      pincode: formData.pincode
+    };
 
     var sb = getSB();
-
-    // Saves the order (and its line items) to Supabase after a successful,
-    // verified Razorpay payment.
-    var saveOrder = function saveOrder(rzpOrderId, rzpPaymentId) {
-      var orderData = {
-        customer_id: currentUser.id,
-        shipping_name: formData.name,
-        shipping_phone: formData.phone,
-        shipping_address: formData.address + ', ' + formData.city + ', ' + formData.state + ' - ' + formData.pincode,
-        shipping_city: formData.city,
-        shipping_state: formData.state || 'Tamil Nadu',
-        shipping_pincode: formData.pincode,
-        payment_method: 'online',
-        payment_status: 'paid',
-        razorpay_order_id: rzpOrderId,
-        razorpay_payment_id: rzpPaymentId,
-        shipping_fee: deliveryFee || 0,
-        subtotal: subtotal,
-        total: orderTotal,
-        status: 'confirmed'
-      };
-      sb.from('orders').insert(orderData).select().single().then(function(res) {
-        if (!res.error && res.data) {
-          var orderItems = cartSnapshot.map(function(ci) {
-            var prod = PRODUCTS.find(function(p) { return p.id === ci.id; });
-            return {
-              order_id: res.data.id,
-              product_id: ci.id,
-              product_name: prod ? prod.name : ci.id,
-              product_image: prod ? prod.image : '',
-              quantity: ci.qty,
-              unit_price: prod ? prod.price : 0,
-              total_price: prod ? prod.price * ci.qty : 0
-            };
-          });
-          sb.from('order_items').insert(orderItems).then(function() {});
-          setLastCart(cartSnapshot);
-          setLastOrderNumber('KGS-' + res.data.order_number);
-          setCart([]);
-          setProcessing(false);
-          setRoute('order-confirmation');
-          window.scrollTo(0, 0);
-        } else {
-          console.error('[KGS] Order insert failed:', res.error);
-          setProcessing(false);
-          showToast('Could not save your order. Please contact support.', 'error', '#C97840');
-        }
-      }).catch(function(err) {
-        console.warn('[KGS] Order save failed:', err);
-        setProcessing(false);
-        showToast('Could not save your order. Please contact support.', 'error', '#C97840');
-      });
-    };
 
     if (sb && currentUser) {
       setProcessing(true);
@@ -6873,7 +6831,8 @@ function App() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: Math.round(orderTotal * 100),
+          items: orderItems,
+          state: shippingPayload.state,
           currency: 'INR',
           receipt: 'kgs_' + Date.now()
         })
@@ -6897,7 +6856,7 @@ function App() {
           order_id: data.order_id,
           name: 'KGS Home Décors',
           description: 'Order payment',
-          image: 'https://kgshomedecors.in/assets/images/icon-512.png',
+          image: 'https://www.kgshomedecors.com/assets/images/icon-512.png',
           prefill: {
             name: formData.name,
             email: (currentUser && currentUser.email) || '',
@@ -6905,24 +6864,35 @@ function App() {
           },
           theme: { color: '#C97840' },
           handler: function handler(response) {
+            // The server verifies the signature, re-fetches real prices, and
+            // records the order with the service role. The client no longer
+            // writes to Supabase, so a fake "paid" order cannot be inserted.
             fetch('/api/verify-payment', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature
+                razorpay_signature: response.razorpay_signature,
+                items: orderItems,
+                shipping: shippingPayload,
+                customer_id: currentUser.id
               })
             }).then(function(r) {
               return r.json().then(function(data) {
                 return { ok: r.ok, data: data };
               });
             }).then(function(_ref2) {
-              var data = _ref2.data;
-              if (data && data.success === true) {
-                saveOrder(response.razorpay_order_id, response.razorpay_payment_id);
+              var ok2 = _ref2.ok, data = _ref2.data;
+              if (ok2 && data && data.success === true && data.order_number != null) {
+                setLastCart(cartSnapshot);
+                setLastOrderNumber('KGS-' + data.order_number);
+                setCart([]);
+                setProcessing(false);
+                setRoute('order-confirmation');
+                window.scrollTo(0, 0);
               } else {
-                console.error('[KGS] Payment verification failed:', data && data.error);
+                console.error('[KGS] Payment verification/recording failed:', data && data.error);
                 setProcessing(false);
                 showToast('Payment could not be verified. If money was deducted, please contact us on WhatsApp with your payment ID.', 'error', '#C97840');
               }

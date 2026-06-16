@@ -384,7 +384,7 @@ function buildOrderEmailTemplate(order,status){
     ${itemsHtml?`<table style="width:100%;border-collapse:collapse;">${itemsHtml}</table>`:''}
   </div>
   <div style="text-align:center;margin-bottom:32px;">
-    <a href="https://kgshomedecors.in" style="display:inline-block;background:#1A1A1A;color:#fff;font-size:13px;font-weight:600;letter-spacing:0.04em;padding:13px 36px;border-radius:8px;text-decoration:none;">Track Your Order</a>
+    <a href="https://www.kgshomedecors.com" style="display:inline-block;background:#1A1A1A;color:#fff;font-size:13px;font-weight:600;letter-spacing:0.04em;padding:13px 36px;border-radius:8px;text-decoration:none;">Track Your Order</a>
   </div>
   <div style="text-align:center;padding-top:24px;border-top:1px solid #E8E2D9;">
     <p style="font-size:12px;color:#9E9B98;margin:0 0 8px;">Questions? WhatsApp us at <a href="https://wa.me/919789182921" style="color:#B89657;text-decoration:none;">+91 97891 82921</a></p>

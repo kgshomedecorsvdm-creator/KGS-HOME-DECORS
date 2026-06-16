@@ -1,7 +1,7 @@
 ﻿User-agent: *
 Allow: /
 
-Sitemap: https://kgshomedecors.in/sitemap.xml
+Sitemap: https://www.kgshomedecors.com/sitemap.xml
 
 # Block admin and internal pages
 Disallow: /kgsadmin.html
