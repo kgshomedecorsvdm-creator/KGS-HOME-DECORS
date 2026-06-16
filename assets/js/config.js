@@ -12,7 +12,7 @@ const KGS_CONFIG = {
     keyId: 'rzp_test_Sz5WpSTaS8ibXk', // publishable key — safe to commit
   },
   resend: {
-    fromEmail: 'KGS Home Décors <orders@kgshomedecors.in>',
+    fromEmail: 'KGS Home Décors <orders@kgshomedecors.com>',
   },
   store: {
     name: 'KGS Home Décors',

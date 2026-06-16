@@ -1,9 +1,9 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
-const FROM_EMAIL = 'KGS Home Décors <orders@kgshomedecors.in>';
+const FROM_EMAIL = 'KGS Home Décors <orders@kgshomedecors.com>';
 const ADMIN_EMAIL = 'kgshomedecorsvdm@gmail.com';
-const SITE_URL = 'https://kgshomedecors.in';
+const SITE_URL = 'https://www.kgshomedecors.com';
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -38,7 +38,7 @@ serve(async (req) => {
         </a>
         <p style="font-size:12px;color:#9E9B98;margin:40px 0 0;line-height:1.6">
           KGS Home Décors · Virudhachalam, Tamil Nadu<br>
-          <a href="${SITE_URL}" style="color:#9E9B98">kgshomedecors.in</a>
+          <a href="${SITE_URL}" style="color:#9E9B98">https://www.kgshomedecors.com</a>
         </p>
       </div>
     `;

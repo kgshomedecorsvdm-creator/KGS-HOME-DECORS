@@ -332,7 +332,7 @@ async function sendOrderStatusEmail(orderId, newStatus) {
     if(!customerEmail)return;
     const tmpl=buildOrderEmailTemplate(order,newStatus);
     if(!tmpl)return;
-    const fromEmail=(typeof KGS_CONFIG!=='undefined'&&KGS_CONFIG.resend&&KGS_CONFIG.resend.fromEmail)||'KGS Home Décors <orders@kgshomedecors.in>';
+    const fromEmail=(typeof KGS_CONFIG!=='undefined'&&KGS_CONFIG.resend&&KGS_CONFIG.resend.fromEmail)||'KGS Home Décors <orders@kgshomedecors.com>';
     const res=await fetch('https://api.resend.com/emails',{
       method:'POST',
       headers:{'Authorization':'Bearer '+resendKey,'Content-Type':'application/json'},
