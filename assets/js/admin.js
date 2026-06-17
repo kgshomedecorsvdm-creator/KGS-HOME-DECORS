@@ -314,85 +314,24 @@ async function updateOrderStatus(id,status){
   sendOrderStatusEmail(id,status);
 }
 
-// ─── EMAIL NOTIFICATIONS (Resend) ─────────────────────────
+// ─── EMAIL NOTIFICATIONS ──────────────────────────────────
+// Order-status emails are sent SERVER-SIDE by /api/send-order-email (the Resend
+// key lives in a Vercel env var, and the endpoint verifies the caller is an
+// admin). We just forward the current session token; a failure here never
+// blocks the status update.
 async function sendOrderStatusEmail(orderId, newStatus) {
-  const STATUSES_TO_NOTIFY = ['confirmed','packed','shipped','out for delivery','delivered','cancelled'];
-  if(!STATUSES_TO_NOTIFY.includes(newStatus)) return;
-  const resendKey = localStorage.getItem('kgs_admin_resend_key') || '';
-  if(!resendKey) return;
-
   try {
-    const{data:order}=await sb.from('orders').select('*,order_items(*)').eq('id',orderId).single();
-    if(!order)return;
-    let customerEmail=null;
-    if(order.customer_id){
-      const{data:cust}=await sb.from('customers').select('email').eq('id',order.customer_id).single();
-      customerEmail=cust&&cust.email;
-    }
-    if(!customerEmail)return;
-    const tmpl=buildOrderEmailTemplate(order,newStatus);
-    if(!tmpl)return;
-    const fromEmail=(typeof KGS_CONFIG!=='undefined'&&KGS_CONFIG.resend&&KGS_CONFIG.resend.fromEmail)||'KGS Home Décors <orders@kgshomedecors.com>';
-    const res=await fetch('https://api.resend.com/emails',{
+    const{data:{session}}=await sb.auth.getSession();
+    if(!session||!session.access_token)return;
+    const res=await fetch('/api/send-order-email',{
       method:'POST',
-      headers:{'Authorization':'Bearer '+resendKey,'Content-Type':'application/json'},
-      body:JSON.stringify({from:fromEmail,to:[customerEmail],reply_to:'kgshomedecorsvdm@gmail.com',subject:tmpl.subject,html:tmpl.html})
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+session.access_token},
+      body:JSON.stringify({orderId,status:newStatus})
     });
-    if(res.ok)toast('Customer notified by email ✓');
-    else console.warn('[KGS] Resend error:',await res.text());
+    if(!res.ok){console.warn('[KGS] Order email not sent:',res.status,await res.text().catch(()=>''));return;}
+    const data=await res.json().catch(()=>({}));
+    if(data&&data.success)toast('Customer notified by email ✓');
   }catch(e){console.warn('[KGS] Email notification failed:',e.message);}
-}
-
-function buildOrderEmailTemplate(order,status){
-  const orderNum='KGS-'+(order.order_number||order.id.slice(0,8).toUpperCase());
-  const firstName=(order.customer_name||'Valued Customer').split(' ')[0];
-  const total='₹'+Number(order.total).toLocaleString('en-IN');
-  const msgs={
-    confirmed:{subject:'Order '+orderNum+' Confirmed — KGS Home Décors',badge:'Confirmed',headline:'Your order is confirmed',body:'Thank you! Our team is carefully preparing your order for dispatch.'},
-    packed:{subject:'Order '+orderNum+' Packed — KGS Home Décors',badge:'Packed',headline:'All packed and ready',body:'Your order has been securely packed and will be dispatched very soon.'},
-    shipped:{subject:'Your Order is on Its Way — KGS Home Décors',badge:'Shipped',headline:'Your order is shipped',body:'Great news — your order has been dispatched and is on its way to you. Log in to track your order live.'},
-    'out for delivery':{subject:'Your Order Arrives Today — KGS Home Décors',badge:'Out for Delivery',headline:'Out for delivery',body:'Your order is out for delivery and should reach you today. Please be available to receive it.'},
-    delivered:{subject:'Order '+orderNum+' Delivered — KGS Home Décors',badge:'Delivered',headline:'Delivered — enjoy!',body:'Your order has been delivered. We hope you love your new décor. If anything is not right, reach us on WhatsApp immediately.'},
-    cancelled:{subject:'Order '+orderNum+' Cancelled — KGS Home Décors',badge:'Cancelled',headline:'Your order has been cancelled',body:'Your order has been cancelled. If you have questions or feel this was a mistake, please contact us on WhatsApp and we will sort it out.'}
-  };
-  const m=msgs[status];
-  if(!m)return null;
-  const itemsHtml=(order.order_items||[]).map(i=>`
-    <tr>
-      <td style="padding:10px 0;border-bottom:1px solid #F0EDE8;font-size:14px;color:#1A1A1A;">${esc(i.product_name)}</td>
-      <td style="padding:10px 0;border-bottom:1px solid #F0EDE8;font-size:13px;color:#5E5B59;text-align:center;">&times;${i.quantity}</td>
-      <td style="padding:10px 0;border-bottom:1px solid #F0EDE8;font-size:14px;font-weight:600;color:#B89657;text-align:right;">&#8377;${Number(i.total_price).toLocaleString('en-IN')}</td>
-    </tr>`).join('');
-  const badgeColor=status==='cancelled'?'#C97840':status==='delivered'?'#25803A':'#B89657';
-  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#FAF8F4;font-family:Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;">
-<div style="max-width:540px;margin:0 auto;padding:32px 16px;">
-  <div style="text-align:center;padding:32px 0 28px;border-bottom:1px solid #E8E2D9;">
-    <div style="font-family:Georgia,serif;font-size:28px;font-weight:700;color:#1A1A1A;letter-spacing:-0.01em;">KGS</div>
-    <div style="font-size:9px;font-weight:700;letter-spacing:0.26em;text-transform:uppercase;color:#B89657;margin-top:4px;">Home D&eacute;cors</div>
-  </div>
-  <div style="padding:32px 0 24px;text-align:center;">
-    <div style="display:inline-block;background:${badgeColor};color:#fff;font-size:10.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:18px;">${m.badge}</div>
-    <h1 style="font-family:Georgia,serif;font-size:26px;font-weight:400;color:#1A1A1A;margin:0 0 14px;letter-spacing:-0.01em;">${m.headline}</h1>
-    <p style="font-size:14.5px;color:#5E5B59;line-height:1.65;margin:0;">Hi ${esc(firstName)}, ${m.body}</p>
-  </div>
-  <div style="background:#fff;border:1px solid #E8E2D9;border-radius:14px;padding:24px;margin-bottom:24px;">
-    <div style="display:flex;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid #F0EDE8;margin-bottom:16px;">
-      <div><div style="font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#9E9B98;margin-bottom:4px;">Order</div><div style="font-size:15px;font-weight:600;color:#1A1A1A;">${orderNum}</div></div>
-      <div style="text-align:right;"><div style="font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#9E9B98;margin-bottom:4px;">Total</div><div style="font-size:15px;font-weight:600;color:#B89657;">${total}</div></div>
-    </div>
-    ${itemsHtml?`<table style="width:100%;border-collapse:collapse;">${itemsHtml}</table>`:''}
-  </div>
-  <div style="text-align:center;margin-bottom:32px;">
-    <a href="https://www.kgshomedecors.com" style="display:inline-block;background:#1A1A1A;color:#fff;font-size:13px;font-weight:600;letter-spacing:0.04em;padding:13px 36px;border-radius:8px;text-decoration:none;">Track Your Order</a>
-  </div>
-  <div style="text-align:center;padding-top:24px;border-top:1px solid #E8E2D9;">
-    <p style="font-size:12px;color:#9E9B98;margin:0 0 8px;">Questions? WhatsApp us at <a href="https://wa.me/919789182921" style="color:#B89657;text-decoration:none;">+91 97891 82921</a></p>
-    <p style="font-size:11px;color:#C5BFB8;margin:0;">KGS Home D&eacute;cors &middot; Junction Road, Virudhachalam, Tamil Nadu</p>
-  </div>
-</div>
-</body></html>`;
-  return{subject:m.subject,html};
 }
 
 

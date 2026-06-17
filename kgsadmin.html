@@ -389,25 +389,16 @@
 
       <div style="max-width:540px;display:flex;flex-direction:column;gap:20px;">
 
-        <!-- Resend API Key -->
+        <!-- Email Notifications -->
         <div class="bento-card">
           <div class="label" style="margin-bottom:14px">
             <span class="material-symbols-outlined" style="font-size:15px">mail</span>
-            Email Notifications (Resend)
+            Email Notifications
           </div>
-          <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">
-            Enter your Resend API key to automatically email customers when their order status changes.
-            The key is saved only in this browser — never uploaded to any server.
+          <p style="font-size:13px;color:var(--muted);margin:0;line-height:1.6">
+            Order emails are sent automatically when you update an order's status.
+            Email settings are managed by your developer in the hosting dashboard.
           </p>
-          <div style="display:flex;gap:10px;align-items:flex-end">
-            <div style="flex:1">
-              <label style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px">Resend API Key</label>
-              <input type="password" id="resend-key-input" placeholder="re_xxxxxxxxxxxxxxxxxxxx"
-                style="width:100%;padding:11px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text);font-family:'Jost',sans-serif;font-size:14px;outline:none;">
-            </div>
-            <button onclick="saveResendKey()" class="btn btn-gold" style="flex-shrink:0">Save</button>
-          </div>
-          <div id="resend-key-status" style="margin-top:10px;font-size:12px;color:var(--muted)"></div>
         </div>
 
       </div>
@@ -622,24 +613,8 @@ function updateCustomSelect(sel){
 }
 
 // ── Settings ────────────────────────────────────────────
-function loadSettingsPage(){
-  const stored = localStorage.getItem('kgs_admin_resend_key') || '';
-  const inp = document.getElementById('resend-key-input');
-  if(inp) inp.value = stored ? '••••••••••••••••••••' : '';
-  const status = document.getElementById('resend-key-status');
-  if(status) status.textContent = stored ? '✓ API key saved in this browser' : 'No key saved yet';
-  if(status) status.style.color = stored ? 'var(--green)' : 'var(--muted)';
-}
-function saveResendKey(){
-  const val = document.getElementById('resend-key-input').value.trim();
-  if(!val || val.startsWith('•')){ toast('Enter a valid Resend API key'); return; }
-  localStorage.setItem('kgs_admin_resend_key', val);
-  document.getElementById('resend-key-input').value = '••••••••••••••••••••';
-  const s = document.getElementById('resend-key-status');
-  s.textContent = '✓ Saved — email notifications are now active';
-  s.style.color = 'var(--green)';
-  toast('Resend API key saved ✓');
-}
+// Email notifications are configured server-side (Resend key in Vercel env);
+// nothing to load or save in the browser. The Settings page is informational.
 
 // ── Reviews ─────────────────────────────────────────────
 async function loadAdminReviews(){
