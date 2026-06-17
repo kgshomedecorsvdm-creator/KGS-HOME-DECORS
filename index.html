@@ -2346,10 +2346,11 @@
       transform: translateY(0);
     }
 
-    /* Pre-hide only the photo so the image doesn't flash — text/CTAs left visible
-       so they always show even if GSAP fails or timing is off */
+    /* Hero photo is VISIBLE by default — the image fades in via its own
+       heroFade animation. Never JS-gate the image's visibility: a stale or
+       failed script must not be able to leave the hero image blank. */
     .hero-photo {
-      opacity: 0;
+      opacity: 1;
     }
 
     /* ===== Accessibility: visible focus =============================== */
@@ -4272,7 +4273,7 @@ body.search-open { position: fixed; overflow: hidden; width: 100%; left: 0; righ
 
 
   <!-- Razorpay Payment Gateway is loaded on demand at checkout (see ensureRazorpay in app.js) -->
-  <script src="/assets/js/app.js?v=20260615"></script>
+  <script src="/assets/js/app.js?v=20260617"></script>
 
   <script>
     (function () {
