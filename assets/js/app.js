@@ -1599,7 +1599,7 @@ var TESTIMONIALS = [{
   initial: 'R',
   stars: 5,
   quote: 'WhatsApped them about a sofa and got a reply in five minutes. Good people. The piece itself is solid — no wobble, good finish.',
-  thumb: 'assets/lifestyle/room_zen.png'
+  thumb: 'assets/lifestyle/room_zen.webp'
 }, {
   name: 'Ananya Iyer',
   initial: 'A',
@@ -1607,7 +1607,7 @@ var TESTIMONIALS = [{
   quote: 'An incredibly premium selection right here in Virudhachalam. Went to the showroom on Junction Road and ended up buying three things I hadn\'t planned to.',
   thumb: 'assets/lifestyle/showroom_interior.webp'
 }];
-var IG_TILES = ['assets/lifestyle/premium_decor_bright.webp', 'assets/lifestyle/showroom_interior.png', 'assets/lifestyle/premium_decor_bright.png', 'assets/lifestyle/room_zen.png', 'assets/lifestyle/showroom.webp', 'assets/lifestyle/showroom_interior.webp', 'assets/categories/cat_decor_thumb.webp', 'assets/categories/cat_lighting_thumb.webp', 'assets/categories/cat_plants_thumb.webp', 'assets/categories/cat_lifestyle_thumb.webp'];
+var IG_TILES = ['assets/lifestyle/premium_decor_bright.webp', 'assets/lifestyle/showroom_interior.png', 'assets/lifestyle/premium_decor_bright.png', 'assets/lifestyle/room_zen.webp', 'assets/lifestyle/showroom.webp', 'assets/lifestyle/showroom_interior.webp', 'assets/categories/cat_decor_thumb.webp', 'assets/categories/cat_lighting_thumb.webp', 'assets/categories/cat_plants_thumb.webp', 'assets/categories/cat_lifestyle_thumb.webp'];
 var fmtPrice = function fmtPrice(n) {
   return '₹' + n.toLocaleString('en-IN');
 };
@@ -2527,7 +2527,7 @@ function Hero(_ref9) {
     headline: /*#__PURE__*/React.createElement(React.Fragment, null, "The piece that", /*#__PURE__*/React.createElement("br", null), "makes the ", /*#__PURE__*/React.createElement("em", null, "room"), "."),
     sub: 'Brass, ceramics, lamps and more — most of it we chose ourselves.'
   }, {
-    img: 'assets/lifestyle/room_zen.png',
+    img: 'assets/lifestyle/room_zen.webp',
     eyebrow: 'Heritage Pieces',
     headline: /*#__PURE__*/React.createElement(React.Fragment, null, "Made the way", /*#__PURE__*/React.createElement("br", null), "things were ", /*#__PURE__*/React.createElement("em", null, "made"), /*#__PURE__*/React.createElement("br", null), "to last."),
     sub: 'Brass. Stone. Slow craft. Every piece hand-checked before it ships.'
