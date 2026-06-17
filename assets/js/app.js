@@ -2753,7 +2753,7 @@ function ProductCard(_ref1) {
     className: "prod-quick",
     onClick: function onClick(e) {
       e.stopPropagation(); e.currentTarget.blur();
-      onView(p);
+      if (window._kgsQuickView) window._kgsQuickView(p);
     }
   }, /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
@@ -3287,6 +3287,123 @@ function Testimonials(_ref_t) {
   ));
 }
 
+
+// ====== QUICK VIEW MODAL =====================================================
+function QuickViewModal(_refQV) {
+  var product = _refQV.product,
+    onClose = _refQV.onClose,
+    onAdd = _refQV.onAdd,
+    onView = _refQV.onView;
+  var _qvState = React.useState(1),
+    _qvArr = _slicedToArray(_qvState, 2),
+    qty = _qvArr[0],
+    setQty = _qvArr[1];
+  var cardRef = React.useRef(null);
+  var prevFocus = React.useRef(null);
+
+  React.useEffect(function () {
+    if (!product) return;
+    setQty(1);
+    prevFocus.current = document.activeElement;
+    var onKey = function onKey(e) {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    // Focus the modal card on open
+    setTimeout(function () {
+      if (cardRef.current) cardRef.current.focus();
+    }, 0);
+    return function () {
+      document.removeEventListener('keydown', onKey);
+      if (prevFocus.current && prevFocus.current.focus) {
+        try { prevFocus.current.focus(); } catch (e) {}
+      }
+    };
+  }, [product]);
+
+  if (!product) return null;
+  var p = product;
+  var desc = p.description || p.desc || p.details || '';
+
+  var label = {
+    display: 'block', fontSize: 11, fontWeight: 700, letterSpacing: '.16em',
+    textTransform: 'uppercase', color: '#C97840', fontFamily: '"Jost",sans-serif',
+    marginBottom: 8
+  };
+
+  return /*#__PURE__*/ReactDOM.createPortal(
+    /*#__PURE__*/React.createElement(React.Fragment, null,
+      /*#__PURE__*/React.createElement("style", null, "\n        @keyframes premiumModalIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }\n        .kgs-qv-card { padding: 0; border-radius: 24px; }\n        .kgs-qv-grid { display: grid; grid-template-columns: 1fr 1fr; }\n        .kgs-qv-img { aspect-ratio: 1/1; }\n        .kgs-qv-pad { padding: 36px 36px 32px; }\n        @media (max-width: 640px) {\n          .kgs-qv-grid { grid-template-columns: 1fr; }\n          .kgs-qv-img { aspect-ratio: 4/3; }\n          .kgs-qv-pad { padding: 22px 22px 26px; }\n          .kgs-qv-card { border-radius: 20px; }\n        }\n      "),
+      /*#__PURE__*/React.createElement("div", {
+        onClick: function (e) { if (e.target === e.currentTarget) onClose(); },
+        className: "kgs-modal-container",
+        style: {
+          position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.65)',
+          backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
+          zIndex: 999999, display: 'flex', alignItems: 'center',
+          justifyContent: 'center', padding: 16
+        }
+      },
+        /*#__PURE__*/React.createElement("div", {
+          ref: cardRef,
+          tabIndex: -1,
+          role: "dialog",
+          'aria-modal': "true",
+          'aria-label': 'Quick view: ' + p.name,
+          className: "kgs-qv-card",
+          style: {
+            background: '#FAF8F4', width: '100%', maxWidth: 760,
+            position: 'relative', boxSizing: 'border-box',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.2)',
+            animation: 'premiumModalIn 0.4s cubic-bezier(0.16,1,0.3,1)',
+            maxHeight: '92vh', overflowY: 'auto', outline: 'none'
+          }
+        },
+          /*#__PURE__*/React.createElement("button", {
+            onClick: function () { return onClose(); },
+            'aria-label': "Close quick view",
+            style: { position: 'absolute', top: 16, right: 16, zIndex: 2, background: '#fff', border: 'none', cursor: 'pointer', color: '#1A1A1A', fontSize: 20, width: 36, height: 36, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.12)', transition: 'all 0.2s' }
+          }, "\xD7"),
+          /*#__PURE__*/React.createElement("div", { className: "kgs-qv-grid" },
+            /*#__PURE__*/React.createElement("div", { className: "kgs-qv-img", style: { overflow: 'hidden', background: '#F0ECE4' } },
+              /*#__PURE__*/React.createElement("img", { src: p.image, alt: p.name, loading: "eager", decoding: "async", style: { width: '100%', height: '100%', objectFit: 'cover', display: 'block' } })
+            ),
+            /*#__PURE__*/React.createElement("div", { className: "kgs-qv-pad", style: { display: 'flex', flexDirection: 'column' } },
+              p.category && /*#__PURE__*/React.createElement("div", { style: label }, p.category),
+              /*#__PURE__*/React.createElement("h3", { style: { margin: '0 0 14px 0', fontFamily: '"Crimson Pro",serif', fontWeight: 500, fontSize: 28, lineHeight: 1.15, color: '#1A1A1A' } }, p.name),
+              /*#__PURE__*/React.createElement("div", { style: { display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 16 } },
+                /*#__PURE__*/React.createElement("span", { style: { fontFamily: '"Crimson Pro",serif', fontSize: 26, fontWeight: 600, color: '#1A1A1A' } }, fmtPrice(p.price)),
+                p.was && /*#__PURE__*/React.createElement("span", { style: { fontSize: 16, color: '#9E9A96', textDecoration: 'line-through' } }, fmtPrice(p.was))
+              ),
+              desc ? /*#__PURE__*/React.createElement("p", { style: { margin: '0 0 20px 0', fontSize: 14, lineHeight: 1.7, color: '#5E5B59', fontFamily: '"Jost",sans-serif' } }, desc) : null,
+              /*#__PURE__*/React.createElement("div", { style: { fontSize: 12.5, color: '#5E5B59', marginBottom: 20, fontFamily: '"Jost",sans-serif' } }, "All taxes included \xB7 Free delivery across Tamil Nadu"),
+              /*#__PURE__*/React.createElement("div", { style: { display: 'flex', alignItems: 'center', gap: 12, marginTop: 'auto', marginBottom: 14 } },
+                /*#__PURE__*/React.createElement("div", { style: { display: 'flex', alignItems: 'center', border: '1px solid rgba(197,168,128,0.45)', borderRadius: 30, background: '#fff' } },
+                  /*#__PURE__*/React.createElement("button", { onClick: function () { return setQty(function (q) { return Math.max(1, q - 1); }); }, 'aria-label': "Decrease quantity", style: { width: 40, height: 44, border: 'none', background: 'transparent', cursor: 'pointer', fontSize: 20, color: '#1A1A1A', borderRadius: 30 } }, "−"),
+                  /*#__PURE__*/React.createElement("span", { 'aria-live': "polite", style: { minWidth: 28, textAlign: 'center', fontFamily: '"Jost",sans-serif', fontSize: 15, fontWeight: 600, color: '#1A1A1A' } }, qty),
+                  /*#__PURE__*/React.createElement("button", { onClick: function () { return setQty(function (q) { return q + 1; }); }, 'aria-label': "Increase quantity", style: { width: 40, height: 44, border: 'none', background: 'transparent', cursor: 'pointer', fontSize: 20, color: '#1A1A1A', borderRadius: 30 } }, "+")
+                ),
+                /*#__PURE__*/React.createElement("button", {
+                  className: "btn btn-dark",
+                  onClick: function () { onAdd(p, qty); onClose(); },
+                  style: { flex: 1, padding: '14px 22px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8 }
+                },
+                  /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined" }, "shopping_bag"),
+                  "Add to Cart"
+                )
+              ),
+              /*#__PURE__*/React.createElement("button", {
+                onClick: function () { onClose(); onView(p); },
+                style: { background: 'none', border: 'none', cursor: 'pointer', color: '#B89657', fontFamily: '"Jost",sans-serif', fontSize: 13.5, fontWeight: 600, letterSpacing: '.02em', padding: '4px 0', textAlign: 'left', alignSelf: 'flex-start' }
+              }, "View full details →")
+            )
+          )
+        )
+      )
+    ),
+    document.body
+  );
+}
 
 // ====== INSTAGRAM ============================================================
 function Instagram() {
@@ -4570,11 +4687,9 @@ function CheckoutPage(_ref17) {
     processing = _React$useState34[0],
     setProcessing = _React$useState34[1];
 
-  // Free delivery across Tamil Nadu; flat ₹250 only for addresses outside the state.
-  var FREE_DELIVERY_STATE = 'tamil nadu';
-  var OUTSIDE_DELIVERY_FEE = 250;
-  var isFreeDelivery = (form.state || '').trim().toLowerCase() === FREE_DELIVERY_STATE;
-  var delivery = isFreeDelivery ? 0 : OUTSIDE_DELIVERY_FEE;
+  // Tamil Nadu only — delivery is always free.
+  var isFreeDelivery = true;
+  var delivery = 0;
   var total = subtotal + (delivery || 0);
 
   var update = function update(k, v) {
@@ -4789,12 +4904,15 @@ function CheckoutPage(_ref17) {
     className: "form-field"
   }, /*#__PURE__*/React.createElement("label", null, "State"), /*#__PURE__*/React.createElement("input", {
     className: "form-input",
-    style: inputStyle('state'),
-    placeholder: "Enter your state",
-    value: form.state,
-    onChange: function onChange(e) {
-      return update('state', e.target.value);
-    }
+    style: _objectSpread(_objectSpread({}, inputStyle('state')), {}, {
+      background: 'rgba(197,168,128,0.10)',
+      color: '#1A1A1A',
+      cursor: 'not-allowed'
+    }),
+    value: "Tamil Nadu",
+    readOnly: true,
+    "aria-readonly": "true",
+    title: "We deliver only within Tamil Nadu"
   }))), /*#__PURE__*/React.createElement("div", {
     className: "form-field",
     style: {
@@ -4893,8 +5011,8 @@ function CheckoutPage(_ref17) {
     value: fmtPrice(subtotal)
   }), /*#__PURE__*/React.createElement(Sumline, {
     label: "Delivery",
-    value: isFreeDelivery ? 'FREE' : fmtPrice(delivery),
-    note: isFreeDelivery ? 'Free delivery across Tamil Nadu' : 'Free across Tamil Nadu · ' + fmtPrice(OUTSIDE_DELIVERY_FEE) + ' outside the state'
+    value: 'FREE',
+    note: 'Free delivery across Tamil Nadu'
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       borderTop: '1px solid rgba(197,168,128,0.25)',
@@ -4928,7 +5046,7 @@ function CheckoutPage(_ref17) {
     }
   }, "\xB7"), /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
-  }, "local_shipping"), isFreeDelivery ? "Free delivery" : "Delivers across India", /*#__PURE__*/React.createElement("span", {
+  }, "local_shipping"), "Across Tamil Nadu", /*#__PURE__*/React.createElement("span", {
     style: {
       color: 'rgba(26,26,26,0.20)'
     }
@@ -6752,6 +6870,11 @@ function App() {
       else { window.scrollTo(0, 0); }
     }, 0);
   };
+  var _qvAppState = React.useState(null),
+    _qvAppArr = _slicedToArray(_qvAppState, 2),
+    quickViewProduct = _qvAppArr[0],
+    setQuickViewProduct = _qvAppArr[1];
+  window._kgsQuickView = setQuickViewProduct;
   var handleWishToggle = function handleWishToggle(id) {
     var sId = String(id);
     setWish(function (prev) {
@@ -6817,9 +6940,9 @@ function App() {
     var shippingPayload = {
       name: formData.name,
       phone: formData.phone,
-      address: formData.address + ', ' + formData.city + ', ' + formData.state + ' - ' + formData.pincode,
+      address: formData.address + ', ' + formData.city + ', Tamil Nadu - ' + formData.pincode,
       city: formData.city,
-      state: formData.state || 'Tamil Nadu',
+      state: 'Tamil Nadu',
       pincode: formData.pincode
     };
 
@@ -7266,6 +7389,11 @@ function App() {
     onSearch: function onSearch() {
       return setSearchOpen(true);
     }
+  }), quickViewProduct && /*#__PURE__*/React.createElement(QuickViewModal, {
+    product: quickViewProduct,
+    onClose: function onClose() { setQuickViewProduct(null); },
+    onAdd: handleAdd,
+    onView: handleView
   }));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
