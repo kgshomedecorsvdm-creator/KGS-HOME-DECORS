@@ -2630,8 +2630,6 @@ function Hero(_ref9) {
     alt: "",
     fetchpriority: "high",
     decoding: "async",
-    width: 720,
-    height: 900,
     style: {
       animation: 'heroFade 700ms ease'
     }

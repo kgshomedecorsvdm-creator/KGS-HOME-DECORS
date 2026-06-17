@@ -1709,6 +1709,9 @@
       letter-spacing: -0.022em;
       color: #1A1A1A;
       margin-bottom: 18px;
+      /* Reserve 3 lines so rotating between 2- and 3-line headlines
+         doesn't resize the hero (no slide-change jump). */
+      min-height: 3.15em;
     }
 
     .hero h1 em {
@@ -1723,6 +1726,8 @@
       color: rgba(26, 26, 26, 0.55);
       margin-bottom: 32px;
       line-height: 1.7;
+      /* Reserve 2 lines so varying sub-text lengths don't shift the layout. */
+      min-height: 3.4em;
     }
 
     .hero-ctas {
