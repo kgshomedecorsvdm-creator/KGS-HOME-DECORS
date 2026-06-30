@@ -77,7 +77,7 @@ async function loadProducts(search=null){
   const from=currentProductPage*productsPerPage;
   const to=from+productsPerPage-1;
   
-  let q=sb.from('products').select('*',{count:'exact'}).order('created_at',{ascending:false});
+  let q=sb.from('products').select('*',{count:'exact'}).eq('is_active',true).order('created_at',{ascending:false});
   if(currentSearch)q=q.ilike('name','%'+currentSearch+'%');
   const{data,error,count}=await q.range(from,to);
   if(error){toast('Error: '+error.message);return;}
@@ -204,10 +204,26 @@ async function saveProduct(e){
 }
 
 async function deleteProduct(id,name){
-  if(!confirm(`Delete "${name}"?`))return;
-  const{error}=await sb.from('products').update({is_active:false}).eq('id',id);
-  if(error){toast('Error: '+error.message);return;}
-  toast('Product deleted');loadProducts();
+  if(!confirm('Delete "'+name+'"? This will remove it from your store.'))return;
+  try{
+    // Immediately remove the row visually for instant feedback
+    const rows=document.querySelectorAll('#products-tbody tr');
+    rows.forEach(row=>{
+      if(row.innerHTML.includes(id)){
+        row.style.transition='opacity 0.3s, transform 0.3s';
+        row.style.opacity='0';
+        row.style.transform='translateX(20px)';
+      }
+    });
+    const{error}=await sb.from('products').update({is_active:false}).eq('id',id);
+    if(error)throw error;
+    toast('Product deleted successfully');
+    // Small delay so the fade-out animation completes before reload
+    setTimeout(()=>loadProducts(),350);
+  }catch(err){
+    toast('Delete failed: '+err.message);
+    loadProducts(); // Reload to restore the row if it failed
+  }
 }
 
 function closeModal(){document.getElementById('product-modal').classList.remove('active');}
