@@ -105,7 +105,7 @@ async function loadProducts(search=null){
       <td>${p.in_stock?'<span class="badge badge-green">In Stock</span>':'<span class="badge badge-red">Out of Stock</span>'}</td>
       <td>
         <button class="btn btn-outline btn-sm" onclick="editProduct('${esc(p.id)}')">Edit</button>
-        <button class="btn btn-red btn-sm" onclick="deleteProduct('${esc(p.id)}','${esc(p.name.replace(/'/g,"\\'"))}')">Delete</button>
+        <button class="btn btn-red btn-sm" onclick="deleteProduct('${esc(p.id)}')">Delete</button>
       </td>
     </tr>
   `).join('');
@@ -203,9 +203,12 @@ async function saveProduct(e){
   }catch(err){toast('Error: '+err.message);}
 }
 
-async function deleteProduct(id,name){
+async function deleteProduct(id){
+  const p=allProducts.find(x=>x.id===id);
+  const name=p?p.name:'this product';
   if(!confirm('Delete "'+name+'"? This will remove it from your store.'))return;
   try{
+    console.log('[KGS Admin] Deleting product:',id,name);
     // Immediately remove the row visually for instant feedback
     const rows=document.querySelectorAll('#products-tbody tr');
     rows.forEach(row=>{
@@ -215,14 +218,21 @@ async function deleteProduct(id,name){
         row.style.transform='translateX(20px)';
       }
     });
-    const{error}=await sb.from('products').update({is_active:false}).eq('id',id);
+    const{data,error}=await sb.from('products').update({is_active:false}).eq('id',id).select();
+    console.log('[KGS Admin] Delete result:',{data,error});
     if(error)throw error;
+    if(!data||data.length===0){
+      // Update returned no rows — likely RLS blocked it
+      console.error('[KGS Admin] Update returned 0 rows — trying direct delete');
+      const{error:delErr}=await sb.from('products').delete().eq('id',id);
+      if(delErr)throw delErr;
+    }
     toast('Product deleted successfully');
-    // Small delay so the fade-out animation completes before reload
     setTimeout(()=>loadProducts(),350);
   }catch(err){
+    console.error('[KGS Admin] Delete failed:',err);
     toast('Delete failed: '+err.message);
-    loadProducts(); // Reload to restore the row if it failed
+    loadProducts();
   }
 }
 
