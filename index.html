@@ -1381,6 +1381,7 @@
       gap: 7px;
       backdrop-filter: blur(8px);
       opacity: 0;
+      pointer-events: none;
       transition: all 320ms cubic-bezier(0.23, 1, 0.32, 1);
       white-space: nowrap;
       cursor: pointer;
@@ -1393,6 +1394,7 @@
     .prod-card:hover .prod-quick {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
     }
 
     .prod-body {
@@ -1601,7 +1603,8 @@
       /* Disable hover animations — touch screens don't hover */
       .prod-card:hover              { transform: none; box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset; }
       .prod-card:hover .prod-img img { transform: none; }
-      .prod-card:hover .prod-quick  { opacity: 0; transform: translateX(-50%) translateY(8px); }
+      .prod-card:hover .prod-quick  { opacity: 0; transform: translateX(-50%) translateY(8px); pointer-events: none; }
+      .prod-quick { display: none !important; }
 
       /* Promo banner — fix overflow */
       .promo-banner     { padding: 36px 24px !important; gap: 28px !important; }

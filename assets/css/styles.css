@@ -768,12 +768,13 @@ p { line-height: 1.7; color: #5E5B59; margin: 0; }
   display: inline-flex; align-items: center; gap: 7px;
   backdrop-filter: blur(8px);
   opacity: 0;
+  pointer-events: none;
   transition: all 320ms cubic-bezier(0.23, 1, 0.32, 1);
   white-space: nowrap;
   cursor: pointer;
 }
 .prod-quick .material-symbols-outlined { font-size: 15px; }
-.prod-card:hover .prod-quick { opacity: 1; transform: translateX(-50%) translateY(0); }
+.prod-card:hover .prod-quick { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
 
 .prod-price { padding-bottom: 8px; }
 
