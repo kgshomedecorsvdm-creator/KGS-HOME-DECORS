@@ -104,10 +104,17 @@ p { line-height: 1.7; color: #5E5B59; margin: 0; }
 .announce-dot.active { width: 16px; background: #C5A880; }
 .announce-divider { width: 1px; height: 10px; background: rgba(255,255,255,0.10); flex-shrink: 0; }
 @media (max-width: 768px) { 
-  .announce-bar { grid-template-columns: 1fr; height: 56px; } 
+  .announce-bar { grid-template-columns: 1fr; height: 40px; } 
   .announce-side, .announce-side--right { display: none; } 
-  .announce-center { min-width: 0; width: 100%; height: 38px; } 
-  .announce-msg { white-space: normal; text-align: center; width: 100%; padding: 0 16px; box-sizing: border-box; line-height: 1.4; }
+  .announce-center { min-width: 0; width: 100%; height: 28px; } 
+  .announce-msg { white-space: nowrap; text-align: center; width: 100%; padding: 0 16px; box-sizing: border-box; line-height: 1.4; font-size: 11px; }
+}
+
+/* Announcement bar — desktop/mobile text toggle */
+.announce-short { display: none; }
+@media (max-width: 768px) {
+  .announce-full { display: none; }
+  .announce-short { display: inline; }
 }
 
 /* ===== Nav — modern pill with floating bar ========================== */
@@ -621,6 +628,25 @@ p { line-height: 1.7; color: #5E5B59; margin: 0; }
 }
 .toast--in  { transform: translateX(-50%) translateY(0); opacity: 1; }
 .toast--out { transform: translateX(-50%) translateY(20px); opacity: 0; pointer-events: none; }
+
+/* ===== Shop filter pills — horizontal scroll + drag ================= */
+.shop-filters-track {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  padding-bottom: 4px;
+}
+.shop-filters-track:active { cursor: grabbing; }
+/* Hide scrollbar across browsers */
+.shop-filters-track::-webkit-scrollbar { display: none; }
+.shop-filters-track { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* ===== Modern hero ================================================== */
 .hero {
