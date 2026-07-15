@@ -54,3 +54,8 @@ admin-qa-shots/
 final-audit/
 qv-shots/
 hero-shots/
+final-audit2/
+
+# Private handover docs — never publish
+OWNER_GUIDE.md
+HANDOVER_AUDIT.md

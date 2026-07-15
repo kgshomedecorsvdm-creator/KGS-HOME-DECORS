@@ -3287,6 +3287,24 @@
       }
     }
 
+    /* ===== Shop filter pills — horizontal scroll + drag ================= */
+    .shop-filters-track {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      padding-bottom: 4px;
+    }
+    .shop-filters-track:active { cursor: grabbing; }
+    .shop-filters-track::-webkit-scrollbar { display: none; }
+    .shop-filters-track { -ms-overflow-style: none; scrollbar-width: none; }
+
     /* ===== Responsive — Mobile 768px ================================ */
     @media (max-width: 768px) {
       .container {
@@ -3300,23 +3318,26 @@
       .announce-bar {
         grid-template-columns: minmax(0, 1fr);
         justify-items: center;
-        height: 56px;
+        height: 40px;
       }
 
       .announce-center {
         min-width: auto;
         width: 100%;
-        height: 38px;
+        height: 28px;
       }
       
       .announce-msg {
-        white-space: normal;
+        white-space: nowrap;
         text-align: center;
         width: 100%;
         padding: 0 16px;
         box-sizing: border-box;
         line-height: 1.4;
+        font-size: 11px;
       }
+      
+      .announce-bar { display: none !important; }
 
       .nav-links {
         display: none;

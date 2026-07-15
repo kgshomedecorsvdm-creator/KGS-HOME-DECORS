@@ -1826,24 +1826,19 @@ function _fetchAllProductsFromSupabase() {
 function Announcement() {
   var MSGS = [{
     icon: 'local_shipping',
-    text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Free delivery'), ' across Tamil Nadu — every order, no minimum.'),
-    short: React.createElement(React.Fragment, null, React.createElement('b', null, 'Free delivery'), ' across Tamil Nadu')
+    text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Free delivery'), ' across Tamil Nadu — every order, no minimum.')
   }, {
     icon: 'star',
-    text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Home d\u00e9cor \u0026 furniture we pick ourselves'), ' \u2014 and stand behind.'),
-    short: React.createElement(React.Fragment, null, React.createElement('b', null, 'Handpicked'), ' d\u00e9cor \u0026 furniture')
+    text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Home d\u00e9cor \u0026 furniture we pick ourselves'), ' \u2014 and stand behind.')
   }, {
     icon: 'storefront',
-    text: React.createElement(React.Fragment, null, 'Showroom on ', React.createElement('b', null, 'Junction Road'), " open daily \xB7 10\xA0AM\u2013\u200910\xA0PM"),
-    short: React.createElement(React.Fragment, null, React.createElement('b', null, 'Open daily'), " \xB7 Junction Road")
+    text: React.createElement(React.Fragment, null, 'Showroom on ', React.createElement('b', null, 'Junction Road'), " open daily \xB7 10\xA0AM\u2013\u200910\xA0PM")
   }, {
     icon: 'verified',
-    text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Every piece hand-checked'), ' at our showroom before it ships.'),
-    short: React.createElement(React.Fragment, null, React.createElement('b', null, 'Hand-checked'), ' before shipping')
+    text: React.createElement(React.Fragment, null, React.createElement('b', null, 'Every piece hand-checked'), ' at our showroom before it ships.')
   }, {
     icon: 'chat',
-    text: React.createElement(React.Fragment, null, "WhatsApp us \u2014 a real person replies within ", React.createElement('b', null, "10\xA0minutes.")),
-    short: React.createElement(React.Fragment, null, 'WhatsApp us \u2014 ', React.createElement('b', null, 'reply in 10 min'))
+    text: React.createElement(React.Fragment, null, "WhatsApp us \u2014 a real person replies within ", React.createElement('b', null, "10\xA0minutes."))
   }];
   var _React$useState = React.useState(0),
     _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -1943,9 +1938,7 @@ function Announcement() {
       className: 'announce-msg ' + (n === idx ? cls : 'out-down')
     }, React.createElement('span', {
       className: 'material-symbols-outlined'
-    }, m.icon),
-    React.createElement('span', { className: 'announce-full' }, m.text),
-    React.createElement('span', { className: 'announce-short' }, m.short));
+    }, m.icon), m.text);
   })),
   // Right — progress dots + links
   React.createElement('span', {
@@ -2587,10 +2580,7 @@ function Hero(_ref9) {
     onClick: onShop
   }, "Browse the Collection", /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
-  }, "arrow_forward")), /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-ghost",
-    onClick: onSellers
-  }, "See Best Sellers")), /*#__PURE__*/React.createElement("div", {
+  }, "arrow_forward"))), /*#__PURE__*/React.createElement("div", {
     className: "hero-stats"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "14"), /*#__PURE__*/React.createElement("span", null, "Categories to browse")), /*#__PURE__*/React.createElement("div", {
     className: "hero-stats__divider"
@@ -3588,47 +3578,9 @@ function ShopPage(_ref14) {
   }, [filter, sort]);
 
   // ── Mouse drag-to-scroll for filter pills on desktop ──
+  // (Moved to global listener in KGSApp)
   var filtersTrackRef = React.useRef(null);
-  React.useEffect(function () {
-    var el = document.querySelector('.shop-filters-track');
-    if (!el) return;
-    filtersTrackRef.current = el;
-    var isDown = false, startX = 0, scrollLeft = 0, moved = false;
-    function onMouseDown(e) {
-      // Only left mouse button
-      if (e.button !== 0) return;
-      isDown = true; moved = false;
-      startX = e.pageX - el.offsetLeft;
-      scrollLeft = el.scrollLeft;
-      el.style.scrollBehavior = 'auto';
-    }
-    function onMouseMove(e) {
-      if (!isDown) return;
-      e.preventDefault();
-      var x = e.pageX - el.offsetLeft;
-      var walk = (x - startX) * 1.5;
-      if (Math.abs(x - startX) > 4) moved = true;
-      el.scrollLeft = scrollLeft - walk;
-    }
-    function onMouseUp() {
-      isDown = false;
-      el.style.scrollBehavior = 'smooth';
-    }
-    function onClickCapture(e) {
-      // Prevent pill clicks when user was dragging
-      if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; }
-    }
-    el.addEventListener('mousedown', onMouseDown);
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mouseup', onMouseUp);
-    el.addEventListener('click', onClickCapture, true);
-    return function () {
-      el.removeEventListener('mousedown', onMouseDown);
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', onMouseUp);
-      el.removeEventListener('click', onClickCapture, true);
-    };
-  }, []);
+
   if (!productsReady) return /*#__PURE__*/React.createElement("div", { style: { minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16, color: '#5E5B59' } },
     /*#__PURE__*/React.createElement("div", { style: { width: 40, height: 40, border: '3px solid rgba(184,150,87,0.2)', borderTopColor: '#B89657', borderRadius: '50%', animation: 'spin 0.8s linear infinite' } }),
     /*#__PURE__*/React.createElement("p", { style: { fontSize: 14, letterSpacing: '.04em' } }, "Loading products…")
@@ -3719,7 +3671,8 @@ function ShopPage(_ref14) {
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "shop-filters-track"
+    className: "shop-filters-track",
+    ref: filtersTrackRef
   }, /*#__PURE__*/React.createElement("span", {
     style: {
       flexShrink: 0,
@@ -3987,17 +3940,23 @@ function ProductDetail(_ref15) {
       var j = Math.floor(Math.random() * (i + 1));
       var tmp = shuffled[i]; shuffled[i] = shuffled[j]; shuffled[j] = tmp;
     }
-    // 3. Take up to 4; if not enough, fill from other categories
-    var result = shuffled.slice(0, 4);
-    if (result.length < 4) {
-      var others = PRODUCTS.filter(function (x) {
-        return x.id !== p.id && !result.some(function (r) { return r.id === x.id; });
-      });
-      for (var k = others.length - 1; k > 0; k--) {
-        var jj = Math.floor(Math.random() * (k + 1));
-        var t = others[k]; others[k] = others[jj]; others[jj] = t;
-      }
-      result = result.concat(others.slice(0, 4 - result.length));
+    // 3. Take up to 2 from same category to guarantee variety
+    var result = shuffled.slice(0, 2);
+    
+    // 4. Fill the rest (up to 4) from other categories
+    var others = PRODUCTS.filter(function (x) {
+      return x.id !== p.id && !result.some(function (r) { return r.id === x.id; });
+    });
+    for (var k = others.length - 1; k > 0; k--) {
+      var jj = Math.floor(Math.random() * (k + 1));
+      var t = others[k]; others[k] = others[jj]; others[jj] = t;
+    }
+    result = result.concat(others.slice(0, 4 - result.length));
+    
+    // 5. Shuffle the final 4 so the same-category items aren't always first
+    for (var m = result.length - 1; m > 0; m--) {
+      var n = Math.floor(Math.random() * (m + 1));
+      var tmp2 = result[m]; result[m] = result[n]; result[n] = tmp2;
     }
     return result;
   }, [p.id]);
@@ -6498,6 +6457,48 @@ function App() {
       if (listener && listener.data && listener.data.subscription) {
         listener.data.subscription.unsubscribe();
       }
+    };
+  }, []);
+
+  // ── Global Mouse Drag-to-Scroll for horizontal tracks ──
+  React.useEffect(function () {
+    var isDown = false, startX, scrollLeft, slider, moved = false;
+    var onMouseDown = function(e) {
+      var track = e.target.closest('.shop-filters-track, .best-sellers-track, .ig-grid, .account-nav');
+      if (!track) return;
+      if (e.button !== 0) return; // Only left mouse
+      isDown = true; moved = false; slider = track;
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+      slider.style.scrollBehavior = 'auto';
+    };
+    var onMouseMove = function(e) {
+      if (!isDown || !slider) return;
+      e.preventDefault();
+      var x = e.pageX - slider.offsetLeft;
+      var walk = (x - startX) * 1.5;
+      if (Math.abs(x - startX) > 4) moved = true;
+      slider.scrollLeft = scrollLeft - walk;
+    };
+    var onMouseUp = function(e) {
+      if (!isDown || !slider) return;
+      isDown = false;
+      slider.style.scrollBehavior = 'smooth';
+    };
+    var onClickCapture = function(e) {
+      if (moved) {
+        e.preventDefault(); e.stopPropagation(); moved = false;
+      }
+    };
+    window.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+    window.addEventListener('click', onClickCapture, true);
+    return function () {
+      window.removeEventListener('mousedown', onMouseDown);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+      window.removeEventListener('click', onClickCapture, true);
     };
   }, []);
 
