@@ -2580,7 +2580,10 @@ function Hero(_ref9) {
     onClick: onShop
   }, "Browse the Collection", /*#__PURE__*/React.createElement("span", {
     className: "material-symbols-outlined"
-  }, "arrow_forward"))), /*#__PURE__*/React.createElement("div", {
+  }, "arrow_forward")), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-ghost",
+    onClick: onSellers
+  }, "See Best Sellers")), /*#__PURE__*/React.createElement("div", {
     className: "hero-stats"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "14"), /*#__PURE__*/React.createElement("span", null, "Categories to browse")), /*#__PURE__*/React.createElement("div", {
     className: "hero-stats__divider"
@@ -2809,7 +2812,7 @@ function BestSellers(_ref10) {
     }
     return arr;
   }, []); // empty deps: component remounts via key when Supabase loads, so shuffle is stable between renders
-  if (!productsReady) return /*#__PURE__*/React.createElement("section", { className: "section", style: { background: '#fff' } },
+  if (!productsReady) return /*#__PURE__*/React.createElement("section", { id: "best-sellers", className: "section", style: { background: '#fff' } },
     /*#__PURE__*/React.createElement("div", { className: "container" },
       /*#__PURE__*/React.createElement("div", { style: { display: 'flex', gap: 20 } },
         [1,2,3,4].map(function(i) {
@@ -2818,7 +2821,7 @@ function BestSellers(_ref10) {
       )
     )
   );
-  if (productsError) return /*#__PURE__*/React.createElement("section", { className: "section", style: { background: '#fff' } },
+  if (productsError) return /*#__PURE__*/React.createElement("section", { id: "best-sellers", className: "section", style: { background: '#fff' } },
     /*#__PURE__*/React.createElement("div", { className: "container", style: { textAlign: 'center', padding: '40px 0', color: '#5E5B59' } },
       /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: 40, color: '#C5A880', display: 'block', marginBottom: 12 } }, "wifi_off"),
       /*#__PURE__*/React.createElement("p", { style: { fontSize: 15 } }, "Unable to load products. Please refresh the page.")
@@ -7215,7 +7218,10 @@ function App() {
       },
       onSellers: function onSellers() {
         var el = document.getElementById('best-sellers');
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (el) {
+          var y = el.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
       }
     }), /*#__PURE__*/React.createElement("div", {
       className: "reveal"
