@@ -3583,6 +3583,11 @@ function ShopPage(_ref14) {
   // ── Mouse drag-to-scroll for filter pills on desktop ──
   // (Moved to global listener in KGSApp)
   var filtersTrackRef = React.useRef(null);
+  var scrollFilters = function(dir) {
+    if (filtersTrackRef.current) {
+      filtersTrackRef.current.scrollBy({ left: dir * 300, behavior: 'smooth' });
+    }
+  };
 
   if (!productsReady) return /*#__PURE__*/React.createElement("div", { style: { minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16, color: '#5E5B59' } },
     /*#__PURE__*/React.createElement("div", { style: { width: 40, height: 40, border: '3px solid rgba(184,150,87,0.2)', borderTopColor: '#B89657', borderRadius: '50%', animation: 'spin 0.8s linear infinite' } }),
@@ -3672,9 +3677,20 @@ function ShopPage(_ref14) {
       borderBottom: '1px solid rgba(197,168,128,0.20)'
     }
   }, /*#__PURE__*/React.createElement("div", {
-    className: "container"
-  }, /*#__PURE__*/React.createElement("div", {
+    className: "container",
+    style: { display: 'flex', alignItems: 'center', position: 'relative' }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: function() { scrollFilters(-1); },
+    style: {
+      flexShrink: 0, background: '#fff', border: '1px solid rgba(197,168,128,0.25)', 
+      borderRadius: '50%', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center',
+      cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.05)', marginRight: 12
+    },
+    title: "Scroll Left"
+  }, /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: 20, color: '#1A1A1A' } }, "chevron_left")),
+  /*#__PURE__*/React.createElement("div", {
     className: "shop-filters-track",
+    style: { flex: 1 },
     ref: filtersTrackRef
   }, /*#__PURE__*/React.createElement("span", {
     style: {
@@ -3718,7 +3734,15 @@ function ShopPage(_ref14) {
       var displayLabel = catLabel ? catLabel.label : c.replace(/-/g, ' ').replace(/\b\w/g, function(ch) { return ch.toUpperCase(); });
       return displayLabel + (count ? ' (' + count + ')' : '');
     }());
-  })))), /*#__PURE__*/React.createElement("section", {
+  })), /*#__PURE__*/React.createElement("button", {
+    onClick: function() { scrollFilters(1); },
+    style: {
+      flexShrink: 0, background: '#fff', border: '1px solid rgba(197,168,128,0.25)', 
+      borderRadius: '50%', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center',
+      cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.05)', marginLeft: 12
+    },
+    title: "Scroll Right"
+  }, /*#__PURE__*/React.createElement("span", { className: "material-symbols-outlined", style: { fontSize: 20, color: '#1A1A1A' } }, "chevron_right")))), /*#__PURE__*/React.createElement("section", {
     style: {
       background: '#FAF8F4',
       padding: '40px 0 96px'
