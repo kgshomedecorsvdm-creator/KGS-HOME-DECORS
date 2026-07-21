@@ -313,7 +313,7 @@ async function loadOrders(){
   tbody.innerHTML=data.map(o=>`
     <tr>
       <td><strong style="font-size:13px">KGS-${esc(o.order_number||o.id.slice(0,8).toUpperCase())}</strong><br><span style="color:var(--muted);font-size:10.5px">${new Date(o.created_at).toLocaleDateString('en-IN')}</span></td>
-      <td>${esc(o.customer_name||o.shipping_name||'—')}<br><span style="color:var(--muted);font-size:11px">${esc(o.customer_phone||o.shipping_phone||'')}</span></td>
+      <td>${esc(o.guest_name||o.shipping_name||'-')}<br><span style="color:var(--muted);font-size:11px">${esc(o.guest_phone||o.shipping_phone||'')}</span></td>
       <td style="color:var(--muted);font-size:13px">${(o.order_items||[]).length} item${(o.order_items||[]).length===1?'':'s'}</td>
       <td style="font-weight:600;color:var(--gold)">₹${Number(o.total).toLocaleString('en-IN')}</td>
       <td style="font-size:12.5px">${(o.payment_method||'cod').toUpperCase()}</td>
@@ -411,7 +411,7 @@ async function loadDashboard(){
     const {data:lowStock} = await sb.from('products').select('id, name, stock_quantity').eq('is_active', true).eq('in_stock', false).limit(4);
     
     // Recent Orders
-    const {data:recentOrders} = await sb.from('orders').select('order_number, customer_name, shipping_name, total, created_at, status').order('created_at', {ascending:false}).limit(4);
+    const {data:recentOrders} = await sb.from('orders').select('order_number, guest_name, shipping_name, total, created_at, status').order('created_at', {ascending:false}).limit(4);
     
     // Last 7 Days Revenue (Total)
     // We fetch last 30 days upfront so we can render either 7 or 30
@@ -459,7 +459,7 @@ async function loadDashboard(){
         <li>
           <div>
             <div class="title">KGS-${esc(o.order_number)}</div>
-            <div class="subtitle">${esc(o.customer_name || o.shipping_name || 'Guest')} • ${new Date(o.created_at).toLocaleDateString()}</div>
+            <div class="subtitle">${esc(o.guest_name || o.shipping_name || 'Guest')} • ${new Date(o.created_at).toLocaleDateString()}</div>
           </div>
           <div style="text-align:right">
             <div class="amount">₹${Number(o.total).toLocaleString('en-IN')}</div>
