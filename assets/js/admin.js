@@ -59,7 +59,7 @@ function showPage(page){
   if(page==='dashboard')loadDashboard();
   if(page==='customers')loadCustomers();
   if(page==='reviews')loadAdminReviews();
-  if(page==='subscribers')loadSubscribers();
+
   if(page==='settings' && typeof loadSettingsPage==='function')loadSettingsPage();
 }
 
@@ -551,28 +551,6 @@ function renderSalesGraph(numDays) {
   }, 50);
 }
 
-// ─── SUBSCRIBERS ──────────────────────────────────────────
-async function loadSubscribers(){
-  const tbody=document.getElementById('subscribers-tbody');
-  tbody.innerHTML='<tr><td colspan="2" style="text-align:center;padding:32px;color:var(--muted)">Loading...</td></tr>';
-  const{data,error,count}=await sb.from('newsletter_subscribers').select('*',{count:'exact'}).order('created_at',{ascending:false});
-  if(error){toast('Error: '+error.message);return;}
-  document.getElementById('subscriber-count').textContent=count||0;
-  if(!data||!data.length){
-    tbody.innerHTML='<tr><td colspan="2"><div class="empty-state"><span class="material-symbols-outlined">mail</span><p>No subscribers yet.</p></div></td></tr>';
-    return;
-  }
-  function fmtDate(iso){
-    const d=new Date(iso);
-    return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
-  }
-  tbody.innerHTML=data.map(s=>`
-    <tr>
-      <td>${esc(s.email)}</td>
-      <td style="color:var(--muted);font-size:12px">${fmtDate(s.created_at)}</td>
-    </tr>
-  `).join('');
-}
 
 // ─── INIT ─────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',async()=>{

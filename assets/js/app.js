@@ -2220,79 +2220,6 @@ function TrustStrip() {
   }, item('local_shipping', 'Free Delivery', 'Across Tamil Nadu.'), item('verified', 'Hand-Checked', 'We look at every piece before it ships.'), item('payments', 'Pay How You Like', 'UPI, card, or net banking.'), item('chat', 'Text Us Anytime', 'WhatsApp — we reply fast.'))));
 }
 
-// ===== Newsletter ============================================================
-function Newsletter() {
-  var _React$useState = React.useState(''),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      email = _React$useState2[0],
-      setEmail = _React$useState2[1];
-  var _React$useState3 = React.useState('idle'),
-      _React$useState4 = _slicedToArray(_React$useState3, 2),
-      status = _React$useState4[0],
-      setStatus = _React$useState4[1];
-  var _React$useState5 = React.useState(''),
-      _React$useState6 = _slicedToArray(_React$useState5, 2),
-      errMsg = _React$useState6[0],
-      setErrMsg = _React$useState6[1];
-
-  var handleSubscribe = function handleSubscribe(e) {
-    e.preventDefault();
-    if (!email.trim()) return;
-    setStatus('loading');
-    setErrMsg('');
-    var sb = getSB();
-    if (!sb) { setStatus('idle'); return; }
-    sb.from('newsletter_subscribers').insert({ email: email.trim().toLowerCase() }).then(function(res) {
-      if (res.error) {
-        if (res.error.code === '23505') {
-          setErrMsg("You're already subscribed!");
-        } else {
-          setErrMsg('Something went wrong. Please try again.');
-        }
-        setStatus('error');
-      } else {
-        setStatus('done');
-        try {
-          fetch('https://rgpkomngygapwjhnbgaf.supabase.co/functions/v1/newsletter-welcome', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'apikey': SB_ANON },
-            body: JSON.stringify({ email: email.trim().toLowerCase() })
-          });
-        } catch(e) {}
-      }
-    });
-  };
-
-  if (status === 'done') {
-    return /*#__PURE__*/React.createElement("div", {
-      className: "container"
-    }, /*#__PURE__*/React.createElement("section", {
-      className: "newsletter"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, "You\u2019re in!"), /*#__PURE__*/React.createElement("p", null, "We\u2019ll let you know when new pieces land. One email a month \u2014 no spam, ever."))));
-  }
-
-  return /*#__PURE__*/React.createElement("div", {
-    className: "container"
-  }, /*#__PURE__*/React.createElement("section", {
-    className: "newsletter"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, "New pieces land every month. Be the first to know."), /*#__PURE__*/React.createElement("p", null, "Drop your email. We send one newsletter a month \u2014 new arrivals, sale pieces, and whatever just came in from the showroom.")), /*#__PURE__*/React.createElement("div", {
-    className: "newsletter-form"
-  }, /*#__PURE__*/React.createElement("input", {
-    className: "newsletter-input",
-    'aria-label': "Enter your email",
-    placeholder: "Enter your email",
-    type: "email",
-    value: email,
-    onChange: function onChange(e) { return setEmail(e.target.value); },
-    disabled: status === 'loading'
-  }), /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-dark",
-    onClick: handleSubscribe,
-    disabled: status === 'loading'
-  }, status === 'loading' ? 'Subscribing\u2026' : 'Subscribe'), status === 'error' && /*#__PURE__*/React.createElement("p", {
-    style: { color: '#c0392b', fontSize: 13, marginTop: 8, width: '100%' }
-  }, errMsg))));
-}
 
 // ===== Footer ================================================================
 function Footer(_ref6) {
@@ -2509,7 +2436,6 @@ Object.assign(window, {
   Announcement: Announcement,
   Nav: Nav,
   TrustStrip: TrustStrip,
-  Newsletter: Newsletter,
   Footer: Footer,
   WAFloat: WAFloat
 });
@@ -6556,7 +6482,7 @@ function App() {
           el.style.transform = 'none';
         });
         // Elements GSAP would have faded in from opacity:0 (set in CSS/inline)
-        document.querySelectorAll('.hero-photo, .hero-eyebrow, .hero h1, .hero-sub, .hero-ctas .btn, .hero-stats, .hero-slides-indicator, .hero-floating-chip, .hero-delivery-chip, .trust-item, .section-head, .best-sellers-track .prod-card, .cat-card, .why-card, .testimonial, .ig-tile, .newsletter, footer').forEach(function (el) {
+        document.querySelectorAll('.hero-photo, .hero-eyebrow, .hero h1, .hero-sub, .hero-ctas .btn, .hero-stats, .hero-slides-indicator, .hero-floating-chip, .hero-delivery-chip, .trust-item, .section-head, .best-sellers-track .prod-card, .cat-card, .why-card, .testimonial, .ig-tile, footer').forEach(function (el) {
           el.style.opacity = '1';
           el.style.transform = 'none';
         });
@@ -6857,25 +6783,6 @@ function App() {
           });
         }
 
-        // ── 11. Newsletter section (gsap-scrolltrigger) ───────────────
-        var newsletter = document.querySelector('.newsletter');
-        if (newsletter) {
-          gsap.fromTo(newsletter, {
-            y: 30,
-            opacity: 0,
-            scale: 0.98
-          }, {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.75,
-            scrollTrigger: {
-              trigger: newsletter,
-              start: 'top 85%',
-              once: true
-            }
-          });
-        }
 
         // ── 12. Footer entrance (gsap-scrolltrigger) ──────────────────
         var footer = document.querySelector('.footer');
