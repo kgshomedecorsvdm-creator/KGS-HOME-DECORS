@@ -4386,7 +4386,9 @@ function CartPage(_ref16) {
     onChangeQty = _ref16.onChangeQty,
     onRemove = _ref16.onRemove,
     onCheckout = _ref16.onCheckout,
-    onBack = _ref16.onBack;
+    onBack = _ref16.onBack,
+    onTerms = _ref16.onTerms,
+    onReturns = _ref16.onReturns;
   var items = cart.map(function (ci) {
     return _objectSpread(_objectSpread({}, ci), {}, {
       product: PRODUCTS.find(function (p) {
@@ -4681,12 +4683,14 @@ function CartPage(_ref16) {
     }
   }, "By placing the order you agree to our", ' ', /*#__PURE__*/React.createElement("a", {
     href: "#",
+    onClick: function(e) { e.preventDefault(); if(onTerms) onTerms(); },
     style: {
       color: '#1A1A1A',
       textDecoration: 'underline'
     }
   }, "Terms"), ' ', "and", ' ', /*#__PURE__*/React.createElement("a", {
     href: "#",
+    onClick: function(e) { e.preventDefault(); if(onReturns) onReturns(); },
     style: {
       color: '#1A1A1A',
       textDecoration: 'underline'
@@ -7329,6 +7333,12 @@ function App() {
       onCheckout: handleCheckout,
       onBack: function onBack() {
         return setRoute('shop');
+      },
+      onTerms: function onTerms() {
+        return setRoute('terms');
+      },
+      onReturns: function onReturns() {
+        return setRoute('returns');
       }
     });
   } else if (route === 'checkout') {
