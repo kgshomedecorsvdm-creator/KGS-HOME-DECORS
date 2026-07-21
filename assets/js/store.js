@@ -43,8 +43,8 @@ async function initStore() {
     tags: p.tags || [],
     price: parseFloat(p.price),
     compare_at_price: p.compare_at_price ? parseFloat(p.compare_at_price) : null,
-    image: p.image_url || 'assets/images/placeholder.svg',
-    images: p.images || [],
+    image: cdnImg(p.image_url) || 'assets/images/placeholder.svg',
+    images: (p.images || []).map(cdnImg),
     in_stock: p.in_stock,
     material: p.material
   }));
@@ -74,7 +74,7 @@ async function fetchCollectionProducts(category) {
     name: p.name,
     price: parseFloat(p.price),
     compare_at_price: p.compare_at_price ? parseFloat(p.compare_at_price) : null,
-    image: p.image_url || 'assets/images/placeholder.svg'
+    image: cdnImg(p.image_url) || 'assets/images/placeholder.svg'
   }));
 }
 
@@ -92,7 +92,7 @@ async function fetchProductByHandle(handle) {
     tags: p.tags || [],
     priceRange: { minVariantPrice: { amount: String(p.price) } },
     compareAtPriceRange: { minVariantPrice: { amount: String(p.compare_at_price || 0) } },
-    images: { edges: [{ node: { url: p.image_url } }, ...(p.images || []).map(u => ({ node: { url: u } }))] },
+    images: { edges: [{ node: { url: cdnImg(p.image_url) } }, ...(p.images || []).map(u => ({ node: { url: cdnImg(u) } }))] },
     variants: { edges: [{ node: { id: p.id, availableForSale: p.in_stock, quantityAvailable: p.stock_quantity } }] },
     material: p.material
   };

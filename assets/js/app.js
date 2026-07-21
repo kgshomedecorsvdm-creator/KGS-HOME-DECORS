@@ -1627,6 +1627,12 @@ function getSB() {
   }
   return _sbClient;
 }
+var _SB_IMG_PREFIX = SB_URL + '/storage/v1/object/public/product-images/';
+function cdnImg(url) {
+  if (!url || typeof url !== 'string') return url;
+  if (url.startsWith(_SB_IMG_PREFIX)) return '/cdn-images/' + url.slice(_SB_IMG_PREFIX.length);
+  return url;
+}
 var _TAG_BADGE = {
   'bestseller': { badge: 'Best Seller', badgeKind: 'gold' },
   'new-arrival': { badge: 'New', badgeKind: 'ink' },
@@ -1727,8 +1733,8 @@ function normalizeProduct(p) {
     was: p.compare_at_price ? parseFloat(p.compare_at_price) : null,
     off: off,
     stock: typeof p.stock_quantity === 'number' ? p.stock_quantity : (p.in_stock ? 10 : 0),
-    image: p.image_url,
-    images: Array.isArray(p.images) && p.images.length ? p.images : (p.image_url ? [p.image_url] : []),
+    image: cdnImg(p.image_url),
+    images: Array.isArray(p.images) && p.images.length ? p.images.map(cdnImg) : (p.image_url ? [cdnImg(p.image_url)] : []),
     badge: badge,
     badgeKind: badgeKind
   };

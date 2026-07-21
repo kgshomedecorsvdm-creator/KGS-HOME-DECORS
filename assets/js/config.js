@@ -26,3 +26,17 @@ const KGS_CONFIG = {
     onlinePaymentMinOrder: 0,
   }
 };
+
+// ─── CDN Image Proxy ──────────────────────────────────────
+// Rewrites Supabase Storage URLs to go through Vercel's CDN
+// proxy (/cdn-images/…). This saves Supabase egress because
+// Vercel caches the images on its global edge network.
+// Non-Supabase URLs (or falsy values) are returned as-is.
+const _SB_STORAGE_PREFIX = KGS_CONFIG.supabase.url + '/storage/v1/object/public/product-images/';
+function cdnImg(url) {
+  if (!url || typeof url !== 'string') return url;
+  if (url.startsWith(_SB_STORAGE_PREFIX)) {
+    return '/cdn-images/' + url.slice(_SB_STORAGE_PREFIX.length);
+  }
+  return url;
+}

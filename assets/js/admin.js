@@ -97,7 +97,7 @@ async function loadProducts(search=null){
   }
   tbody.innerHTML=allProducts.map(p=>`
     <tr>
-      <td><img src="${esc(p.image_url||'')}" alt="" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2248%22 height=%2248%22><rect fill=%22%23242424%22 width=%2248%22 height=%2248%22/></svg>'"></td>
+      <td><img src="${esc(cdnImg(p.image_url)||'')}" alt="" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2248%22 height=%2248%22><rect fill=%22%23242424%22 width=%2248%22 height=%2248%22/></svg>'"></td>
       <td><strong>${esc(p.name)}</strong><br><span style="color:var(--muted);font-size:11px">${esc(p.handle)}</span></td>
       <td>${esc(p.category)}</td>
       <td style="font-weight:600;color:var(--gold)">₹${Number(p.price).toLocaleString('en-IN')}</td>
@@ -142,9 +142,42 @@ async function editProduct(id){
   prev.innerHTML='';
   const imgs = p.images && p.images.length ? p.images : (p.image_url ? [p.image_url] : []);
   imgs.forEach(url => {
-    prev.innerHTML += `<img src="${esc(url)}" style="width:60px;height:60px;object-fit:cover;border-radius:4px;">`;
+    prev.innerHTML += `<img src="${esc(cdnImg(url))}" style="width:60px;height:60px;object-fit:cover;border-radius:4px;">`;
   });
   document.getElementById('product-modal').classList.add('active');
+}
+async function compressImage(file, maxWidth = 1000, quality = 0.8) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = event => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        canvas.toBlob(blob => {
+          if (!blob) return reject(new Error('Canvas empty'));
+          const newFile = new File([blob], file.name.replace(/\.[^/.]+$/, ".webp"), {
+            type: 'image/webp',
+            lastModified: Date.now()
+          });
+          resolve(newFile);
+        }, 'image/webp', quality);
+      };
+      img.onerror = e => reject(e);
+    };
+    reader.onerror = e => reject(e);
+  });
 }
 
 async function saveProduct(e){
@@ -156,7 +189,10 @@ async function saveProduct(e){
   // Upload images if selected
   if(fileInput.files.length){
     for (let i = 0; i < fileInput.files.length; i++) {
-      const file = fileInput.files[i];
+      let file = fileInput.files[i];
+      if (file.type.startsWith('image/')) {
+        try { file = await compressImage(file); } catch(err) { console.warn('Compression failed', err); }
+      }
       const fname=`products/${Date.now()}_${i}_${file.name.replace(/\s/g,'_')}`;
       const{error:upErr}=await sb.storage.from('product-images').upload(fname,file);
       if(upErr){toast('Image upload failed: '+upErr.message);return;}
